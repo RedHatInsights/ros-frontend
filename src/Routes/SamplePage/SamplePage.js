@@ -35,8 +35,8 @@ const SamplePage = () => {
     return (
         <React.Fragment>
             <PageHeader>
-                <PageHeaderTitle title='Sample Insights App'/>
-                <p> This is page header text </p>
+                <PageHeaderTitle title='Resource Optimization App'/>
+                <p> Instances Details </p>
             </PageHeader>
             <Main>
                 <Stack hasGutter>

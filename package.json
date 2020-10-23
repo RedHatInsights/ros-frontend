@@ -1,5 +1,5 @@
 {
-  "name": "insights-frontend-starter-app",
+  "name": "ros-frontend",
   "version": "1.1.0",
   "private": false,
   "scripts": {
@@ -93,11 +93,11 @@
     "webpack-cli": "3.3.11"
   },
   "insights": {
-    "appname": "starter"
+    "appname": "ros"
   },
   "routes": {
     "prefix": "insights",
-    "appname": "starter",
+    "appname": "ros",
     "samplePage": "/sample",
     "oops": "/oops",
     "noPermissions": "/no-permissions"
