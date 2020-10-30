@@ -51,7 +51,7 @@ export const Routes = () => {
 
     return (
         <Switch>
-            <InsightsRoute path={paths.samplePage} component={SamplePage} rootClass='samplePage' />
+            <InsightsRoute path='/' component={ SamplePage } rootClass='samplePage' />
             <InsightsRoute path={paths.oops} component={OopsPage} rootClass='oopsPage' />
             <InsightsRoute path={paths.noPermissions} component={NoPermissionsPage} rootClass='noPermissionsPage' />
             { /* Finally, catch all unmatched routes */}
