@@ -1,15 +1,11 @@
 import React from 'react';
-import { withRouter, Link } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
-
-import { Button, StackItem, Stack, Title } from '@patternfly/react-core';
-import { Main, PageHeader, PageHeaderTitle } from '@redhat-cloud-services/frontend-components';
-import { addNotification } from '@redhat-cloud-services/frontend-components-notifications/';
-
-import asyncComponent from '../../Utilities/asyncComponent';
-const SampleComponent = asyncComponent(() => import('../../Components/SampleComponent/sample-component'));
-
+import { withRouter } from 'react-router-dom';
+import { Button, Card, CardBody } from '@patternfly/react-core';
+import { Section, Main, PageHeader, PageHeaderTitle } from '@redhat-cloud-services/frontend-components';
 import './sample-page.scss';
+import { } from '@patternfly/react-core';
+
+const INVENTRY_API_ROOT = '/api/inventory/v1';
 
 /**
  * A smart component that handles all the api calls and data needed by the dumb components.
@@ -18,48 +14,91 @@ import './sample-page.scss';
  * https://reactjs.org/docs/components-and-props.html
  * https://medium.com/@thejasonfile/dumb-components-and-smart-components-e7b33a698d43
  */
-const SamplePage = () => {
 
-    const dispatch = useDispatch();
+class SamplePage extends React.Component {
 
-    const handleAlert = () => {
-        dispatch(
-            addNotification({
-                variant: 'success',
-                title: 'Notification title',
-                description: 'notification description'
-            })
+    constructor(props) {
+        super(props);
+        this.state = { systems: [] };
+        this.getSystemsForRos = this.getSystemsForRos.bind(this);
+    }
+
+    getSystemsForRos() {
+        fetch(INVENTRY_API_ROOT.concat('/hosts'))
+        .then((res) => {
+            if (!res.ok) {
+                throw Error(res.statusText);
+            }
+
+            return res.json();
+        })
+        .then(
+            result => {
+                this.setState({
+                    systems: result.results
+                });
+            }
+        ).catch((error) => {
+            // Handle the error
+            console.log(error);
+        });
+    }
+
+    renderRow(systems) {
+        if (systems === undefined) {
+            return [];
+        }
+
+        return (
+            systems.map(({ id, display_name: displayName, fqdn, reporter }, index) => (
+                <tr key={index}>
+                    <td>{ id }</td>
+                    <td>{ displayName }</td>
+                    <td>{ fqdn }</td>
+                    <td>70</td>
+                    <td>{ reporter }</td>
+                </tr>
+            ))
         );
-    };
+    }
 
-    return (
-        <React.Fragment>
-            <PageHeader>
-                <PageHeaderTitle title='Resource Optimization App'/>
-                <p> Instances Details </p>
-            </PageHeader>
-            <Main>
-                <Stack hasGutter>
-                    <StackItem>
-                        <Title headingLevel="h2" size="3xl"> Alerts </Title>
-                        <Button variant='primary' onClick={handleAlert}> Dispatch alert </Button>
-                    </StackItem>
-                    <StackItem>
-                        <SampleComponent/>
-                    </StackItem>
-                    <StackItem>
-                        <Stack hasGutter>
-                            <StackItem>
-                                <Title headingLevel="h2" size="3xl"> Links </Title>
-                            </StackItem>
-                            <StackItem><Link to='/oops'> How to handle 500s in app </Link></StackItem>
-                            <StackItem><Link to='/no-permissions'> How to handle 403s in app </Link></StackItem>
-                        </Stack>
-                    </StackItem>
-                </Stack>
-            </Main>
-        </React.Fragment>
-    );
-};
+    render() {
+        const { systems } = this.state;
+
+        return (
+            <React.Fragment>
+                <PageHeader>
+                    <PageHeaderTitle title='Resource Optimization'/>
+                </PageHeader>
+                <Main>
+                    <Card className='pf-t-light  pf-m-opaque-100'>
+                        <Section type='button-group'>
+                            <Button variant='primary' onClick={this.getSystemsForRos} style={ { left: 25, top: 7 } }> Get Systems </Button>
+                        </Section>
+
+                        <CardBody>
+                            <div>
+                                <table className="pf-c-table pf-m-compact">
+                                    <thead>
+                                        <tr>
+                                            <th>System ID</th>
+                                            <th>System Name</th>
+                                            <th>FQDN</th>
+                                            <th>CPU Score</th>
+                                            <th>Tags</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        { this.renderRow(systems) }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </CardBody>
+                    </Card>
+                </Main>
+            </React.Fragment>
+        );
+    }
+}
 
 export default withRouter(SamplePage);
