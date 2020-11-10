@@ -98,7 +98,7 @@
   "routes": {
     "prefix": "insights",
     "appname": "ros",
-    "samplePage": "/sample",
+    "rosPage": "/ros",
     "oops": "/oops",
     "noPermissions": "/no-permissions"
   }

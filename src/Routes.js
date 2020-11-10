@@ -20,7 +20,7 @@ import { routes as paths } from '../package.json';
  *         see the difference with DashboardMap and InventoryDeployments.
  *
  */
-const SamplePage = asyncComponent(() => import(/* webpackChunkName: "SamplePage" */ './Routes/SamplePage/SamplePage'));
+const RosPage = asyncComponent(() => import(/* webpackChunkName: "RosPage" */ './Routes/RosPage/RosPage'));
 const OopsPage = asyncComponent(() => import(/* webpackChunkName: "OopsPage" */ './Routes/OopsPage/OopsPage'));
 const NoPermissionsPage = asyncComponent(() => import(/* webpackChunkName: "NoPermissionsPage" */ './Routes/NoPermissionsPage/NoPermissionsPage'));
 
@@ -51,11 +51,11 @@ export const Routes = () => {
 
     return (
         <Switch>
-            <InsightsRoute path='/' component={ SamplePage } rootClass='samplePage' />
+            <InsightsRoute path='/' component={ RosPage } rootClass='rosPage' />
             <InsightsRoute path={paths.oops} component={OopsPage} rootClass='oopsPage' />
             <InsightsRoute path={paths.noPermissions} component={NoPermissionsPage} rootClass='noPermissionsPage' />
             { /* Finally, catch all unmatched routes */}
-            <Route render={() => some(paths, p => p === path) ? null : (<Redirect to={paths.samplePage} />)} />
+            <Route render={() => some(paths, p => p === path) ? null : (<Redirect to={paths.rosPage} />)} />
         </Switch>
     );
 };

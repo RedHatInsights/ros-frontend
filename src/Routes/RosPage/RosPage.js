@@ -2,7 +2,7 @@ import React from 'react';
 import { withRouter } from 'react-router-dom';
 import { Button, Card, CardBody } from '@patternfly/react-core';
 import { Section, Main, PageHeader, PageHeaderTitle } from '@redhat-cloud-services/frontend-components';
-import './sample-page.scss';
+import './ros-page.scss';
 import { } from '@patternfly/react-core';
 
 const INVENTRY_API_ROOT = '/api/inventory/v1';
@@ -15,7 +15,7 @@ const INVENTRY_API_ROOT = '/api/inventory/v1';
  * https://medium.com/@thejasonfile/dumb-components-and-smart-components-e7b33a698d43
  */
 
-class SamplePage extends React.Component {
+class RosPage extends React.Component {
 
     constructor(props) {
         super(props);
@@ -101,4 +101,4 @@ class SamplePage extends React.Component {
     }
 }
 
-export default withRouter(SamplePage);
+export default withRouter(RosPage);
