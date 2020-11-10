@@ -25,19 +25,23 @@ class SamplePage extends React.Component {
 
     getSystemsForRos() {
         fetch(INVENTRY_API_ROOT.concat('/hosts'))
-        .then(res => res.json())
+        .then((res) => {
+            if (!res.ok) {
+                throw Error(res.statusText);
+            }
+
+            return res.json();
+        })
         .then(
             result => {
                 this.setState({
                     systems: result.results
                 });
-            },
-            error => {
-                this.setState({
-                    error
-                });
             }
-        );
+        ).catch((error) => {
+            // Handle the error
+            console.log(error);
+        });
     }
 
     renderRow(systems) {
