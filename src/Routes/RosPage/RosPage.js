@@ -1,11 +1,14 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
-import { Button, Card, CardBody } from '@patternfly/react-core';
-import { Section, Main, PageHeader, PageHeaderTitle } from '@redhat-cloud-services/frontend-components';
+import { Card, CardBody } from '@patternfly/react-core';
+import { Main, PageHeader, PageHeaderTitle } from '@redhat-cloud-services/frontend-components';
 import './ros-page.scss';
 import { } from '@patternfly/react-core';
 
-const INVENTRY_API_ROOT = '/api/inventory/v1';
+import asyncComponent from '../../Utilities/asyncComponent';
+const RosTable = asyncComponent(() => import('../../Components/RosTable/RosTable'));
+
+const INVENTRY_API_ROOT = 'http://localhost:5000/api';
 
 /**
  * A smart component that handles all the api calls and data needed by the dumb components.
@@ -21,10 +24,11 @@ class RosPage extends React.Component {
         super(props);
         this.state = { systems: [] };
         this.getSystemsForRos = this.getSystemsForRos.bind(this);
+        this.state.systems = this.getSystemsForRos();
     }
 
     getSystemsForRos() {
-        fetch(INVENTRY_API_ROOT.concat('/hosts'))
+        fetch(INVENTRY_API_ROOT.concat('/systems'))
         .then((res) => {
             if (!res.ok) {
                 throw Error(res.statusText);
@@ -44,24 +48,6 @@ class RosPage extends React.Component {
         });
     }
 
-    renderRow(systems) {
-        if (systems === undefined) {
-            return [];
-        }
-
-        return (
-            systems.map(({ id, display_name: displayName, fqdn, reporter }, index) => (
-                <tr key={index}>
-                    <td>{ id }</td>
-                    <td>{ displayName }</td>
-                    <td>{ fqdn }</td>
-                    <td>70</td>
-                    <td>{ reporter }</td>
-                </tr>
-            ))
-        );
-    }
-
     render() {
         const { systems } = this.state;
 
@@ -72,26 +58,9 @@ class RosPage extends React.Component {
                 </PageHeader>
                 <Main>
                     <Card className='pf-t-light  pf-m-opaque-100'>
-                        <Section type='button-group'>
-                            <Button variant='primary' onClick={this.getSystemsForRos} style={ { left: 25, top: 7 } }> Get Systems </Button>
-                        </Section>
-
                         <CardBody>
                             <div>
-                                <table className="pf-c-table pf-m-compact">
-                                    <thead>
-                                        <tr>
-                                            <th>System ID</th>
-                                            <th>System Name</th>
-                                            <th>FQDN</th>
-                                            <th>CPU Score</th>
-                                            <th>Tags</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        { this.renderRow(systems) }
-                                    </tbody>
-                                </table>
+                                <RosTable systems = {systems}/>
                             </div>
                         </CardBody>
                     </Card>
