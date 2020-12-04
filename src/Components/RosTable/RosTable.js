@@ -57,6 +57,8 @@ class RosTable extends React.Component {
                 const { cpu_score: cpuScore, memory_score: memoryScore, io_score: IOScore } = row.performance_profile;
                 const { id, provider, instance_type: instanceType,
                     idling_type: idlingType, io_wait: ioWait } = row.facts;
+                const { recommendation_count: recommendationCount } = row;
+
                 return [
                     {
                         id: index,
@@ -85,7 +87,7 @@ class RosTable extends React.Component {
                         cells: [
                             {
                                 title: <ExpandedRow {
-                                    ...{ id, provider, instanceType, idlingType, ioWait }
+                                    ...{ id, provider, instanceType, idlingType, ioWait, recommendationCount }
                                 } />
                             }
                         ],

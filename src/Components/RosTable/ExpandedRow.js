@@ -2,7 +2,7 @@ import React from 'react';
 import { Button } from '@patternfly/react-core';
 import propTypes from 'prop-types';
 
-export const ExpandedRow = ({ id, provider, instanceType, idlingType, ioWait }) =>  {
+export const ExpandedRow = ({ id, provider, instanceType, idlingType, ioWait, recommendationCount }) =>  {
     const inlineFieldsArray = [
         { label: 'Provider', value: provider },
         { label: 'Instance Type', value: instanceType },
@@ -26,7 +26,7 @@ export const ExpandedRow = ({ id, provider, instanceType, idlingType, ioWait }) 
             { inlineFieldsContent }
             <div className='pf-c-description-list__group'>
                 <dt className='pf-c-description-list__term'>
-                    <Button variant="primary">X Recommendations</Button>
+                    <Button variant="primary">{`${recommendationCount}  Recommendations`} </Button>
                 </dt>
             </div>
         </dl>
@@ -38,5 +38,6 @@ ExpandedRow.propTypes = {
     provider: propTypes.string,
     instanceType: propTypes.string,
     idlingType: propTypes.string,
-    ioWait: propTypes.string
+    ioWait: propTypes.string,
+    recommendationCount: propTypes.number
 };
