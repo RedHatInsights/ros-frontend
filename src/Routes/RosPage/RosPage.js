@@ -4,11 +4,9 @@ import { Card, CardBody } from '@patternfly/react-core';
 import { Main, PageHeader, PageHeaderTitle } from '@redhat-cloud-services/frontend-components';
 import './ros-page.scss';
 import { } from '@patternfly/react-core';
-
+import { INVENTRY_API_ROOT } from '../../constants';
 import asyncComponent from '../../Utilities/asyncComponent';
 const RosTable = asyncComponent(() => import('../../Components/RosTable/RosTable'));
-
-const INVENTRY_API_ROOT = 'http://localhost:5000/api';
 
 /**
  * A smart component that handles all the api calls and data needed by the dumb components.
@@ -24,7 +22,11 @@ class RosPage extends React.Component {
         super(props);
         this.state = { systems: [] };
         this.getSystemsForRos = this.getSystemsForRos.bind(this);
-        this.state.systems = this.getSystemsForRos();
+    }
+
+    async componentDidMount() {
+        await window.insights.chrome.auth.getUser();
+        this.getSystemsForRos();
     }
 
     getSystemsForRos() {
