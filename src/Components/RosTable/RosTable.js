@@ -3,21 +3,37 @@ import { Table, TableHeader, TableBody, expandable } from '@patternfly/react-tab
 import propTypes from 'prop-types';
 import { flatMap } from 'lodash';
 import { ExpandedRow } from './ExpandedRow';
+import { ProgressScoreBar } from './ProgressScoreBar';
 import { EmptyTable } from '@redhat-cloud-services/frontend-components';
 import EmptyStateDisplay from '../EmptyStateDisplay/EmptyStateDisplay';
-import { Progress } from '@patternfly/react-core';
 import './RosTable.scss';
+
+const actionLink = (id, textValue, classAsPerType, linkPath) => (
+    <a href={ linkPath } className={ `pf-link ${classAsPerType} link-${id}` }>{textValue}</a>
+);
+
+const renderSystemLink = (id, textValue) => {
+    return actionLink(id, textValue, 'system-link', '#');
+};
+
+const renderRecommendations = (id, textValue) => {
+    let applyClasses = 'recommendations';
+    if (textValue === 0) {
+        applyClasses += ' green-400';
+    }
+
+    return actionLink(id, textValue, applyClasses, '#');
+};
 
 class RosTable extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             columns: [
-                { title: 'System ID', cellFormatters: [expandable] },
-                { title: 'System Name' },
-                { title: 'CPU Score' },
-                { title: 'Memory Score' },
-                { title: 'I/O Score' },
+                { title: 'System Name', cellFormatters: [expandable] },
+                { title: 'CPU score' },
+                { title: 'Memory score' },
+                { title: 'I/O score' },
                 { title: 'Recommendations' },
                 { title: 'State' }
             ],
@@ -38,47 +54,26 @@ class RosTable extends React.Component {
         });
     }
 
-    colorSet(val) {
-        switch (true) {
-            case (val <= 40):
-                return 'danger';
-            case (val > 40 && val <= 80):
-                return 'warning';
-            default:
-                return 'success';
-        }
-    }
-
     createRows() {
         const rowsData = this.props.systems;
 
         if (rowsData.length !== 0) {
             return flatMap(rowsData, (row, index) => {
                 const { cpu_score: cpuScore, memory_score: memoryScore, io_score: IOScore } = row.performance_profile;
-                const { id, provider, instance_type: instanceType,
+                const { provider, instance_type: instanceType,
                     idling_type: idlingType, io_wait: ioWait } = row.facts;
-                const { recommendation_count: recommendationCount } = row;
+                const { id, recommendation_count: recommendationCount } = row;
 
                 return [
                     {
                         id: index,
                         isOpen: false,
                         cells: [
-                            { title: row.id },
-                            { title: row.display_name },
-                            { title: <Progress className='progress-score-panel' value={cpuScore}
-                                measureLocation={ 'outside' }
-                                variant={ this.colorSet(cpuScore) } />
-                            },
-                            { title: <Progress className='progress-score-panel' value={memoryScore}
-                                measureLocation={ 'outside' }
-                                variant={ this.colorSet(memoryScore) } />
-                            },
-                            { title: <Progress className='progress-score-panel' value={IOScore}
-                                measureLocation={ 'outside' }
-                                variant={ this.colorSet(IOScore) } />
-                            },
-                            { title: row.recommendation_count },
+                            { title: renderSystemLink(id, row.display_name) },
+                            { title: <ProgressScoreBar measureLocation='outside' valueScore={cpuScore} /> },
+                            { title: <ProgressScoreBar measureLocation='outside' valueScore={memoryScore} /> },
+                            { title: <ProgressScoreBar measureLocation='outside' valueScore={IOScore} /> },
+                            { title: renderRecommendations(id, recommendationCount) },
                             { title: row.state }
 
                         ]
@@ -87,7 +82,7 @@ class RosTable extends React.Component {
                         cells: [
                             {
                                 title: <ExpandedRow {
-                                    ...{ id, provider, instanceType, idlingType, ioWait, recommendationCount }
+                                    ...{ id, provider, instanceType, idlingType, ioWait }
                                 } />
                             }
                         ],
@@ -119,6 +114,7 @@ class RosTable extends React.Component {
 
         return (
             <Table aria-label="Expandable table" onCollapse={this.onCollapse}
+                variant='compact'
                 rows={rows} cells={columns} className="ros-systems-table">
                 <TableHeader />
                 <TableBody />

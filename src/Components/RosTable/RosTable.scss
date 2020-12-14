@@ -1,11 +1,78 @@
 .ros-systems-table {
- dl > .pf-c-description-list__group {
+  dl > .pf-c-description-list__group {
     line-height: 0px;
+  }
+
+  .pf-link {
+    color: #2B9AF3;
+    font-weight: 600;
+
+    &:hover {
+      text-decoration: none;
+    }
+  }
+
+  .recommendations.green-400 {
+    color: #4CB140;
+  }
+
+  .recommendations {
+    padding-left: 25px;
+  }
+
+  .pf-c-progress {
+    grid-template-columns: auto;
+
+    .pf-c-progress__status {
+      text-align: left;
+    }
   }
 }
 
-.progress-score-panel {
+.progress-score-bar {
+  grid-gap: 5px;
+
   span.pf-c-progress__status-icon {
     display: none;
+  }
+
+  .pf-c-progress__bar {
+    &:before {
+      background: #B8BBBE;
+    }
+  }
+
+  .pf-c-progress__measure {
+    color: #6A6E73;
+  }
+}
+
+.green-100 {
+  .pf-c-progress__indicator {
+    background: #BDE2B9;
+  }
+}
+
+.green-400 {
+  .pf-c-progress__indicator {
+    background: #4CB140;
+  }
+}
+
+.gold-400 {
+  .pf-c-progress__indicator {
+    background: #F4C145;
+  }
+}
+
+.orange-300 {
+  .pf-c-progress__indicator {
+    background: #EC7A08;
+  }
+}
+
+.danger-200 {
+  .pf-c-progress__indicator {
+    background: #A30000;
   }
 }
