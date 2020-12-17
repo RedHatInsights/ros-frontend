@@ -1,11 +1,11 @@
 import React from 'react';
 import propTypes from 'prop-types';
 
-export const ExpandedRow = ({ id, provider, instanceType, idlingType, ioWait }) =>  {
+export const ExpandedRow = ({ id, provider, instanceType, idlingTime, ioWait }) =>  {
     const inlineFieldsArray = [
         { label: 'Provider', value: provider },
         { label: 'Instance Type', value: instanceType },
-        { label: 'Idling type', value: idlingType },
+        { label: 'Idling time', value: idlingTime },
         { label: 'I/O Wait', value: ioWait }
     ];
 
@@ -31,6 +31,6 @@ ExpandedRow.propTypes = {
     id: propTypes.string,
     provider: propTypes.string,
     instanceType: propTypes.string,
-    idlingType: propTypes.string,
+    idlingTime: propTypes.string,
     ioWait: propTypes.string
 };

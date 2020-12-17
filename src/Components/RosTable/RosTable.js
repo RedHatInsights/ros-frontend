@@ -59,9 +59,9 @@ class RosTable extends React.Component {
 
         if (rowsData.length !== 0) {
             return flatMap(rowsData, (row, index) => {
-                const { cpu_score: cpuScore, memory_score: memoryScore, io_score: IOScore } = row.performance_profile;
+                const { cpu_score: cpuScore, memory_score: memoryScore, io_score: IOScore } = row.performance_score;
                 const { provider, instance_type: instanceType,
-                    idling_type: idlingType, io_wait: ioWait } = row.facts;
+                    idling_time: idlingTime, io_wait: ioWait } = row.facts;
                 const { id, recommendation_count: recommendationCount } = row;
 
                 return [
@@ -82,7 +82,7 @@ class RosTable extends React.Component {
                         cells: [
                             {
                                 title: <ExpandedRow {
-                                    ...{ id, provider, instanceType, idlingType, ioWait }
+                                    ...{ id, provider, instanceType, idlingTime, ioWait }
                                 } />
                             }
                         ],
