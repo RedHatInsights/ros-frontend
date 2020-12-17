@@ -4,16 +4,13 @@
   }
 
   .pf-link {
-    color: #2B9AF3;
-    font-weight: 600;
-
     &:hover {
       text-decoration: none;
     }
   }
 
   .recommendations.green-400 {
-    color: #4CB140;
+    color: var(--pf-global--palette--green-400);
   }
 
   .recommendations {
@@ -38,41 +35,41 @@
 
   .pf-c-progress__bar {
     &:before {
-      background: #B8BBBE;
+      background: var(--pf-global--palette--black-400);
     }
   }
 
   .pf-c-progress__measure {
-    color: #6A6E73;
+    color: var(--pf-global--palette--black-600);
   }
 }
 
 .green-100 {
   .pf-c-progress__indicator {
-    background: #BDE2B9;
+    background: var(--pf-global--palette--green-100);
   }
 }
 
 .green-400 {
   .pf-c-progress__indicator {
-    background: #4CB140;
+    background: var(--pf-global--palette--green-300);
   }
 }
 
 .gold-400 {
   .pf-c-progress__indicator {
-    background: #F4C145;
+    background: var(--pf-global--palette--gold-300);
   }
 }
 
 .orange-300 {
   .pf-c-progress__indicator {
-    background: #EC7A08;
+    background: var(--pf-global--palette--orange-300);
   }
 }
 
 .danger-200 {
   .pf-c-progress__indicator {
-    background: #A30000;
+    background: var(--pf-global--palette--red-200);
   }
 }
