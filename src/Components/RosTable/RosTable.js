@@ -5,7 +5,7 @@ import { flatMap } from 'lodash';
 import { ExpandedRow } from './ExpandedRow';
 import { ProgressScoreBar } from './ProgressScoreBar';
 import { EmptyTable } from '@redhat-cloud-services/frontend-components';
-import EmptyStateDisplay from '../EmptyStateDisplay/EmptyStateDisplay';
+import { EmptyStateDisplay } from '../EmptyStateDisplay/EmptyStateDisplay';
 import './RosTable.scss';
 
 const actionLink = (id, textValue, classAsPerType, linkPath) => (
