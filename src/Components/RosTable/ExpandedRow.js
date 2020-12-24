@@ -1,5 +1,12 @@
 import React from 'react';
 import propTypes from 'prop-types';
+import {
+    TextContent,
+    TextList,
+    TextListVariants,
+    TextListItem,
+    TextListItemVariants
+} from '@patternfly/react-core';
 
 export const ExpandedRow = ({ id, cloudProvider, instanceType, idlingTime, ioWait }) =>  {
     const inlineFieldsArray = [
@@ -9,21 +16,19 @@ export const ExpandedRow = ({ id, cloudProvider, instanceType, idlingTime, ioWai
         { label: 'I/O Wait', value: ioWait }
     ];
 
-    const inlineFieldsContent = inlineFieldsArray.map((field, index) =>
-        <div key={index} className='pf-c-description-list__group'>
-            <dt className='pf-c-description-list__term'>
-                <span className='pf-c-description-list__text'>{ field.label }</span>
-            </dt>
-            <dd className='pf-c-description-list__description'>
-                <div className='pf-c-description-list__text'>{  field.value }</div>
-            </dd>
-        </div>
-    );
-
     return (
-        <dl  id={id} className='pf-c-description-list pf-m-horizontal'>
-            { inlineFieldsContent }
-        </dl>
+        <React.Fragment>
+            <TextContent>
+                <TextList id={id} component={TextListVariants.dl}>
+                    { inlineFieldsArray.map((field, index) => (
+                        <React.Fragment key={index} >
+                            <TextListItem component={TextListItemVariants.dt}>{ field.label }</TextListItem>
+                            <TextListItem component={TextListItemVariants.dd}>{ field.value }</TextListItem>
+                        </React.Fragment>
+                    ))}
+                </TextList>
+            </TextContent>
+        </React.Fragment>
     );
 };
 
