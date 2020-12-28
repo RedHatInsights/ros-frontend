@@ -18,7 +18,7 @@ export const ExpandedRow = ({ id, cloudProvider, instanceType, idlingTime, ioWai
 
     return (
         <React.Fragment>
-            <TextContent>
+            <TextContent className='expanded-row'>
                 <TextList id={id} component={TextListVariants.dl}>
                     { inlineFieldsArray.map((field, index) => (
                         <React.Fragment key={index} >

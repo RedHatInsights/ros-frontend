@@ -1,6 +1,8 @@
 .ros-systems-table {
-  dl > .pf-c-description-list__group {
-    line-height: 0px;
+
+  .pf-c-content.expanded-row {
+    --pf-c-content--dl--RowGap: var(--pf-global--spacer--xs);
+    --pf-c-content--FontSize: var(--pf-global--FontSize--sm);
   }
 
   .pf-link {
@@ -14,7 +16,8 @@
   }
 
   .recommendations {
-    padding-left: 25px;
+    padding-left: var(--pf-global--spacer--lg);
+    font-weight: var(--pf-global--FontWeight--bold);
   }
 
   .pf-c-progress {
@@ -27,7 +30,7 @@
 }
 
 .progress-score-bar {
-  grid-gap: 5px;
+  grid-gap: var(--pf-global--spacer--xs);
 
   span.pf-c-progress__status-icon {
     display: none;
