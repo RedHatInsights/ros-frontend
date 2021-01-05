@@ -12,10 +12,6 @@ const actionLink = (id, textValue, classAsPerType, linkPath) => (
     <a href={ linkPath } className={ `pf-link ${classAsPerType} link-${id}` }>{textValue}</a>
 );
 
-const renderSystemLink = (id, textValue) => {
-    return actionLink(id, textValue, 'system-link', '#');
-};
-
 const renderRecommendations = (id, textValue) => {
     let applyClasses = 'recommendations';
     if (textValue === 0) {
@@ -69,7 +65,7 @@ class RosTable extends React.Component {
                         id: index,
                         isOpen: false,
                         cells: [
-                            { title: renderSystemLink(id, row.display_name) },
+                            { title: actionLink(id, row.display_name, 'system-link', '#') },
                             { title: <ProgressScoreBar measureLocation='outside' valueScore={cpuScore} /> },
                             { title: <ProgressScoreBar measureLocation='outside' valueScore={memoryScore} /> },
                             { title: <ProgressScoreBar measureLocation='outside' valueScore={IOScore} /> },
@@ -91,9 +87,6 @@ class RosTable extends React.Component {
                 ];
             });
         } else {
-            let emptyRow = <EmptyTable>
-                <EmptyStateDisplay title={ 'No matching records found' } />
-            </EmptyTable>;
 
             return [
                 {
@@ -101,7 +94,9 @@ class RosTable extends React.Component {
                     cells: [
                         {
                             props: { colSpan: 7 },
-                            title: emptyRow
+                            title: <EmptyTable>
+                                <EmptyStateDisplay title="No matching records found" />
+                            </EmptyTable>
                         }
                     ]
                 }

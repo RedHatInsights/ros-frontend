@@ -5,20 +5,12 @@ import propTypes from 'prop-types';
 export const ProgressScoreBar = ({ valueScore, measureLocation }) =>  {
     const calNumScore = Math.round(valueScore / 20);
     const textLabel = `${ calNumScore }/5`;
-    const colorclass = (val) => {
-        switch (true) {
-            case (val === 5):
-                return 'green-400';
-            case (val === 4):
-                return 'green-100';
-            case (val === 3):
-                return 'gold-400';
-            case (val === 2):
-                return 'orange-300';
-            case (val <= 1):
-                return 'danger-200';
-        }
-    };
+    const colorclass = (val) =>  ({
+        5: 'green-400',
+        4: 'green-100',
+        3: 'gold-400',
+        2: 'orange-300'
+    }[val] || 'danger-200');
 
     return (
         <React.Fragment>

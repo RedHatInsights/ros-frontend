@@ -17,18 +17,16 @@ export const ExpandedRow = ({ id, cloudProvider, instanceType, idlingTime, ioWai
     ];
 
     return (
-        <React.Fragment>
-            <TextContent className='expanded-row'>
-                <TextList id={id} component={TextListVariants.dl}>
-                    { inlineFieldsArray.map((field, index) => (
-                        <React.Fragment key={index} >
-                            <TextListItem component={TextListItemVariants.dt}>{ field.label }</TextListItem>
-                            <TextListItem component={TextListItemVariants.dd}>{ field.value }</TextListItem>
-                        </React.Fragment>
-                    ))}
-                </TextList>
-            </TextContent>
-        </React.Fragment>
+        <TextContent className='expanded-row'>
+            <TextList id={id} component={TextListVariants.dl}>
+                { inlineFieldsArray.map((field, index) => (
+                    <React.Fragment key={index} >
+                        <TextListItem component={TextListItemVariants.dt}>{ field.label }</TextListItem>
+                        <TextListItem component={TextListItemVariants.dd}>{ field.value }</TextListItem>
+                    </React.Fragment>
+                ))}
+            </TextList>
+        </TextContent>
     );
 };
 
