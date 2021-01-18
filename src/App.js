@@ -8,9 +8,12 @@ import './App.scss';
 import { Provider } from 'react-redux';
 import { getRegistry } from '@redhat-cloud-services/frontend-components-utilities/files/Registry';
 import { NotificationsPortal, notifications } from '@redhat-cloud-services/frontend-components-notifications/';
+import { systemsTableRootReducer } from './Components/RosTable/redux';
 
-const registry = getRegistry();
+import promiseMiddleware from 'redux-promise-middleware';
+const registry = getRegistry({}, [promiseMiddleware]);
 registry.register({ notifications });
+registry.register({ systemsTableState: systemsTableRootReducer  });
 
 class App extends Component {
 

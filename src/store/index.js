@@ -1,6 +1,5 @@
 import ReducerRegistry from '@redhat-cloud-services/frontend-components-utilities/files/ReducerRegistry';
 import promiseMiddleware from 'redux-promise-middleware';
-
 let registry;
 
 export function init (...middleware) {
@@ -12,6 +11,8 @@ export function init (...middleware) {
         promiseMiddleware,
         ...middleware
     ]);
+
+    // registry.register({ rosSystemsTableState: rosSystemsTableRootReducer });
 
     //If you want to register all of your reducers, this is good place.
     /*

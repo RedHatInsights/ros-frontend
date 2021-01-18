@@ -1,10 +1,11 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
-import { Card, CardBody } from '@patternfly/react-core';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import { Main, PageHeader, PageHeaderTitle } from '@redhat-cloud-services/frontend-components';
+import { Card, CardBody } from '@patternfly/react-core';
 import './ros-page.scss';
-import { } from '@patternfly/react-core';
-import { ROS_API_ROOT } from '../../constants';
+import { systemsTableActions } from '../../Components/RosTable/redux';
 import asyncComponent from '../../Utilities/asyncComponent';
 const RosTable = asyncComponent(() => import('../../Components/RosTable/RosTable'));
 
@@ -20,39 +21,14 @@ class RosPage extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state = { systems: [] };
-        this.getSystemsForRos = this.getSystemsForRos.bind(this);
     }
 
     async componentDidMount() {
         await window.insights.chrome.auth.getUser();
-        this.getSystemsForRos();
-    }
-
-    getSystemsForRos() {
-        fetch(ROS_API_ROOT.concat('/systems'))
-        .then((res) => {
-            if (!res.ok) {
-                throw Error(res.statusText);
-            }
-
-            return res.json();
-        })
-        .then(
-            result => {
-                this.setState({
-                    systems: result.results
-                });
-            }
-        ).catch((error) => {
-            // Handle the error
-            console.log(error);
-        });
+        this.props.fetchSystems();
     }
 
     render() {
-        const { systems } = this.state;
-
         return (
             <React.Fragment>
                 <PageHeader>
@@ -62,14 +38,33 @@ class RosPage extends React.Component {
                     <Card className='pf-t-light  pf-m-opaque-100'>
                         <CardBody>
                             <div>
-                                <RosTable systems = {systems}/>
+                                { (!this.props.loading) ? (<RosTable systems = { this.props.systemsData }/>) : null }
                             </div>
                         </CardBody>
                     </Card>
                 </Main>
             </React.Fragment>
         );
-    }
+    };
+};
+
+function mapStateToProps(state) {
+    return {
+        loading: state.systemsTableState.RosTable.loading,
+        systemsData: state.systemsTableState.RosTable.systemsData
+    };
 }
 
-export default withRouter(RosPage);
+function mapDispatchToProps(dispatch) {
+    return {
+        fetchSystems: (params = {}) => dispatch(systemsTableActions.fetchSystems(params))
+    };
+}
+
+RosPage.propTypes = {
+    loading: PropTypes.bool,
+    systemsData: PropTypes.array,
+    fetchSystems: PropTypes.func
+};
+
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(RosPage));
