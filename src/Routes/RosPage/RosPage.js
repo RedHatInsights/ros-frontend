@@ -4,7 +4,7 @@ import { Card, CardBody } from '@patternfly/react-core';
 import { Main, PageHeader, PageHeaderTitle } from '@redhat-cloud-services/frontend-components';
 import './ros-page.scss';
 import { } from '@patternfly/react-core';
-import { INVENTRY_API_ROOT } from '../../constants';
+import { ROS_API_ROOT } from '../../constants';
 import asyncComponent from '../../Utilities/asyncComponent';
 const RosTable = asyncComponent(() => import('../../Components/RosTable/RosTable'));
 
@@ -30,7 +30,7 @@ class RosPage extends React.Component {
     }
 
     getSystemsForRos() {
-        fetch(INVENTRY_API_ROOT.concat('/systems'))
+        fetch(ROS_API_ROOT.concat('/systems'))
         .then((res) => {
             if (!res.ok) {
                 throw Error(res.statusText);
