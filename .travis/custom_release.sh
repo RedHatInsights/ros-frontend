@@ -2,7 +2,7 @@
 set -e
 set -x
 
-if [ "${TRAVIS_BRANCH}" = "master" ]
+if [ "${TRAVIS_BRANCH}" = "main" ]
 then
     for env in ci
     do
