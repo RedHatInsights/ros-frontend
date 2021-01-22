@@ -1,1 +1,1 @@
-export const ROS_API_ROOT = '/api';
+export const ROS_API_ROOT = '/api/ros';
