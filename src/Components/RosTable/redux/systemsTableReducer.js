@@ -1,35 +1,20 @@
+import { applyReducerHash } from '@redhat-cloud-services/frontend-components-utilities/files/cjs/ReducerRegistry';
+
 const initialState = {
     loading: false,
     systemsData: [],
     systemError: {}
 };
 
-const systemsTableReducer = () => {
-    const tableReducer = (state = initialState, action) => {
-        switch (action.type) {
-            case 'FETCH_CLOUD_SYSTEMS_LIST_PENDING':
-                return {
-                    ...state,
-                    loading: true
-                };
-            case 'FETCH_CLOUD_SYSTEMS_LIST_FULFILLED':
-                return {
-                    ...state,
-                    loading: false,
-                    systemsData: action.payload
-                };
-            case 'FETCH_CLOUD_SYSTEMS_LIST_REJECTED':
-                return {
-                    ...state,
-                    loading: false,
-                    systemError: action.payload
-                };
-            default:
-                return state;
-        }
-    };
-
-    return tableReducer;
-};
+const systemsTableReducer = applyReducerHash({
+    FETCH_CLOUD_SYSTEMS_LIST_PENDING: (state) => ({ ...state, loading: true }),
+    FETCH_CLOUD_SYSTEMS_LIST_FULFILLED: (state, action) => {
+        console.log(action);
+        return { ...state, loading: false, systemsData: action.payload };
+    },
+    FETCH_CLOUD_SYSTEMS_LIST_REJECTED: (state, action) => ({
+        ...state, loading: false, systemError: action.payload
+    })
+}, initialState);
 
 export default systemsTableReducer;
