@@ -52,8 +52,7 @@ class RosTable extends React.Component {
 
     createRows() {
         const rowsData = this.props.systems;
-
-        if (rowsData.length !== 0) {
+        if (rowsData && rowsData.length !== 0) {
             return flatMap(rowsData, (row, index) => {
                 const { cpu_score: cpuScore, memory_score: memoryScore, io_score: IOScore } = row.performance_score;
                 const { cloud_provider: cloudProvider, instance_type: instanceType,

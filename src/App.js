@@ -5,16 +5,14 @@ import { connect } from 'react-redux';
 import { Routes } from './Routes';
 import './App.scss';
 
-import { Provider } from 'react-redux';
-import { getRegistry } from '@redhat-cloud-services/frontend-components-utilities/files/Registry';
 import { NotificationsPortal, notifications } from '@redhat-cloud-services/frontend-components-notifications/';
-
-const registry = getRegistry();
-registry.register({ notifications });
+import { systemsTableRootReducer } from './Components/RosTable/redux';
+import { register } from './store';
 
 class App extends Component {
 
     componentDidMount () {
+        register({ notifications, systemsTableState: systemsTableRootReducer });
         insights.chrome.init();
         // TODO change this to your appname
         insights.chrome.identifyApp('ros');
@@ -28,10 +26,10 @@ class App extends Component {
 
     render () {
         return (
-            <Provider store={ registry.getStore() }>
+            <React.Fragment>
                 <NotificationsPortal />
                 <Routes childProps={ this.props } />
-            </Provider>
+            </React.Fragment>
         );
     }
 }
