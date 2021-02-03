@@ -11,7 +11,6 @@ const initialState = {
 const systemsTableReducer = applyReducerHash({
     FETCH_CLOUD_SYSTEMS_LIST_PENDING: (state) => ({ ...state, loading: true }),
     FETCH_CLOUD_SYSTEMS_LIST_FULFILLED: (state, action) => {
-        console.log(action);
         return {
             ...state,
             loading: false,

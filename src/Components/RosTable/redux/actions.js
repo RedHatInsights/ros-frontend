@@ -11,7 +11,6 @@ function fetchSystems(fetchParams = {}) {
         type: 'FETCH_CLOUD_SYSTEMS_LIST',
         payload: fetch(url).then(handleErrors)
         .then(res =>  res.json())
-        .then(json => json)
     };
 }
 
