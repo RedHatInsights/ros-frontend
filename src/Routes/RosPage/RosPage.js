@@ -2,7 +2,7 @@ import React from 'react';
 import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Toolbar, ToolbarItem, ToolbarContent } from '@patternfly/react-core';
+import { PrimaryToolbar, TableToolbar } from '@redhat-cloud-services/frontend-components';
 import { Main, PageHeader, PageHeaderTitle } from '@redhat-cloud-services/frontend-components';
 import { Card, CardBody } from '@patternfly/react-core';
 import './ros-page.scss';
@@ -27,44 +27,19 @@ class RosPage extends React.Component {
 
         this.state = {
             page: 1,
-            perPage: 5
+            perPage: 10
         };
 
-        this.onSetPage = this.onSetPage.bind(this);
-        this.onPerPageSelect = this.onPerPageSelect.bind(this);
     }
 
     async componentDidMount() {
         await window.insights.chrome.auth.getUser();
-        this.fetchWithParams();
-    }
-
-    onSetPage(event, page) {
-        const { perPage } = this.state;
-        const pagination = { page, perPage };
-        this.updatePagination(pagination);
-    }
-
-    onPerPageSelect(event, perPage) {
-        const page = 1;
-        const pagination = { page, perPage };
-        this.updatePagination(pagination);
+        this.props.fetchSystems({ page: this.state.page, perPage: this.state.perPage });
     }
 
     updatePagination(pagination) {
-        this.setState({ page: pagination.page, perPage: pagination.perPage });
-        this.fetchWithParams({ page: pagination.page, perPage: pagination.perPage });
-    }
-
-    fetchWithParams(fetchParams = {}) {
-        const { fetchSystems } = this.props;
-        const { page, perPage } = this.state;
-        fetchParams = {
-            page, perPage,
-            ...fetchParams
-        };
-
-        fetchSystems(fetchParams);
+        this.setState(pagination);
+        this.props.fetchSystems(pagination);
     }
 
     render() {
@@ -79,36 +54,30 @@ class RosPage extends React.Component {
                 <Main>
                     <Card className='pf-t-light  pf-m-opaque-100'>
                         <CardBody>
-                            <div>
-                                <Toolbar className="ros-toolbar">
-                                    <ToolbarContent>
-                                        <ToolbarItem variant='pagination' align={ { default: 'alignRight' } }>
-                                            <Pagination
-                                                itemCount={ totalSystems ? totalSystems : 0 }
-                                                widgetId={ 'ros-pagination-top' }
-                                                page={ totalSystems === 0 ? 0 : page }
-                                                perPage={ perPage }
-                                                variant='top'
-                                                onSetPage={ this.onSetPage }
-                                                onPerPageSelect={ this.onPerPageSelect }
-                                                isCompact={ true }
-                                            />
-                                        </ToolbarItem>
-                                    </ToolbarContent>
-                                </Toolbar>
-                                { (!this.props.loading) ? (<RosTable systems = { systemsData }/>) : null }
-                                <Pagination
-                                    itemCount={ totalSystems ? totalSystems : 0 }
-                                    widgetId={ 'ros-pagination-bottom' }
-                                    page={ totalSystems === 0 ? 0 : page }
-                                    perPage={ perPage }
-                                    variant='bottom'
-                                    onSetPage={ this.onSetPage }
-                                    onPerPageSelect={ this.onPerPageSelect }
-                                    isCompact={ false }
+                            <React.Fragment>
+                                <PrimaryToolbar className="ros-primary-toolbar" pagination={{
+                                    page: (totalSystems === 0 ? 0 : page),
+                                    perPage,
+                                    itemCount: (totalSystems ? totalSystems : 0),
+                                    onSetPage: (_e, page) => this.updatePagination({ page, perPage: this.state.perPage }),
+                                    onPerPageSelect: (_e, perPage) => this.updatePagination({ page: 1, perPage }),
+                                    isCompact: true,
+                                    widgetId: 'ros-pagination-top'
+                                }}
                                 />
-
-                            </div>
+                                { (!this.props.loading) ? (<RosTable systems = { systemsData }/>) : null }
+                                <TableToolbar>
+                                    <Pagination
+                                        itemCount={ totalSystems ? totalSystems : 0 }
+                                        widgetId='ros-pagination-bottom'
+                                        page={ totalSystems === 0 ? 0 : page }
+                                        perPage={ perPage }
+                                        variant='bottom'
+                                        onSetPage={(_e, page) => this.updatePagination({ page, perPage: this.state.perPage })}
+                                        onPerPageSelect={(_e, perPage) => this.updatePagination({ page: 1, perPage })}
+                                    />
+                                </TableToolbar>
+                            </React.Fragment>
                         </CardBody>
                     </Card>
                 </Main>
