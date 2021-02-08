@@ -54,30 +54,28 @@ class RosPage extends React.Component {
                 <Main>
                     <Card className='pf-t-light  pf-m-opaque-100'>
                         <CardBody>
-                            <React.Fragment>
-                                <PrimaryToolbar className="ros-primary-toolbar" pagination={{
-                                    page: (totalSystems === 0 ? 0 : page),
-                                    perPage,
-                                    itemCount: (totalSystems ? totalSystems : 0),
-                                    onSetPage: (_e, page) => this.updatePagination({ page, perPage: this.state.perPage }),
-                                    onPerPageSelect: (_e, perPage) => this.updatePagination({ page: 1, perPage }),
-                                    isCompact: true,
-                                    widgetId: 'ros-pagination-top'
-                                }}
+                            <PrimaryToolbar className="ros-primary-toolbar" pagination={{
+                                page: (totalSystems === 0 ? 0 : page),
+                                perPage,
+                                itemCount: (totalSystems ? totalSystems : 0),
+                                onSetPage: (_e, page) => this.updatePagination({ page, perPage: this.state.perPage }),
+                                onPerPageSelect: (_e, perPage) => this.updatePagination({ page: 1, perPage }),
+                                isCompact: true,
+                                widgetId: 'ros-pagination-top'
+                            }}
+                            />
+                            { (!this.props.loading) ? (<RosTable systems = { systemsData }/>) : null }
+                            <TableToolbar>
+                                <Pagination
+                                    itemCount={ totalSystems ? totalSystems : 0 }
+                                    widgetId='ros-pagination-bottom'
+                                    page={ totalSystems === 0 ? 0 : page }
+                                    perPage={ perPage }
+                                    variant='bottom'
+                                    onSetPage={(_e, page) => this.updatePagination({ page, perPage: this.state.perPage })}
+                                    onPerPageSelect={(_e, perPage) => this.updatePagination({ page: 1, perPage })}
                                 />
-                                { (!this.props.loading) ? (<RosTable systems = { systemsData }/>) : null }
-                                <TableToolbar>
-                                    <Pagination
-                                        itemCount={ totalSystems ? totalSystems : 0 }
-                                        widgetId='ros-pagination-bottom'
-                                        page={ totalSystems === 0 ? 0 : page }
-                                        perPage={ perPage }
-                                        variant='bottom'
-                                        onSetPage={(_e, page) => this.updatePagination({ page, perPage: this.state.perPage })}
-                                        onPerPageSelect={(_e, perPage) => this.updatePagination({ page: 1, perPage })}
-                                    />
-                                </TableToolbar>
-                            </React.Fragment>
+                            </TableToolbar>
                         </CardBody>
                     </Card>
                 </Main>
