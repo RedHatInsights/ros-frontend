@@ -2,10 +2,13 @@ import React from 'react';
 import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { PrimaryToolbar, TableToolbar } from '@redhat-cloud-services/frontend-components';
 import { Main, PageHeader, PageHeaderTitle } from '@redhat-cloud-services/frontend-components';
 import { Card, CardBody } from '@patternfly/react-core';
 import './ros-page.scss';
 import { systemsTableActions } from '../../Components/RosTable/redux';
+import { Pagination } from '@patternfly/react-core';
+
 import asyncComponent from '../../Utilities/asyncComponent';
 const RosTable = asyncComponent(() => import('../../Components/RosTable/RosTable'));
 
@@ -21,14 +24,28 @@ class RosPage extends React.Component {
 
     constructor(props) {
         super(props);
+
+        this.state = {
+            page: 1,
+            perPage: 10
+        };
+
     }
 
     async componentDidMount() {
         await window.insights.chrome.auth.getUser();
-        this.props.fetchSystems();
+        this.props.fetchSystems({ page: this.state.page, perPage: this.state.perPage });
+    }
+
+    updatePagination(pagination) {
+        this.setState(pagination);
+        this.props.fetchSystems(pagination);
     }
 
     render() {
+        const { totalSystems, systemsData  } = this.props;
+        const { page, perPage } = this.state;
+
         return (
             <React.Fragment>
                 <PageHeader>
@@ -37,9 +54,28 @@ class RosPage extends React.Component {
                 <Main>
                     <Card className='pf-t-light  pf-m-opaque-100'>
                         <CardBody>
-                            <div>
-                                { (!this.props.loading) ? (<RosTable systems = { this.props.systemsData }/>) : null }
-                            </div>
+                            <PrimaryToolbar className="ros-primary-toolbar" pagination={{
+                                page: (totalSystems === 0 ? 0 : page),
+                                perPage,
+                                itemCount: (totalSystems ? totalSystems : 0),
+                                onSetPage: (_e, page) => this.updatePagination({ page, perPage: this.state.perPage }),
+                                onPerPageSelect: (_e, perPage) => this.updatePagination({ page: 1, perPage }),
+                                isCompact: true,
+                                widgetId: 'ros-pagination-top'
+                            }}
+                            />
+                            { (!this.props.loading) ? (<RosTable systems = { systemsData }/>) : null }
+                            <TableToolbar>
+                                <Pagination
+                                    itemCount={ totalSystems ? totalSystems : 0 }
+                                    widgetId='ros-pagination-bottom'
+                                    page={ totalSystems === 0 ? 0 : page }
+                                    perPage={ perPage }
+                                    variant='bottom'
+                                    onSetPage={(_e, page) => this.updatePagination({ page, perPage: this.state.perPage })}
+                                    onPerPageSelect={(_e, perPage) => this.updatePagination({ page: 1, perPage })}
+                                />
+                            </TableToolbar>
                         </CardBody>
                     </Card>
                 </Main>
@@ -51,7 +87,8 @@ class RosPage extends React.Component {
 function mapStateToProps(state) {
     return {
         loading: state.systemsTableState.RosTable.loading,
-        systemsData: state.systemsTableState.RosTable.systemsData
+        systemsData: state.systemsTableState.RosTable.systemsData,
+        totalSystems: state.systemsTableState.RosTable.totalSystems
     };
 }
 
@@ -64,6 +101,7 @@ function mapDispatchToProps(dispatch) {
 RosPage.propTypes = {
     loading: PropTypes.bool,
     systemsData: PropTypes.array,
+    totalSystems: PropTypes.number,
     fetchSystems: PropTypes.func
 };
 
