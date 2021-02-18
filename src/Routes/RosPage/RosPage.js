@@ -36,8 +36,7 @@ class RosPage extends React.Component {
             perPage: 10
         };
 
-        this.inventory = null;
-        this.setInventoryRef = element => { this.inventory = element; };
+        this.inventory = React.createRef();
 
     }
 
@@ -75,15 +74,13 @@ class RosPage extends React.Component {
                             />
                             { (!this.props.loading) ? (<RosTable systems = { systemsData }/>) : null }
                             <InventoryTable
-                                ref={this.setInventoryRef}
+                                ref={ this.inventory }
                                 page={1}
                                 tableProps={{
                                     canSelectAll: false
                                 }}
                                 getEntities={async (_items, config) => {
-                                    console.log('------------->>>>>>>>>>>');
                                     console.log('getEntities');
-                                    console.log(config);
                                     const { results } = systemsData;
                                     const data = await this.state.getEntities?.(
                                         (results || []).map(({ uuid }) => uuid),
@@ -96,7 +93,7 @@ class RosPage extends React.Component {
                                     console.log(results);
                                     console.log(data);
                                     console.log('done!!');
-                                    return data;
+                                    return { total: 10, page: 1, perPage: 10, results: [{ id: 1 }] };
                                 }}
                                 onLoad={({ mergeWithEntities, INVENTORY_ACTION_TYPES, api }) => {
                                     this.setState({
