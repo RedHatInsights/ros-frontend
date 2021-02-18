@@ -11,6 +11,10 @@ import './ros-page.scss';
 import { systemsTableActions } from '../../Components/RosTable/redux';
 import { Pagination } from '@patternfly/react-core';
 
+import { InventoryTable } from '@redhat-cloud-services/frontend-components/components/cjs/Inventory';
+import { register } from '../../store';
+import { entityDetailReducer } from '../../Components/RosTable/redux';
+
 import asyncComponent from '../../Utilities/asyncComponent';
 const RosTable = asyncComponent(() => import('../../Components/RosTable/RosTable'));
 
@@ -31,6 +35,9 @@ class RosPage extends React.Component {
             page: 1,
             perPage: 10
         };
+
+        this.inventory = null;
+        this.setInventoryRef = element => { this.inventory = element; };
 
     }
 
@@ -67,6 +74,41 @@ class RosPage extends React.Component {
                             }}
                             />
                             { (!this.props.loading) ? (<RosTable systems = { systemsData }/>) : null }
+                            <InventoryTable
+                                ref={this.setInventoryRef}
+                                page={1}
+                                tableProps={{
+                                    canSelectAll: false
+                                }}
+                                getEntities={async (_items, config) => {
+                                    console.log('------------->>>>>>>>>>>');
+                                    console.log('getEntities');
+                                    console.log(config);
+                                    const { results } = systemsData;
+                                    const data = await this.state.getEntities?.(
+                                        (results || []).map(({ uuid }) => uuid),
+                                        {
+                                            ...config,
+                                            hasItems: true
+                                        },
+                                        false
+                                    );
+                                    console.log(results);
+                                    console.log(data);
+                                    console.log('done!!');
+                                    return data;
+                                }}
+                                onLoad={({ mergeWithEntities, INVENTORY_ACTION_TYPES, api }) => {
+                                    this.setState({
+                                        getEntities: (() => api?.getEntities),
+                                        unregister: (() =>
+                                            register({
+                                                ...mergeWithEntities(entityDetailReducer(INVENTORY_ACTION_TYPES))
+                                            })
+                                        )
+                                    });
+                                }}
+                            />
                             <TableToolbar>
                                 <Pagination
                                     itemCount={ totalSystems ? totalSystems : 0 }
