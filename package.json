@@ -101,6 +101,7 @@
     "appname": "ros",
     "rosPage": "/ros",
     "oops": "/oops",
-    "noPermissions": "/no-permissions"
+    "noPermissions": "/no-permissions",
+    "rosDetails": "/ros/:systemId"
   }
 }

@@ -23,6 +23,7 @@ import { routes as paths } from '../package.json';
 const RosPage = asyncComponent(() => import(/* webpackChunkName: "RosPage" */ './Routes/RosPage/RosPage'));
 const OopsPage = asyncComponent(() => import(/* webpackChunkName: "OopsPage" */ './Routes/OopsPage/OopsPage'));
 const NoPermissionsPage = asyncComponent(() => import(/* webpackChunkName: "NoPermissionsPage" */ './Routes/NoPermissionsPage/NoPermissionsPage'));
+const RosDetailsPage = asyncComponent(() => import(/* webpackChunkName: "RosDetailsPage" */ './Routes/RosDetailsPage/RosDetailsPage'));
 
 const InsightsRoute = ({ component: Component, rootClass, ...rest }) => {
     const root = document.getElementById('root');
@@ -54,6 +55,7 @@ export const Routes = () => {
             <InsightsRoute path='/' component={ RosPage } rootClass='rosPage' />
             <InsightsRoute path={paths.oops} component={OopsPage} rootClass='oopsPage' />
             <InsightsRoute path={paths.noPermissions} component={NoPermissionsPage} rootClass='noPermissionsPage' />
+            <InsightsRoute path={paths.rosDetails} component={RosDetailsPage} rootClass='rosDetailsPage' />
             { /* Finally, catch all unmatched routes */}
             <Route render={() => some(paths, p => p === path) ? null : (<Redirect to={paths.rosPage} />)} />
         </Switch>

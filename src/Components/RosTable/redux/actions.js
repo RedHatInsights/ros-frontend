@@ -14,6 +14,10 @@ function fetchSystems(fetchParams = {}) {
     };
 }
 
+function fetchRosDetails(fetchParams = {}) {
+
+}
+
 function handleErrors(response) {
     if (!response.ok) {
         throw Error(response.statusText);
