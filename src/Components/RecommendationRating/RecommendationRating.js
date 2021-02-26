@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import { Button } from '@patternfly/react-core/dist/js/components/Button/Button';
-import OutlinedThumbsDownIcon from '@patternfly/react-icons/dist/js/icons/outlined-thumbs-down-icon';
-import OutlinedThumbsUpIcon from '@patternfly/react-icons/dist/js/icons/outlined-thumbs-up-icon';
 import PropTypes from 'prop-types';
-import ThumbsDownIcon from '@patternfly/react-icons/dist/js/icons/thumbs-down-icon';
-import ThumbsUpIcon from '@patternfly/react-icons/dist/js/icons/thumbs-up-icon';
+import { Button } from '@patternfly/react-core';
+import { OutlinedThumbsUpIcon } from '@patternfly/react-icons';
+import { OutlinedThumbsDownIcon } from '@patternfly/react-icons';
+import { ThumbsUpIcon } from '@patternfly/react-icons';
+import { ThumbsDownIcon } from '@patternfly/react-icons';
 
 import './RecommendationRating.scss';
 import { ROS_API_ROOT, RECOMMENDATION_RATING_API } from '../../constants';
@@ -22,7 +22,10 @@ const RecommendationRating = ({ system }) => {
             const requestOptions = {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ system: system.system_id, rating: calculatedRating })
+                body: JSON.stringify({
+                    inventory_id: system.inventory_id,  // eslint-disable-line camelcase
+                    rating: calculatedRating
+                })
             };
 
             await fetch(url, requestOptions);
