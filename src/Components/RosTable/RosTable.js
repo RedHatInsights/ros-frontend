@@ -12,13 +12,13 @@ const actionLink = (id, textValue, classAsPerType, linkPath) => (
     <a href={ linkPath } className={ `pf-link ${classAsPerType} link-${id}` }>{textValue}</a>
 );
 
-const renderRecommendations = (id, textValue) => {
+const renderRecommendations = (inventoryId, textValue) => {
     let applyClasses = 'recommendations';
     if (textValue === 0) {
         applyClasses += ' green-400';
     }
 
-    return actionLink(id, textValue, applyClasses, '#');
+    return actionLink(inventoryId, textValue, applyClasses, '#');
 };
 
 class RosTable extends React.Component {
@@ -55,20 +55,20 @@ class RosTable extends React.Component {
         if (rowsData && rowsData.length !== 0) {
             return flatMap(rowsData, (row, index) => {
                 const { cpu_score: cpuScore, memory_score: memoryScore, io_score: IOScore } = row.display_performance_score;
-                const { cloud_provider: cloudProvider, instance_type: instanceType,
-                    idling_time: idlingTime, io_wait: ioWait } = row.facts;
-                const { id, recommendation_count: recommendationCount } = row;
+                const { inventory_id: inventoryId, recommendation_count: recommendationCount,
+                    cloud_provider: cloudProvider, instance_type: instanceType,
+                    idling_time: idlingTime, io_wait: ioWait } = row;
 
                 return [
                     {
                         id: index,
                         isOpen: false,
                         cells: [
-                            { title: actionLink(id, row.display_name, 'system-link', '#') },
+                            { title: actionLink(inventoryId, row.display_name, 'system-link', '#') },
                             { title: <ProgressScoreBar measureLocation='outside' valueScore={cpuScore} /> },
                             { title: <ProgressScoreBar measureLocation='outside' valueScore={memoryScore} /> },
                             { title: <ProgressScoreBar measureLocation='outside' valueScore={IOScore} /> },
-                            { title: renderRecommendations(id, recommendationCount) },
+                            { title: renderRecommendations(inventoryId, recommendationCount) },
                             { title: row.state }
 
                         ]
@@ -77,7 +77,7 @@ class RosTable extends React.Component {
                         cells: [
                             {
                                 title: <ExpandedRow {
-                                    ...{ id, cloudProvider, instanceType, idlingTime, ioWait }
+                                    ...{ inventoryId, cloudProvider, instanceType, idlingTime, ioWait }
                                 } />
                             }
                         ],
