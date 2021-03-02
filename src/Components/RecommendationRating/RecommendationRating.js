@@ -9,11 +9,15 @@ import { ThumbsDownIcon } from '@patternfly/react-icons';
 import './RecommendationRating.scss';
 import { ROS_API_ROOT, RECOMMENDATION_RATING_API } from '../../constants';
 
+export const NEGATIVE_FEEDBACK = -1;
+export const NEUTRAL_FEEDBACK = 0;
+export const POSITIVE_FEEDBACK = 1;
+
 const RecommendationRating = ({ system }) => {
     const [rating, setRating] = useState(system.rating);
     const [submitted, setSubmitted] = useState(false);
     const updateRecommendationRating = async (newRating) => {
-        const calculatedRating = rating === newRating ? 0 : newRating;
+        const calculatedRating = rating === newRating ? NEUTRAL_FEEDBACK : newRating;
         try {
 
             // POST request using fetch with error handling
@@ -37,14 +41,20 @@ const RecommendationRating = ({ system }) => {
 
     return <span className='ratingSpanOverride'>
         Is this recommendation helpful?
-        <Button variant="plain" aria-label="thumbs-up" onClick={() => updateRecommendationRating(1)}
+        <Button
+            variant="plain"
+            aria-label="thumbs-up"
+            onClick={() => updateRecommendationRating(POSITIVE_FEEDBACK)}
             ouiaId="thumbsUp">
-            {rating === 1 ? <ThumbsUpIcon className='like' size='sm' /> :
+            {rating === POSITIVE_FEEDBACK ? <ThumbsUpIcon className='like' size='sm' /> :
                 <OutlinedThumbsUpIcon size='sm' />}
         </Button>
-        <Button variant="plain" aria-label="thumbs-down" onClick={() => updateRecommendationRating(-1)}
+        <Button
+            variant="plain"
+            aria-label="thumbs-down"
+            onClick={() => updateRecommendationRating(NEGATIVE_FEEDBACK)}
             ouiaId="thumbsDown">
-            {rating === -1 ? <ThumbsDownIcon className='dislike' size='sm' /> :
+            {rating === NEGATIVE_FEEDBACK ? <ThumbsDownIcon className='dislike' size='sm' /> :
                 <OutlinedThumbsDownIcon size='sm' />}
         </Button>
         {submitted && 'Thank you for your feedback!'}
