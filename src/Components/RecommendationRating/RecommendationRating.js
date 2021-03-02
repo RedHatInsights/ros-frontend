@@ -14,7 +14,6 @@ const RecommendationRating = ({ system }) => {
     const [submitted, setSubmitted] = useState(false);
     const updateRecommendationRating = async (newRating) => {
         const calculatedRating = rating === newRating ? 0 : newRating;
-        let url = new URL(ROS_API_ROOT + RECOMMENDATION_RATING_API,  window.location.origin);
         try {
 
             // POST request using fetch with error handling
@@ -27,7 +26,7 @@ const RecommendationRating = ({ system }) => {
                 })
             };
 
-            await fetch(url, requestOptions);
+            await fetch(`${ROS_API_ROOT}${RECOMMENDATION_RATING_API}`, requestOptions);
             setRating(calculatedRating);
             setSubmitted(true);
             setTimeout(() => setSubmitted(false), 3000);
