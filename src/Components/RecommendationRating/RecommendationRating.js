@@ -12,7 +12,6 @@ import { ROS_API_ROOT, RECOMMENDATION_RATING_API } from '../../constants';
 const RecommendationRating = ({ system }) => {
     const [rating, setRating] = useState(system.rating);
     const [submitted, setSubmitted] = useState(false);
-    const [thankYou, setThankYou] = useState('Thank you for your feedback!');
     const updateRecommendationRating = async (newRating) => {
         const calculatedRating = rating === newRating ? 0 : newRating;
         let url = new URL(ROS_API_ROOT + RECOMMENDATION_RATING_API,  window.location.origin);
@@ -31,14 +30,14 @@ const RecommendationRating = ({ system }) => {
             await fetch(url, requestOptions);
             setRating(calculatedRating);
             setSubmitted(true);
-            setTimeout(() => setThankYou(''), 3000);
+            setTimeout(() => setSubmitted(false), 3000);
         } catch (error) {
             console.error(error); // eslint-disable-line no-console
         }
     };
 
     return <span className='ratingSpanOverride'>
-        {'Is this recommendation helpful?'}
+        Is this recommendation helpful?
         <Button variant="plain" aria-label="thumbs-up" onClick={() => updateRecommendationRating(1)}
             ouiaId="thumbsUp">
             {rating === 1 ? <ThumbsUpIcon className='like' size='sm' /> :
@@ -49,7 +48,7 @@ const RecommendationRating = ({ system }) => {
             {rating === -1 ? <ThumbsDownIcon className='dislike' size='sm' /> :
                 <OutlinedThumbsDownIcon size='sm' />}
         </Button>
-        {submitted && thankYou}
+        {submitted && 'Thank you for your feedback!'}
     </span>;
 };
 
