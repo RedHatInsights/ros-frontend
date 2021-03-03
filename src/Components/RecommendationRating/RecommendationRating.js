@@ -7,11 +7,12 @@ import { ThumbsUpIcon } from '@patternfly/react-icons';
 import { ThumbsDownIcon } from '@patternfly/react-icons';
 
 import './RecommendationRating.scss';
-import { ROS_API_ROOT, RECOMMENDATION_RATING_API } from '../../constants';
-
-export const NEGATIVE_FEEDBACK = -1;
-export const NEUTRAL_FEEDBACK = 0;
-export const POSITIVE_FEEDBACK = 1;
+import {
+    ROS_API_ROOT,
+    RECOMMENDATION_RATING_API,
+    NEUTRAL_FEEDBACK,
+    POSITIVE_FEEDBACK,
+    NEGATIVE_FEEDBACK  } from '../../constants';
 
 const RecommendationRating = ({ system }) => {
     const [rating, setRating] = useState(system.rating);
