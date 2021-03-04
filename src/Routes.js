@@ -55,7 +55,7 @@ export const Routes = () => {
             <InsightsRoute path='/' component={ RosPage } rootClass='rosPage' />
             <InsightsRoute path={paths.oops} component={OopsPage} rootClass='oopsPage' />
             <InsightsRoute path={paths.noPermissions} component={NoPermissionsPage} rootClass='noPermissionsPage' />
-            <InsightsRoute path={paths.rosDetailsPage} component={RosDetailsPage} />
+            <Route exact path={paths.rosDetailsPage} component={RosDetailsPage} />
             { /* Finally, catch all unmatched routes */}
             <Route render={() => some(paths, p => p === path) ? null : (<Redirect to={paths.rosPage} />)} />
         </Switch>

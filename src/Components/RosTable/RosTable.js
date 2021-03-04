@@ -6,6 +6,7 @@ import { ExpandedRow } from './ExpandedRow';
 import { ProgressScoreBar } from './ProgressScoreBar';
 import { EmptyTable } from '@redhat-cloud-services/frontend-components';
 import { EmptyStateDisplay } from '../EmptyStateDisplay/EmptyStateDisplay';
+import { Link } from 'react-router-dom';
 import './RosTable.scss';
 
 const actionLink = (id, textValue, classAsPerType, linkPath) => (
@@ -64,7 +65,7 @@ class RosTable extends React.Component {
                         id: index,
                         isOpen: false,
                         cells: [
-                            { title: actionLink(inventoryId, row.display_name, 'system-link', `insights/ros/${inventoryId}`) },
+                            { title: <Link to={`/${inventoryId}`}> {row.display_name} </Link> },
                             { title: <ProgressScoreBar measureLocation='outside' valueScore={cpuScore} /> },
                             { title: <ProgressScoreBar measureLocation='outside' valueScore={memoryScore} /> },
                             { title: <ProgressScoreBar measureLocation='outside' valueScore={IOScore} /> },

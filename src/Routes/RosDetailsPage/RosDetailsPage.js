@@ -1,12 +1,6 @@
 import React, { useEffect } from 'react';
 import { useParams, withRouter } from 'react-router-dom';
-import { PageHeader } from '@redhat-cloud-services/frontend-components/PageHeader';
-import { Breadcrumb, BreadcrumbItem } from '@patternfly/react-core';
 //import { fetchRosDetails } from '../../Components/RosTable/redux/actions';
-import { routes as paths } from '../../../package.json';
-
-import { InventoryDetailHead, AppInfo, DetailWrapper } from '@redhat-cloud-services/frontend-components/Inventory';
-import { register } from '../../store/index';
 //import { useSelector } from 'react-redux';
 
 const RosDetailsPage = () => {
@@ -26,22 +20,9 @@ const RosDetailsPage = () => {
     }, [inventoryId]);
 
     return (
-        <DetailWrapper
-            hideInvLink
-            showTags
-            onLoad={({ mergeWithDetail }) => {
-                register({ ...mergeWithDetail()
-                });
-            }}
-        >
-            <PageHeader>
-                <Breadcrumb>
-                    <BreadcrumbItem to={paths.rosPage}>Resource Optimization</BreadcrumbItem>
-                    <BreadcrumbItem to={paths.rosDetailsPage}>System1</BreadcrumbItem>
-                </Breadcrumb>
-                <InventoryDetailHead fallback="" hideBack showTags hideInvDrawer />
-            </PageHeader>
-        </DetailWrapper>
+        <div>
+            <h1> Hello React!! </h1>
+        </div>
     );
 };
 
