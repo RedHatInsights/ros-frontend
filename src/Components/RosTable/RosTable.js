@@ -64,7 +64,7 @@ class RosTable extends React.Component {
                         id: index,
                         isOpen: false,
                         cells: [
-                            { title: actionLink(id, row.display_name, 'system-link', `insights/ros/${inventoryId}`), component={RosDetailsPage} },
+                            { title: actionLink(inventoryId, row.display_name, 'system-link', `insights/ros/${inventoryId}`) },
                             { title: <ProgressScoreBar measureLocation='outside' valueScore={cpuScore} /> },
                             { title: <ProgressScoreBar measureLocation='outside' valueScore={memoryScore} /> },
                             { title: <ProgressScoreBar measureLocation='outside' valueScore={IOScore} /> },
