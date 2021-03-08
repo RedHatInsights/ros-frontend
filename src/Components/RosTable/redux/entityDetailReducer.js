@@ -1,24 +1,9 @@
 import { applyReducerHash } from '@redhat-cloud-services/frontend-components-utilities/ReducerRegistry';
 
-const onEntitiesLoaded = (state) => {
-    // do some thing with entity
-    console.log('------------->>>>..');
-    console.log('inside onEntitiesLoaded');
-    console.log(state);
-    const [name] =
-      state?.columns?.filter(
-        ({ key }) => key === 'display_name'
-      ) || [];
-    return {
+export const entityDetailReducer = ({ LOAD_ENTITIES_FULFILLED }, columns) => applyReducerHash({
+    [LOAD_ENTITIES_FULFILLED]: (state) => ({
         ...state,
-        columns: [
-            name,
-            { key: 'version', title: 'Version' }
-        ],
+        columns,
         loaded: true
-    };
-};
-
-export const entityDetailReducer = ({ LOAD_ENTITIES_FULFILLED }) => applyReducerHash({
-    [LOAD_ENTITIES_FULFILLED]: onEntitiesLoaded
+    })
 });
