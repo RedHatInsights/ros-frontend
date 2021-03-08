@@ -1,22 +1,41 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { PrimaryToolbar } from '@redhat-cloud-services/frontend-components/PrimaryToolbar';
-import { TableToolbar } from '@redhat-cloud-services/frontend-components/TableToolbar';
 import { PageHeader, PageHeaderTitle } from '@redhat-cloud-services/frontend-components/PageHeader';
 import { Main } from '@redhat-cloud-services/frontend-components/Main';
 import { Card, CardBody } from '@patternfly/react-core';
 import './ros-page.scss';
-import { systemsTableActions } from '../../Components/RosTable/redux';
-import { Pagination } from '@patternfly/react-core';
-
+import '../../Components/RosTable/RosTable.scss';
+import { ProgressScoreBar } from '../../Components/RosTable/ProgressScoreBar';
+// import { systemName, scoreProgress, recommendations } from '../../Components/RosTable/redux/SystemsStore';
 import { InventoryTable } from '@redhat-cloud-services/frontend-components/Inventory';
 import { register } from '../../store';
 import { entityDetailReducer } from '../../Components/RosTable/redux/entityDetailReducer';
+import { ROS_API_ROOT, SYSTEMS_API_ROOT } from '../../constants';
 
-import asyncComponent from '../../Utilities/asyncComponent';
-const RosTable = asyncComponent(() => import('../../Components/RosTable/RosTable'));
+export const systemName = (displayName, id) => {
+    return (
+        <a href={ `${ROS_API_ROOT}${SYSTEMS_API_ROOT}/${id}` }
+            className={ `pf-link system-link link-${id}` }>{displayName}</a>
+    );
+};
+
+export const scoreProgress = (data) => {
+    return (
+        <ProgressScoreBar measureLocation='outside' valueScore={data} />
+    );
+};
+
+export const recommendations = (data, id) => {
+    let applyClasses = 'recommendations';
+    if (data === 0) {
+        applyClasses += ' green-400';
+    }
+
+    return (
+        <a href='#'
+            className={ `pf-link ${applyClasses} link-${id}` }>{data}</a>
+    );
+};
 
 /**
  * A smart component that handles all the api calls and data needed by the dumb components.
@@ -33,37 +52,38 @@ class RosPage extends React.Component {
 
         this.state = {
             page: 1,
-            perPage: 10
+            perPage: 10,
+            columns: [
+                { key: 'display_name', title: 'Name', renderFunc: systemName },
+                { key: 'display_performance_score.cpu_score', title: 'CPU score', renderFunc: scoreProgress },
+                { key: 'display_performance_score.memory_score', title: 'Memory score', renderFunc: scoreProgress },
+                { key: 'display_performance_score.io_score', title: 'I/O score', renderFunc: scoreProgress },
+                { key: 'recommendation_count', title: 'Recommendations', renderFunc: recommendations },
+                { key: 'state', title: 'State' }
+            ]
         };
 
         this.inventory = React.createRef();
-
+        this.fetchSystems = this.fetchSystems.bind(this);
     }
 
-    async componentDidMount() {
-        await window.insights.chrome.auth.getUser();
-        this.props.fetchSystems({ page: this.state.page, perPage: this.state.perPage });
-        // Failure - went into infinite loop using below line
-        // this.state.unregister?.();
-    }
+    fetchSystems(fetchParams) {
+        let params = {};
+        params.limit = fetchParams.perPage;
+        params.offset = (fetchParams.page - 1) * fetchParams.perPage;
 
-    updatePagination(pagination) {
-        this.setState(pagination);
-        this.props.fetchSystems(pagination);
+        let url = new URL(ROS_API_ROOT + SYSTEMS_API_ROOT,  window.location.origin);
+        url.search = new URLSearchParams(params).toString();
+        return fetch(url).then((res) => {
+            if (!res.ok) {
+                throw Error(res.statusText);
+            }
+
+            return res;
+        }).then(res =>  res.json());
     }
 
     render() {
-        const { totalSystems, systemsData  } = this.props;
-        const { page, perPage } = this.state;
-
-        // TEMP modified data
-        const tableData = systemsData;
-        const first = tableData[0];
-        tableData[0] = {
-            ...first,
-            id: '70502ce5-af67-457f-a504-c1fd91112ae6'
-        };
-        console.log(tableData);
         return (
             <React.Fragment>
                 <PageHeader>
@@ -72,65 +92,51 @@ class RosPage extends React.Component {
                 <Main>
                     <Card className='pf-t-light  pf-m-opaque-100'>
                         <CardBody>
-                            <PrimaryToolbar className="ros-primary-toolbar" pagination={{
-                                page: (totalSystems === 0 ? 0 : page),
-                                perPage,
-                                itemCount: (totalSystems ? totalSystems : 0),
-                                onSetPage: (_e, page) => this.updatePagination({ page, perPage: this.state.perPage }),
-                                onPerPageSelect: (_e, perPage) => this.updatePagination({ page: 1, perPage }),
-                                isCompact: true,
-                                widgetId: 'ros-pagination-top'
-                            }}
-                            />
-                            { (!this.props.loading) ? (<RosTable systems = { systemsData }/>) : null }
                             <InventoryTable
-                                ref={ this.inventory }
+                                ref={this.inventory}
                                 page={1}
+                                perPage={10}
+                                hasCheckbox={ false }
                                 tableProps={{
                                     canSelectAll: false
                                 }}
                                 hideFilters={{ all: true }}
                                 getEntities={async (_items, config) => {
-                                    const { results } = tableData;
-                                    console.log('getEntities');
-                                    console.log(this.state.getEntities);
-                                    const data = await this.state.getEntities?.(
-                                      (results || []),
-                                      {
-                                          ...config,
-                                          hasItems: true
-                                      },
-                                      false
+                                    console.log(config);
+                                    const results = await this.fetchSystems(
+                                        { page: config.page, perPage: config.per_page }
                                     );
-
-                                    console.log(data);
+                                    const data = await this.state.getEntities?.(
+                                        (results.data || []).map(({ inventory_id: inventoryId }) => inventoryId),
+                                        {
+                                            hasItems: true
+                                        },
+                                        false
+                                    );
                                     return {
                                         ...data,
-                                        results
+                                        results: data.results.map((system) => ({
+                                            ...system,
+                                            ...results.data.find(({ inventory_id: inventoryId }) => inventoryId === system.id)
+                                        })),
+                                        total: results.meta.count
+
                                     };
                                 }}
-                                isLoaded={!this.props.loading}
-                                onLoad={(loadProp) => {
-                                    const { mergeWithEntities, INVENTORY_ACTION_TYPES, api } = loadProp;
+                                onLoad={({ mergeWithEntities, INVENTORY_ACTION_TYPES, api }) => {
                                     this.setState({
-                                        getEntities: (() => api?.getEntities)
+                                        getEntities: api?.getEntities
                                     });
                                     register({
-                                        ...mergeWithEntities(entityDetailReducer(INVENTORY_ACTION_TYPES))
+                                        ...mergeWithEntities(
+                                            entityDetailReducer(
+                                                INVENTORY_ACTION_TYPES, this.state.columns
+                                            )
+                                        )
                                     });
                                 }}
-                            />
-                            <TableToolbar>
-                                <Pagination
-                                    itemCount={ totalSystems ? totalSystems : 0 }
-                                    widgetId='ros-pagination-bottom'
-                                    page={ totalSystems === 0 ? 0 : page }
-                                    perPage={ perPage }
-                                    variant='bottom'
-                                    onSetPage={(_e, page) => this.updatePagination({ page, perPage: this.state.perPage })}
-                                    onPerPageSelect={(_e, perPage) => this.updatePagination({ page: 1, perPage })}
-                                />
-                            </TableToolbar>
+                            >
+                            </InventoryTable>
                         </CardBody>
                     </Card>
                 </Main>
@@ -139,25 +145,4 @@ class RosPage extends React.Component {
     };
 };
 
-function mapStateToProps(state) {
-    return {
-        loading: state.systemsTableState.RosTable.loading,
-        systemsData: state.systemsTableState.RosTable.systemsData,
-        totalSystems: state.systemsTableState.RosTable.totalSystems
-    };
-}
-
-function mapDispatchToProps(dispatch) {
-    return {
-        fetchSystems: (params = {}) => dispatch(systemsTableActions.fetchSystems(params))
-    };
-}
-
-RosPage.propTypes = {
-    loading: PropTypes.bool,
-    systemsData: PropTypes.array,
-    totalSystems: PropTypes.number,
-    fetchSystems: PropTypes.func
-};
-
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(RosPage));
+export default withRouter(RosPage);
