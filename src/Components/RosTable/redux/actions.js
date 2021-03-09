@@ -22,6 +22,14 @@ function handleErrors(response) {
     return response;
 }
 
+function expandRow(id, isOpen) {
+    return {
+        type: 'EXPAND_ROW',
+        payload: { id, isOpen }
+    };
+}
+
 export default {
-    fetchSystems
+    fetchSystems,
+    expandRow
 };
