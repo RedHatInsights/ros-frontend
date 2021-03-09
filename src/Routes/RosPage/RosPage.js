@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 import { PageHeader, PageHeaderTitle } from '@redhat-cloud-services/frontend-components/PageHeader';
 import { Main } from '@redhat-cloud-services/frontend-components/Main';
@@ -6,7 +7,11 @@ import { Card, CardBody } from '@patternfly/react-core';
 import './ros-page.scss';
 import '../../Components/RosTable/RosTable.scss';
 import { ProgressScoreBar } from '../../Components/RosTable/ProgressScoreBar';
+
 // import { systemName, scoreProgress, recommendations } from '../../Components/RosTable/redux/SystemsStore';
+import { connect } from 'react-redux';
+import { systemsTableActions } from '../../Components/RosTable/redux';
+
 import { InventoryTable } from '@redhat-cloud-services/frontend-components/Inventory';
 import { register } from '../../store';
 import { entityDetailReducer } from '../../Components/RosTable/redux/entityDetailReducer';
@@ -106,6 +111,7 @@ class RosPage extends React.Component {
                                     const results = await this.fetchSystems(
                                         { page: config.page, perPage: config.per_page }
                                     );
+
                                     const data = await this.state.getEntities?.(
                                         (results.data || []).map(({ inventory_id: inventoryId }) => inventoryId),
                                         {
@@ -135,6 +141,8 @@ class RosPage extends React.Component {
                                         )
                                     });
                                 }}
+                                expandable='true'
+                                onExpandClick={(_e, _i, isOpen, { id }) => this.props.expandRow(id, isOpen)}
                             >
                             </InventoryTable>
                         </CardBody>
@@ -145,4 +153,14 @@ class RosPage extends React.Component {
     };
 };
 
-export default withRouter(RosPage);
+function mapDispatchToProps(dispatch) {
+    return {
+        expandRow: (id, isOpen) => dispatch(systemsTableActions.expandRow(id, isOpen))
+    };
+}
+
+RosPage.propTypes = {
+    expandRow: PropTypes.func
+};
+
+export default withRouter(connect(null, mapDispatchToProps)(RosPage));
