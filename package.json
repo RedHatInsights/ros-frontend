@@ -102,6 +102,6 @@
     "rosPage": "/ros",
     "oops": "/oops",
     "noPermissions": "/no-permissions",
-    "rosDetailsPage": "/ros/:inventoryId"
+    "rosDetailsPage": "/:inventoryId"
   }
 }

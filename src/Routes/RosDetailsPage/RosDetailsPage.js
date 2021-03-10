@@ -1,7 +1,12 @@
-import React, { useEffect } from 'react';
+import React, { Fragment, useEffect } from 'react';
 import { useParams, withRouter } from 'react-router-dom';
+import { PageHeader } from '@redhat-cloud-services/frontend-components/PageHeader';
+import { Breadcrumb, BreadcrumbItem } from '@patternfly/react-core';
 //import { fetchRosDetails } from '../../Components/RosTable/redux/actions';
 //import { useSelector } from 'react-redux';
+
+import { InventoryDetailHead, DetailWrapper } from '@redhat-cloud-services/frontend-components/Inventory';
+import { register } from '../../store/index';
 
 const RosDetailsPage = () => {
     const { inventoryId } = useParams();
@@ -9,6 +14,7 @@ const RosDetailsPage = () => {
     //    ({ entityDetails }) => entityDetails?.entity?.display_name
     //);
     // do we need a Reducer similar to groupsDetailReducer for entity ?
+    // how do we get display_name/uuid of system ?
 
     useEffect(() => {
         insights.chrome?.hideGlobalFilter?.(true);
@@ -20,10 +26,26 @@ const RosDetailsPage = () => {
     }, [inventoryId]);
 
     return (
-        <div>
-            <h1> Hello React!! </h1>
-        </div>
+        <Fragment>
+            <DetailWrapper
+                hideInvLink
+                showTags
+                onLoad={({ mergeWithDetail }) => {
+                    register({ ...mergeWithDetail()
+                    });
+                }}
+            >
+                <PageHeader>
+                    <Breadcrumb>
+                        <BreadcrumbItem to='/insights/ros'>Resource Optimization</BreadcrumbItem>
+                        <BreadcrumbItem>System1</BreadcrumbItem>
+                    </Breadcrumb>
+                    <InventoryDetailHead fallback="" hideBack showTags hideInvDrawer />
+                </PageHeader>
+            </DetailWrapper>
+        </Fragment>
     );
+
 };
 
 export default withRouter(RosDetailsPage);
