@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Skeleton } from '@redhat-cloud-services/frontend-components';
+import { Skeleton } from '@redhat-cloud-services/frontend-components/Skeleton';
 
 /**
  * Webpack allows loading components asynchronously by using import().

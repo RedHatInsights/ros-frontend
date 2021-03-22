@@ -4,7 +4,7 @@ import propTypes from 'prop-types';
 import { flatMap } from 'lodash';
 import { ExpandedRow } from './ExpandedRow';
 import { ProgressScoreBar } from './ProgressScoreBar';
-import { EmptyTable } from '@redhat-cloud-services/frontend-components';
+import { EmptyTable } from '@redhat-cloud-services/frontend-components/EmptyTable';
 import { EmptyStateDisplay } from '../EmptyStateDisplay/EmptyStateDisplay';
 import './RosTable.scss';
 
