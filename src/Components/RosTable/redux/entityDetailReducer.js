@@ -10,7 +10,14 @@ const addExpandedView = (rowData) => {
     return (<ExpandedRow { ...{ id, cloudProvider, instanceType, idlingTime, ioWait } } />);
 };
 
-function modifyInventory(columns, state) {
+function modifyInventory(columns, pageState, state) {
+    console.log('modifyInventory');
+    console.log(state);
+    console.log(pageState);
+
+    /*const { page, perPage, orderBy, orderDirection }  = pageState;
+    const sortBy = { key: orderBy, direction: orderDirection };*/
+
     return {
         ...state,
         columns,
@@ -18,6 +25,9 @@ function modifyInventory(columns, state) {
             ...row,
             children: addExpandedView(row)
         })),
+        /*page,
+        perPage,
+        sortBy,*/
         loaded: true
     };
 }
@@ -32,7 +42,7 @@ const openExpandedView = (state, action) => {
     };
 };
 
-export const entityDetailReducer = ({ LOAD_ENTITIES_FULFILLED }, columns) => applyReducerHash({
-    [LOAD_ENTITIES_FULFILLED]: (state) =>  modifyInventory(columns, state),
+export const entityDetailReducer = ({ LOAD_ENTITIES_FULFILLED }, columns, pageState) => applyReducerHash({
+    [LOAD_ENTITIES_FULFILLED]: (state) =>  modifyInventory(columns, pageState, state),
     ['EXPAND_ROW']: openExpandedView
 });
