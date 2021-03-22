@@ -7,16 +7,13 @@ import { Card, CardBody } from '@patternfly/react-core';
 import './ros-page.scss';
 import '../../Components/RosTable/RosTable.scss';
 import { ProgressScoreBar } from '../../Components/RosTable/ProgressScoreBar';
-
-// import { systemName, scoreProgress, recommendations } from '../../Components/RosTable/redux/SystemsStore';
 import { connect } from 'react-redux';
 import { systemsTableActions } from '../../Components/RosTable/redux';
-
 import { InventoryTable } from '@redhat-cloud-services/frontend-components/Inventory';
 import { register } from '../../store';
 import { entityDetailReducer } from '../../Components/RosTable/redux/entityDetailReducer';
 import { ROS_API_ROOT, SYSTEMS_API_ROOT } from '../../constants';
-
+import { SortByDirection } from '@patternfly/react-table';
 export const systemName = (displayName, id) => {
     return (
         <a href={ `${ROS_API_ROOT}${SYSTEMS_API_ROOT}/${id}` }
@@ -56,15 +53,17 @@ class RosPage extends React.Component {
         super(props);
 
         this.state = {
-            page: 1,
             perPage: 10,
+            orderBy: 'display_name',
+            orderDirection: SortByDirection.asc,
             columns: [
                 { key: 'display_name', title: 'Name', renderFunc: systemName },
                 { key: 'display_performance_score.cpu_score', title: 'CPU score', renderFunc: scoreProgress },
                 { key: 'display_performance_score.memory_score', title: 'Memory score', renderFunc: scoreProgress },
                 { key: 'display_performance_score.io_score', title: 'I/O score', renderFunc: scoreProgress },
-                { key: 'recommendation_count', title: 'Recommendations', renderFunc: recommendations },
-                { key: 'state', title: 'State' }
+                { key: 'recommendation_count', title: 'Recommendations',
+                    renderFunc: recommendations, props: { isStatic: true } },
+                { key: 'state', title: 'State', props: { isStatic: true } }
             ]
         };
 
@@ -76,6 +75,8 @@ class RosPage extends React.Component {
         let params = {};
         params.limit = fetchParams.perPage;
         params.offset = (fetchParams.page - 1) * fetchParams.perPage;
+        params.order_by = fetchParams.orderBy || this.state.orderBy; /* eslint-disable-line camelcase */
+        params.order_how = fetchParams.orderHow || this.state.orderDirection; /* eslint-disable-line camelcase */
 
         let url = new URL(ROS_API_ROOT + SYSTEMS_API_ROOT,  window.location.origin);
         url.search = new URLSearchParams(params).toString();
@@ -89,6 +90,14 @@ class RosPage extends React.Component {
     }
 
     render() {
+
+        const sortingHeader = { display_name: 'display_name', /* eslint-disable-line camelcase */
+            'display_performance_score.cpu_score': 'cpu_score',
+            'display_performance_score.memory_score': 'memory_score',
+            'display_performance_score.io_score': 'io_score',
+            recommendation_count: 'recommendation_count', /* eslint-disable-line camelcase */
+            state: 'state' };
+
         return (
             <React.Fragment>
                 <PageHeader>
@@ -99,34 +108,41 @@ class RosPage extends React.Component {
                         <CardBody>
                             <InventoryTable
                                 ref={this.inventory}
-                                page={1}
-                                perPage={10}
                                 hasCheckbox={ false }
                                 tableProps={{
                                     canSelectAll: false
                                 }}
+                                variant="compact"
                                 hideFilters={{ all: true }}
                                 getEntities={async (_items, config) => {
-                                    console.log(config);
+                                    this.setState(() => ({
+                                        orderBy: config.orderBy,
+                                        orderDirection: config.orderDirection
+                                    }));
                                     const results = await this.fetchSystems(
-                                        { page: config.page, perPage: config.per_page }
+                                        { page: config.page, perPage: config.per_page,
+                                            orderBy: sortingHeader[config.orderBy], orderHow: config.orderDirection
+                                        }
                                     );
 
                                     const data = await this.state.getEntities?.(
                                         (results.data || []).map(({ inventory_id: inventoryId }) => inventoryId),
                                         {
+                                            ...config,
+                                            page: 1,
                                             hasItems: true
                                         },
                                         false
                                     );
-                                    return {
-                                        ...data,
-                                        results: data.results.map((system) => ({
-                                            ...system,
-                                            ...results.data.find(({ inventory_id: inventoryId }) => inventoryId === system.id)
-                                        })),
-                                        total: results.meta.count
 
+                                    return {
+                                        results: results.data.map((system) => ({
+                                            ...data.results.find(({ id }) => id === system.inventory_id),
+                                            ...system
+                                        })),
+                                        total: results.meta.count,
+                                        page: config.page,
+                                        per_page: config.per_page /* eslint-disable-line camelcase */
                                     };
                                 }}
                                 onLoad={({ mergeWithEntities, INVENTORY_ACTION_TYPES, api }) => {
@@ -140,6 +156,7 @@ class RosPage extends React.Component {
                                             )
                                         )
                                     });
+                                    this.props.setSort(this.state.orderBy, this.state.orderDirection, 'CHANGE_SORT');
                                 }}
                                 expandable='true'
                                 onExpandClick={(_e, _i, isOpen, { id }) => this.props.expandRow(id, isOpen)}
@@ -155,12 +172,20 @@ class RosPage extends React.Component {
 
 function mapDispatchToProps(dispatch) {
     return {
-        expandRow: (id, isOpen) => dispatch(systemsTableActions.expandRow(id, isOpen))
+        expandRow: (id, isOpen) => dispatch(systemsTableActions.expandRow(id, isOpen)),
+        setSort: (orderByKey, orderByDirection, actionType) => dispatch({
+            type: actionType,
+            payload: {
+                key: orderByKey,
+                direction: orderByDirection
+            }
+        })
     };
 }
 
 RosPage.propTypes = {
-    expandRow: PropTypes.func
+    expandRow: PropTypes.func,
+    setSort: PropTypes.func
 };
 
 export default withRouter(connect(null, mapDispatchToProps)(RosPage));
