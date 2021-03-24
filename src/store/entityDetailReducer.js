@@ -1,6 +1,6 @@
 import { applyReducerHash } from '@redhat-cloud-services/frontend-components-utilities/ReducerRegistry';
 import React from 'react';
-import { ExpandedRow } from '../ExpandedRow';
+import { ExpandedRow } from '../Components/RosTable/ExpandedRow';
 
 const addExpandedView = (rowData) => {
     const {
@@ -10,13 +10,7 @@ const addExpandedView = (rowData) => {
     return (<ExpandedRow { ...{ id, cloudProvider, instanceType, idlingTime, ioWait } } />);
 };
 
-function modifyInventory(columns, pageState, state) {
-    console.log('modifyInventory');
-    console.log(state);
-    console.log(pageState);
-
-    /*const { page, perPage, orderBy, orderDirection }  = pageState;
-    const sortBy = { key: orderBy, direction: orderDirection };*/
+function modifyInventory(columns, state) {
 
     return {
         ...state,
@@ -25,9 +19,6 @@ function modifyInventory(columns, pageState, state) {
             ...row,
             children: addExpandedView(row)
         })),
-        /*page,
-        perPage,
-        sortBy,*/
         loaded: true
     };
 }
@@ -42,7 +33,7 @@ const openExpandedView = (state, action) => {
     };
 };
 
-export const entityDetailReducer = ({ LOAD_ENTITIES_FULFILLED }, columns, pageState) => applyReducerHash({
-    [LOAD_ENTITIES_FULFILLED]: (state) =>  modifyInventory(columns, pageState, state),
+export const entityDetailReducer = ({ LOAD_ENTITIES_FULFILLED }, columns) => applyReducerHash({
+    [LOAD_ENTITIES_FULFILLED]: (state) =>  modifyInventory(columns, state),
     ['EXPAND_ROW']: openExpandedView
 });

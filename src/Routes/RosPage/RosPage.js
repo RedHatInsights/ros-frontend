@@ -4,16 +4,15 @@ import { withRouter } from 'react-router-dom';
 import { PageHeader, PageHeaderTitle } from '@redhat-cloud-services/frontend-components/PageHeader';
 import { Main } from '@redhat-cloud-services/frontend-components/Main';
 import { Card, CardBody } from '@patternfly/react-core';
+import { SortByDirection } from '@patternfly/react-table';
 import './ros-page.scss';
-import '../../Components/RosTable/RosTable.scss';
 import { ProgressScoreBar } from '../../Components/RosTable/ProgressScoreBar';
 import { connect } from 'react-redux';
-import { systemsTableActions } from '../../Components/RosTable/redux';
 import { InventoryTable } from '@redhat-cloud-services/frontend-components/Inventory';
 import { register } from '../../store';
-import { entityDetailReducer } from '../../Components/RosTable/redux/entityDetailReducer';
+import { entityDetailReducer } from '../../store/entityDetailReducer';
 import { ROS_API_ROOT, SYSTEMS_API_ROOT } from '../../constants';
-import { SortByDirection } from '@patternfly/react-table';
+
 export const systemName = (displayName, id) => {
     return (
         <a href={ `${ROS_API_ROOT}${SYSTEMS_API_ROOT}/${id}` }
@@ -71,12 +70,16 @@ class RosPage extends React.Component {
         this.fetchSystems = this.fetchSystems.bind(this);
     }
 
-    fetchSystems(fetchParams) {
+    async fetchSystems(fetchParams) {
         let params = {};
         params.limit = fetchParams.perPage;
         params.offset = (fetchParams.page - 1) * fetchParams.perPage;
         params.order_by = fetchParams.orderBy || this.state.orderBy; /* eslint-disable-line camelcase */
         params.order_how = fetchParams.orderHow || this.state.orderDirection; /* eslint-disable-line camelcase */
+
+        if (fetchParams.filters && fetchParams.filters.hostnameOrId) {
+            params.display_name =  fetchParams.filters.hostnameOrId; /* eslint-disable-line camelcase */
+        }
 
         let url = new URL(ROS_API_ROOT + SYSTEMS_API_ROOT,  window.location.origin);
         url.search = new URLSearchParams(params).toString();
@@ -110,10 +113,11 @@ class RosPage extends React.Component {
                                 ref={this.inventory}
                                 hasCheckbox={ false }
                                 tableProps={{
-                                    canSelectAll: false
+                                    canSelectAll: false,
+                                    className: 'ros-systems-table'
                                 }}
                                 variant="compact"
-                                hideFilters={{ all: true }}
+                                hideFilters={{ stale: true, registeredWith: true }}
                                 getEntities={async (_items, config) => {
                                     this.setState(() => ({
                                         orderBy: config.orderBy,
@@ -121,7 +125,8 @@ class RosPage extends React.Component {
                                     }));
                                     const results = await this.fetchSystems(
                                         { page: config.page, perPage: config.per_page,
-                                            orderBy: sortingHeader[config.orderBy], orderHow: config.orderDirection
+                                            orderBy: sortingHeader[config.orderBy], orderHow: config.orderDirection,
+                                            filters: config.filters
                                         }
                                     );
 
@@ -159,7 +164,7 @@ class RosPage extends React.Component {
                                     this.props.setSort(this.state.orderBy, this.state.orderDirection, 'CHANGE_SORT');
                                 }}
                                 expandable='true'
-                                onExpandClick={(_e, _i, isOpen, { id }) => this.props.expandRow(id, isOpen)}
+                                onExpandClick={(_e, _i, isOpen, { id }) => this.props.expandRow(id, isOpen, 'EXPAND_ROW')}
                             >
                             </InventoryTable>
                         </CardBody>
@@ -172,7 +177,10 @@ class RosPage extends React.Component {
 
 function mapDispatchToProps(dispatch) {
     return {
-        expandRow: (id, isOpen) => dispatch(systemsTableActions.expandRow(id, isOpen)),
+        expandRow: (id, isOpen, actionType) => dispatch({
+            type: actionType,
+            payload: { id, isOpen }
+        }),
         setSort: (orderByKey, orderByDirection, actionType) => dispatch({
             type: actionType,
             payload: {
