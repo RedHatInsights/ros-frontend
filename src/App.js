@@ -8,13 +8,12 @@ import './App.scss';
 import NotificationsPortal from '@redhat-cloud-services/frontend-components-notifications/NotificationPortal';
 import { notificationsReducer } from '@redhat-cloud-services/frontend-components-notifications/redux';
 
-import { systemsTableRootReducer } from './Components/RosTable/redux';
 import { register } from './store';
 
 class App extends Component {
 
     componentDidMount () {
-        register({ notifications: notificationsReducer, systemsTableState: systemsTableRootReducer });
+        register({ notifications: notificationsReducer });
         insights.chrome.init();
         // TODO change this to your appname
         insights.chrome.identifyApp('ros');

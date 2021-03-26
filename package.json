@@ -101,6 +101,7 @@
     "prefix": "insights",
     "appname": "ros",
     "rosPage": "/ros",
+    "rosDetailsPage": "/:inventoryId",
     "oops": "/oops",
     "noPermissions": "/no-permissions"
   }
