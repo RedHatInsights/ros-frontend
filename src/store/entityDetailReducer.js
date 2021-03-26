@@ -1,6 +1,32 @@
 import { applyReducerHash } from '@redhat-cloud-services/frontend-components-utilities/ReducerRegistry';
+import { Link } from 'react-router-dom';
 import React from 'react';
 import { ExpandedRow } from '../Components/RosTable/ExpandedRow';
+import { ProgressScoreBar } from '../Components/RosTable/ProgressScoreBar';
+
+export const systemName = (displayName, id) => {
+    return (
+        <Link to={{ pathname: `/${id}` }} className={ `pf-link system-link link-${id}` }>
+            { displayName }
+        </Link>
+    );
+};
+
+export const scoreProgress = (data) => {
+    return (
+        <ProgressScoreBar measureLocation='outside' valueScore={data} />
+    );
+};
+
+export const recommendations = (data, id) => {
+    return (
+        <a href='#'
+            className={ `pf-link recommendations ${data === 0 ? 'green-400' : ''} link-${id}` }
+        >
+            {data}
+        </a>
+    );
+};
 
 const addExpandedView = (rowData) => {
     const {

@@ -5,39 +5,12 @@ import { PageHeader, PageHeaderTitle } from '@redhat-cloud-services/frontend-com
 import { Main } from '@redhat-cloud-services/frontend-components/Main';
 import { Card, CardBody } from '@patternfly/react-core';
 import { SortByDirection } from '@patternfly/react-table';
-import './ros-page.scss';
-import { ProgressScoreBar } from '../../Components/RosTable/ProgressScoreBar';
 import { connect } from 'react-redux';
 import { InventoryTable } from '@redhat-cloud-services/frontend-components/Inventory';
 import { register } from '../../store';
-import { entityDetailReducer } from '../../store/entityDetailReducer';
+import './ros-page.scss';
+import { entityDetailReducer, systemName, scoreProgress, recommendations } from '../../store/entityDetailReducer';
 import { ROS_API_ROOT, SYSTEMS_API_ROOT } from '../../constants';
-
-export const systemName = (displayName, id) => {
-    return (
-        <a href={ `${ROS_API_ROOT}${SYSTEMS_API_ROOT}/${id}` }
-            className={ `pf-link system-link link-${id}` }>{displayName}</a>
-    );
-};
-
-export const scoreProgress = (data) => {
-    return (
-        <ProgressScoreBar measureLocation='outside' valueScore={data} />
-    );
-};
-
-export const recommendations = (data, id) => {
-    let applyClasses = 'recommendations';
-    if (data === 0) {
-        applyClasses += ' green-400';
-    }
-
-    return (
-        <a href='#'
-            className={ `pf-link ${applyClasses} link-${id}` }>{data}</a>
-    );
-};
-
 /**
  * A smart component that handles all the api calls and data needed by the dumb components.
  * Smart components are usually classes.
@@ -56,7 +29,7 @@ class RosPage extends React.Component {
             orderBy: 'display_name',
             orderDirection: SortByDirection.asc,
             columns: [
-                { key: 'display_name', title: 'System name', renderFunc: systemName },
+                { key: 'display_name', title: 'Name', renderFunc: systemName },
                 { key: 'display_performance_score.cpu_score', title: 'CPU score', renderFunc: scoreProgress },
                 { key: 'display_performance_score.memory_score', title: 'Memory score', renderFunc: scoreProgress },
                 { key: 'display_performance_score.io_score', title: 'I/O score', renderFunc: scoreProgress },
@@ -66,22 +39,30 @@ class RosPage extends React.Component {
             ]
         };
 
-        this.inventory = React.createRef();
+        this.sortingHeader = {
+            display_name: 'display_name', /* eslint-disable-line camelcase */
+            'display_performance_score.cpu_score': 'cpu_score',
+            'display_performance_score.memory_score': 'memory_score',
+            'display_performance_score.io_score': 'io_score',
+            recommendation_count: 'recommendation_count', /* eslint-disable-line camelcase */
+            state: 'state' };
+
         this.chunkSize = 50;
+        this.inventory = React.createRef();
         this.fetchSystems = this.fetchSystems.bind(this);
     }
 
     async fetchSystems(fetchParams) {
         await window.insights.chrome.auth.getUser();
-        let params = {};
-        params.limit = fetchParams.perPage;
-        params.offset = (fetchParams.page - 1) * fetchParams.perPage;
-        params.order_by = fetchParams.orderBy || this.state.orderBy; /* eslint-disable-line camelcase */
-        params.order_how = fetchParams.orderHow || this.state.orderDirection; /* eslint-disable-line camelcase */
-
-        if (fetchParams.filters && fetchParams.filters.hostnameOrId) {
-            params.display_name =  fetchParams.filters.hostnameOrId; /* eslint-disable-line camelcase */
-        }
+        let params = {
+            limit: fetchParams.perPage,
+            offset: (fetchParams.page - 1) * fetchParams.perPage,
+            order_by: fetchParams.orderBy || this.state.orderBy, /* eslint-disable-line camelcase */
+            order_how: fetchParams.orderHow || this.state.orderDirection, /* eslint-disable-line camelcase */
+            ...fetchParams?.filters?.hostnameOrId && {
+                display_name: fetchParams.filters.hostnameOrId /* eslint-disable-line camelcase */
+            }
+        };
 
         let url = new URL(ROS_API_ROOT + SYSTEMS_API_ROOT,  window.location.origin);
         url.search = new URLSearchParams(params).toString();
@@ -105,10 +86,8 @@ class RosPage extends React.Component {
 
     async fetchInventoryDetails(invIds, configOptns) {
         let results = [];
-        if (configOptns.per_page > 50) {
-            const idsBatches = this.chunkIdsArray(invIds);
-            let recordsSubset = [];
-            recordsSubset = await this.multipleGetEntitiesRequests(idsBatches, configOptns);
+        if (configOptns.per_page > 50 && invIds.length > 50) {
+            let recordsSubset = await this.multipleGetEntitiesRequests(invIds, configOptns);
             recordsSubset.map((records) => {
                 results.push(...records);
             });
@@ -120,9 +99,10 @@ class RosPage extends React.Component {
         return results;
     }
 
-    async multipleGetEntitiesRequests(idsBatches, configOptns) {
+    async multipleGetEntitiesRequests(invIds, configOptns) {
+        const idsInBatches = this.chunkIdsArray(invIds);
         return Promise.all(
-            idsBatches.map(async (ids) => {
+            idsInBatches.map(async (ids) => {
                 let resp = await this.state.getEntities?.(ids, configOptns, false);
                 let respJSON = resp.results;
                 return respJSON;
@@ -131,13 +111,6 @@ class RosPage extends React.Component {
     }
 
     render() {
-
-        const sortingHeader = { display_name: 'display_name', /* eslint-disable-line camelcase */
-            'display_performance_score.cpu_score': 'cpu_score',
-            'display_performance_score.memory_score': 'memory_score',
-            'display_performance_score.io_score': 'io_score',
-            recommendation_count: 'recommendation_count', /* eslint-disable-line camelcase */
-            state: 'state' };
 
         return (
             <React.Fragment>
@@ -163,7 +136,8 @@ class RosPage extends React.Component {
                                     }));
                                     const results = await this.fetchSystems(
                                         { page: config.page, perPage: config.per_page,
-                                            orderBy: sortingHeader[config.orderBy], orderHow: config.orderDirection,
+                                            orderBy: this.sortingHeader[config.orderBy],
+                                            orderHow: config.orderDirection,
                                             filters: config.filters
                                         }
                                     );
