@@ -56,7 +56,7 @@ class RosPage extends React.Component {
             orderBy: 'display_name',
             orderDirection: SortByDirection.asc,
             columns: [
-                { key: 'display_name', title: 'Name', renderFunc: systemName },
+                { key: 'display_name', title: 'System name', renderFunc: systemName },
                 { key: 'display_performance_score.cpu_score', title: 'CPU score', renderFunc: scoreProgress },
                 { key: 'display_performance_score.memory_score', title: 'Memory score', renderFunc: scoreProgress },
                 { key: 'display_performance_score.io_score', title: 'I/O score', renderFunc: scoreProgress },
@@ -67,10 +67,12 @@ class RosPage extends React.Component {
         };
 
         this.inventory = React.createRef();
+        this.chunkSize = 50;
         this.fetchSystems = this.fetchSystems.bind(this);
     }
 
     async fetchSystems(fetchParams) {
+        await window.insights.chrome.auth.getUser();
         let params = {};
         params.limit = fetchParams.perPage;
         params.offset = (fetchParams.page - 1) * fetchParams.perPage;
@@ -90,6 +92,42 @@ class RosPage extends React.Component {
 
             return res;
         }).then(res =>  res.json());
+    }
+
+    chunkIdsArray(ids) {
+        let idsChunks = [];
+        while (ids.length) {
+            idsChunks.push(ids.splice(0, this.chunkSize));
+        }
+
+        return idsChunks;
+    }
+
+    async fetchInventoryDetails(invIds, configOptns) {
+        let results = [];
+        if (configOptns.per_page > 50) {
+            const idsBatches = this.chunkIdsArray(invIds);
+            let recordsSubset = [];
+            recordsSubset = await this.multipleGetEntitiesRequests(idsBatches, configOptns);
+            recordsSubset.map((records) => {
+                results.push(...records);
+            });
+        } else {
+            const response = await this.state.getEntities?.(invIds, configOptns, false);
+            results = response.results;
+        }
+
+        return results;
+    }
+
+    async multipleGetEntitiesRequests(idsBatches, configOptns) {
+        return Promise.all(
+            idsBatches.map(async (ids) => {
+                let resp = await this.state.getEntities?.(ids, configOptns, false);
+                let respJSON = resp.results;
+                return respJSON;
+            })
+        ).then((results) => results);
     }
 
     render() {
@@ -129,20 +167,15 @@ class RosPage extends React.Component {
                                             filters: config.filters
                                         }
                                     );
-
-                                    const data = await this.state.getEntities?.(
-                                        (results.data || []).map(({ inventory_id: inventoryId }) => inventoryId),
-                                        {
-                                            ...config,
-                                            page: 1,
-                                            hasItems: true
-                                        },
-                                        false
-                                    );
-
+                                    const invIds = (results.data || []).map(({ inventory_id: inventoryId }) => inventoryId);
+                                    const invSystems = await this.fetchInventoryDetails(invIds, {
+                                        ...config,
+                                        page: 1,
+                                        hasItems: true
+                                    });
                                     return {
                                         results: results.data.map((system) => ({
-                                            ...data.results.find(({ id }) => id === system.inventory_id),
+                                            ...invSystems.find(({ id }) => id === system.inventory_id),
                                             ...system
                                         })),
                                         total: results.meta.count,
