@@ -4,9 +4,9 @@ import React from 'react';
 import { ExpandedRow } from '../Components/RosTable/ExpandedRow';
 import { ProgressScoreBar } from '../Components/RosTable/ProgressScoreBar';
 
-export const systemName = (displayName, id) => {
+export const systemName = (displayName, id, { inventory_id: inventoryId }) => {
     return (
-        <Link to={{ pathname: `/${id}` }} className={ `pf-link system-link link-${id}` }>
+        <Link to={{ pathname: `/${inventoryId}` }} className={ `pf-link system-link link-${inventoryId}` }>
             { displayName }
         </Link>
     );
@@ -18,13 +18,12 @@ export const scoreProgress = (data) => {
     );
 };
 
-export const recommendations = (data, id) => {
+export const recommendations = (data, id, { inventory_id: inventoryId }) => {
     return (
-        <a href='#'
-            className={ `pf-link recommendations ${data === 0 ? 'green-400' : ''} link-${id}` }
-        >
-            {data}
-        </a>
+        <Link to={{ pathname: `/${inventoryId}` }}
+            className={ `pf-link recommendations ${data === 0 ? 'green-400' : ''} link-${inventoryId}` }>
+            { data }
+        </Link>
     );
 };
 
