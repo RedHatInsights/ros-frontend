@@ -11,9 +11,9 @@ import {
 export const ExpandedRow = ({ inventoryId, cloudProvider, instanceType, idlingTime, ioWait }) =>  {
     const inlineFieldsArray = [
         { label: 'Provider', value: cloudProvider },
-        { label: 'Instance Type', value: instanceType },
+        { label: 'Instance type', value: instanceType },
         { label: 'Idling time', value: idlingTime + '%' },
-        { label: 'I/O Wait', value: ioWait + '%' }
+        { label: 'I/O wait', value: ioWait + '%' }
     ];
 
     return (
