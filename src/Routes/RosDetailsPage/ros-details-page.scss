@@ -1,0 +1,15 @@
+.ros-system-info {
+  .pf-c-content.expanded-row {
+    dl {
+      grid-row-gap: 0;
+    }
+
+    dt {
+      font-weight: var(--pf-global--FontWeight--normal);
+
+      &:after {
+        content: ":";
+      }
+    }
+  }
+}

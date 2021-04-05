@@ -26,7 +26,7 @@ const RecommendationRating = ({ system }) => {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
-                    inventory_id: system.inventory_id,  // eslint-disable-line camelcase
+                    inventory_id: system.inventoryId,
                     rating: calculatedRating
                 })
             };

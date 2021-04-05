@@ -9,7 +9,7 @@ import { connect } from 'react-redux';
 import { InventoryTable } from '@redhat-cloud-services/frontend-components/Inventory';
 import { register } from '../../store';
 import './ros-page.scss';
-import { entityDetailReducer, systemName, scoreProgress, recommendations } from '../../store/entityDetailReducer';
+import { entitiesReducer, systemName, scoreProgress, recommendations } from '../../store/entitiesReducer';
 import { ROS_API_ROOT, SYSTEMS_API_ROOT } from '../../constants';
 /**
  * A smart component that handles all the api calls and data needed by the dumb components.
@@ -50,6 +50,11 @@ class RosPage extends React.Component {
         this.chunkSize = 50;
         this.inventory = React.createRef();
         this.fetchSystems = this.fetchSystems.bind(this);
+    }
+
+    async componentDidMount() {
+        insights.chrome?.hideGlobalFilter?.(true);
+        insights.chrome.appAction('ros-systems');
     }
 
     async fetchSystems(fetchParams) {
@@ -163,7 +168,7 @@ class RosPage extends React.Component {
                                     });
                                     register({
                                         ...mergeWithEntities(
-                                            entityDetailReducer(
+                                            entitiesReducer(
                                                 INVENTORY_ACTION_TYPES, this.state.columns
                                             )
                                         )
