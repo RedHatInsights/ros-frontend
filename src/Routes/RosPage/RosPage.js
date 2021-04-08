@@ -33,7 +33,7 @@ class RosPage extends React.Component {
                 { key: 'display_performance_score.cpu_score', title: 'CPU score', renderFunc: scoreProgress },
                 { key: 'display_performance_score.memory_score', title: 'Memory score', renderFunc: scoreProgress },
                 { key: 'display_performance_score.io_score', title: 'I/O score', renderFunc: scoreProgress },
-                { key: 'recommendation_count', title: 'Recommendations',
+                { key: 'number_of_recommendations', title: 'Recommendations',
                     renderFunc: recommendations, props: { isStatic: true } },
                 { key: 'state', title: 'State', props: { isStatic: true } }
             ]
@@ -44,7 +44,7 @@ class RosPage extends React.Component {
             'display_performance_score.cpu_score': 'cpu_score',
             'display_performance_score.memory_score': 'memory_score',
             'display_performance_score.io_score': 'io_score',
-            recommendation_count: 'recommendation_count', /* eslint-disable-line camelcase */
+            number_of_recommendations: 'number_of_recommendations', /* eslint-disable-line camelcase */
             state: 'state' };
 
         this.chunkSize = 50;
