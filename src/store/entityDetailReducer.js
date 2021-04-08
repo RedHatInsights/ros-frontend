@@ -1,35 +1,25 @@
 import { applyReducerHash } from '@redhat-cloud-services/frontend-components-utilities/ReducerRegistry';
-import Recommendations from '../Components/Recommendations';
+import SystemDetail from '../Components/SystemDetail/SystemDetail';
 
 const defaultState = { loaded: false };
-function entityLoaded(rosDetails, state) {
+
+const entityLoaded = (state) => {
     return {
         ...state,
         loaded: true,
         activeApps: [
             {
-                title: 'Recommendations',
-                name: 'ros_recommendations',
-                component: Recommendations
+                title: 'Resource optimization',
+                name: 'resource optimization',
+                component: SystemDetail
             }
         ]
     };
-}
+};
 
-/*function rosEntityDetail(state, action) {
-    console.log('rosEntityDetail');
-    console.log(state);
-    console.log(action);
-    return {
-        ...state,
-        ...action.payload.data
-    };
-}*/
-
-export const entityDetailReducer = ({ LOAD_ENTITY_FULFILLED }, rosDetails) => applyReducerHash(
+export const entityDetailReducer = ({ LOAD_ENTITY_FULFILLED }) => applyReducerHash(
     {
-        [LOAD_ENTITY_FULFILLED]: (state, payload) => entityLoaded(rosDetails, state, payload)
-        //, ['FETCH_ROS_SYSTEM_DETAIL_FULFILLED']: rosEntityDetail
+        [LOAD_ENTITY_FULFILLED]: entityLoaded
     },
     defaultState
 );
