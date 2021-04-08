@@ -16,7 +16,7 @@ import { ExpandedRow } from '../../Components/RosTable/ExpandedRow';
 import { ROS_API_ROOT, SYSTEMS_API_ROOT } from '../../constants';
 import RecommendationRating from '../../Components/RecommendationRating/RecommendationRating';
 
-class RosDetailsPage extends React.Component {
+class RosSystemDetail extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -116,7 +116,7 @@ class RosDetailsPage extends React.Component {
     }
 };
 
-RosDetailsPage.propTypes = {
+RosSystemDetail.propTypes = {
     match: PropTypes.any,
     entity: PropTypes.object
     //fetchRosSystemDetails: PropTypes.func
@@ -135,4 +135,4 @@ const mapStateToProps = (state, props) => {
     };
 }*/
 
-export default withRouter(connect(mapStateToProps, null)(RosDetailsPage));
+export default withRouter(connect(mapStateToProps, null)(RosSystemDetail));
