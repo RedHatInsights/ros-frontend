@@ -1,6 +1,4 @@
 import React, { Suspense } from 'react';
-import PropTypes from 'prop-types';
-
 const SystemRecommendations = React.lazy(() => import('./SystemRecommendations'));
 
 /**
@@ -17,25 +15,3 @@ const SystemDetail = () => (
 );
 
 export default SystemDetail;
-
-/*class SystemDetail extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            inventoryId: props.match.params.inventoryId
-        };
-    }
-
-    render() {
-        return (
-            <Suspense fallback="">
-                <SystemRecommendations/>
-            </Suspense>
-        );
-    }
-}
-
-SystemDetail.propTypes = {
-    match: PropTypes.any
-};
-*/

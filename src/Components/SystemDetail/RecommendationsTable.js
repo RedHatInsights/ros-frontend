@@ -4,16 +4,19 @@ import propTypes from 'prop-types';
 import { flatMap } from 'lodash';
 import { EmptyTable } from '@redhat-cloud-services/frontend-components/EmptyTable';
 import { EmptyStateDisplay } from '../EmptyStateDisplay/EmptyStateDisplay';
+import { CheckCircleIcon } from '@patternfly/react-icons';
 import { TextContent, Text, TextVariants } from '@patternfly/react-core';
+import successColor from '@patternfly/react-tokens/dist/esm/global_success_color_100';
+import './RecommendationsTable.scss';
 
 const renderExpandedView = (row) => {
     return (
-        <TextContent>
+        <TextContent className='ros-rec-content'>
             <Text component={TextVariants.p}>
                 {row.reason}
             </Text>
             <Text component={TextVariants.p}>
-                Recommendations:{row.resolution}
+                Recommendations: {row.resolution}
             </Text>
         </TextContent>
     );
@@ -49,7 +52,7 @@ class RecommendationsTable extends React.Component {
                     {
                         id: index,
                         isOpen: index === 0 ? true : false,
-                        cells: [{ title: row.name }]
+                        cells: [{ title: row.description }]
                     },
                     {
                         cells: [{ title: renderExpandedView(row) }],
@@ -58,34 +61,30 @@ class RecommendationsTable extends React.Component {
                 ];
             });
         } else {
-
-            return [
-                {
-                    heightAuto: true,
-                    cells: [
-                        {
-                            props: { colSpan: 7 },
-                            title: <EmptyTable>
-                                <EmptyStateDisplay title="No matching records found" />
-                            </EmptyTable>
-                        }
-                    ]
-                }
-            ];
+            return [];
         }
     }
 
     render() {
-        const { columns, rows } = this.state;
-        //FIXME: no recommendations on empty table
-        return (
-            <Table aria-label="Expandable table" onCollapse={this.onCollapse}
-                variant='compact'
-                rows={rows} cells={columns} className="ros-recommendations-table">
-                <TableHeader />
-                <TableBody />
-            </Table>
-        );
+        if (this.props.recommendations?.length !== 0) {
+            const { columns, rows } = this.state;
+            return (
+                <Table aria-label="Expandable table" onCollapse={this.onCollapse}
+                    variant='compact'
+                    rows={rows} cells={columns} className="ros-recommendations-table">
+                    <TableHeader />
+                    <TableBody />
+                </Table>
+            );
+        } else {
+            return (
+                <EmptyTable>
+                    <EmptyStateDisplay title="No Recommendations"
+                        text={['No known recommendations affect this system']}
+                        icon={CheckCircleIcon} color={successColor.value} />
+                </EmptyTable>
+            );
+        }
     }
 }
 

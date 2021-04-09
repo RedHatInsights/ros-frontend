@@ -36,15 +36,14 @@ class SystemRecommendations extends React.Component {
     }
 
     async componentDidMount() {
-        await window.insights.chrome.auth.getUser();
-        this.props.loadSysRecs(this.state.inventoryId,
+        await this.props.loadSysRecs(this.state.inventoryId,
             { page: this.state.page, perPage: this.state.perPage }
         );
     }
 
-    updatePagination(pagination) {
+    async updatePagination(pagination) {
         this.setState(pagination);
-        this.props.loadSysRecs(this.state.inventoryId, pagination);
+        await this.props.loadSysRecs(this.state.inventoryId, pagination);
     }
 
     render() {
@@ -99,11 +98,9 @@ SystemRecommendations.propTypes = {
 
 const mapStateToProps = (state, props) => {
     return {
-        loading: state.systemRecsReducer && state.systemRecsReducer.loading,
-        recsData: state.systemRecsReducer &&
-            state.systemRecsReducer.recommendationsData,
-        totalRecs: state.systemRecsReducer &&
-            state.systemRecsReducer.totalRecommendations,
+        loading: state.systemRecsReducer?.loading,
+        recsData: state.systemRecsReducer?.recommendationsData,
+        totalRecs: state.systemRecsReducer?.totalRecommendations,
         ...props
     };
 };
