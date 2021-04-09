@@ -7,13 +7,16 @@ import './App.scss';
 
 import NotificationsPortal from '@redhat-cloud-services/frontend-components-notifications/NotificationPortal';
 import { notificationsReducer } from '@redhat-cloud-services/frontend-components-notifications/redux';
-import { systemRecsReducer } from './store/reducers';
+import { systemRecsReducer, systemDetailReducer } from './store/reducers';
 import { register } from './store';
 
 class App extends Component {
 
     componentDidMount () {
-        register({ notifications: notificationsReducer, systemRecsReducer });
+        register({
+            notifications: notificationsReducer,
+            systemDetailReducer,
+            systemRecsReducer });
         insights.chrome.init();
         // TODO change this to your appname
         insights.chrome.identifyApp('ros');
