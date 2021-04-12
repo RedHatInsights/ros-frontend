@@ -34,8 +34,8 @@ class RosPage extends React.Component {
                 { key: 'display_performance_score.memory_score', title: 'Memory score', renderFunc: scoreProgress },
                 { key: 'display_performance_score.io_score', title: 'I/O score', renderFunc: scoreProgress },
                 { key: 'number_of_recommendations', title: 'Recommendations',
-                    renderFunc: recommendations, props: { isStatic: true } },
-                { key: 'state', title: 'State', props: { isStatic: true } }
+                    renderFunc: recommendations },
+                { key: 'state', title: 'State' }
             ]
         };
 
