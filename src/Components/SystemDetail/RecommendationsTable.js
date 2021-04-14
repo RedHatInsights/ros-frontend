@@ -6,9 +6,6 @@ import { EmptyTable } from '@redhat-cloud-services/frontend-components/EmptyTabl
 import { EmptyStateDisplay } from '../EmptyStateDisplay/EmptyStateDisplay';
 import { CheckCircleIcon } from '@patternfly/react-icons';
 import { TextContent, Text, TextVariants } from '@patternfly/react-core';
-import {
-    global_success_color_100 as successColor
-} from '@patternfly/react-tokens';
 import './RecommendationsTable.scss';
 
 const renderExpandedView = (row) => {
@@ -63,17 +60,16 @@ class RecommendationsTable extends React.Component {
                 ];
             });
         } else {
-
             return [
                 {
                     heightAuto: true,
                     cells: [
                         {
                             props: { colSpan: 7 },
-                            title: <EmptyTable>
+                            title: <EmptyTable className='recs-table-empty'>
                                 <EmptyStateDisplay title="No Recommendations"
                                     text={['No known recommendations affect this system']}
-                                    icon={CheckCircleIcon} color={ successColor.value } />
+                                    icon={CheckCircleIcon}/>
                             </EmptyTable>
                         }
                     ]
