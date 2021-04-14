@@ -30,7 +30,7 @@ export const fetchSystemRecommendations = (inventoryId, options = {}) => {
     };
 
     let url = new URL(
-        ROS_API_ROOT + SYSTEMS_API_ROOT + `/${inventoryId}/recommedations`,
+        ROS_API_ROOT + SYSTEMS_API_ROOT + `/${inventoryId}/recommendations`,
         window.location.origin
     );
     url.search = new URLSearchParams(params).toString();
