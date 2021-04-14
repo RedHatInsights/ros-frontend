@@ -67,7 +67,7 @@ class RecommendationsTable extends React.Component {
                         {
                             props: { colSpan: 7 },
                             title: <EmptyTable className='recs-table-empty'>
-                                <EmptyStateDisplay title="No Recommendations"
+                                <EmptyStateDisplay title="No recommendations"
                                     text={['No known recommendations affect this system']}
                                     icon={CheckCircleIcon}/>
                             </EmptyTable>
