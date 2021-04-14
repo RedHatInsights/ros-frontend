@@ -28,6 +28,9 @@ export const fetchSystemRecommendations = (inventoryId, options = {}) => {
         limit: options.perPage,
         offset: (options.page - 1) * options.perPage
     };
+    if (options.description && options.description.trim()) {
+        params = { ...params, description: options.description };
+    }
 
     let url = new URL(
         ROS_API_ROOT + SYSTEMS_API_ROOT + `/${inventoryId}/recommendations`,

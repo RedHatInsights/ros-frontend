@@ -24,6 +24,41 @@ const RecommendationsTable = asyncComponent(() => import('./RecommendationsTable
  *
  * @param props the props given by the smart component.
  */
+const defaultFilters = {
+    name: {
+        label: 'Name',
+        value: ''
+    }
+};
+
+export const isEmptyFilters = (activeFilters) => Object.values(activeFilters).find(
+    (item) => item?.value?.length > 0 || item?.length > 0
+);
+
+export const constructActiveFilters = (activeFilters) => Object.entries(activeFilters).map(([key, { label, value } = {}]) => ({
+    category: label,
+    chipKey: key,
+    chips:
+        value?.length > 0
+            ? Array.isArray(value)
+                ? value.map((item) => ({ name: item })) : [{ name: value }]
+            : []
+}));
+
+export const onDeleteFilter = (activeFilters, itemsToRemove) => {
+    const currItem = itemsToRemove[0];
+    return {
+        ...activeFilters,
+        [currItem?.chipKey]: {
+            ...(activeFilters[currItem?.chipKey] || {}),
+            value: Array.isArray(activeFilters[currItem?.chipKey]?.value)
+                ? activeFilters[currItem?.chipKey]?.value?.filter(
+                    (item) => !currItem?.chips?.find(({ name }) => name === item)
+                  )
+                : ''
+        }
+    };
+};
 
 class SystemRecommendations extends React.Component {
     constructor(props) {
@@ -31,19 +66,30 @@ class SystemRecommendations extends React.Component {
         this.state = {
             page: 1,
             perPage: 10,
-            inventoryId: props.match.params.inventoryId
+            inventoryId: props.match.params.inventoryId,
+            activeFilters: defaultFilters,
+            descriptionFilter: ''
         };
+
     }
 
     async componentDidMount() {
-        await this.props.loadSysRecs(this.state.inventoryId,
-            { page: this.state.page, perPage: this.state.perPage }
-        );
+        await this.requestLoadSysRecs();
+    }
+
+    async requestLoadSysRecs(options = {}) {
+        const params = {
+            page: this.state.page,
+            perPage: this.state.perPage,
+            description: this.state.descriptionFilter,
+            ...options
+        };
+        await this.props.loadSysRecs(this.state.inventoryId, params);
     }
 
     async updatePagination(pagination) {
         this.setState(pagination);
-        await this.props.loadSysRecs(this.state.inventoryId, pagination);
+        await this.requestLoadSysRecs(pagination);
     }
 
     render() {
@@ -64,6 +110,59 @@ class SystemRecommendations extends React.Component {
                                     onPerPageSelect: (_e, perPage) => this.updatePagination({ page: 1, perPage }),
                                     isCompact: true,
                                     widgetId: 'ros-pagination-top'
+                                }}
+                                filterConfig={{
+                                    items: [{
+                                        label: defaultFilters.name.label,
+                                        type: 'text',
+                                        filterValues: {
+                                            key: 'text-filter',
+                                            onChange: (event, value) => {
+                                                const activeFilters = {
+                                                    ...this.state.activeFilters,
+                                                    name: {
+                                                        ...(this.state.activeFilters?.name || {}),
+                                                        value
+                                                    }
+                                                };
+                                                this.setState({
+                                                    activeFilters,
+                                                    descriptionFilter: activeFilters?.name?.value
+                                                });
+                                                this.requestLoadSysRecs({
+                                                    description: activeFilters?.name?.value
+                                                });
+                                            },
+                                            value: this.state.activeFilters?.name?.value || '',
+                                            placeholder: 'Filter by name'
+                                        }
+                                    }]
+                                }}
+                                activeFiltersConfig={{
+                                    filters: isEmptyFilters(this.state.activeFilters)
+                                        ? constructActiveFilters(this.state.activeFilters)
+                                        : [],
+                                    onDelete: (event, itemsToRemove, isAll) => {
+                                        if (isAll) {
+                                            this.setState({
+                                                activeFilters: defaultFilters,
+                                                descriptionFilter: defaultFilters?.name?.value
+                                            });
+                                            this.requestLoadSysRecs({
+                                                description: defaultFilters?.name?.value
+                                            });
+                                        } else {
+                                            const filtersOnDeletion = onDeleteFilter(this.state.activeFilters, itemsToRemove);
+                                            this.setState({
+                                                activeFilters: filtersOnDeletion,
+                                                descriptionFilter: filtersOnDeletion?.name?.value
+                                            });
+                                            this.requestLoadSysRecs({
+                                                description: filtersOnDeletion?.name?.value
+                                            });
+                                        }
+
+                                    }
                                 }}
                                 />
                                 { (!this.props.loading) ? (<RecommendationsTable recommendations = { recsData }/>) : null }
