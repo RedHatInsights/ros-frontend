@@ -14,6 +14,7 @@ import {
     StackItem,
     Pagination
 } from '@patternfly/react-core';
+import debounce from 'lodash/debounce';
 
 import asyncComponent from '../../Utilities/asyncComponent';
 const RecommendationsTable = asyncComponent(() => import('./RecommendationsTable'));
@@ -67,9 +68,10 @@ class SystemRecommendations extends React.Component {
             page: 1,
             perPage: 10,
             inventoryId: props.match.params.inventoryId,
-            activeFilters: defaultFilters,
-            descriptionFilter: ''
+            activeFilters: defaultFilters
         };
+
+        this.throttleHandleChange = debounce(this.throttleHandleChange.bind(this), 500);
 
     }
 
@@ -77,14 +79,30 @@ class SystemRecommendations extends React.Component {
         await this.requestLoadSysRecs();
     }
 
+    async throttleHandleChange(options) {
+        await this.requestLoadSysRecs(options);
+    }
+
     async requestLoadSysRecs(options = {}) {
         const params = {
             page: this.state.page,
             perPage: this.state.perPage,
-            description: this.state.descriptionFilter,
+            description: this.state?.descriptionFilter,
             ...options
         };
         await this.props.loadSysRecs(this.state.inventoryId, params);
+    }
+
+    applyFilters(filters) {
+        this.setState({
+            activeFilters: filters,
+            descriptionFilter: filters?.name?.value,
+            page: 1
+        });
+        this.throttleHandleChange({
+            description: filters?.name?.value,
+            page: 1
+        });
     }
 
     async updatePagination(pagination) {
@@ -125,13 +143,7 @@ class SystemRecommendations extends React.Component {
                                                         value
                                                     }
                                                 };
-                                                this.setState({
-                                                    activeFilters,
-                                                    descriptionFilter: activeFilters?.name?.value
-                                                });
-                                                this.requestLoadSysRecs({
-                                                    description: activeFilters?.name?.value
-                                                });
+                                                this.applyFilters(activeFilters);
                                             },
                                             value: this.state.activeFilters?.name?.value || '',
                                             placeholder: 'Filter by name'
@@ -144,24 +156,11 @@ class SystemRecommendations extends React.Component {
                                         : [],
                                     onDelete: (event, itemsToRemove, isAll) => {
                                         if (isAll) {
-                                            this.setState({
-                                                activeFilters: defaultFilters,
-                                                descriptionFilter: defaultFilters?.name?.value
-                                            });
-                                            this.requestLoadSysRecs({
-                                                description: defaultFilters?.name?.value
-                                            });
+                                            this.applyFilters(defaultFilters);
                                         } else {
                                             const filtersOnDeletion = onDeleteFilter(this.state.activeFilters, itemsToRemove);
-                                            this.setState({
-                                                activeFilters: filtersOnDeletion,
-                                                descriptionFilter: filtersOnDeletion?.name?.value
-                                            });
-                                            this.requestLoadSysRecs({
-                                                description: filtersOnDeletion?.name?.value
-                                            });
+                                            this.applyFilters(filtersOnDeletion);
                                         }
-
                                     }
                                 }}
                                 />
