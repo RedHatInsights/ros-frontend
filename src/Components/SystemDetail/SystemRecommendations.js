@@ -15,7 +15,6 @@ import {
     Pagination
 } from '@patternfly/react-core';
 import debounce from 'lodash/debounce';
-
 import asyncComponent from '../../Utilities/asyncComponent';
 const RecommendationsTable = asyncComponent(() => import('./RecommendationsTable'));
 
@@ -70,8 +69,10 @@ class SystemRecommendations extends React.Component {
             inventoryId: props.match.params.inventoryId,
             activeFilters: defaultFilters
         };
-
-        this.throttleHandleChange = debounce(this.throttleHandleChange.bind(this), 500);
+        // Note that 800 is used widely accross platform
+        this.debouncedThrottleHandleChange = debounce(
+            this.throttleHandleChange.bind(this), 800
+        );
 
     }
 
@@ -99,7 +100,7 @@ class SystemRecommendations extends React.Component {
             descriptionFilter: filters?.name?.value,
             page: 1
         });
-        this.throttleHandleChange({
+        this.debouncedThrottleHandleChange({
             description: filters?.name?.value,
             page: 1
         });
@@ -176,7 +177,6 @@ class SystemRecommendations extends React.Component {
                                         onPerPageSelect={(_e, perPage) => this.updatePagination({ page: 1, perPage })}
                                     />
                                 </TableToolbar>
-
                             </CardBody>
                         </Card>
                     </StackItem>
