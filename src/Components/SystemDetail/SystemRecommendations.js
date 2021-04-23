@@ -1,6 +1,5 @@
 import React, { Suspense } from 'react';
 import PropTypes from 'prop-types';
-import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { PrimaryToolbar } from '@redhat-cloud-services/frontend-components/PrimaryToolbar';
 import { TableToolbar } from '@redhat-cloud-services/frontend-components/TableToolbar';
@@ -66,7 +65,7 @@ class SystemRecommendations extends React.Component {
         this.state = {
             page: 1,
             perPage: 10,
-            inventoryId: props.match.params.inventoryId,
+            inventoryId: props.inventoryId,
             activeFilters: defaultFilters
         };
         // Note that 800 is used widely accross platform
@@ -187,7 +186,7 @@ class SystemRecommendations extends React.Component {
 }
 
 SystemRecommendations.propTypes = {
-    match: PropTypes.any,
+    inventoryId: PropTypes.string,
     loading: PropTypes.bool,
     recsData: PropTypes.array,
     totalRecs: PropTypes.number,
@@ -209,9 +208,7 @@ function mapDispatchToProps(dispatch) {
     };
 }
 
-export default withRouter(
-    connect(
-        mapStateToProps,
-        mapDispatchToProps
-    )(SystemRecommendations)
-);
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(SystemRecommendations);

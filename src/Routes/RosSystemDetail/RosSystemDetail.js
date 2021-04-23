@@ -35,7 +35,7 @@ class RosSystemDetail extends React.Component {
                 idling_time: idlingTime, io_wait: ioWait,
                 rating
             } = this.props.rosSystemInfo;
-            const { inventoryId } = this.state;
+            const { inventoryId } = this.props.match.params;
             return (
                 <Grid className='ros-system-info'>
                     <GridItem>
