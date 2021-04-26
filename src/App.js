@@ -10,15 +10,15 @@ import { notificationsReducer } from '@redhat-cloud-services/frontend-components
 import { systemRecsReducer, systemDetailReducer } from './store/reducers';
 import { register } from './store';
 import Cookies from 'js-cookie';
-import queryString from 'query-string';
 
 class App extends Component {
 
     componentDidMount () {
-        const params = queryString.parse(this.props.location.search);
-        // eslint-disable-next-line camelcase
-        if (params?.cs_ros_beta_enable) {
+        const params = new URLSearchParams(this.props.location.search);
+        if (params.get('cs_ros_beta_enable')) {
             Cookies.set('cs_ros_beta_enable', 1);
+            params.delete('cs_ros_beta_enable');
+            location.href = `${location.pathname}?${params.toString()}`;
         }
 
         register({
