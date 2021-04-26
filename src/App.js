@@ -9,10 +9,18 @@ import NotificationsPortal from '@redhat-cloud-services/frontend-components-noti
 import { notificationsReducer } from '@redhat-cloud-services/frontend-components-notifications/redux';
 import { systemRecsReducer, systemDetailReducer } from './store/reducers';
 import { register } from './store';
+import Cookies from 'js-cookie';
+import queryString from 'query-string';
 
 class App extends Component {
 
     componentDidMount () {
+        const params = queryString.parse(this.props.location.search);
+        // eslint-disable-next-line camelcase
+        if (params?.cs_ros_beta_enable) {
+            Cookies.set('cs_ros_beta_enable', 1);
+        }
+
         register({
             notifications: notificationsReducer,
             systemDetailReducer,
@@ -39,6 +47,7 @@ class App extends Component {
 }
 
 App.propTypes = {
+    location: PropTypes.object,
     history: PropTypes.object
 };
 
