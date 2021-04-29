@@ -6,7 +6,6 @@ import { TableToolbar } from '@redhat-cloud-services/frontend-components/TableTo
 import { loadSysRecs } from '../../store/actions';
 import {
     Card,
-    CardHeader,
     CardBody,
     Title,
     Stack,
@@ -14,6 +13,7 @@ import {
     Pagination
 } from '@patternfly/react-core';
 import debounce from 'lodash/debounce';
+import './SystemRecommendations.scss';
 import asyncComponent from '../../Utilities/asyncComponent';
 const RecommendationsTable = asyncComponent(() => import('./RecommendationsTable'));
 
@@ -117,8 +117,12 @@ class SystemRecommendations extends React.Component {
             <Suspense fallback="">
                 <Stack>
                     <StackItem>
+                        <Title className="recsTitle" headingLevel="h3" size="2xl">
+                            Recommendations
+                        </Title>
+                    </StackItem>
+                    <StackItem>
                         <Card>
-                            <CardHeader><Title headingLevel="h1">Recommendations</Title></CardHeader>
                             <CardBody>
                                 <PrimaryToolbar className="ros-primary-toolbar" pagination={{
                                     page: (totalRecs === 0 ? 0 : page),
