@@ -13,7 +13,6 @@ import {
     Pagination
 } from '@patternfly/react-core';
 import debounce from 'lodash/debounce';
-import './SystemRecommendations.scss';
 import asyncComponent from '../../Utilities/asyncComponent';
 const RecommendationsTable = asyncComponent(() => import('./RecommendationsTable'));
 
@@ -115,9 +114,9 @@ class SystemRecommendations extends React.Component {
         const { page, perPage } = this.state;
         return (
             <Suspense fallback="">
-                <Stack>
+                <Stack hasGutter>
                     <StackItem>
-                        <Title className="recsTitle" headingLevel="h3" size="2xl">
+                        <Title headingLevel="h3" size="2xl">
                             Recommendations
                         </Title>
                     </StackItem>
