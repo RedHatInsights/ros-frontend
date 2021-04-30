@@ -6,7 +6,6 @@ import { TableToolbar } from '@redhat-cloud-services/frontend-components/TableTo
 import { loadSysRecs } from '../../store/actions';
 import {
     Card,
-    CardHeader,
     CardBody,
     Title,
     Stack,
@@ -115,10 +114,14 @@ class SystemRecommendations extends React.Component {
         const { page, perPage } = this.state;
         return (
             <Suspense fallback="">
-                <Stack>
+                <Stack hasGutter>
+                    <StackItem>
+                        <Title headingLevel="h3" size="2xl">
+                            Recommendations
+                        </Title>
+                    </StackItem>
                     <StackItem>
                         <Card>
-                            <CardHeader><Title headingLevel="h1">Recommendations</Title></CardHeader>
                             <CardBody>
                                 <PrimaryToolbar className="ros-primary-toolbar" pagination={{
                                     page: (totalRecs === 0 ? 0 : page),
