@@ -1,0 +1,63 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`matches snapshot 1`] = `
+<div
+  className="pf-c-content expanded-row"
+  data-testid="expanded-content"
+>
+  <dl
+    className=""
+    data-pf-content={true}
+    id="fd480a4c-952b-4675-ba02-3370bd08a5ee"
+  >
+    <dt
+      className=""
+      data-pf-content={true}
+    >
+      Provider
+    </dt>
+    <dd
+      className=""
+      data-pf-content={true}
+    >
+      aws
+    </dd>
+    <dt
+      className=""
+      data-pf-content={true}
+    >
+      Instance type
+    </dt>
+    <dd
+      className=""
+      data-pf-content={true}
+    >
+      t2.micro
+    </dd>
+    <dt
+      className=""
+      data-pf-content={true}
+    >
+      Idling time
+    </dt>
+    <dd
+      className=""
+      data-pf-content={true}
+    >
+      1.03%
+    </dd>
+    <dt
+      className=""
+      data-pf-content={true}
+    >
+      I/O wait
+    </dt>
+    <dd
+      className=""
+      data-pf-content={true}
+    >
+      0.10%
+    </dd>
+  </dl>
+</div>
+`;
