@@ -126,6 +126,7 @@ class RosPage extends React.Component {
                     <Card className='pf-t-light  pf-m-opaque-100'>
                         <CardBody>
                             <InventoryTable
+                                disableDefaultColumns
                                 ref={this.inventory}
                                 hasCheckbox={ false }
                                 tableProps={{
