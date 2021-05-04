@@ -1,0 +1,87 @@
+// js generates class '.page__{rootClass}' that wraps the content in your page added to the root tag
+// Found in Routes.js as the rootClass
+
+.ins-c-primary-toolbar {
+  .ins-c-primary-toolbar__pagination {
+    margin-left:auto;
+  }
+}
+
+.ros-systems-table {
+
+  .pf-c-content.expanded-row {
+    --pf-c-content--dl--RowGap: var(--pf-global--spacer--xs);
+    --pf-c-content--FontSize: var(--pf-global--FontSize--sm);
+  }
+
+  .pf-link {
+    &:hover {
+      text-decoration: none;
+    }
+  }
+
+  .recommendations.green-400 {
+    color: var(--pf-global--palette--green-400);
+  }
+
+  .recommendations {
+    padding-left: var(--pf-global--spacer--lg);
+    font-weight: var(--pf-global--FontWeight--bold);
+  }
+
+  .pf-c-progress {
+    grid-template-columns: auto;
+
+    .pf-c-progress__status {
+      text-align: left;
+    }
+  }
+}
+
+.progress-score-bar {
+  grid-gap: var(--pf-global--spacer--xs);
+
+  span.pf-c-progress__status-icon {
+    display: none;
+  }
+
+  .pf-c-progress__bar {
+    &:before {
+      background: var(--pf-global--palette--black-400);
+    }
+  }
+
+  .pf-c-progress__measure {
+    color: var(--pf-global--palette--black-600);
+  }
+}
+
+.green-100 {
+  .pf-c-progress__indicator {
+    background: var(--pf-global--palette--green-100);
+  }
+}
+
+.green-400 {
+  .pf-c-progress__indicator {
+    background: var(--pf-global--palette--green-300);
+  }
+}
+
+.gold-400 {
+  .pf-c-progress__indicator {
+    background: var(--pf-global--palette--gold-300);
+  }
+}
+
+.orange-300 {
+  .pf-c-progress__indicator {
+    background: var(--pf-global--palette--orange-300);
+  }
+}
+
+.danger-200 {
+  .pf-c-progress__indicator {
+    background: var(--pf-global--palette--red-200);
+  }
+}

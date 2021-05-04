@@ -1,0 +1,15 @@
+.ros-recommendations-table.pf-c-table {
+  tr {
+    --pf-c-table--cell--FontSize: var(--pf-global--FontSize--md);
+  }
+
+  .ros-rec-content p {
+    margin-bottom: 0;
+  }
+
+  .recs-table-empty {
+    .pf-c-empty-state__icon {
+      fill: var(--pf-global--success-color--100);
+    }
+  }
+}
