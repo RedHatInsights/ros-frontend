@@ -99,11 +99,7 @@
     "appname": "ros"
   },
   "routes": {
-    "prefix": "insights",
-    "appname": "ros",
     "rosPage": "/ros",
-    "rosSystemDetail": "/:inventoryId",
-    "oops": "/oops",
-    "noPermissions": "/no-permissions"
+    "rosSystemDetail": "/:inventoryId"
   }
 }
