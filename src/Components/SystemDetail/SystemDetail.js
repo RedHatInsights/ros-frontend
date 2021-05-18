@@ -1,8 +1,8 @@
-import React, { Suspense } from 'react';
+import React, { Suspense, useEffect, useState, Fragment  } from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
+import { connect, Provider } from 'react-redux';
 const SystemRecommendations = React.lazy(() => import('./SystemRecommendations'));
-
+import { Bullseye, Spinner } from '@patternfly/react-core';
 /**
  * This is a dumb component that only recieves properties from a smart component.
  * Dumb components are usually functions and not classes.
@@ -26,4 +26,21 @@ SystemDetail.propTypes = {
     rosSystemInfo: PropTypes.object
 };
 
-export default connect(mapStateToProps, null)(SystemDetail);
+const ConnectedSystemDetail = connect(mapStateToProps, null)(SystemDetail);
+
+const SystemDetailWrapper = ({ getRegistry, ...props }) => {
+    const [Wrapper, setWrapper] = useState();
+    useEffect(() => {
+        setWrapper(() => getRegistry ? Provider : Fragment);
+    }, [getRegistry]);
+
+    return Wrapper ? <Wrapper { ...getRegistry && { store: getRegistry().getStore() } }>
+        <ConnectedSystemDetail { ...props } /></Wrapper> : <Bullseye><Spinner size="xl" /></Bullseye>;
+
+};
+
+SystemDetailWrapper.propTypes = {
+    getRegistry: PropTypes.func
+};
+
+export default SystemDetailWrapper;
