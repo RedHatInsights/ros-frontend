@@ -2,6 +2,7 @@ import React, { Suspense, useEffect, useState, Fragment  } from 'react';
 import PropTypes from 'prop-types';
 import { connect, Provider } from 'react-redux';
 const SystemRecommendations = React.lazy(() => import('./SystemRecommendations'));
+import { systemRecsReducer } from '../../store/reducers';
 import { Bullseye, Spinner } from '@patternfly/react-core';
 /**
  * This is a dumb component that only recieves properties from a smart component.
@@ -12,18 +13,18 @@ import { Bullseye, Spinner } from '@patternfly/react-core';
 
 const SystemDetail = (props) => (
     <Suspense fallback="">
-        <SystemRecommendations inventoryId={ props.rosSystemInfo.inventory_id }/>
+        <SystemRecommendations inventoryId={ props.entity.id }/>
     </Suspense>
 );
 
 const mapStateToProps = (state) => {
     return {
-        rosSystemInfo: state.systemDetailReducer?.systemInfo
+        entity: state.entityDetails && state.entityDetails.entity
     };
 };
 
 SystemDetail.propTypes = {
-    rosSystemInfo: PropTypes.object
+    entity: PropTypes.object
 };
 
 const ConnectedSystemDetail = connect(mapStateToProps, null)(SystemDetail);
@@ -31,6 +32,10 @@ const ConnectedSystemDetail = connect(mapStateToProps, null)(SystemDetail);
 const SystemDetailWrapper = ({ getRegistry, ...props }) => {
     const [Wrapper, setWrapper] = useState();
     useEffect(() => {
+        if (getRegistry) {
+            getRegistry()?.register?.({ systemRecsReducer });
+        }
+
         setWrapper(() => getRegistry ? Provider : Fragment);
     }, [getRegistry]);
 
