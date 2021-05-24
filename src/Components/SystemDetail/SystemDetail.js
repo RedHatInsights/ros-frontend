@@ -1,6 +1,6 @@
 import React, { Suspense, useEffect, useState, Fragment  } from 'react';
 import PropTypes from 'prop-types';
-import { connect, Provider } from 'react-redux';
+import { Provider, useSelector } from 'react-redux';
 const SystemRecommendations = React.lazy(() => import('./SystemRecommendations'));
 import { systemRecsReducer } from '../../store/reducers';
 import { Bullseye, Spinner } from '@patternfly/react-core';
@@ -11,23 +11,15 @@ import { Bullseye, Spinner } from '@patternfly/react-core';
  * @param props the props given by the smart component.
  */
 
-const SystemDetail = (props) => (
-    <Suspense fallback="">
-        <SystemRecommendations inventoryId={ props.entity.id }/>
-    </Suspense>
-);
+const SystemDetail = (props) => {
+    const inventoryId = useSelector(({ entityDetails }) => entityDetails?.entity?.id);
 
-const mapStateToProps = (state) => {
-    return {
-        entity: state.entityDetails && state.entityDetails.entity
-    };
+    return (
+        <Suspense fallback="">
+            <SystemRecommendations inventoryId={ inventoryId } {...props}/>
+        </Suspense>
+    );
 };
-
-SystemDetail.propTypes = {
-    entity: PropTypes.object
-};
-
-const ConnectedSystemDetail = connect(mapStateToProps, null)(SystemDetail);
 
 const SystemDetailWrapper = ({ getRegistry, ...props }) => {
     const [Wrapper, setWrapper] = useState();
@@ -40,7 +32,7 @@ const SystemDetailWrapper = ({ getRegistry, ...props }) => {
     }, [getRegistry]);
 
     return Wrapper ? <Wrapper { ...getRegistry && { store: getRegistry().getStore() } }>
-        <ConnectedSystemDetail { ...props } /></Wrapper> : <Bullseye><Spinner size="xl" /></Bullseye>;
+        <SystemDetail { ...props } /></Wrapper> : <Bullseye><Spinner size="xl" /></Bullseye>;
 
 };
 
