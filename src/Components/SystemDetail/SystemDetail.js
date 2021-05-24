@@ -1,8 +1,9 @@
-import React, { Suspense } from 'react';
+import React, { Suspense, useEffect, useState, Fragment  } from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
+import { Provider, useSelector } from 'react-redux';
 const SystemRecommendations = React.lazy(() => import('./SystemRecommendations'));
-
+import { systemRecsReducer } from '../../store/reducers';
+import { Bullseye, Spinner } from '@patternfly/react-core';
 /**
  * This is a dumb component that only recieves properties from a smart component.
  * Dumb components are usually functions and not classes.
@@ -10,20 +11,33 @@ const SystemRecommendations = React.lazy(() => import('./SystemRecommendations')
  * @param props the props given by the smart component.
  */
 
-const SystemDetail = (props) => (
-    <Suspense fallback="">
-        <SystemRecommendations inventoryId={ props.rosSystemInfo.inventory_id }/>
-    </Suspense>
-);
+const SystemDetail = (props) => {
+    const inventoryId = useSelector(({ entityDetails }) => entityDetails?.entity?.id);
 
-const mapStateToProps = (state) => {
-    return {
-        rosSystemInfo: state.systemDetailReducer?.systemInfo
-    };
+    return (
+        <Suspense fallback="">
+            <SystemRecommendations inventoryId={ inventoryId } {...props}/>
+        </Suspense>
+    );
 };
 
-SystemDetail.propTypes = {
-    rosSystemInfo: PropTypes.object
+const SystemDetailWrapper = ({ getRegistry, ...props }) => {
+    const [Wrapper, setWrapper] = useState();
+    useEffect(() => {
+        if (getRegistry) {
+            getRegistry()?.register?.({ systemRecsReducer });
+        }
+
+        setWrapper(() => getRegistry ? Provider : Fragment);
+    }, [getRegistry]);
+
+    return Wrapper ? <Wrapper { ...getRegistry && { store: getRegistry().getStore() } }>
+        <SystemDetail { ...props } /></Wrapper> : <Bullseye><Spinner size="xl" /></Bullseye>;
+
 };
 
-export default connect(mapStateToProps, null)(SystemDetail);
+SystemDetailWrapper.propTypes = {
+    getRegistry: PropTypes.func
+};
+
+export default SystemDetailWrapper;

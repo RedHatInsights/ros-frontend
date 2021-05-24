@@ -58,7 +58,6 @@ class RosSystemDetail extends React.Component {
         return (
             <React.Fragment>
                 <DetailWrapper
-                    hideInvLink
                     onLoad={({ mergeWithDetail, INVENTORY_ACTION_TYPES }) => {
                         register(mergeWithDetail(
                             entityDetailReducer(INVENTORY_ACTION_TYPES)
@@ -79,7 +78,6 @@ class RosSystemDetail extends React.Component {
                         </Breadcrumb>
                         <InventoryDetailHead
                             hideBack
-                            hideInvLink
                             showDelete={ false }
                             hideInvDrawer
                         />
