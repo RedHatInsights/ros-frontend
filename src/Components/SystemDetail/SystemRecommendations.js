@@ -13,9 +13,7 @@ import {
     Pagination
 } from '@patternfly/react-core';
 import debounce from 'lodash/debounce';
-import asyncComponent from '../../Utilities/asyncComponent';
-const RecommendationsTable = asyncComponent(() => import('./RecommendationsTable'));
-
+const RecommendationsTable = React.lazy(() => import('./RecommendationsTable'));
 /**
  * This is a dumb component that only recieves properties from a smart component.
  * Dumb components are usually functions and not classes.
