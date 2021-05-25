@@ -14,7 +14,6 @@ export default applyReducerHash({
         return {
             ...state,
             loading: false,
-            emptyState: action.payload.meta.count === 0,
             recommendationsData: action.payload.data,
             totalRecommendations: action.payload.meta.count
         };
