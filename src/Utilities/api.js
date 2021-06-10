@@ -40,8 +40,16 @@ export const fetchSystemRecommendations = (inventoryId, options = {}) => {
     let response = window.insights.chrome.auth
     .getUser()
     .then(() =>
-        fetch(url).then(handleErrors)
-        .then(res =>  res.json()).then(result => result)
+        fetch(url).then((resp) => {
+            if (!resp.ok && resp.status === 404) {
+                return { hasError: true };
+            } else if (!resp.ok) {
+                throw Error(resp.statusText);
+            }
+
+            return resp.json();
+        })
+        .then(result => result)
     );
 
     return response;
