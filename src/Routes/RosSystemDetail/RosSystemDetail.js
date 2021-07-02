@@ -12,8 +12,7 @@ import { entityDetailReducer } from '../../store/entityDetailReducer';
 import './ros-details-page.scss';
 import { ExpandedRow } from '../../Components/RosTable/ExpandedRow';
 import RecommendationRating from '../../Components/RecommendationRating/RecommendationRating';
-import { EmptyStateDisplay } from '../../Components/EmptyStateDisplay/EmptyStateDisplay';
-import { propsForAccessDenied } from '../../constants';
+import { NotAuthorized } from '@redhat-cloud-services/frontend-components/NotAuthorized';
 import { PermissionContext } from '../../App';
 
 class RosSystemDetail extends React.Component {
@@ -63,7 +62,7 @@ class RosSystemDetail extends React.Component {
                 <PermissionContext.Consumer>
                     { value =>
                         value.permissions.systemsRead === false
-                            ? <EmptyStateDisplay { ...propsForAccessDenied } />
+                            ?  <NotAuthorized serviceName='Resource Optimization' />
                             : <DetailWrapper
                                 onLoad={({ mergeWithDetail, INVENTORY_ACTION_TYPES }) => {
                                     register(mergeWithDetail(

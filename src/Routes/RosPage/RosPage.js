@@ -7,12 +7,14 @@ import { Card, CardBody } from '@patternfly/react-core';
 import { SortByDirection } from '@patternfly/react-table';
 import { connect } from 'react-redux';
 import { InventoryTable } from '@redhat-cloud-services/frontend-components/Inventory';
-import { EmptyStateDisplay } from '../../Components/EmptyStateDisplay/EmptyStateDisplay';
 import { register } from '../../store';
 import './ros-page.scss';
 import { entitiesReducer, systemName, scoreProgress, recommendations } from '../../store/entitiesReducer';
-import { ROS_API_ROOT, SYSTEMS_API_ROOT, propsForAccessDenied } from '../../constants';
+import { ROS_API_ROOT, SYSTEMS_API_ROOT } from '../../constants';
 import { PermissionContext } from '../../App';
+
+import { NotAuthorized } from '@redhat-cloud-services/frontend-components/NotAuthorized';
+
 /**
  * A smart component that handles all the api calls and data needed by the dumb components.
  * Smart components are usually classes.
@@ -128,7 +130,7 @@ class RosPage extends React.Component {
                     <PermissionContext.Consumer>
                         { value =>
                             value.permissions.systemsRead === false
-                                ? <EmptyStateDisplay { ...propsForAccessDenied } />
+                                ? <NotAuthorized serviceName='Resource Optimization' />
                                 : <Card className='pf-t-light  pf-m-opaque-100'>
                                     <CardBody>
                                         <InventoryTable

@@ -55,7 +55,6 @@ class App extends Component {
             systemDetailReducer,
             systemRecsReducer });
         insights.chrome.init();
-        // TODO change this to your appname
         insights.chrome.identifyApp('ros');
         this.appNav = insights.chrome.on('APP_NAVIGATION', event => this.props.history.push(`/${event.navId}`));
 
