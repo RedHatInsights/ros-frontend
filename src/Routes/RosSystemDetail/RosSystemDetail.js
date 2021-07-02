@@ -62,7 +62,7 @@ class RosSystemDetail extends React.Component {
                 <PermissionContext.Consumer>
                     { value =>
                         value.permissions.systemsRead === false
-                            ?  <NotAuthorized serviceName='Resource Optimization' />
+                            ? <NotAuthorized serviceName='Resource Optimization'/>
                             : <DetailWrapper
                                 onLoad={({ mergeWithDetail, INVENTORY_ACTION_TYPES }) => {
                                     register(mergeWithDetail(
