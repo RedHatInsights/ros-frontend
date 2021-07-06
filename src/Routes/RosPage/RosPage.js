@@ -11,6 +11,10 @@ import { register } from '../../store';
 import './ros-page.scss';
 import { entitiesReducer, systemName, scoreProgress, recommendations } from '../../store/entitiesReducer';
 import { ROS_API_ROOT, SYSTEMS_API_ROOT } from '../../constants';
+import { PermissionContext } from '../../App';
+
+import { NotAuthorized } from '@redhat-cloud-services/frontend-components/NotAuthorized';
+
 /**
  * A smart component that handles all the api calls and data needed by the dumb components.
  * Smart components are usually classes.
@@ -123,65 +127,71 @@ class RosPage extends React.Component {
                     <PageHeaderTitle title='Resource Optimization'/>
                 </PageHeader>
                 <Main>
-                    <Card className='pf-t-light  pf-m-opaque-100'>
-                        <CardBody>
-                            <InventoryTable
-                                disableDefaultColumns
-                                ref={this.inventory}
-                                hasCheckbox={ false }
-                                tableProps={{
-                                    canSelectAll: false,
-                                    className: 'ros-systems-table'
-                                }}
-                                variant="compact"
-                                hideFilters={{ stale: true, registeredWith: true }}
-                                getEntities={async (_items, config) => {
-                                    this.setState(() => ({
-                                        orderBy: config.orderBy,
-                                        orderDirection: config.orderDirection
-                                    }));
-                                    const results = await this.fetchSystems(
-                                        { page: config.page, perPage: config.per_page,
-                                            orderBy: this.sortingHeader[config.orderBy],
-                                            orderHow: config.orderDirection,
-                                            filters: config.filters
-                                        }
-                                    );
-                                    const invIds = (results.data || []).map(({ inventory_id: inventoryId }) => inventoryId);
-                                    const invSystems = await this.fetchInventoryDetails(invIds, {
-                                        ...config,
-                                        page: 1,
-                                        hasItems: true
-                                    });
-                                    return {
-                                        results: results.data.map((system) => ({
-                                            ...invSystems.find(({ id }) => id === system.inventory_id),
-                                            ...system
-                                        })),
-                                        total: results.meta.count,
-                                        page: config.page,
-                                        per_page: config.per_page /* eslint-disable-line camelcase */
-                                    };
-                                }}
-                                onLoad={({ mergeWithEntities, INVENTORY_ACTION_TYPES, api }) => {
-                                    this.setState({
-                                        getEntities: api?.getEntities
-                                    });
-                                    register({
-                                        ...mergeWithEntities(
-                                            entitiesReducer(
-                                                INVENTORY_ACTION_TYPES, this.state.columns
-                                            )
-                                        )
-                                    });
-                                    this.props.setSort(this.state.orderBy, this.state.orderDirection, 'CHANGE_SORT');
-                                }}
-                                expandable='true'
-                                onExpandClick={(_e, _i, isOpen, { id }) => this.props.expandRow(id, isOpen, 'EXPAND_ROW')}
-                            >
-                            </InventoryTable>
-                        </CardBody>
-                    </Card>
+                    <PermissionContext.Consumer>
+                        { value =>
+                            value.permissions.systemsRead === false
+                                ? <NotAuthorized serviceName='Resource Optimization' />
+                                : <Card className='pf-t-light  pf-m-opaque-100'>
+                                    <CardBody>
+                                        <InventoryTable
+                                            disableDefaultColumns
+                                            ref={this.inventory}
+                                            hasCheckbox={ false }
+                                            tableProps={{
+                                                canSelectAll: false,
+                                                className: 'ros-systems-table'
+                                            }}
+                                            variant="compact"
+                                            hideFilters={{ stale: true, registeredWith: true }}
+                                            getEntities={async (_items, config) => {
+                                                this.setState(() => ({
+                                                    orderBy: config.orderBy,
+                                                    orderDirection: config.orderDirection
+                                                }));
+                                                const results = await this.fetchSystems(
+                                                    { page: config.page, perPage: config.per_page,
+                                                        orderBy: this.sortingHeader[config.orderBy],
+                                                        orderHow: config.orderDirection,
+                                                        filters: config.filters
+                                                    }
+                                                );
+                                                const invIds = (results.data || []).map(({ inventory_id: inventoryId }) => inventoryId);
+                                                const invSystems = await this.fetchInventoryDetails(invIds, {
+                                                    ...config,
+                                                    page: 1,
+                                                    hasItems: true
+                                                });
+                                                return {
+                                                    results: results.data.map((system) => ({
+                                                        ...invSystems.find(({ id }) => id === system.inventory_id),
+                                                        ...system
+                                                    })),
+                                                    total: results.meta.count,
+                                                    page: config.page,
+                                                    per_page: config.per_page /* eslint-disable-line camelcase */
+                                                };
+                                            }}
+                                            onLoad={({ mergeWithEntities, INVENTORY_ACTION_TYPES, api }) => {
+                                                this.setState({
+                                                    getEntities: api?.getEntities
+                                                });
+                                                register({
+                                                    ...mergeWithEntities(
+                                                        entitiesReducer(
+                                                            INVENTORY_ACTION_TYPES, this.state.columns
+                                                        )
+                                                    )
+                                                });
+                                                this.props.setSort(this.state.orderBy, this.state.orderDirection, 'CHANGE_SORT');
+                                            }}
+                                            expandable='true'
+                                            onExpandClick={(_e, _i, isOpen, { id }) => this.props.expandRow(id, isOpen, 'EXPAND_ROW')}
+                                        >
+                                        </InventoryTable>
+                                    </CardBody>
+                                </Card>
+                        }
+                    </PermissionContext.Consumer>
                 </Main>
             </React.Fragment>
         );

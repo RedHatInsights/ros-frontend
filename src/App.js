@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import React, { Component } from 'react';
+import React, { createContext, Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { Routes } from './Routes';
@@ -11,7 +11,36 @@ import { systemRecsReducer, systemDetailReducer } from './store/reducers';
 import { register } from './store';
 import Cookies from 'js-cookie';
 
+export const PermissionContext = createContext();
+
 class App extends Component {
+
+    constructor() {
+        super();
+        this.state = {
+            hasReadPermissions: undefined,
+            arePermissionsLoaded: false
+        };
+    }
+
+    handlePermissionsUpdate(hasRead) {
+        this.setState({
+            hasReadPermissions: hasRead,
+            arePermissionsLoaded: true
+        });
+    }
+
+    hasPermission(permission, permissionList) {
+        let hasPermission = false;
+
+        permissionList.forEach((permissions) => {
+            if (permission === permissions) {
+                hasPermission = true;
+            }
+        });
+
+        return hasPermission;
+    };
 
     componentDidMount () {
         const params = new URLSearchParams(this.props.location.search);
@@ -26,10 +55,16 @@ class App extends Component {
             systemDetailReducer,
             systemRecsReducer });
         insights.chrome.init();
-        // TODO change this to your appname
         insights.chrome.identifyApp('ros');
-
         this.appNav = insights.chrome.on('APP_NAVIGATION', event => this.props.history.push(`/${event.navId}`));
+
+        (async () => {
+            const rosPermissions = await insights.chrome.getUserPermissions('ros');
+            this.handlePermissionsUpdate(
+                rosPermissions.some(({ permission }) => this.hasPermission(permission, ['ros:*:*', 'ros:*:read']))
+            );
+        })();
+
     }
 
     componentWillUnmount () {
@@ -37,11 +72,21 @@ class App extends Component {
     }
 
     render () {
+        const {
+            hasReadPermissions,
+            arePermissionsLoaded } = this.state;
         return (
-            <React.Fragment>
-                <NotificationsPortal />
-                <Routes childProps={ this.props } />
-            </React.Fragment>
+            arePermissionsLoaded
+                ? <PermissionContext.Provider
+                    value={ {
+                        permissions: {
+                            systemsRead: hasReadPermissions
+                        }
+                    } }>
+                    <NotificationsPortal />
+                    <Routes childProps={ this.props } />
+                </PermissionContext.Provider>
+                : null
         );
     }
 }
