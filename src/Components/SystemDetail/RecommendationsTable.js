@@ -12,11 +12,11 @@ const renderExpandedView = (row) => {
     return (
         <TextContent className='ros-rec-content'>
             <Text component={TextVariants.p}>
-                <Text style={{ fontWeight: 'bold' }}>Detected issues</Text>
+                <p><strong>Detected issues</strong></p>
                 {row.reason}
-            </Text>
+            </Text><br/>
             <Text component={TextVariants.p}>
-                <Text style={{ fontWeight: 'bold' }}>Recommendation</Text>
+                <p><strong>Recommendation</strong></p>
                 {row.resolution}
             </Text>
         </TextContent>
