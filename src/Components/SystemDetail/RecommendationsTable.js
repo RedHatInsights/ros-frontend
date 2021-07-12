@@ -10,13 +10,13 @@ import './RecommendationsTable.scss';
 
 const renderExpandedView = (row) => {
     return (
-        <TextContent className='ros-rec-content'>
+        <TextContent>
             <Text component={TextVariants.p}>
-                <p><strong>Detected issues</strong></p>
+                <Text><strong>Detected issues</strong></Text>
                 {row.reason}
-            </Text><br/>
+            </Text>
             <Text component={TextVariants.p}>
-                <p><strong>Recommendation</strong></p>
+                <Text><strong>Recommendation</strong></Text>
                 {row.resolution}
             </Text>
         </TextContent>
