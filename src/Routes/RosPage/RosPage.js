@@ -162,10 +162,14 @@ class RosPage extends React.Component {
                                                     hasItems: true
                                                 });
                                                 return {
-                                                    results: results.data.map((system) => ({
-                                                        ...invSystems.find(({ id }) => id === system.inventory_id),
-                                                        ...system
-                                                    })),
+                                                    results: results.data.map((system) => {
+                                                        const invRec = invSystems.find(({ id }) => id === system.inventory_id);
+                                                        return ({
+                                                            ...invRec,
+                                                            ...(invRec ? { isDeleted: false } : { id: system.inventory_id, isDeleted: true }),
+                                                            ...system
+                                                        });
+                                                    }),
                                                     total: results.meta.count,
                                                     page: config.page,
                                                     per_page: config.per_page /* eslint-disable-line camelcase */

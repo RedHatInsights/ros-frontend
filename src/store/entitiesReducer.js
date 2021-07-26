@@ -1,14 +1,21 @@
 import { applyReducerHash } from '@redhat-cloud-services/frontend-components-utilities/ReducerRegistry';
 import { Link } from 'react-router-dom';
 import React from 'react';
+import { Tooltip } from '@patternfly/react-core';
 import { ExpandedRow } from '../Components/RosTable/ExpandedRow';
 import { ProgressScoreBar } from '../Components/RosTable/ProgressScoreBar';
 
-export const systemName = (displayName, id, { inventory_id: inventoryId }) => {
+export const systemName = (displayName, id, { inventory_id: inventoryId, isDeleted }) => {
     return (
-        <Link to={{ pathname: `/${inventoryId}` }} className={ `pf-link system-link link-${inventoryId}` }>
-            { displayName }
-        </Link>
+        isDeleted ? (
+            <Tooltip content={<div>{displayName} has been deleted from inventory</div>}>
+                <span tabIndex="0">{ displayName }</span>
+            </Tooltip>
+        ) : (
+            <Link to={{ pathname: `/${inventoryId}` }} className={ `pf-link system-link link-${inventoryId}` }>
+                { displayName }
+            </Link>
+        )
     );
 };
 
@@ -18,12 +25,14 @@ export const scoreProgress = (data) => {
     );
 };
 
-export const recommendations = (data, id, { inventory_id: inventoryId }) => {
+export const recommendations = (data, id, { inventory_id: inventoryId, isDeleted }) => {
     return (
-        <Link to={{ pathname: `/${inventoryId}` }}
-            className={ `pf-link recommendations ${data === 0 ? 'green-400' : ''} link-${inventoryId}` }>
-            { data }
-        </Link>
+        isDeleted ? <span className='recommendations'>{ data }</span> : (
+            <Link to={{ pathname: `/${inventoryId}` }}
+                className={ `pf-link recommendations ${data === 0 ? 'green-400' : ''} link-${inventoryId}` }>
+                { data }
+            </Link>
+        )
     );
 };
 
