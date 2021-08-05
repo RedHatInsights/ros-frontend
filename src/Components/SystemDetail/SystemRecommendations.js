@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { PrimaryToolbar } from '@redhat-cloud-services/frontend-components/PrimaryToolbar';
 import { TableToolbar } from '@redhat-cloud-services/frontend-components/TableToolbar';
+import { ServiceNotConfigured } from '../ServiceNotConfigured/ServiceNotConfigured';
 import { loadSysRecs } from '../../store/actions';
 import {
     Card,
@@ -13,9 +14,7 @@ import {
     Pagination
 } from '@patternfly/react-core';
 import debounce from 'lodash/debounce';
-import asyncComponent from '../../Utilities/asyncComponent';
-const RecommendationsTable = asyncComponent(() => import('./RecommendationsTable'));
-
+const RecommendationsTable = React.lazy(() => import('./RecommendationsTable'));
 /**
  * This is a dumb component that only recieves properties from a smart component.
  * Dumb components are usually functions and not classes.
@@ -110,80 +109,82 @@ class SystemRecommendations extends React.Component {
     }
 
     render() {
-        const { totalRecs, recsData  } = this.props;
+        const { totalRecs, recsData, emptyState  } = this.props;
         const { page, perPage } = this.state;
         return (
-            <Suspense fallback="">
-                <Stack hasGutter>
-                    <StackItem>
-                        <Title headingLevel="h3" size="2xl">
-                            Recommendations
-                        </Title>
-                    </StackItem>
-                    <StackItem>
-                        <Card>
-                            <CardBody>
-                                <PrimaryToolbar className="ros-primary-toolbar" pagination={{
-                                    page: (totalRecs === 0 ? 0 : page),
-                                    perPage,
-                                    itemCount: (totalRecs ? totalRecs : 0),
-                                    onSetPage: (_e, page) => this.updatePagination({ page, perPage: this.state.perPage }),
-                                    onPerPageSelect: (_e, perPage) => this.updatePagination({ page: 1, perPage }),
-                                    isCompact: true,
-                                    widgetId: 'ros-pagination-top'
-                                }}
-                                filterConfig={{
-                                    items: [{
-                                        label: defaultFilters.name.label,
-                                        type: 'text',
-                                        filterValues: {
-                                            key: 'text-filter',
-                                            onChange: (event, value) => {
-                                                const activeFilters = {
-                                                    ...this.state.activeFilters,
-                                                    name: {
-                                                        ...(this.state.activeFilters?.name || {}),
-                                                        value
-                                                    }
-                                                };
-                                                this.applyFilters(activeFilters);
-                                            },
-                                            value: this.state.activeFilters?.name?.value || '',
-                                            placeholder: 'Filter by name'
+            emptyState ? <ServiceNotConfigured/> : (
+                <Suspense fallback="">
+                    <Stack hasGutter>
+                        <StackItem>
+                            <Title headingLevel="h3" size="2xl">
+                                Recommendations
+                            </Title>
+                        </StackItem>
+                        <StackItem>
+                            <Card>
+                                <CardBody>
+                                    <PrimaryToolbar className="ros-primary-toolbar" pagination={{
+                                        page: (totalRecs === 0 ? 0 : page),
+                                        perPage,
+                                        itemCount: (totalRecs ? totalRecs : 0),
+                                        onSetPage: (_e, page) => this.updatePagination({ page, perPage: this.state.perPage }),
+                                        onPerPageSelect: (_e, perPage) => this.updatePagination({ page: 1, perPage }),
+                                        isCompact: true,
+                                        widgetId: 'ros-pagination-top'
+                                    }}
+                                    filterConfig={{
+                                        items: [{
+                                            label: defaultFilters.name.label,
+                                            type: 'text',
+                                            filterValues: {
+                                                key: 'text-filter',
+                                                onChange: (event, value) => {
+                                                    const activeFilters = {
+                                                        ...this.state.activeFilters,
+                                                        name: {
+                                                            ...(this.state.activeFilters?.name || {}),
+                                                            value
+                                                        }
+                                                    };
+                                                    this.applyFilters(activeFilters);
+                                                },
+                                                value: this.state.activeFilters?.name?.value || '',
+                                                placeholder: 'Filter by name'
+                                            }
+                                        }]
+                                    }}
+                                    activeFiltersConfig={{
+                                        filters: isEmptyFilters(this.state.activeFilters)
+                                            ? constructActiveFilters(this.state.activeFilters)
+                                            : [],
+                                        onDelete: (event, itemsToRemove, isAll) => {
+                                            if (isAll) {
+                                                this.applyFilters(defaultFilters);
+                                            } else {
+                                                const filtersOnDeletion = onDeleteFilter(this.state.activeFilters, itemsToRemove);
+                                                this.applyFilters(filtersOnDeletion);
+                                            }
                                         }
-                                    }]
-                                }}
-                                activeFiltersConfig={{
-                                    filters: isEmptyFilters(this.state.activeFilters)
-                                        ? constructActiveFilters(this.state.activeFilters)
-                                        : [],
-                                    onDelete: (event, itemsToRemove, isAll) => {
-                                        if (isAll) {
-                                            this.applyFilters(defaultFilters);
-                                        } else {
-                                            const filtersOnDeletion = onDeleteFilter(this.state.activeFilters, itemsToRemove);
-                                            this.applyFilters(filtersOnDeletion);
-                                        }
-                                    }
-                                }}
-                                />
-                                { (!this.props.loading) ? (<RecommendationsTable recommendations = { recsData }/>) : null }
-                                <TableToolbar>
-                                    <Pagination
-                                        itemCount={ totalRecs ? totalRecs : 0 }
-                                        widgetId='ros-pagination-bottom'
-                                        page={ totalRecs === 0 ? 0 : page }
-                                        perPage={ perPage }
-                                        variant='bottom'
-                                        onSetPage={(_e, page) => this.updatePagination({ page, perPage: this.state.perPage })}
-                                        onPerPageSelect={(_e, perPage) => this.updatePagination({ page: 1, perPage })}
+                                    }}
                                     />
-                                </TableToolbar>
-                            </CardBody>
-                        </Card>
-                    </StackItem>
-                </Stack>
-            </Suspense>
+                                    { (!this.props.loading) ? (<RecommendationsTable recommendations = { recsData }/>) : null }
+                                    <TableToolbar>
+                                        <Pagination
+                                            itemCount={ totalRecs ? totalRecs : 0 }
+                                            widgetId='ros-pagination-bottom'
+                                            page={ totalRecs === 0 ? 0 : page }
+                                            perPage={ perPage }
+                                            variant='bottom'
+                                            onSetPage={(_e, page) => this.updatePagination({ page, perPage: this.state.perPage })}
+                                            onPerPageSelect={(_e, perPage) => this.updatePagination({ page: 1, perPage })}
+                                        />
+                                    </TableToolbar>
+                                </CardBody>
+                            </Card>
+                        </StackItem>
+                    </Stack>
+                </Suspense>
+            )
         );
     }
 }
@@ -193,7 +194,8 @@ SystemRecommendations.propTypes = {
     loading: PropTypes.bool,
     recsData: PropTypes.array,
     totalRecs: PropTypes.number,
-    loadSysRecs: PropTypes.func
+    loadSysRecs: PropTypes.func,
+    emptyState: PropTypes.bool
 };
 
 const mapStateToProps = (state, props) => {
@@ -201,6 +203,7 @@ const mapStateToProps = (state, props) => {
         loading: state.systemRecsReducer?.loading,
         recsData: state.systemRecsReducer?.recommendationsData,
         totalRecs: state.systemRecsReducer?.totalRecommendations,
+        emptyState: state.systemRecsReducer?.emptyState,
         ...props
     };
 };

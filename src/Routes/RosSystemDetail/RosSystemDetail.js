@@ -12,6 +12,8 @@ import { entityDetailReducer } from '../../store/entityDetailReducer';
 import './ros-details-page.scss';
 import { ExpandedRow } from '../../Components/RosTable/ExpandedRow';
 import RecommendationRating from '../../Components/RecommendationRating/RecommendationRating';
+import { NotAuthorized } from '@redhat-cloud-services/frontend-components/NotAuthorized';
+import { PermissionContext } from '../../App';
 
 class RosSystemDetail extends React.Component {
     constructor(props) {
@@ -57,42 +59,46 @@ class RosSystemDetail extends React.Component {
         const entity = this.props.entity;
         return (
             <React.Fragment>
-                <DetailWrapper
-                    hideInvLink
-                    onLoad={({ mergeWithDetail, INVENTORY_ACTION_TYPES }) => {
-                        register(mergeWithDetail(
-                            entityDetailReducer(INVENTORY_ACTION_TYPES)
-                        ));
-                    }}
-                    className='rosDetailWrapper'
-                >
-                    <PageHeader>
-                        <Breadcrumb ouiaId="system-detail">
-                            <BreadcrumbItem>
-                                <Link to='/'>Resource Optimization</Link>
-                            </BreadcrumbItem>
-                            <BreadcrumbItem isActive>
-                                <div className="ins-c-inventory__detail--breadcrumb-name">
-                                    { entity ? entity.display_name : null }
-                                </div>
-                            </BreadcrumbItem>
-                        </Breadcrumb>
-                        <InventoryDetailHead
-                            hideBack
-                            hideInvLink
-                            showDelete={ false }
-                            hideInvDrawer
-                        />
-                        { this.renderChildrenNode() }
-                    </PageHeader>
-                    <Main>
-                        <Grid gutter="md">
-                            <GridItem span={12}>
-                                <AppInfo showTags fallback="" />
-                            </GridItem>
-                        </Grid>
-                    </Main>
-                </DetailWrapper>
+                <PermissionContext.Consumer>
+                    { value =>
+                        value.permissions.systemsRead === false
+                            ? <NotAuthorized serviceName='Resource Optimization'/>
+                            : <DetailWrapper
+                                onLoad={({ mergeWithDetail, INVENTORY_ACTION_TYPES }) => {
+                                    register(mergeWithDetail(
+                                        entityDetailReducer(INVENTORY_ACTION_TYPES)
+                                    ));
+                                }}
+                                className='rosDetailWrapper'
+                            >
+                                <PageHeader>
+                                    <Breadcrumb ouiaId="system-detail">
+                                        <BreadcrumbItem>
+                                            <Link to='/'>Resource Optimization</Link>
+                                        </BreadcrumbItem>
+                                        <BreadcrumbItem isActive>
+                                            <div className="ins-c-inventory__detail--breadcrumb-name">
+                                                { entity ? entity.display_name : null }
+                                            </div>
+                                        </BreadcrumbItem>
+                                    </Breadcrumb>
+                                    <InventoryDetailHead
+                                        hideBack
+                                        showDelete={ false }
+                                        hideInvDrawer
+                                    />
+                                    { this.renderChildrenNode() }
+                                </PageHeader>
+                                <Main>
+                                    <Grid gutter="md">
+                                        <GridItem span={12}>
+                                            <AppInfo showTags fallback="" />
+                                        </GridItem>
+                                    </Grid>
+                                </Main>
+                            </DetailWrapper>
+                    }
+                </PermissionContext.Consumer>
             </React.Fragment>
         );
     }
