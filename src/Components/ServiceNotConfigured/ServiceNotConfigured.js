@@ -27,7 +27,7 @@ export const ServiceNotConfigured = () => (
                         </StackItem>
                         <StackItem>
                             <ClipboardCopy>
-                                wget https://raw.githubusercontent.com/RedHatInsights/ros-backend/main/ansible-playbooks/ros_install_and_set_up.yml
+                                curl -O https://raw.githubusercontent.com/RedHatInsights/ros-backend/main/ansible-playbooks/ros_install_and_set_up.yml
                             </ClipboardCopy>
                         </StackItem>
                         <StackItem>
