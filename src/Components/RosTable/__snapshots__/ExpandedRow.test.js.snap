@@ -3,7 +3,6 @@
 exports[`matches snapshot 1`] = `
 <div
   className="pf-c-content expanded-row"
-  data-testid="expanded-content"
 >
   <dl
     className=""
