@@ -14,6 +14,6 @@ it ('matches snapshot', ()=>{
         ioWait: '0.10'
     };
 
-    const tree = renderer.create(<ExpandedRow { ...propValues }/>).toJSON();
-    expect(tree).toMatchSnapshot();
+    const component = renderer.create(<ExpandedRow { ...propValues }/>);
+    expect(component.toJSON()).toMatchSnapshot();
 });
