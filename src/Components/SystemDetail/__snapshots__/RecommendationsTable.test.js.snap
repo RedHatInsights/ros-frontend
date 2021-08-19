@@ -102,7 +102,7 @@ exports[`matches snapshot 1`] = `
         data-label="Name"
         onMouseEnter={[Function]}
       >
-        This is test rule description
+        This is test rule description.
       </td>
     </tr>
     <tr
@@ -145,7 +145,7 @@ exports[`matches snapshot 1`] = `
                   Detected issues
                 </strong>
               </p>
-              This may be caused due to inappropriate consumption model
+              This may be caused due to inappropriate consumption model.
             </p>
             <p
               className=""
@@ -159,7 +159,7 @@ exports[`matches snapshot 1`] = `
                   Recommendation
                 </strong>
               </p>
-              Please verify this instance
+              Please verify this instance.
             </p>
           </div>
         </div>
