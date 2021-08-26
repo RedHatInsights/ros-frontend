@@ -40,13 +40,13 @@ const stateDetails = (val) =>  ({
 }[val] || {});
 
 export const SystemState = ({ stateValue }) =>  {
-    const stateInfo = stateDetails(stateValue);
+    const { text, icon } = stateDetails(stateValue);
     return (
         <span>
             <span>
-                { stateInfo?.text ?
-                    <Tooltip content={<div>{ stateInfo.text }</div>}>
-                        <span>{ stateInfo.icon } { stateValue }</span>
+                { text ?
+                    <Tooltip content={<div>{ text }</div>}>
+                        <span>{ icon } { stateValue }</span>
                     </Tooltip>
                     : stateValue }
             </span>
