@@ -9,7 +9,7 @@ import { connect } from 'react-redux';
 import { InventoryTable } from '@redhat-cloud-services/frontend-components/Inventory';
 import { register } from '../../store';
 import './ros-page.scss';
-import { entitiesReducer, systemName, scoreProgress, recommendations } from '../../store/entitiesReducer';
+import { entitiesReducer, systemName, scoreProgress, recommendations, displayState } from '../../store/entitiesReducer';
 import { ROS_API_ROOT, SYSTEMS_API_ROOT } from '../../constants';
 import { PermissionContext } from '../../App';
 
@@ -39,7 +39,7 @@ class RosPage extends React.Component {
                 { key: 'display_performance_score.io_score', title: 'I/O score', renderFunc: scoreProgress },
                 { key: 'number_of_recommendations', title: 'Recommendations',
                     renderFunc: recommendations },
-                { key: 'state', title: 'State' }
+                { key: 'state', title: 'State', renderFunc: displayState }
             ]
         };
 
