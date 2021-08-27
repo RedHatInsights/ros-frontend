@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`matches snapshot with negative feedback 1`] = `
+exports[`RecommendationRating matches snapshot with negative feedback 1`] = `
 <span
   className="ratingSpanOverride"
 >
@@ -71,7 +71,7 @@ exports[`matches snapshot with negative feedback 1`] = `
 </span>
 `;
 
-exports[`matches snapshot with positive feedback 1`] = `
+exports[`RecommendationRating matches snapshot with positive feedback 1`] = `
 <span
   className="ratingSpanOverride"
 >

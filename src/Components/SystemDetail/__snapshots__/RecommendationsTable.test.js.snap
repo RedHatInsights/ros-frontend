@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`matches snapshot 1`] = `
+exports[`RecommendationsTable component matches snapshot 1`] = `
 <table
   aria-label="Expandable table"
   className="ros-recommendations-table pf-c-table pf-m-grid-md pf-m-compact"

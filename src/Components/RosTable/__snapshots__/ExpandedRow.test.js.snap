@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`matches snapshot 1`] = `
+exports[`ExpandedRow component matches snapshot 1`] = `
 <div
   className="pf-c-content expanded-row"
 >
