@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`expect to render bar with danger-200 1`] = `
+exports[`ProgressScoreBar component expect to render bar with danger-200 1`] = `
 <div
   className="pf-c-progress pf-m-outside pf-m-singleline progress-score-bar danger-200"
   id="123"
