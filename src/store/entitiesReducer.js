@@ -4,6 +4,7 @@ import React from 'react';
 import { Tooltip } from '@patternfly/react-core';
 import { ExpandedRow } from '../Components/RosTable/ExpandedRow';
 import { ProgressScoreBar } from '../Components/RosTable/ProgressScoreBar';
+import { SystemState } from '../Components/RosTable/SystemState';
 
 export const systemName = (displayName, id, { inventory_id: inventoryId, isDeleted }) => {
     return (
@@ -17,6 +18,10 @@ export const systemName = (displayName, id, { inventory_id: inventoryId, isDelet
             </Link>
         )
     );
+};
+
+export const displayState = (data) => {
+    return (<SystemState stateValue={ data }/>);
 };
 
 export const scoreProgress = (data) => {
