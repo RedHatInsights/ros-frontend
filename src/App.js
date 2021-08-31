@@ -4,7 +4,6 @@ import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { Routes } from './Routes';
 import './App.scss';
-
 import NotificationsPortal from '@redhat-cloud-services/frontend-components-notifications/NotificationPortal';
 import { notificationsReducer } from '@redhat-cloud-services/frontend-components-notifications/redux';
 import { systemRecsReducer, systemDetailReducer } from './store/reducers';
@@ -13,7 +12,6 @@ import { register } from './store';
 export const PermissionContext = createContext();
 
 class App extends Component {
-
     constructor() {
         super();
         this.state = {
@@ -48,8 +46,13 @@ class App extends Component {
             systemRecsReducer });
         insights.chrome.init();
         insights.chrome.identifyApp('ros');
-        this.appNav = insights.chrome.on('APP_NAVIGATION', event => this.props.history.push(`/${event.navId}`));
-
+        this.unregister = insights.chrome.on('APP_NAVIGATION', (event) => {
+            if (event.navId === 'ros') {
+                this.props.history.push(`/${location.search}${location.hash}`);
+            } else {
+                this.props.history.push(`/${event.navId}${location.search}${location.hash}`);
+            }
+        });
         (async () => {
             const rosPermissions = await insights.chrome.getUserPermissions('ros');
             this.handlePermissionsUpdate(
@@ -60,7 +63,9 @@ class App extends Component {
     }
 
     componentWillUnmount () {
-        this.appNav();
+        if (typeof this.unregister === 'function') {
+            this.unregister();
+        }
     }
 
     render () {
