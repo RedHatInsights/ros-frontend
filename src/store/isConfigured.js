@@ -10,8 +10,6 @@ const initialState = {
 export default applyReducerHash({
     LOAD_IS_CONFIGURED_INFO_PENDING: (state) => ({ ...state, loaded: true }),
     LOAD_IS_CONFIGURED_INFO_FULFILLED: (state, action) => {
-        console.log('<<<<--------->>>>>>>>>');
-        console.log(state, action);
         return {
             ...state,
             loaded: false,
