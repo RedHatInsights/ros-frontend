@@ -10,7 +10,9 @@ import { InventoryTable } from '@redhat-cloud-services/frontend-components/Inven
 import { register } from '../../store';
 import './ros-page.scss';
 import { entitiesReducer, systemName, scoreProgress, recommendations, displayState } from '../../store/entitiesReducer';
+import { loadIsConfiguredInfo } from '../../store/actions';
 import { ROS_API_ROOT, SYSTEMS_API_ROOT } from '../../constants';
+import { ServiceNotConfigured } from '../../Components/ServiceNotConfigured/ServiceNotConfigured';
 import { PermissionContext } from '../../App';
 
 import { NotAuthorized } from '@redhat-cloud-services/frontend-components/NotAuthorized';
@@ -59,6 +61,7 @@ class RosPage extends React.Component {
     async componentDidMount() {
         insights.chrome?.hideGlobalFilter?.(true);
         insights.chrome.appAction('ros-systems');
+        await this.props.isROSConfigured();
     }
 
     async fetchSystems(fetchParams) {
@@ -119,8 +122,77 @@ class RosPage extends React.Component {
         ).then((results) => results);
     }
 
-    render() {
+    renderConfigStepsOrTable() {
+        return (
+            this.props.showConfigSteps
+                ?   <ServiceNotConfigured/>
+                :   <Card className='pf-t-light  pf-m-opaque-100'>
+                    <CardBody>
+                        <InventoryTable
+                            disableDefaultColumns
+                            ref={this.inventory}
+                            hasCheckbox={ false }
+                            tableProps={{
+                                canSelectAll: false,
+                                className: 'ros-systems-table'
+                            }}
+                            variant="compact"
+                            hideFilters={{ stale: true, registeredWith: true }}
+                            getEntities={async (_items, config) => {
+                                this.setState(() => ({
+                                    orderBy: config.orderBy,
+                                    orderDirection: config.orderDirection
+                                }));
+                                const results = await this.fetchSystems(
+                                    { page: config.page, perPage: config.per_page,
+                                        orderBy: this.sortingHeader[config.orderBy],
+                                        orderHow: config.orderDirection,
+                                        filters: config.filters
+                                    }
+                                );
+                                const invIds = (results.data || []).map(({ inventory_id: inventoryId }) => inventoryId);
+                                const invSystems = await this.fetchInventoryDetails(invIds, {
+                                    ...config,
+                                    page: 1,
+                                    hasItems: true
+                                });
+                                return {
+                                    results: results.data.map((system) => {
+                                        const invRec = invSystems.find(({ id }) => id === system.inventory_id);
+                                        return ({
+                                            ...invRec,
+                                            ...(invRec ? { isDeleted: false } : { id: system.inventory_id, isDeleted: true }),
+                                            ...system
+                                        });
+                                    }),
+                                    total: results.meta.count,
+                                    page: config.page,
+                                    per_page: config.per_page /* eslint-disable-line camelcase */
+                                };
+                            }}
+                            onLoad={({ mergeWithEntities, INVENTORY_ACTION_TYPES, api }) => {
+                                this.setState({
+                                    getEntities: api?.getEntities
+                                });
+                                register({
+                                    ...mergeWithEntities(
+                                        entitiesReducer(
+                                            INVENTORY_ACTION_TYPES, this.state.columns
+                                        )
+                                    )
+                                });
+                                this.props.setSort(this.state.orderBy, this.state.orderDirection, 'CHANGE_SORT');
+                            }}
+                            expandable='true'
+                            onExpandClick={(_e, _i, isOpen, { id }) => this.props.expandRow(id, isOpen, 'EXPAND_ROW')}
+                        >
+                        </InventoryTable>
+                    </CardBody>
+                </Card>
+        );
+    }
 
+    render() {
         return (
             <React.Fragment>
                 <PageHeader>
@@ -131,69 +203,7 @@ class RosPage extends React.Component {
                         { value =>
                             value.permissions.systemsRead === false
                                 ? <NotAuthorized serviceName='Resource Optimization' />
-                                : <Card className='pf-t-light  pf-m-opaque-100'>
-                                    <CardBody>
-                                        <InventoryTable
-                                            disableDefaultColumns
-                                            ref={this.inventory}
-                                            hasCheckbox={ false }
-                                            tableProps={{
-                                                canSelectAll: false,
-                                                className: 'ros-systems-table'
-                                            }}
-                                            variant="compact"
-                                            hideFilters={{ stale: true, registeredWith: true }}
-                                            getEntities={async (_items, config) => {
-                                                this.setState(() => ({
-                                                    orderBy: config.orderBy,
-                                                    orderDirection: config.orderDirection
-                                                }));
-                                                const results = await this.fetchSystems(
-                                                    { page: config.page, perPage: config.per_page,
-                                                        orderBy: this.sortingHeader[config.orderBy],
-                                                        orderHow: config.orderDirection,
-                                                        filters: config.filters
-                                                    }
-                                                );
-                                                const invIds = (results.data || []).map(({ inventory_id: inventoryId }) => inventoryId);
-                                                const invSystems = await this.fetchInventoryDetails(invIds, {
-                                                    ...config,
-                                                    page: 1,
-                                                    hasItems: true
-                                                });
-                                                return {
-                                                    results: results.data.map((system) => {
-                                                        const invRec = invSystems.find(({ id }) => id === system.inventory_id);
-                                                        return ({
-                                                            ...invRec,
-                                                            ...(invRec ? { isDeleted: false } : { id: system.inventory_id, isDeleted: true }),
-                                                            ...system
-                                                        });
-                                                    }),
-                                                    total: results.meta.count,
-                                                    page: config.page,
-                                                    per_page: config.per_page /* eslint-disable-line camelcase */
-                                                };
-                                            }}
-                                            onLoad={({ mergeWithEntities, INVENTORY_ACTION_TYPES, api }) => {
-                                                this.setState({
-                                                    getEntities: api?.getEntities
-                                                });
-                                                register({
-                                                    ...mergeWithEntities(
-                                                        entitiesReducer(
-                                                            INVENTORY_ACTION_TYPES, this.state.columns
-                                                        )
-                                                    )
-                                                });
-                                                this.props.setSort(this.state.orderBy, this.state.orderDirection, 'CHANGE_SORT');
-                                            }}
-                                            expandable='true'
-                                            onExpandClick={(_e, _i, isOpen, { id }) => this.props.expandRow(id, isOpen, 'EXPAND_ROW')}
-                                        >
-                                        </InventoryTable>
-                                    </CardBody>
-                                </Card>
+                                :  this.renderConfigStepsOrTable()
                         }
                     </PermissionContext.Consumer>
                 </Main>
@@ -214,13 +224,23 @@ function mapDispatchToProps(dispatch) {
                 key: orderByKey,
                 direction: orderByDirection
             }
-        })
+        }),
+        isROSConfigured: () => dispatch(loadIsConfiguredInfo())
     };
 }
 
-RosPage.propTypes = {
-    expandRow: PropTypes.func,
-    setSort: PropTypes.func
+const mapStateToProps = (state, props) => {
+    return {
+        showConfigSteps: state.isConfiguredReducer?.showConfigSteps,
+        ...props
+    };
 };
 
-export default withRouter(connect(null, mapDispatchToProps)(RosPage));
+RosPage.propTypes = {
+    expandRow: PropTypes.func,
+    setSort: PropTypes.func,
+    isROSConfigured: PropTypes.func,
+    showConfigSteps: PropTypes.bool
+};
+
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(RosPage));

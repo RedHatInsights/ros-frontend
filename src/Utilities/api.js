@@ -1,4 +1,4 @@
-import { ROS_API_ROOT, SYSTEMS_API_ROOT } from '../constants';
+import { ROS_API_ROOT, SYSTEMS_API_ROOT, IS_CONFIGURED_API } from '../constants';
 
 export function handleErrors(response) {
     if (!response.ok) {
@@ -7,6 +7,21 @@ export function handleErrors(response) {
 
     return response;
 }
+
+export const isROSConfigured = () => {
+    let url = new URL(
+        ROS_API_ROOT + IS_CONFIGURED_API,
+        window.location.origin
+    );
+    let response = window.insights.chrome.auth
+    .getUser()
+    .then(() =>
+        fetch(url).then(handleErrors)
+        .then(res =>  res.json()).then(result => result)
+    );
+
+    return response;
+};
 
 export const fetchSystemDetail = inventoryId => {
     let url = new URL(
