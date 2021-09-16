@@ -34,9 +34,9 @@ class RosPage extends React.Component {
             orderDirection: SortByDirection.asc,
             columns: [
                 { key: 'display_name', title: 'Name', renderFunc: systemName },
-                { key: 'display_performance_score.cpu_score', title: 'CPU score', renderFunc: scoreProgress },
-                { key: 'display_performance_score.memory_score', title: 'Memory score', renderFunc: scoreProgress },
-                { key: 'display_performance_score.io_score', title: 'I/O score', renderFunc: scoreProgress },
+                { key: 'performance_utilization.cpu', title: 'CPU utilization', renderFunc: scoreProgress('cpu') },
+                { key: 'performance_utilization.memory', title: 'Memory utilization', renderFunc: scoreProgress('memory') },
+                { key: 'performance_utilization.io', title: 'I/O utilization', renderFunc: scoreProgress('io') },
                 { key: 'number_of_recommendations', title: 'Recommendations',
                     renderFunc: recommendations },
                 { key: 'state', title: 'State', renderFunc: displayState }
@@ -45,9 +45,9 @@ class RosPage extends React.Component {
 
         this.sortingHeader = {
             display_name: 'display_name', /* eslint-disable-line camelcase */
-            'display_performance_score.cpu_score': 'cpu_score',
-            'display_performance_score.memory_score': 'memory_score',
-            'display_performance_score.io_score': 'io_score',
+            'performance_utilization.cpu': 'cpu',
+            'performance_utilization.memory': 'memory',
+            'performance_utilization.io': 'io',
             number_of_recommendations: 'number_of_recommendations', /* eslint-disable-line camelcase */
             state: 'state' };
 

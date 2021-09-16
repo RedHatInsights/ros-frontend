@@ -20,14 +20,13 @@ exports[`ProgressScoreBar component expect to render bar with danger-200 1`] = `
     <span
       className="pf-c-progress__measure"
     >
-      1/5
+      20%
     </span>
   </div>
   <div
-    aria-valuemax={5}
+    aria-valuemax={100}
     aria-valuemin={0}
-    aria-valuenow={1}
-    aria-valuetext="1/5"
+    aria-valuenow={20}
     className="pf-c-progress__bar"
     role="progressbar"
   >
