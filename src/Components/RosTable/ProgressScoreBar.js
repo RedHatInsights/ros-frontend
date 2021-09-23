@@ -2,7 +2,7 @@ import React from 'react';
 import { Progress } from '@patternfly/react-core';
 import propTypes from 'prop-types';
 
-export const ProgressScoreBar = ({ valueScore, measureLocation }) =>  {
+export const ProgressScoreBar = ({ valueScore, measureLocation, eleId }) =>  {
     const textLabel = `${ valueScore }/5`;
     const colorclass = (val) =>  ({
         5: 'green-400',
@@ -16,12 +16,14 @@ export const ProgressScoreBar = ({ valueScore, measureLocation }) =>  {
             <Progress value={ valueScore } min={0} max={5} label={ textLabel }
                 valueText={ textLabel }
                 className={ `progress-score-bar ${colorclass(valueScore)}` }
-                measureLocation={ measureLocation } />
+                measureLocation={ measureLocation }
+                {  ...(eleId ? { id: eleId } : null) } />
         </React.Fragment>
     );
 };
 
 ProgressScoreBar.propTypes = {
     measureLocation: propTypes.string,
-    valueScore: propTypes.number
+    valueScore: propTypes.number,
+    eleId: propTypes.string
 };
