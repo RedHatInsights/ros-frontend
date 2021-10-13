@@ -41,7 +41,7 @@ const RecommendationRating = ({ system }) => {
     };
 
     return <span className='ratingSpanOverride'>
-        Is this recommendation helpful?
+        Is this suggestion helpful?
         <Button
             variant="plain"
             aria-label="thumbs-up"
