@@ -85,3 +85,9 @@
     background: var(--pf-global--palette--red-200);
   }
 }
+
+.blue-300{
+  .pf-c-progress__indicator {
+    background: var(--pf-global--palette--blue-300);
+  }
+}

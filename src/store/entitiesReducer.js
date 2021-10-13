@@ -24,10 +24,10 @@ export const displayState = (data) => {
     return (<SystemState stateValue={ data }/>);
 };
 
-export const scoreProgress = (propName) => (data, _id, { display_performance_score: scoreObject }) => {
+export const scoreProgress = () => (data) => {
     return (
         <ProgressScoreBar measureLocation='outside'
-            valueScore={scoreObject[propName]} utilizedValue={data} />
+            utilizedValue={data} />
     );
 };
 
