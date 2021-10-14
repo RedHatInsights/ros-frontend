@@ -4,7 +4,7 @@ exports[`RecommendationRating matches snapshot with negative feedback 1`] = `
 <span
   className="ratingSpanOverride"
 >
-  Is this recommendation helpful?
+  Is this suggestion helpful?
   <button
     aria-disabled={false}
     aria-label="thumbs-up"
@@ -75,7 +75,7 @@ exports[`RecommendationRating matches snapshot with positive feedback 1`] = `
 <span
   className="ratingSpanOverride"
 >
-  Is this recommendation helpful?
+  Is this suggestion helpful?
   <button
     aria-disabled={false}
     aria-label="thumbs-up"

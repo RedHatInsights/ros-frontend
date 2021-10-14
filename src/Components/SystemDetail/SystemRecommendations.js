@@ -117,7 +117,7 @@ class SystemRecommendations extends React.Component {
                     <Stack hasGutter>
                         <StackItem>
                             <Title headingLevel="h3" size="2xl">
-                                Recommendations
+                                Suggestions
                             </Title>
                         </StackItem>
                         <StackItem>
