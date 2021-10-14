@@ -6,7 +6,7 @@ import '@testing-library/jest-dom/extend-expect';
 describe('ProgressScoreBar component', () => {
     afterEach(cleanup);
 
-    it('expect to render with blue-300 class', () => {
+    it('expect to render with blue-200 class', () => {
         const { container } = render(
             <ProgressScoreBar
                 measureLocation='outside'
@@ -14,7 +14,7 @@ describe('ProgressScoreBar component', () => {
                 utilizedValue={40} />
         );
         expect(container.getElementsByClassName('pf-c-progress').length).toBe(1);
-        expect(container.firstChild).toHaveClass('blue-300');
-        expect(container.firstChild.classList.contains('blue-300')).toBe(true);
+        expect(container.firstChild).toHaveClass('blue-200');
+        expect(container.firstChild.classList.contains('blue-200')).toBe(true);
     });
 });

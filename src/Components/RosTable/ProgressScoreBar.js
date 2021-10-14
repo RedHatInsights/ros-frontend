@@ -6,7 +6,7 @@ export const ProgressScoreBar = ({ utilizedValue, measureLocation, eleId }) =>  
     return (
         <React.Fragment>
             <Progress value={ utilizedValue }
-                className={ `progress-score-bar blue-300` }
+                className={ `progress-score-bar blue-200` }
                 measureLocation={ measureLocation }
                 {  ...(eleId ? { id: eleId } : null) } />
         </React.Fragment>
