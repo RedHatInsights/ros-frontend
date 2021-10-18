@@ -1,6 +1,5 @@
 // js generates class '.page__{rootClass}' that wraps the content in your page added to the root tag
 // Found in Routes.js as the rootClass
-@import "~@patternfly/patternfly/base/_chart-globals.scss";
 
 .ins-c-primary-toolbar {
   .ins-c-primary-toolbar__pagination {
@@ -65,8 +64,8 @@
 }
 
 
-.blue-200{
+.blue-300{
   .pf-c-progress__indicator {
-    background: $pf-chart-color-blue-200;
+    background: var(--pf-global--palette--blue-300);
   }
 }
