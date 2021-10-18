@@ -1,11 +1,6 @@
-# Resource Optimisation Service (Frontend)
+# Resource Optimization Service (Frontend)
 
-Resource Optimization is a service aimed to provide existing Red Hat Enterprise Linux customers with an ability to grasp control over their investment in the Public Cloud. Read more about it [here](https://www.redhat.com/en/blog/optimize-public-cloud-workloads-rhel-red-hat-insights-resource-optimization) and go though the confluence section(check below section) for more details on same.
-
-
-# Getting Started:
-
-Please refer [Resource Optimization Service Confluence](https://docs.engineering.redhat.com/pages/viewpage.action?spaceKey=ROS&title=Resource+Optimization+Service+Home) (requires VPN)) page to find all documents related to the project
+Resource Optimization is a service aimed to provide existing Red Hat Enterprise Linux customers with an ability to grasp control over their investment in the Public Cloud. Read more about it [here](https://www.redhat.com/en/blog/optimize-public-cloud-workloads-rhel-red-hat-insights-resource-optimization)
 
 # Prerequisites
 
@@ -14,10 +9,8 @@ Please refer [Resource Optimization Service Confluence](https://docs.engineering
 - [Node](https://nodejs.org/en/download/)
 - [Docker](https://docs.docker.com/get-docker/)
 
-### Make sure to have test account created in CI, QA, Staging envrionments. For more details please check [here](https://docs.google.com/presentation/d/1XcbAplLOerPXaEF8DYgS336xwdfUuiUPXGXtuBfk1oY/edit?usp=sharing)
 
-
-# Steps: Local Dev Setup (Frontend)
+# Setup Development Environment
 
 1. To get started with Resource Optimization Service (ROS), make sure you meet the prerequisites mentioned in both ros frontend and backend repos
 
@@ -31,7 +24,7 @@ Please refer [Resource Optimization Service Confluence](https://docs.engineering
 3. To run the whole dev setup, you will need to run commands in multiple terminal tabs.
 
 [TAB 1] i.e for insights-proxy -
-Follow steps from here - https://github.com/RedHatInsights/insights-frontend-storybook/blob/master/src/docs/welcome/quickStart/DOC.md#proxy
+Follow steps from [here](https://github.com/RedHatInsights/insights-frontend-storybook/blob/master/src/docs/welcome/quickStart/DOC.md#proxy)
 i.e
 
 ```
@@ -43,7 +36,7 @@ bash scripts/update.sh
 ```
 
 [TAB 2] i.e for insights-chrome -
-Wait for insights-proxy to finish update script then follow steps from here - https://github.com/RedHatInsights/insights-frontend-storybook/blob/master/src/docs/welcome/quickStart/DOC.md#chrome
+Wait for insights-proxy to finish update script then follow steps from [here](https://github.com/RedHatInsights/insights-frontend-storybook/blob/master/src/docs/welcome/quickStart/DOC.md#chrome)
 i.e
 
 ```
@@ -60,7 +53,7 @@ Make sure current directory is `ros-frontend`
 
 ```
 
-Go to [TAB 1]:
+Go to [TAB 1] :
 Make sure current directory is `insights-proxy`
 Run command -
 
@@ -78,21 +71,21 @@ npm install
 npm run start
 ```
 
-4. follow the steps mentioned in the [ros-backend repo](https://github.com/RedHatInsights/ros-backend) for setting the local ros-backend server
+4. Follow the steps mentioned in the [ros-backend repo](https://github.com/RedHatInsights/ros-backend) for setting up local ros-backend server.
 
-5. After both frontend & backend setup, go to browser and access below link https://ci.foo.redhat.com:1337/insights/ros
+5. After both frontend & backend setup, go to browser and access it using https://ci.foo.redhat.com:1337/insights/ros link.
 
 
 # Running the Tests
 
 
-## Tests are run on every PR and can locally be executed with:
+### Tests are run on every PR and can locally be executed with:
 
 ```
 npm run test
 ```
 
-##  Few of the tests are [Snapshot tests](https://jestjs.io/docs/snapshot-testing), which verify that current test output matches a snapshot taken before. If these changes are legitimate the snapshots need to be updated with:
+###  Few tests are [Snapshot tests](https://jestjs.io/docs/snapshot-testing) used to verify that current test output matches a snapshot taken before. If these changes are legitimate, the snapshots need to be updated with:
 
 ```
 npm run test -- -u
