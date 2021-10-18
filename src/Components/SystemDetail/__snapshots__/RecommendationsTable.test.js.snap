@@ -156,7 +156,7 @@ exports[`RecommendationsTable component matches snapshot 1`] = `
                 data-pf-content={true}
               >
                 <strong>
-                  Recommendation
+                  Suggestion
                 </strong>
               </p>
               Please verify this instance.

@@ -16,7 +16,7 @@ const renderExpandedView = (row) => {
                 {row.reason}
             </Text>
             <Text component={TextVariants.p}>
-                <Text><strong>Recommendation</strong></Text>
+                <Text><strong>Suggestion</strong></Text>
                 {row.resolution}
             </Text>
         </TextContent>
@@ -69,9 +69,9 @@ class RecommendationsTable extends React.Component {
                         {
                             props: { colSpan: 7 },
                             title: <EmptyTable className='recs-table-empty'>
-                                <EmptyStateDisplay title="No recommendations"
+                                <EmptyStateDisplay title="No suggestions"
                                     text={[
-                                        'This system isn\'t affected by any known recommendations.'
+                                        'This system isn\'t affected by any known suggestions.'
                                     ]}
                                     icon={CheckCircleIcon}/>
                             </EmptyTable>

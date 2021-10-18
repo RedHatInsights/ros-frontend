@@ -39,7 +39,7 @@ class RosPage extends React.Component {
                 { key: 'performance_utilization.cpu', title: 'CPU utilization', renderFunc: scoreProgress('cpu') },
                 { key: 'performance_utilization.memory', title: 'Memory utilization', renderFunc: scoreProgress('memory') },
                 { key: 'performance_utilization.io', title: 'I/O utilization', renderFunc: scoreProgress('io') },
-                { key: 'number_of_recommendations', title: 'Recommendations',
+                { key: 'number_of_suggestions', title: 'Suggestions',
                     renderFunc: recommendations },
                 { key: 'state', title: 'State', renderFunc: displayState }
             ]
@@ -50,7 +50,7 @@ class RosPage extends React.Component {
             'performance_utilization.cpu': 'cpu',
             'performance_utilization.memory': 'memory',
             'performance_utilization.io': 'io',
-            number_of_recommendations: 'number_of_recommendations', /* eslint-disable-line camelcase */
+            number_of_suggestions: 'number_of_suggestions', /* eslint-disable-line camelcase */
             state: 'state' };
 
         this.chunkSize = 50;
