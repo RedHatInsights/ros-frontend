@@ -36,9 +36,9 @@ class RosPage extends React.Component {
             orderDirection: SortByDirection.asc,
             columns: [
                 { key: 'display_name', title: 'Name', renderFunc: systemName },
-                { key: 'performance_utilization.cpu', title: 'CPU utilization', renderFunc: scoreProgress('cpu') },
-                { key: 'performance_utilization.memory', title: 'Memory utilization', renderFunc: scoreProgress('memory') },
-                { key: 'performance_utilization.io', title: 'I/O utilization', renderFunc: scoreProgress('io') },
+                { key: 'performance_utilization.cpu', title: 'CPU utilization', renderFunc: scoreProgress() },
+                { key: 'performance_utilization.memory', title: 'Memory utilization', renderFunc: scoreProgress() },
+                { key: 'performance_utilization.io', title: 'I/O utilization', renderFunc: scoreProgress() },
                 { key: 'number_of_suggestions', title: 'Suggestions',
                     renderFunc: recommendations },
                 { key: 'state', title: 'State', renderFunc: displayState }

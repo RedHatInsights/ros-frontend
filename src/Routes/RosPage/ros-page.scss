@@ -56,11 +56,6 @@
   }
 }
 
-.green-100 {
-  .pf-c-progress__indicator {
-    background: var(--pf-global--palette--green-100);
-  }
-}
 
 .green-400 {
   .pf-c-progress__indicator {
@@ -68,20 +63,9 @@
   }
 }
 
-.gold-400 {
-  .pf-c-progress__indicator {
-    background: var(--pf-global--palette--gold-300);
-  }
-}
 
-.orange-300 {
+.blue-300{
   .pf-c-progress__indicator {
-    background: var(--pf-global--palette--orange-300);
-  }
-}
-
-.danger-200 {
-  .pf-c-progress__indicator {
-    background: var(--pf-global--palette--red-200);
+    background: var(--pf-global--palette--blue-300);
   }
 }
