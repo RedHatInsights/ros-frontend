@@ -1,6 +1,6 @@
 # Resource Optimization Service (Frontend)
 
-Resource Optimization is a service aimed to provide existing Red Hat Enterprise Linux customers with an ability to grasp control over their investment in the Public Cloud. Read more about it [here](https://www.redhat.com/en/blog/optimize-public-cloud-workloads-rhel-red-hat-insights-resource-optimization)
+Resource Optimization is a service that can help you optimize your public cloud workloads on Red Hat Enterprise Linux (RHEL). Read more about it [here](https://www.redhat.com/en/blog/optimize-public-cloud-workloads-rhel-red-hat-insights-resource-optimization)
 
 # Prerequisites
 
@@ -12,18 +12,22 @@ Resource Optimization is a service aimed to provide existing Red Hat Enterprise 
 
 # Setup Development Environment
 
-1. To get started with Resource Optimization Service (ROS), make sure you meet the prerequisites mentioned in both ros frontend and backend repos
-
-2. Clone all required repositories in one folder:
+1. Clone below repositories:
 
 - git clone https://github.com/RedHatInsights/insights-chrome.git
 - git clone https://github.com/RedHatInsights/insights-proxy.git
 - git clone https://github.com/RedHatInsights/ros-frontend.git
 - git clone https://github.com/RedHatInsights/ros-backend.git
 
+
+Note that below file paths are based on assumption that all repositories are cloned in same folder.
+
+
+2. Make sure you meet the prerequisites mentioned in both frontend and backend repositories.
+
 3. To run the whole dev setup, you will need to run commands in multiple terminal tabs.
 
-[TAB 1] i.e for insights-proxy -
+[TAB 1] Insights Proxy TAB -
 Follow steps from [here](https://github.com/RedHatInsights/insights-frontend-storybook/blob/master/src/docs/welcome/quickStart/DOC.md#proxy)
 i.e
 
@@ -35,7 +39,7 @@ bash scripts/update.sh
 
 ```
 
-[TAB 2] i.e for insights-chrome -
+[TAB 2] Insights Chrome TAB -
 Wait for insights-proxy to finish update script then follow steps from [here](https://github.com/RedHatInsights/insights-frontend-storybook/blob/master/src/docs/welcome/quickStart/DOC.md#chrome)
 i.e
 
@@ -62,7 +66,7 @@ SPANDX_CONFIG=../ros-frontend/profiles/local-frontend.js sh scripts/run.sh
 
 ```
 
-[TAB 3] i.e for ros-frontend -
+[TAB 3] ROS Frontend TAB -
 Wait till the above steps finish their execution.
 
 ```
@@ -71,15 +75,15 @@ npm install
 npm run start
 ```
 
-4. Follow the steps mentioned in the [ros-backend repo](https://github.com/RedHatInsights/ros-backend) for setting up local ros-backend server.
+4. Follow the steps mentioned under the [ros-backend](https://github.com/RedHatInsights/ros-backend) repository for setting up local backend server.
 
-5. After both frontend & backend setup, go to browser and access it using https://ci.foo.redhat.com:1337/insights/ros link.
+5. Once both frontend & backend setup is up and running, go to browser and access it using `https://{ci/qa}.foo.redhat.com:1337/insights/ros` link.
 
 
 # Running the Tests
 
 
-### Tests are run on every PR and can locally be executed with:
+### Tests can locally be executed with:
 
 ```
 npm run test
@@ -106,7 +110,7 @@ npm run lint:js:fix
 
 # Deployment
 
-Please refere this [link](https://clouddot.pages.redhat.com/docs/dev/getting-started/deploying-frontend.html) for the deployment
+Please refer this [link](https://clouddot.pages.redhat.com/docs/dev/getting-started/deploying-frontend.html)
 # Documentation
 
 ## Technology
