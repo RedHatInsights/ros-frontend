@@ -2,7 +2,7 @@
 
 Resource Optimization is a service that can help you optimize your public cloud workloads on Red Hat Enterprise Linux (RHEL). Read more about it [here](https://www.redhat.com/en/blog/optimize-public-cloud-workloads-rhel-red-hat-insights-resource-optimization)
 
-# Prerequisites
+## Prerequisites
 
 ### Install
 
@@ -10,7 +10,7 @@ Resource Optimization is a service that can help you optimize your public cloud 
 - [Docker](https://docs.docker.com/get-docker/)
 
 
-# Setup Development Environment
+## Setup Development Environment
 
 1. Clone below repositories:
 
@@ -80,16 +80,16 @@ npm run start
 5. Once both frontend & backend setup is up and running, go to browser and access it using `https://{ci/qa}.foo.redhat.com:1337/insights/ros` link.
 
 
-# Running the Tests
+## Running the Tests
 
 
-### Tests can locally be executed with:
+Tests can locally be executed with:
 
 ```
 npm run test
 ```
 
-###  Few tests are [Snapshot tests](https://jestjs.io/docs/snapshot-testing) used to verify that current test output matches a snapshot taken before. If these changes are legitimate, the snapshots need to be updated with:
+Few tests are [Snapshot tests](https://jestjs.io/docs/snapshot-testing) used to verify that current test output matches a snapshot taken before. If these changes are legitimate, the snapshots need to be updated with:
 
 ```
 npm run test -- -u
@@ -97,7 +97,7 @@ npm run test -- -u
 
 
 
-# Running the lint
+## Running the lint
 
 ```
 // to run lint
@@ -108,17 +108,19 @@ npm run lint:js:fix
 
 ```
 
-# Deployment
+## Deployment
 
 Please refer this [link](https://clouddot.pages.redhat.com/docs/dev/getting-started/deploying-frontend.html)
-# Documentation
 
-## Technology
+
+## Documentation
+
+### Technology
 
 * [React](https://reactjs.org/)
 * [Jest](https://jestjs.io/)
 
-## Major Dependencies used in the Project
+### Major Dependencies used in the Project
 
 - [Insights-Proxy](#insights-proxy)
 - [Spandx](#spandx)
@@ -126,19 +128,20 @@ Please refer this [link](https://clouddot.pages.redhat.com/docs/dev/getting-star
 - [Patternfly](#patternfly)
 - [Frontend-Components](#frontend-components)
 
-## Insights-Proxy
+### Insights-Proxy
 
 [insights-proxy](https://github.com/RedHatInsights/insights-proxy) - Proxy for the insightsfrontend container
 
 
-## Spandx
-[spandx](https://github.com/redhataccess/spandx) is an HTTP switchboard. With it, you can weave together pieces of a large, complex website by choosing which resources should come from your local system and which should come from a remote environment.
+### Spandx
 
-For example, you could point spandx at your production site, but route `/static/js` to a local directory, which allows you to test your local JS against the production environment. Code in production, it's fun.
+[spandx](https://github.com/redhataccess/spandx) is an HTTP switchboard. It can be used to weave together pieces of a large, complex website by choosing which resources should come from the local system and which should come from a remote environment.
+
+For example, spandx can be pointed to production, but route `/static/js` to a local directory, which allows  testing local JS against the production environment. Code in production, it's fun!
 
 More technically, spandx is a flexible, configuration-based reverse proxy for local development.
 
-## Insights-Chrome
+### Insights-Chrome
 
 [insights-chrome](https://github.com/RedHatInsights/insights-chrome)- The "wrapper" around your application!
 
@@ -149,10 +152,12 @@ Base CSS/style
 A JavaScript library for interacting with Insights Chrome
 
 
-## Patternfly
+### Patternfly
+
 [PatternFly](https://www.patternfly.org/v4/) is an open source design system created to enable consistency and usability across a wide range of applications and use cases. PatternFly provides clear standards, guidance, and tools that help designers and developers work together more efficiently and build better user experiences.
 
-## Frontend-Components
+### Frontend-Components
+
 [Frontend-components](https://github.com/RedHatInsights/frontend-components) is a monorepo of Red Hat Cloud services Components for applications in a React.js environment. This repo uses a lot of components imported from the frontend-components repo.
 
 
