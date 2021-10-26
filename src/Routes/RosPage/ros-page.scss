@@ -20,9 +20,6 @@
     }
   }
 
-  .recommendations.green-400 {
-    color: var(--pf-global--palette--green-400);
-  }
 
   .recommendations {
     padding-left: var(--pf-global--spacer--lg);
@@ -53,13 +50,6 @@
 
   .pf-c-progress__measure {
     color: var(--pf-global--palette--black-600);
-  }
-}
-
-
-.green-400 {
-  .pf-c-progress__indicator {
-    background: var(--pf-global--palette--green-300);
   }
 }
 

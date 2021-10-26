@@ -9,11 +9,17 @@ import {
 } from '@patternfly/react-core';
 
 export const ExpandedRow = ({ inventoryId, cloudProvider, instanceType, idlingTime, ioWait }) =>  {
+    const NO_DATA = 'N/A';
+    const cloudProviderValue = cloudProvider === null ? NO_DATA : cloudProvider;
+    const instanceTypeValue = instanceType === null ? NO_DATA : instanceType;
+    const idlingTimeValue = idlingTime === null ? NO_DATA : `${idlingTime}%`;
+    const ioWaitValue = ioWait === null ? NO_DATA : `${ioWait}%`;
+
     const inlineFieldsArray = [
-        { label: 'Provider', value: cloudProvider },
-        { label: 'Instance type', value: instanceType },
-        { label: 'Idling time', value: idlingTime + '%' },
-        { label: 'I/O wait', value: ioWait + '%' }
+        { label: 'Provider', value: cloudProviderValue },
+        { label: 'Instance type', value: instanceTypeValue },
+        { label: 'Idling time', value: idlingTimeValue },
+        { label: 'I/O wait', value: ioWaitValue }
     ];
 
     return (
