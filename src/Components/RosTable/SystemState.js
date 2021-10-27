@@ -35,7 +35,7 @@ const stateDetails = (val) =>  ({
     },
     'Waiting for data': {
         text: 'This system is configured, please allow 24 hours for your upload to complete.',
-        icon: <InProgressIcon color='blue' size='sm'/>
+        icon: <InProgressIcon color='#2B9AF3' size='sm'/>
     }
 }[val] || {});
 

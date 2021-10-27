@@ -6,17 +6,25 @@ import { ExpandedRow } from '../Components/RosTable/ExpandedRow';
 import { ProgressScoreBar } from '../Components/RosTable/ProgressScoreBar';
 import { SystemState } from '../Components/RosTable/SystemState';
 
-export const systemName = (displayName, id, { inventory_id: inventoryId, isDeleted }) => {
+const NO_DATA_STATE = 'Waiting for data';
+
+export const systemName = (displayName, id, { inventory_id: inventoryId, isDeleted, state }) => {
     return (
         isDeleted ? (
             <Tooltip content={<div>{displayName} has been deleted from inventory</div>}>
                 <span tabIndex="0">{ displayName }</span>
             </Tooltip>
-        ) : (
-            <Link to={{ pathname: `/${inventoryId}` }} className={ `pf-link system-link link-${inventoryId}` }>
-                { displayName }
-            </Link>
-        )
+        ) :
+            state === NO_DATA_STATE ?
+                (
+                    <span>{ displayName }</span>
+                ) :
+                (
+                    <Link to={{ pathname: `/${inventoryId}` }} className={ `pf-link system-link link-${inventoryId}` }>
+                        { displayName }
+                    </Link>
+                )
+
     );
 };
 
@@ -31,14 +39,16 @@ export const scoreProgress = () => (data) => {
     );
 };
 
-export const recommendations = (data, id, { inventory_id: inventoryId, isDeleted }) => {
+export const recommendations = (data, id, { inventory_id: inventoryId, isDeleted, state }) => {
     return (
-        isDeleted ? <span className='recommendations'>{ data }</span> : (
-            <Link to={{ pathname: `/${inventoryId}` }}
-                className={ `pf-link recommendations ${data === 0 ? 'green-400' : ''} link-${inventoryId}` }>
-                { data }
-            </Link>
-        )
+        (isDeleted || state === NO_DATA_STATE)
+            ? <span className='recommendations'>{ data }</span>
+            : (
+                <Link to={{ pathname: `/${inventoryId}` }}
+                    className={ `pf-link recommendations link-${inventoryId}` }>
+                    { data }
+                </Link>
+            )
     );
 };
 
