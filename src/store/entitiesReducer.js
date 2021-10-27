@@ -6,6 +6,8 @@ import { ExpandedRow } from '../Components/RosTable/ExpandedRow';
 import { ProgressScoreBar } from '../Components/RosTable/ProgressScoreBar';
 import { SystemState } from '../Components/RosTable/SystemState';
 
+const NO_DATA_STATE = 'Waiting for data';
+
 export const systemName = (displayName, id, { inventory_id: inventoryId, isDeleted, state }) => {
     return (
         isDeleted ? (
@@ -13,7 +15,7 @@ export const systemName = (displayName, id, { inventory_id: inventoryId, isDelet
                 <span tabIndex="0">{ displayName }</span>
             </Tooltip>
         ) :
-            state === 'Waiting for data' ?
+            state === NO_DATA_STATE ?
                 (
                     <span>{ displayName }</span>
                 ) :
@@ -39,7 +41,7 @@ export const scoreProgress = () => (data) => {
 
 export const recommendations = (data, id, { inventory_id: inventoryId, isDeleted, state }) => {
     return (
-        (isDeleted || state === 'Waiting for data')
+        (isDeleted || state === NO_DATA_STATE)
             ? <span className='recommendations'>{ data }</span>
             : (
                 <Link to={{ pathname: `/${inventoryId}` }}
