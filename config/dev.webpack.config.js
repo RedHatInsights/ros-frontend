@@ -19,8 +19,6 @@ plugins.push(
     })
 );
 
-webpackConfig.devServer.client.overlay = false;
-
 module.exports = {
     ...webpackConfig,
     plugins
