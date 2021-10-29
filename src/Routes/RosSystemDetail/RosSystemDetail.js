@@ -27,6 +27,7 @@ class RosSystemDetail extends React.Component {
         insights.chrome?.hideGlobalFilter?.(true);
         insights.chrome.appAction('system-detail');
         await this.props.loadSystemInfo(this.state.inventoryId);
+        document.title = this.props.rosSystemInfo.display_name;
     }
 
     renderChildrenNode() {
