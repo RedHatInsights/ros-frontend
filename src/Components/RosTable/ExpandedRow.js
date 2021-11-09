@@ -7,13 +7,14 @@ import {
     TextListItem,
     TextListItemVariants
 } from '@patternfly/react-core';
+import { NO_DATA_VALUE } from '../../constants';
 
 export const ExpandedRow = ({ inventoryId, cloudProvider, instanceType, idlingTime, ioWait }) =>  {
-    const NO_DATA = 'N/A';
-    const cloudProviderValue = cloudProvider === null ? NO_DATA : cloudProvider;
-    const instanceTypeValue = instanceType === null ? NO_DATA : instanceType;
-    const idlingTimeValue = idlingTime === null ? NO_DATA : `${idlingTime}%`;
-    const ioWaitValue = ioWait === null ? NO_DATA : `${ioWait}%`;
+
+    const cloudProviderValue = cloudProvider === null ? NO_DATA_VALUE : cloudProvider;
+    const instanceTypeValue = instanceType === null ? NO_DATA_VALUE : instanceType;
+    const idlingTimeValue = idlingTime === null ? NO_DATA_VALUE : `${idlingTime}%`;
+    const ioWaitValue = ioWait === null ? NO_DATA_VALUE : `${ioWait}%`;
 
     const inlineFieldsArray = [
         { label: 'Provider', value: cloudProviderValue },
