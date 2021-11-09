@@ -5,8 +5,7 @@ import { Tooltip } from '@patternfly/react-core';
 import { ExpandedRow } from '../Components/RosTable/ExpandedRow';
 import { ProgressScoreBar } from '../Components/RosTable/ProgressScoreBar';
 import { SystemState } from '../Components/RosTable/SystemState';
-
-const NO_DATA_STATE = 'Waiting for data';
+import { NO_DATA_VALUE, NO_DATA_STATE } from '../constants';
 
 export const systemName = (displayName, id, { inventory_id: inventoryId, isDeleted, state }) => {
     return (
@@ -32,23 +31,28 @@ export const displayState = (data) => {
     return (<SystemState stateValue={ data }/>);
 };
 
-export const scoreProgress = () => (data) => {
+export const scoreProgress = () => (data, id, { state }) => {
     return (
-        <ProgressScoreBar measureLocation='outside'
-            utilizedValue={data} />
+        state === NO_DATA_STATE ?
+            <span>{ NO_DATA_VALUE }</span> :
+            <ProgressScoreBar measureLocation='outside'
+                utilizedValue={data} />
     );
 };
 
 export const recommendations = (data, id, { inventory_id: inventoryId, isDeleted, state }) => {
     return (
-        (isDeleted || state === NO_DATA_STATE)
-            ? <span className='recommendations'>{ data }</span>
-            : (
-                <Link to={{ pathname: `/${inventoryId}` }}
-                    className={ `pf-link recommendations link-${inventoryId}` }>
-                    { data }
-                </Link>
-            )
+        isDeleted ? <span>{ state === NO_DATA_STATE ? NO_DATA_VALUE : data }</span>
+            : state === NO_DATA_STATE ?
+                (
+                    <span>{ NO_DATA_VALUE }</span>
+                )
+                : (
+                    <Link to={{ pathname: `/${inventoryId}` }}
+                        className={ `pf-link link-${inventoryId}` }>
+                        { data }
+                    </Link>
+                )
     );
 };
 
