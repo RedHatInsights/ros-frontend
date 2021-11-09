@@ -42,14 +42,14 @@ export const scoreProgress = () => (data, id, { state }) => {
 
 export const recommendations = (data, id, { inventory_id: inventoryId, isDeleted, state }) => {
     return (
-        isDeleted ? <span className='recommendations'>{ state === NO_DATA_STATE ? NO_DATA_VALUE : data }</span>
+        isDeleted ? <span>{ state === NO_DATA_STATE ? NO_DATA_VALUE : data }</span>
             : state === NO_DATA_STATE ?
                 (
                     <span>{ NO_DATA_VALUE }</span>
                 )
                 : (
                     <Link to={{ pathname: `/${inventoryId}` }}
-                        className={ `pf-link recommendations link-${inventoryId}` }>
+                        className={ `pf-link link-${inventoryId}` }>
                         { data }
                     </Link>
                 )
