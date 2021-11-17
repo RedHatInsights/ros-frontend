@@ -1,25 +1,14 @@
-import ReducerRegistry from '@redhat-cloud-services/frontend-components-utilities/ReducerRegistry';
+import { getRegistry } from '@redhat-cloud-services/frontend-components-utilities/Registry';
 import promiseMiddleware from 'redux-promise-middleware';
 let registry;
 
 export function init (...middleware) {
-    if (registry) {
-        throw new Error('store already initialized');
-    }
-
-    registry = new ReducerRegistry({}, [
+    registry = getRegistry({}, [
         promiseMiddleware,
         ...middleware
     ]);
 
-    // registry.register({ rosSystemsTableState: rosSystemsTableRootReducer });
 
-    //If you want to register all of your reducers, this is good place.
-    /*
-     *  registry.register({
-     *    someName: (state, action) => ({...state})
-     *  });
-     */
     return registry;
 }
 
