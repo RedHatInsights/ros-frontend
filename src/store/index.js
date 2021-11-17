@@ -8,7 +8,6 @@ export function init (...middleware) {
         ...middleware
     ]);
 
-
     return registry;
 }
 
