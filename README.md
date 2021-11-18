@@ -14,11 +14,12 @@ Resource Optimization is a service that can help you optimize your public cloud 
 
 1. Clone below repositories:
 
-- git clone https://github.com/RedHatInsights/insights-chrome.git
-- git clone https://github.com/RedHatInsights/insights-proxy.git
-- git clone https://github.com/RedHatInsights/ros-frontend.git
-- git clone https://github.com/RedHatInsights/ros-backend.git
-
+```
+git clone https://github.com/RedHatInsights/insights-chrome.git
+git clone https://github.com/RedHatInsights/insights-proxy.git
+git clone https://github.com/RedHatInsights/ros-frontend.git
+git clone https://github.com/RedHatInsights/ros-backend.git
+```
 
 Note that below file paths are based on assumption that all repositories are cloned in same folder.
 
@@ -36,7 +37,6 @@ cd ../insights-proxy
 npm install
 sudo bash scripts/patch-etc-hosts.sh
 bash scripts/update.sh
-
 ```
 
 [TAB 2] Insights Chrome TAB -
@@ -47,14 +47,15 @@ i.e
 cd ../insights-chrome
 npm install
 npm run build
-Open new tab [TAB 3]: ie. for ros-frontend
-cd ../ros-frontend
-Make sure current directory is `ros-frontend`
-(In case of local ros-backend server) Add route change in the file `ros-frontend/profiles/local-frontend.js` after `routes[`/apps/${APP_ID}`]` i.e
+```
 
-    routes['/api/ros/v0']                = { host: 'http://localhost:8000' };
-    routes['/api/inventory/v1']          = { host: 'http://localhost:8001' };
+Open new tab [TAB 3]: ie. for ros-frontend (In case of local ros-backend server)
 
+Make sure current directory is `ros-frontend`. Open the project in any editor. Add below route change in the file `ros-frontend/profiles/local-frontend.js` after `routes[`/apps/${APP_ID}`]`
+
+```
+routes['/api/ros/v0']                = { host: 'http://localhost:8000' };
+routes['/api/inventory/v1']          = { host: 'http://localhost:8001' };
 ```
 
 Go to [TAB 1] :
@@ -63,7 +64,6 @@ Run command -
 
 ```
 SPANDX_CONFIG=../ros-frontend/profiles/local-frontend.js sh scripts/run.sh
-
 ```
 
 [TAB 3] ROS Frontend TAB -
@@ -83,7 +83,7 @@ npm run start
 ## Running the Tests
 
 
-Tests can locally be executed with:
+Tests can be executed with:
 
 ```
 npm run test
@@ -130,14 +130,14 @@ Please refer this [link](https://clouddot.pages.redhat.com/docs/dev/getting-star
 
 ### Insights-Proxy
 
-[insights-proxy](https://github.com/RedHatInsights/insights-proxy) - Proxy for the insightsfrontend container
+[insights-proxy](https://github.com/RedHatInsights/insights-proxy) - Proxy for the insights frontend container
 
 
 ### Spandx
 
 [spandx](https://github.com/redhataccess/spandx) is an HTTP switchboard. It can be used to weave together pieces of a large, complex website by choosing which resources should come from the local system and which should come from a remote environment.
 
-For example, spandx can be pointed to production, but route `/static/js` to a local directory, which allows  testing local JS against the production environment. Code in production, it's fun!
+For example, spandx can be pointed to production, but route `/static/js` to a local directory, which allows testing local JS against the production environment. Code in production, it's fun!
 
 More technically, spandx is a flexible, configuration-based reverse proxy for local development.
 
@@ -147,9 +147,9 @@ More technically, spandx is a flexible, configuration-based reverse proxy for lo
 
 Insights Chrome provides:
 
-Standard header and navigation
-Base CSS/style
-A JavaScript library for interacting with Insights Chrome
+- Standard header and navigation
+- Base CSS/style
+- A JavaScript library for interacting with Insights Chrome
 
 
 ### Patternfly
