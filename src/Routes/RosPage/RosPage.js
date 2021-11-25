@@ -16,6 +16,7 @@ import { ServiceNotConfigured } from '../../Components/ServiceNotConfigured/Serv
 import { PermissionContext } from '../../App';
 
 import { NotAuthorized } from '@redhat-cloud-services/frontend-components/NotAuthorized';
+import { DiskUsageData, DiskUsageTitle } from '../../Components/RosTable/DiskUsage';
 
 /**
  * A smart component that handles all the api calls and data needed by the dumb components.
@@ -38,7 +39,7 @@ class RosPage extends React.Component {
                 { key: 'display_name', title: 'Name', renderFunc: systemName },
                 { key: 'performance_utilization.cpu', title: 'CPU utilization', renderFunc: scoreProgress() },
                 { key: 'performance_utilization.memory', title: 'Memory utilization', renderFunc: scoreProgress() },
-                { key: 'performance_utilization.io', title: 'I/O utilization', renderFunc: scoreProgress() },
+                { key: 'performance_utilization.io', title: DiskUsageTitle(), renderFunc: DiskUsageData },
                 { key: 'number_of_suggestions', title: 'Suggestions',
                     renderFunc: recommendations },
                 { key: 'state', title: 'State', renderFunc: displayState }
