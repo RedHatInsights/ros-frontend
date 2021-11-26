@@ -16,15 +16,15 @@ const mockDiskUsageData = [
         diskName: 'disk C',
         iops: '100'
     }
-]
+];
 
-export const DiskUsageTitle = () =>{
+export const diskUsageTitle = () =>{
     return (
         <Tooltip content={<span>IOPS</span>}>
             <span>I/O utilization</span>
         </Tooltip>
-    )
-}
+    );
+};
 
 export const DiskUsageData = (data, id, { state }) => {
     return (
@@ -38,17 +38,17 @@ export const DiskUsageData = (data, id, { state }) => {
                             <th>Value</th>
                         </tr>
                         <tr>
-                            <td colspan="100%" className="seperator"></td>
+                            <td colSpan="100%" className="seperator"></td>
                         </tr>
                         {
-                            mockDiskUsageData.map((item, i) =>{
+                            mockDiskUsageData.map((item, index) =>{
                                 return (
-                                    <tr>
+                                    <tr key={index}>
                                         <td>{item.diskName}</td>
                                         <td>{item.iops}</td>
                                         <td>IOPS</td>
                                     </tr>
-                                )
+                                );
                             })
                         }
                     </table>
