@@ -3,21 +3,6 @@ import React from 'react';
 import { NO_DATA_STATE, NO_DATA_VALUE } from '../../constants';
 import './DiskUsage.scss';
 
-const mockDiskUsageData = [
-    {
-        diskName: 'disk A',
-        iops: '5,000'
-    },
-    {
-        diskName: 'disk B',
-        iops: '3,000'
-    },
-    {
-        diskName: 'disk C',
-        iops: '100'
-    }
-];
-
 export const diskUsageTitle = () =>{
     return (
         <Tooltip content={<span>IOPS</span>}>
@@ -26,7 +11,10 @@ export const diskUsageTitle = () =>{
     );
 };
 
-export const DiskUsageData = (data, id, { state }) => {
+export const DiskUsageData = (data, id, item) => {
+    const { state, performance_utilization: performanceUtilization } = item;
+    const { io_all: iopsAll } = performanceUtilization;
+
     return (
         state === NO_DATA_STATE ?
             <span>{ NO_DATA_VALUE }</span> :
@@ -34,18 +22,18 @@ export const DiskUsageData = (data, id, { state }) => {
                 <div>
                     <table>
                         <tr>
-                            <th>Disk name</th>
+                            <th>Device name</th>
                             <th>Value</th>
                         </tr>
                         <tr>
                             <td colSpan="100%" className="seperator"></td>
                         </tr>
                         {
-                            mockDiskUsageData.map((item, index) =>{
+                            Object.keys(iopsAll).map((deviceName, index) =>{
                                 return (
                                     <tr key={index}>
-                                        <td>{item.diskName}</td>
-                                        <td>{item.iops}</td>
+                                        <td>{deviceName}</td>
+                                        <td>{iopsAll[deviceName]}</td>
                                         <td>IOPS</td>
                                     </tr>
                                 );
@@ -54,7 +42,7 @@ export const DiskUsageData = (data, id, { state }) => {
                     </table>
                 </div>
             }>
-                <span>{'5,000'}</span>
+                <span>{data}</span>
             </Tooltip>
     );
 };
