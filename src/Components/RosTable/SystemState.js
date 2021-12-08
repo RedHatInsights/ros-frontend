@@ -3,7 +3,7 @@ import { Tooltip } from '@patternfly/react-core';
 import {
     ExclamationCircleIcon, ExclamationTriangleIcon, CheckCircleIcon,
     AngleDoubleUpIcon, AngleDoubleDownIcon,
-    AutomationIcon, InProgressIcon
+    AutomationIcon, InProgressIcon, TachometerAltIcon
 } from '@patternfly/react-icons';
 
 import propTypes from 'prop-types';
@@ -36,6 +36,10 @@ const stateDetails = (val) =>  ({
     'Waiting for data': {
         text: 'This system is configured, please allow 24 hours for your upload to complete.',
         icon: <InProgressIcon color='#2B9AF3' size='sm'/>
+    },
+    'Under pressure': {
+        text: 'This system in under pressure', // fixme: update it with final text
+        icon: <TachometerAltIcon color='#2B9AF3' size='sm'/> //update it based on final icon
     }
 }[val] || {});
 
