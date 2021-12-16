@@ -2,7 +2,12 @@
   tr {
     --pf-c-table--cell--FontSize: var(--pf-global--FontSize--md);
   }
-
+  .newline {
+    white-space: pre-line;
+  }
+  .tab {
+    white-space: pre-wrap;
+  }
   .recs-table-empty {
     .pf-c-empty-state__icon {
       fill: var(--pf-global--success-color--100);
