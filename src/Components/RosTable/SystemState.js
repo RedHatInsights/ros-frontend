@@ -38,8 +38,8 @@ const stateDetails = (val) =>  ({
         icon: <InProgressIcon color='#2B9AF3' size='sm'/>
     },
     'Under pressure': {
-        text: 'This system in under pressure', // fixme: update it with final text
-        icon: <TachometerAltIcon color='#2B9AF3' size='sm'/> //update it based on final icon
+        text: 'System resources adequate but experiencing occasional peaks.',
+        icon: <TachometerAltIcon color='#2B9AF3' size='sm'/>
     }
 }[val] || {});
 
