@@ -39,7 +39,7 @@ const stateDetails = (val) =>  ({
     },
     'Under pressure': {
         text: 'System resources adequate but experiencing occasional peaks.',
-        icon: <TachometerAltIcon color='#2B9AF3' size='sm'/>
+        icon: <TachometerAltIcon color='#030303' size='sm'/>
     }
 }[val] || {});
 
