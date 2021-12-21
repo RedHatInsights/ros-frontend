@@ -1,7 +1,6 @@
 import {
-    Bullseye, EmptyState, EmptyStateBody,
-    EmptyStateIcon, Title, Stack,
-    StackItem, ClipboardCopy, Button
+    Bullseye, EmptyState,
+    EmptyStateIcon, Title, Button
 } from '@patternfly/react-core';
 import { WrenchIcon } from '@patternfly/react-icons';
 import React from 'react';
