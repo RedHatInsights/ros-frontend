@@ -38,7 +38,7 @@ export const ServiceNotConfigured = () => (
                 href={GETTING_STARTED_URL}
                 target="_blank"
                 variant="primary">
-                Getting started documentation.
+                Getting started documentation
             </Button>
         </EmptyState>
     </Bullseye>
