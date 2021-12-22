@@ -1,10 +1,11 @@
 import {
     Bullseye, EmptyState, EmptyStateBody,
     EmptyStateIcon, Title, Stack,
-    StackItem, ClipboardCopy, Button
+    StackItem, Button
 } from '@patternfly/react-core';
 import { WrenchIcon } from '@patternfly/react-icons';
 import React from 'react';
+import { GETTING_STARTED_URL } from '../../constants';
 import './ServiceNotConfigured.scss';
 
 export const ServiceNotConfigured = () => (
@@ -17,34 +18,27 @@ export const ServiceNotConfigured = () => (
             <EmptyStateBody>
                 <Bullseye>
                     <Stack hasGutter>
-                        <StackItem>To start configuration, follow these steps.</StackItem>
                         <StackItem>
-                            1. Prerequisites: insights-client, ansible (Read FAQ if you
-                don&apos;t know how to install it).
+                            Resource Optimization requires installing and configuring Performance Co-Pilot on
+                            the client system.
                         </StackItem>
                         <StackItem>
-                            2. Download and run playbook.
+                            Check the documentation to find how to configure Resource Optimization with Ansible. An
+                            alternative method which does not require Ansible is also described.
                         </StackItem>
                         <StackItem>
-                            <ClipboardCopy>
-                                curl -O https://raw.githubusercontent.com/RedHatInsights/ros-backend/main/ansible-playbooks/ros_install_and_set_up.yml
-                            </ClipboardCopy>
-                        </StackItem>
-                        <StackItem>
-                            Append localhost to /etc/ansible/hosts
-                        </StackItem>
-                        <StackItem>
-                            <ClipboardCopy>ansible-playbook -c local ros_install_and_set_up.yml</ClipboardCopy>
-                        </StackItem>
-                        <StackItem>
-                            3. Wait <strong>24 hours</strong> for your upload to complete.
-                            At completion, metrics from the previous day will be provided.
+                            After configuring Resource Optimization, it may take up to 24 hours until suggestions
+                            are available.
                         </StackItem>
                     </Stack>
                 </Bullseye>
             </EmptyStateBody>
-            <Button component="a" href="https://access.redhat.com/articles/6245921" target="_blank" variant="primary">
-                Getting started documentation
+            <Button
+                component="a"
+                href={GETTING_STARTED_URL}
+                target="_blank"
+                variant="primary">
+                Getting started documentation.
             </Button>
         </EmptyState>
     </Bullseye>
