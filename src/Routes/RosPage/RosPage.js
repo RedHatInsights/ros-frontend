@@ -82,7 +82,7 @@ class RosPage extends React.Component {
 
         let url = new URL(ROS_API_ROOT + SYSTEMS_API_ROOT,  window.location.origin);
         let query = new URLSearchParams(params);
-        fetchParams?.stateFilter?.length > 0 && fetchParams.stateFilter.map((stateFilterValue) => {
+        fetchParams?.stateFilter?.forEach((stateFilterValue) => {
             query.append('state', stateFilterValue);
         });
         url.search = query.toString();
@@ -155,9 +155,7 @@ class RosPage extends React.Component {
     }
 
     getActiveFilterConfig = () => {
-        let activeFilters = this.state.stateFilterValue.map((value)=> {
-            return { name: value };
-        });
+        const activeFilters = this.state.stateFilterValue.map((value)=> ({ name: value }));
 
         return activeFilters.length > 0
             ? [{
@@ -168,7 +166,7 @@ class RosPage extends React.Component {
     }
 
     renderConfigStepsOrTable() {
-        const { state: SFO } = CUSTOM_FILTERS;
+        const { state: SFObject } = CUSTOM_FILTERS;
 
         return (
             this.props.showConfigSteps
@@ -240,10 +238,10 @@ class RosPage extends React.Component {
                             filterConfig={{
                                 items: [
                                     {
-                                        label: SFO.label,
-                                        type: SFO.type,
+                                        label: SFObject.label,
+                                        type: SFObject.type,
                                         filterValues: {
-                                            items: SFO.filterValues.items,
+                                            items: SFObject.filterValues.items,
                                             onChange: (_e, values) => this.updateStateFilter(values),
                                             value: this.state.stateFilterValue
                                         }
