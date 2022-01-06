@@ -134,7 +134,7 @@ exports[`RecommendationsTable component matches snapshot 1`] = `
             className="pf-c-content"
           >
             <p
-              className=""
+              className="newline tab"
               data-pf-content={true}
             >
               <p
@@ -148,7 +148,7 @@ exports[`RecommendationsTable component matches snapshot 1`] = `
               This may be caused due to inappropriate consumption model.
             </p>
             <p
-              className=""
+              className="newline"
               data-pf-content={true}
             >
               <p

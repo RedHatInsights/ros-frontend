@@ -11,11 +11,11 @@ import './RecommendationsTable.scss';
 const renderExpandedView = (row) => {
     return (
         <TextContent>
-            <Text component={TextVariants.p}>
+            <Text component={TextVariants.p} className="newline tab">
                 <Text><strong>Detected issues</strong></Text>
                 {row.reason}
             </Text>
-            <Text component={TextVariants.p}>
+            <Text component={TextVariants.p} className="newline">
                 <Text><strong>Suggestion</strong></Text>
                 {row.resolution}
             </Text>
