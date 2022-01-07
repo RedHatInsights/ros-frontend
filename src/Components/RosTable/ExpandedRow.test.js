@@ -12,8 +12,7 @@ describe('ExpandedRow component', () => {
             inventoryId: 'fd480a4c-952b-4675-ba02-3370bd08a5ee',
             cloudProvider: 'aws',
             instanceType: 't2.micro',
-            idlingTime: '1.03',
-            ioWait: '0.10'
+            idlingTime: '1.03'
         };
 
         const component = renderer.create(<ExpandedRow { ...propValues }/>);
