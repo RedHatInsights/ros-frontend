@@ -59,9 +59,9 @@ export const recommendations = (data, id, { inventory_id: inventoryId, isDeleted
 const addExpandedView = (rowData) => {
     const {
         id, cloud_provider: cloudProvider, instance_type: instanceType,
-        idling_time: idlingTime, io_wait: ioWait
+        idling_time: idlingTime
     } = rowData;
-    return (<ExpandedRow { ...{ id, cloudProvider, instanceType, idlingTime, ioWait } } />);
+    return (<ExpandedRow { ...{ id, cloudProvider, instanceType, idlingTime } } />);
 };
 
 function modifyInventory(columns, state) {

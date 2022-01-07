@@ -45,18 +45,6 @@ exports[`ExpandedRow component matches snapshot 1`] = `
     >
       1.03%
     </dd>
-    <dt
-      className=""
-      data-pf-content={true}
-    >
-      I/O wait
-    </dt>
-    <dd
-      className=""
-      data-pf-content={true}
-    >
-      0.10%
-    </dd>
   </dl>
 </div>
 `;
