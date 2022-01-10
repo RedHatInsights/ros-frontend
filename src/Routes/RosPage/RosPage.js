@@ -240,6 +240,7 @@ class RosPage extends React.Component {
                                     {
                                         label: SFObject.label,
                                         type: SFObject.type,
+                                        value: `checkbox-state`, 
                                         filterValues: {
                                             items: SFObject.filterValues.items,
                                             onChange: (_e, values) => this.updateStateFilter(values),
