@@ -35,7 +35,7 @@ class RosSystemDetail extends React.Component {
             const {
                 cloud_provider: cloudProvider,
                 instance_type: instanceType,
-                idling_time: idlingTime, io_wait: ioWait,
+                idling_time: idlingTime,
                 rating
             } = this.props.rosSystemInfo;
             const { inventoryId } = this.props.match.params;
@@ -43,7 +43,7 @@ class RosSystemDetail extends React.Component {
                 <Grid className='ros-system-info'>
                     <GridItem>
                         <ExpandedRow
-                            { ...{ cloudProvider, instanceType, idlingTime, ioWait, inventoryId } }
+                            { ...{ cloudProvider, instanceType, idlingTime, inventoryId } }
                         />
                     </GridItem>
                     <GridItem>
