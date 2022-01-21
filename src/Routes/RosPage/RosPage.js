@@ -65,33 +65,33 @@ class RosPage extends React.Component {
         insights.chrome?.hideGlobalFilter?.(true);
         insights.chrome.appAction('ros-systems');
         await this.props.isROSConfigured();
-        this.processQueryParams();    
+        this.processQueryParams();
     }
 
-    processQueryParams(){
-        const { location } = this.props
+    processQueryParams() {
+        const { location } = this.props;
         const queryParams = new URLSearchParams(location.search);
-        const systemStateParam = queryParams.get("state");
-        
-        if(systemStateParam === WAITING_SYSTEMS_VALUE){
+        const systemStateParam = queryParams.get('state');
+
+        if (systemStateParam === WAITING_SYSTEMS_VALUE) {
             this.setState({
                 stateFilterValue: ['Waiting for data']
-            })
-        } else if(systemStateParam === SUGGESTIONS_SYSTEMS_VALUE) {
+            });
+        } else if (systemStateParam === SUGGESTIONS_SYSTEMS_VALUE) {
             this.setState({
                 stateFilterValue: ['Undersized', 'Oversized', 'Under pressure', 'Idling']
-            })
+            });
         }
     }
 
-    clearStateQueryParams(){
-        const { location } = this.props
+    clearStateQueryParams() {
+        const { location } = this.props;
         const url = new URL(window.location);
         const queryParams = new URLSearchParams(location.search);
-        const stateQueryParam = queryParams.get("state");
-        if(stateQueryParam){
-            queryParams.delete("state");
-            window.history.replaceState(null, '', `${url.origin}${url.pathname}?${queryParams.toString()}${window.location.hash}`)
+        const stateQueryParam = queryParams.get('state');
+        if (stateQueryParam) {
+            queryParams.delete('state');
+            window.history.replaceState(null, '', `${url.origin}${url.pathname}?${queryParams.toString()}${window.location.hash}`);
         }
     }
 
@@ -338,7 +338,8 @@ RosPage.propTypes = {
     expandRow: PropTypes.func,
     setSort: PropTypes.func,
     isROSConfigured: PropTypes.func,
-    showConfigSteps: PropTypes.bool
+    showConfigSteps: PropTypes.bool,
+    location: PropTypes.object
 };
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(RosPage));
