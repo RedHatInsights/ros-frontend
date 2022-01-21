@@ -52,3 +52,7 @@ export const CUSTOM_FILTERS = {
         }
     }
 };
+
+// Query params for state filters
+export const WAITING_SYSTEMS_VALUE = "waiting";
+export const SUGGESTIONS_SYSTEMS_VALUE = "suggestions"; 

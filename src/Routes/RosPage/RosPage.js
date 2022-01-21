@@ -11,7 +11,7 @@ import { register } from '../../store';
 import './ros-page.scss';
 import { entitiesReducer, systemName, scoreProgress, recommendations, displayState } from '../../store/entitiesReducer';
 import { loadIsConfiguredInfo } from '../../store/actions';
-import { CUSTOM_FILTERS, ROS_API_ROOT, SYSTEMS_API_ROOT } from '../../constants';
+import { CUSTOM_FILTERS, ROS_API_ROOT, SUGGESTIONS_SYSTEMS_VALUE, SYSTEMS_API_ROOT, WAITING_SYSTEMS_VALUE } from '../../constants';
 import { ServiceNotConfigured } from '../../Components/ServiceNotConfigured/ServiceNotConfigured';
 import { PermissionContext } from '../../App';
 
@@ -65,6 +65,34 @@ class RosPage extends React.Component {
         insights.chrome?.hideGlobalFilter?.(true);
         insights.chrome.appAction('ros-systems');
         await this.props.isROSConfigured();
+        this.processQueryParams();    
+    }
+
+    processQueryParams(){
+        const { location } = this.props
+        const queryParams = new URLSearchParams(location.search);
+        const systemStateParam = queryParams.get("state");
+        
+        if(systemStateParam === WAITING_SYSTEMS_VALUE){
+            this.setState({
+                stateFilterValue: ['Waiting for data']
+            })
+        } else if(systemStateParam === SUGGESTIONS_SYSTEMS_VALUE) {
+            this.setState({
+                stateFilterValue: ['Undersized', 'Oversized', 'Under pressure', 'Idling']
+            })
+        }
+    }
+
+    clearStateQueryParams(){
+        const { location } = this.props
+        const url = new URL(window.location);
+        const queryParams = new URLSearchParams(location.search);
+        const stateQueryParam = queryParams.get("state");
+        if(stateQueryParam){
+            queryParams.delete("state");
+            window.history.replaceState(null, '', `${url.origin}${url.pathname}?${queryParams.toString()}${window.location.hash}`)
+        }
     }
 
     async fetchSystems(fetchParams) {
@@ -142,10 +170,11 @@ class RosPage extends React.Component {
         });
 
         if (deletedStateFilters.length > 0) {
+            this.clearStateQueryParams();
+
             const resetFiltersList = deletedStateFilters[0]?.chips.map((chip) =>{
                 return chip?.name;
             });
-
             const activeStateFilters = this.state.stateFilterValue.filter(filterName => !resetFiltersList.includes(filterName));
 
             this.setState ({
