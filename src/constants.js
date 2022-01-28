@@ -54,5 +54,5 @@ export const CUSTOM_FILTERS = {
 };
 
 // Query params for state filters
-export const WAITING_SYSTEMS_VALUE = 'waiting';
-export const SUGGESTIONS_SYSTEMS_VALUE = 'suggestions';
+export const WITH_SUGGESTIONS_PARAM = 'with_suggestions';
+export const WITH_WAITING_FOR_DATA_PARAM = 'with_waiting_for_data';

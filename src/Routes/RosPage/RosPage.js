@@ -11,7 +11,7 @@ import { register } from '../../store';
 import './ros-page.scss';
 import { entitiesReducer, systemName, scoreProgress, recommendations, displayState } from '../../store/entitiesReducer';
 import { loadIsConfiguredInfo } from '../../store/actions';
-import { CUSTOM_FILTERS, ROS_API_ROOT, SUGGESTIONS_SYSTEMS_VALUE, SYSTEMS_API_ROOT, WAITING_SYSTEMS_VALUE } from '../../constants';
+import { CUSTOM_FILTERS, ROS_API_ROOT, SYSTEMS_API_ROOT, WITH_SUGGESTIONS_PARAM, WITH_WAITING_FOR_DATA_PARAM } from '../../constants';
 import { ServiceNotConfigured } from '../../Components/ServiceNotConfigured/ServiceNotConfigured';
 import { PermissionContext } from '../../App';
 
@@ -71,13 +71,14 @@ class RosPage extends React.Component {
     processQueryParams() {
         const { location } = this.props;
         const queryParams = new URLSearchParams(location.search);
-        const systemStateParam = queryParams.get('state');
-
-        if (systemStateParam === WAITING_SYSTEMS_VALUE) {
+        const sysWithSuggestionsParam = queryParams.get(WITH_SUGGESTIONS_PARAM);
+        const sysWithWaitingParam = queryParams.get(WITH_WAITING_FOR_DATA_PARAM);
+        
+        if (sysWithWaitingParam === 'true') {
             this.setState({
                 stateFilterValue: ['Waiting for data']
             });
-        } else if (systemStateParam === SUGGESTIONS_SYSTEMS_VALUE) {
+        } else if (sysWithSuggestionsParam === 'true') {
             this.setState({
                 stateFilterValue: ['Undersized', 'Oversized', 'Under pressure', 'Idling']
             });
@@ -88,9 +89,12 @@ class RosPage extends React.Component {
         const { location } = this.props;
         const url = new URL(window.location);
         const queryParams = new URLSearchParams(location.search);
-        const stateQueryParam = queryParams.get('state');
-        if (stateQueryParam) {
-            queryParams.delete('state');
+        const sysWithSuggestionsParam = queryParams.get(WITH_SUGGESTIONS_PARAM);
+        const sysWithWaitingParam = queryParams.get(WITH_WAITING_FOR_DATA_PARAM);
+
+        if (sysWithWaitingParam || sysWithSuggestionsParam) {
+            queryParams.delete('with_suggestions');
+            queryParams.delete('with_waiting_for_data');
             window.history.replaceState(null, '', `${url.origin}${url.pathname}?${queryParams.toString()}${window.location.hash}`);
         }
     }
