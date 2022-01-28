@@ -73,7 +73,7 @@ class RosPage extends React.Component {
         const queryParams = new URLSearchParams(location.search);
         const sysWithSuggestionsParam = queryParams.get(WITH_SUGGESTIONS_PARAM);
         const sysWithWaitingParam = queryParams.get(WITH_WAITING_FOR_DATA_PARAM);
-        
+
         if (sysWithWaitingParam === 'true') {
             this.setState({
                 stateFilterValue: ['Waiting for data']
@@ -93,8 +93,8 @@ class RosPage extends React.Component {
         const sysWithWaitingParam = queryParams.get(WITH_WAITING_FOR_DATA_PARAM);
 
         if (sysWithWaitingParam || sysWithSuggestionsParam) {
-            queryParams.delete('with_suggestions');
-            queryParams.delete('with_waiting_for_data');
+            queryParams.delete(WITH_SUGGESTIONS_PARAM);
+            queryParams.delete(WITH_WAITING_FOR_DATA_PARAM);
             window.history.replaceState(null, '', `${url.origin}${url.pathname}?${queryParams.toString()}${window.location.hash}`);
         }
     }
