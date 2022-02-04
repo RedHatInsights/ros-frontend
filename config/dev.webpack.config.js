@@ -1,3 +1,5 @@
+// Reference link: https://github.com/RedHatInsights/frontend-components/tree/master/packages/config#redhat-cloud-services-frontend-components---webpack-config
+
 const { resolve } = require('path');
 const config = require('@redhat-cloud-services/frontend-components-config');
 const { config: webpackConfig, plugins } = config({
@@ -8,6 +10,7 @@ const { config: webpackConfig, plugins } = config({
     env: `${process.env.ENVIRONMENT || 'stage'}-${process.env.BETA ? 'beta' : 'stable'}`,
     deployment: process.env.BETA ? 'beta/apps' : 'apps',
     useProxy: true,
+    proxyVerbose: true,
     useChromeTemplate: true,
     localChrome: process.env.INSIGHTS_CHROME
 });
