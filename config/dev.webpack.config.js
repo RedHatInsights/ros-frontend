@@ -1,3 +1,4 @@
+// eslint-disable-next-line max-len
 // Reference link: https://github.com/RedHatInsights/frontend-components/tree/master/packages/config#redhat-cloud-services-frontend-components---webpack-config
 
 const { resolve } = require('path');
