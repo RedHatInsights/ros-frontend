@@ -107,9 +107,5 @@
   },
   "insights": {
     "appname": "ros"
-  },
-  "routes": {
-    "rosPage": "/ros",
-    "rosSystemDetail": "/:inventoryId"
   }
 }
