@@ -18,6 +18,9 @@
     "prod": "NODE_ENV=production webpack serve --config config/dev.webpack.config.js",
     "server:ctr": "node src/server/generateServerKey.js",
     "start": "NODE_ENV=development webpack serve --config config/dev.webpack.config.js",
+    "start:beta": "NODE_ENV=development BETA=true webpack serve --config config/dev.webpack.config.js",
+    "start:prod": "NODE_ENV=development ENVIRONMENT=prod webpack serve --config config/dev.webpack.config.js",
+    "start:prod:beta": "NODE_ENV=development BETA=true ENVIRONMENT=prod webpack serve --config config/dev.webpack.config.js",
     "test": "jest --verbose",
     "verify": "npm-run-all build lint test"
   },
@@ -104,9 +107,5 @@
   },
   "insights": {
     "appname": "ros"
-  },
-  "routes": {
-    "rosPage": "/ros",
-    "rosSystemDetail": "/:inventoryId"
   }
 }

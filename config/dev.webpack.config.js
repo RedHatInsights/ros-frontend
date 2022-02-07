@@ -1,10 +1,19 @@
+// eslint-disable-next-line max-len
+// Reference link: https://github.com/RedHatInsights/frontend-components/tree/master/packages/config#redhat-cloud-services-frontend-components---webpack-config
+
 const { resolve } = require('path');
 const config = require('@redhat-cloud-services/frontend-components-config');
 const { config: webpackConfig, plugins } = config({
     rootFolder: resolve(__dirname, '../'),
     debug: true,
     https: true,
-    ...(process.env.BETA && { deployment: 'beta/apps' })
+    appUrl: process.env.BETA ? '/beta/insights/ros' : '/insights/ros',
+    env: `${process.env.ENVIRONMENT || 'stage'}-${process.env.BETA ? 'beta' : 'stable'}`,
+    deployment: process.env.BETA ? 'beta/apps' : 'apps',
+    useProxy: true,
+    proxyVerbose: true,
+    useChromeTemplate: true,
+    localChrome: process.env.INSIGHTS_CHROME
 });
 
 plugins.push(
