@@ -39,7 +39,7 @@ class RosPage extends React.Component {
                 { key: 'display_name', title: 'Name', renderFunc: systemName },
                 { key: 'performance_utilization.cpu', title: 'CPU utilization', renderFunc: scoreProgress() },
                 { key: 'performance_utilization.memory', title: 'Memory utilization', renderFunc: scoreProgress() },
-                { key: 'performance_utilization.max_io', title: diskUsageTitle(), renderFunc: DiskUsageData },
+                { key: 'performance_utilization.max_io', title: diskUsageTitle(), dataLabel: 'I/O utilization', renderFunc: DiskUsageData },
                 { key: 'number_of_suggestions', title: 'Suggestions',
                     renderFunc: recommendations },
                 { key: 'state', title: 'State', renderFunc: displayState }
