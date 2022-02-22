@@ -15,6 +15,12 @@ import RecommendationRating from '../../Components/RecommendationRating/Recommen
 import { SystemState } from '../../Components/RosTable/SystemState';
 import { NotAuthorized } from '@redhat-cloud-services/frontend-components/NotAuthorized';
 import { PermissionContext } from '../../App';
+import {
+    DescriptionList,
+    DescriptionListTerm,
+    DescriptionListGroup,
+    DescriptionListDescription
+} from '@patternfly/react-core';
 
 class RosSystemDetail extends React.Component {
     constructor(props) {
@@ -43,10 +49,14 @@ class RosSystemDetail extends React.Component {
             const { inventoryId } = this.props.match.params;
             return (
                 <Grid className='ros-system-info'>
-                    <GridItem>
-                        <span className='state-value-gap'>State:</span>
-                        <SystemState stateValue={ state }/>
-                    </GridItem>
+                    <DescriptionList className='expanded-row' isCompact isHorizontal>
+                        <DescriptionListGroup>
+                            <DescriptionListTerm>State</DescriptionListTerm>
+                            <DescriptionListDescription>
+                                <SystemState stateValue={ state }/>
+                            </DescriptionListDescription>
+                        </DescriptionListGroup>
+                    </DescriptionList>
                     <GridItem>
                         <ExpandedRow
                             { ...{ cloudProvider, instanceType, idlingTime, inventoryId } }

@@ -1,18 +1,14 @@
 .ros-system-info {
-  .pf-c-content.expanded-row {
-    dl {
-      grid-row-gap: 0;
-    }
-
+  .pf-c-description-list.expanded-row {    
     dt {
       font-weight: var(--pf-global--FontWeight--normal);
-
+      
       &:after {
         content: ":";
       }
     }
   }
-}
-.state-value-gap {
-  margin-right: 107px;
+  .pf-c-description-list__group {
+    row-gap: 0;
+  }
 }
