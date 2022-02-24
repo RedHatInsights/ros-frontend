@@ -2,7 +2,7 @@ import React from 'react';
 import { cleanup } from '@testing-library/react';
 import { ExpandedRow } from './ExpandedRow';
 import renderer from 'react-test-renderer';
-import { TextList } from '@patternfly/react-core';
+import { DescriptionListGroup } from '@patternfly/react-core';
 
 describe('ExpandedRow component', () => {
     afterEach(cleanup);
@@ -18,6 +18,6 @@ describe('ExpandedRow component', () => {
         const component = renderer.create(<ExpandedRow { ...propValues }/>);
         expect(component.toJSON()).toMatchSnapshot();
         const expandedRowInstance = component.root;
-        expect(expandedRowInstance.findByType(TextList).props.id).toBe(propValues.inventoryId);
+        expect(expandedRowInstance.findByType(DescriptionListGroup).props.id).toBe(propValues.inventoryId);
     });
 });
