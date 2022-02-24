@@ -49,14 +49,16 @@ class RosSystemDetail extends React.Component {
             const { inventoryId } = this.props.match.params;
             return (
                 <Grid className='ros-system-info'>
-                    <DescriptionList className='expanded-row' isCompact isHorizontal>
-                        <DescriptionListGroup>
-                            <DescriptionListTerm>State</DescriptionListTerm>
-                            <DescriptionListDescription>
-                                <SystemState stateValue={ state }/>
-                            </DescriptionListDescription>
-                        </DescriptionListGroup>
-                    </DescriptionList>
+                    <GridItem>
+                        <DescriptionList className='expanded-row' isCompact isHorizontal>
+                            <DescriptionListGroup>
+                                <DescriptionListTerm>State</DescriptionListTerm>
+                                <DescriptionListDescription>
+                                    <SystemState stateValue={ state }/>
+                                </DescriptionListDescription>
+                            </DescriptionListGroup>
+                        </DescriptionList>
+                    </GridItem>
                     <GridItem>
                         <ExpandedRow
                             { ...{ cloudProvider, instanceType, idlingTime, inventoryId } }
