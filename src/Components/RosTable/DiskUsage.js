@@ -3,15 +3,7 @@ import React from 'react';
 import { NO_DATA_STATE, NO_DATA_VALUE } from '../../constants';
 import './DiskUsage.scss';
 
-export const diskUsageTitle = () =>{
-    return (
-        <Tooltip content={<span>IOPS</span>}>
-            <span>I/O utilization</span>
-        </Tooltip>
-    );
-};
-
-export const DiskUsageData = (data, id, item) => {
+export const diskUsageData = (data, id, item) => {
     const { state, performance_utilization: performanceUtilization } = item;
     const { io_all: iopsAll } = performanceUtilization;
 

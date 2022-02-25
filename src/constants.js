@@ -1,3 +1,8 @@
+import React from 'react';
+import { Tooltip } from '@patternfly/react-core';
+import { diskUsageData } from './Components/RosTable/DiskUsage';
+import { displayState, recommendations, scoreProgress, systemName } from './store/entitiesReducer';
+
 // API
 export const ROS_API_ROOT = '/api/ros/v1';
 export const IS_CONFIGURED_API = '/is_configured';
@@ -56,3 +61,61 @@ export const CUSTOM_FILTERS = {
 // Query params for state filters
 export const WITH_SUGGESTIONS_PARAM = 'with_suggestions';
 export const WITH_WAITING_FOR_DATA_PARAM = 'with_waiting_for_data';
+
+// Systems table columns
+
+export const SYSTEM_TABLE_COLUMNS = [
+    {
+        key: 'display_name',
+        title: 'Name',
+        renderFunc: (data, id, item) => systemName(data, id, item),
+        isChecked: true,
+        isDisabled: true,
+        isShownByDefault: true
+    },
+    {
+        key: 'performance_utilization.cpu',
+        title: 'CPU utilization',
+        renderFunc: (data, id, item) => scoreProgress(data, id, item),
+        isChecked: true,
+        isDisabled: false,
+        isShownByDefault: true
+    },
+    {
+        key: 'performance_utilization.memory',
+        title: 'Memory utilization',
+        renderFunc: (data, id, item) => scoreProgress(data, id, item),
+        isChecked: true,
+        isDisabled: false,
+        isShownByDefault: true
+    },
+    {
+        key: 'performance_utilization.max_io',
+        title: (
+            <Tooltip content={<span>IOPS</span>}>
+                <span>I/O utilization</span>
+            </Tooltip>
+        ),
+        dataLabel: 'I/O utilization',
+        renderFunc: (data, id, item) => diskUsageData(data, id, item),
+        isChecked: true,
+        isDisabled: false,
+        isShownByDefault: true
+    },
+    {
+        key: 'number_of_suggestions',
+        title: 'Suggestions',
+        renderFunc: (data, id, item) => recommendations(data, id, item),
+        isChecked: true,
+        isDisabled: false,
+        isShownByDefault: true
+    },
+    {
+        key: 'state',
+        title: 'State',
+        renderFunc: (data) => displayState(data),
+        isChecked: true,
+        isDisabled: false,
+        isShownByDefault: true
+    }
+];
