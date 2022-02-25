@@ -1,7 +1,7 @@
 import React from 'react';
 import { Tooltip } from '@patternfly/react-core';
 import { diskUsageData } from './Components/RosTable/DiskUsage';
-import { displayState, recommendations, scoreProgress, systemName } from './store/entitiesReducer';
+import { displayOS, displayState, recommendations, scoreProgress, systemName } from './store/entitiesReducer';
 
 // API
 export const ROS_API_ROOT = '/api/ros/v1';
@@ -72,6 +72,14 @@ export const SYSTEM_TABLE_COLUMNS = [
         isChecked: true,
         isDisabled: true,
         isShownByDefault: true
+    },
+    {
+        key: 'operating_system',
+        title: 'Operating system',
+        renderFunc: (data, id, item) => displayOS(data, id, item),
+        isChecked: false,
+        isDisabled: false,
+        isShownByDefault: false
     },
     {
         key: 'performance_utilization.cpu',
