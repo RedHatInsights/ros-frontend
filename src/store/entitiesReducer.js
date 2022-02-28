@@ -56,14 +56,6 @@ export const recommendations = (data, id, { inventory_id: inventoryId, isDeleted
     );
 };
 
-export const displayOS = (data, id, { state }) => {
-    return (
-        state === NO_DATA_STATE ?
-            <span>{ NO_DATA_VALUE }</span> :
-            <span>{ data }</span>
-    );
-};
-
 const addExpandedView = (rowData) => {
     const {
         id, cloud_provider: cloudProvider, instance_type: instanceType,

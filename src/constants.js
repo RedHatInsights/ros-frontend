@@ -1,7 +1,7 @@
 import React from 'react';
 import { Tooltip } from '@patternfly/react-core';
-import { diskUsageData } from './Components/RosTable/DiskUsage';
-import { displayOS, displayState, recommendations, scoreProgress, systemName } from './store/entitiesReducer';
+import { displayState, recommendations, scoreProgress, systemName } from './store/entitiesReducer';
+import { diskUsageData, displayOS } from './Components/RosTable/RenderColumn';
 
 // API
 export const ROS_API_ROOT = '/api/ros/v1';

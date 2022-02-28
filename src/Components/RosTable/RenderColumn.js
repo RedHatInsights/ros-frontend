@@ -1,7 +1,7 @@
 import { Tooltip } from '@patternfly/react-core';
 import React from 'react';
 import { NO_DATA_STATE, NO_DATA_VALUE } from '../../constants';
-import './DiskUsage.scss';
+import './RenderColumn.scss';
 
 export const diskUsageData = (data, id, item) => {
     const { state, performance_utilization: performanceUtilization } = item;
@@ -36,5 +36,13 @@ export const diskUsageData = (data, id, item) => {
             }>
                 <span>{data}</span>
             </Tooltip>
+    );
+};
+
+export const displayOS = (data, id, { state }) => {
+    return (
+        state === NO_DATA_STATE ?
+            <span>{ NO_DATA_VALUE }</span> :
+            <span>{ data }</span>
     );
 };
