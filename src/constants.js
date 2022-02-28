@@ -75,11 +75,17 @@ export const SYSTEM_TABLE_COLUMNS = [
     },
     {
         key: 'operating_system',
-        title: 'Operating system',
+        title: (
+            <Tooltip content={<span>Operating system</span>}>
+                <span>OS</span>
+            </Tooltip>
+        ),
+        dataLabel: 'Operating system',
         renderFunc: (data, id, item) => displayOS(data, id, item),
-        isChecked: false,
+        props: { isStatic: true },
+        isChecked: true,
         isDisabled: false,
-        isShownByDefault: false
+        isShownByDefault: true
     },
     {
         key: 'performance_utilization.cpu',
