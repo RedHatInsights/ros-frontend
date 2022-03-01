@@ -1,11 +1,10 @@
 import React from 'react';
 import propTypes from 'prop-types';
 import {
-    TextContent,
-    TextList,
-    TextListVariants,
-    TextListItem,
-    TextListItemVariants
+    DescriptionList,
+    DescriptionListTerm,
+    DescriptionListGroup,
+    DescriptionListDescription
 } from '@patternfly/react-core';
 import { NO_DATA_VALUE } from '../../constants';
 
@@ -22,16 +21,16 @@ export const ExpandedRow = ({ inventoryId, cloudProvider, instanceType, idlingTi
     ];
 
     return (
-        <TextContent className='expanded-row'>
-            <TextList id={inventoryId} component={TextListVariants.dl}>
-                { inlineFieldsArray.map((field, index) => (
-                    <React.Fragment key={index} >
-                        <TextListItem component={TextListItemVariants.dt}>{ field.label }</TextListItem>
-                        <TextListItem component={TextListItemVariants.dd}>{ field.value }</TextListItem>
+        <DescriptionList className='expanded-row' isCompact isHorizontal>
+            <DescriptionListGroup id={inventoryId}>
+                {inlineFieldsArray.map((field, index) => (
+                    <React.Fragment key={index}>
+                        <DescriptionListTerm>{ field.label }</DescriptionListTerm>
+                        <DescriptionListDescription>{ field.value }</DescriptionListDescription>
                     </React.Fragment>
                 ))}
-            </TextList>
-        </TextContent>
+            </DescriptionListGroup>
+        </DescriptionList>
     );
 };
 

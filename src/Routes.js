@@ -1,7 +1,6 @@
 import { Redirect, Route, Switch } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import React, { Suspense, lazy } from 'react';
-import { routes as paths } from '../package.json';
 import { Bullseye, Spinner } from '@patternfly/react-core';
 
 const RosPage = lazy(() => import(/* webpackChunkName: "RosPage" */ './Routes/RosPage/RosPage'));
@@ -13,9 +12,9 @@ export const Routes = () => (
     </Bullseye>}>
         <Switch>
             <Route exact path='/' component={RosPage} />
-            <Route path={paths.rosSystemDetail} component={RosSystemDetail} />
+            <Route path='/:inventoryId' component={RosSystemDetail} />
             <Route>
-                <Redirect to={paths.rosPage} />
+                <Redirect to='/ros' />
             </Route>
         </Switch>
     </Suspense>

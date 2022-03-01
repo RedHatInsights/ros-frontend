@@ -55,7 +55,7 @@ class App extends Component {
             }
         });
         (async () => {
-            const rosPermissions = await insights.chrome.getUserPermissions('ros');
+            const rosPermissions = await insights.chrome.getUserPermissions('ros', true);
             this.handlePermissionsUpdate(
                 rosPermissions.some(({ permission }) => this.hasPermission(permission, ['ros:*:*', 'ros:*:read']))
             );

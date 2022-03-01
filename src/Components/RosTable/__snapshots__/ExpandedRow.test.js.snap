@@ -1,50 +1,67 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`ExpandedRow component matches snapshot 1`] = `
-<div
-  className="pf-c-content expanded-row"
+<dl
+  className="pf-c-description-list pf-m-horizontal pf-m-compact expanded-row"
 >
-  <dl
-    className=""
-    data-pf-content={true}
+  <div
+    className="pf-c-description-list__group"
     id="fd480a4c-952b-4675-ba02-3370bd08a5ee"
   >
     <dt
-      className=""
-      data-pf-content={true}
+      className="pf-c-description-list__term"
     >
-      Provider
+      <span
+        className="pf-c-description-list__text"
+      >
+        Provider
+      </span>
     </dt>
     <dd
-      className=""
-      data-pf-content={true}
+      className="pf-c-description-list__description"
     >
-      aws
+      <div
+        className="pf-c-description-list__text"
+      >
+        aws
+      </div>
     </dd>
     <dt
-      className=""
-      data-pf-content={true}
+      className="pf-c-description-list__term"
     >
-      Instance type
+      <span
+        className="pf-c-description-list__text"
+      >
+        Instance type
+      </span>
     </dt>
     <dd
-      className=""
-      data-pf-content={true}
+      className="pf-c-description-list__description"
     >
-      t2.micro
+      <div
+        className="pf-c-description-list__text"
+      >
+        t2.micro
+      </div>
     </dd>
     <dt
-      className=""
-      data-pf-content={true}
+      className="pf-c-description-list__term"
     >
-      Idling time
+      <span
+        className="pf-c-description-list__text"
+      >
+        Idling time
+      </span>
     </dt>
     <dd
-      className=""
-      data-pf-content={true}
+      className="pf-c-description-list__description"
     >
-      1.03%
+      <div
+        className="pf-c-description-list__text"
+      >
+        1.03%
+      </div>
     </dd>
-  </dl>
-</div>
+  </div>
+</dl>
 `;
