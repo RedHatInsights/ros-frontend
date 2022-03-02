@@ -18,6 +18,10 @@
     "prod": "NODE_ENV=production webpack serve --config config/dev.webpack.config.js",
     "server:ctr": "node src/server/generateServerKey.js",
     "start": "NODE_ENV=development webpack serve --config config/dev.webpack.config.js",
+    "start:beta": "NODE_ENV=development BETA=true webpack serve --config config/dev.webpack.config.js",
+    "start:prod": "NODE_ENV=development ENVIRONMENT=prod webpack serve --config config/dev.webpack.config.js",
+    "start:prod:beta": "NODE_ENV=development BETA=true ENVIRONMENT=prod webpack serve --config config/dev.webpack.config.js",
+    "local": "NODE_ENV=development webpack serve --config config/dev.local.webpack.config.js",
     "test": "jest --verbose",
     "verify": "npm-run-all build lint test"
   },
@@ -43,11 +47,11 @@
   ],
   "dependencies": {
     "@babel/runtime": "7.10.0",
-    "@patternfly/patternfly": "4.70.2",
-    "@patternfly/react-core": "4.128.2",
-    "@patternfly/react-icons": "^4.7.22",
-    "@patternfly/react-styles": "4.7.22",
-    "@patternfly/react-table": "4.19.45",
+    "@patternfly/patternfly": "4.171.1",
+    "@patternfly/react-core": "4.192.15",
+    "@patternfly/react-icons": "^4.43.15",
+    "@patternfly/react-styles": "4.42.15",
+    "@patternfly/react-table": "4.61.15",
     "@redhat-cloud-services/frontend-components": "3.4.11",
     "@redhat-cloud-services/frontend-components-notifications": "3.2.2",
     "@redhat-cloud-services/frontend-components-utilities": "3.2.3",
@@ -69,7 +73,7 @@
     "@babel/preset-env": "7.10.0",
     "@babel/preset-flow": "7.9.0",
     "@babel/preset-react": "7.10.0",
-    "@redhat-cloud-services/frontend-components-config": "4.5.2",
+    "@redhat-cloud-services/frontend-components-config": "4.5.11",
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^11.2.6",
     "babel-core": "7.0.0-bridge.0",
@@ -98,15 +102,11 @@
     "stylelint": "13.5.0",
     "stylelint-config-recommended-scss": "4.2.0",
     "stylelint-scss": "3.17.2",
-    "webpack": "5.57.1",
+    "webpack": "5.69.0",
     "webpack-bundle-analyzer": "3.8.0",
     "webpack-cli": "4.9.0"
   },
   "insights": {
     "appname": "ros"
-  },
-  "routes": {
-    "rosPage": "/ros",
-    "rosSystemDetail": "/:inventoryId"
   }
 }

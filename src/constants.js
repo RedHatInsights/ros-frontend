@@ -52,3 +52,7 @@ export const CUSTOM_FILTERS = {
         }
     }
 };
+
+// Query params for state filters
+export const WITH_SUGGESTIONS_PARAM = 'with_suggestions';
+export const WITH_WAITING_FOR_DATA_PARAM = 'with_waiting_for_data';
