@@ -39,9 +39,9 @@ export const diskUsageData = (data, id, item) => {
     );
 };
 
-export const displayOS = (data, id, { state }) => {
+export const displayOS = (data) => {
     return (
-        state === NO_DATA_STATE ?
+        data === null ?
             <span>{ NO_DATA_VALUE }</span> :
             <span>{ data }</span>
     );

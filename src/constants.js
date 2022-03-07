@@ -74,14 +74,14 @@ export const SYSTEM_TABLE_COLUMNS = [
         isShownByDefault: true
     },
     {
-        key: 'operating_system',
+        key: 'os',
         title: (
             <Tooltip content={<span>Operating system</span>}>
                 <span>OS</span>
             </Tooltip>
         ),
         dataLabel: 'Operating system',
-        renderFunc: (data, id, item) => displayOS(data, id, item),
+        renderFunc: (data) => displayOS(data),
         props: { isStatic: true },
         isChecked: true,
         isDisabled: false,
