@@ -16,9 +16,9 @@ import {
     TextVariants
 } from '@patternfly/react-core';
 
-export const ManageColumnsModal = ({ activeColumns, isModalOpen, setModalOpen, saveColumns }) => {
+export const ManageColumnsModal = ({ modalColumns, isModalOpen, setModalOpen, saveColumns }) => {
 
-    const [currentColumns, setCurrentColumns] = useState(activeColumns);
+    const [currentColumns, setCurrentColumns] = useState(modalColumns);
 
     const handleSave = () => {
         setModalOpen(false);
@@ -27,7 +27,7 @@ export const ManageColumnsModal = ({ activeColumns, isModalOpen, setModalOpen, s
 
     const handleCancel = () => {
         setModalOpen(false);
-        setCurrentColumns(activeColumns);
+        setCurrentColumns(modalColumns);
     };
 
     const handleSelectAll = () => {
@@ -112,7 +112,7 @@ export const ManageColumnsModal = ({ activeColumns, isModalOpen, setModalOpen, s
 };
 
 ManageColumnsModal.propTypes = {
-    activeColumns: propTypes.arrayOf(propTypes.object).isRequired,
+    modalColumns: propTypes.arrayOf(propTypes.object).isRequired,
     isModalOpen: propTypes.bool.isRequired,
     setModalOpen: propTypes.func.isRequired,
     saveColumns: propTypes.func.isRequired

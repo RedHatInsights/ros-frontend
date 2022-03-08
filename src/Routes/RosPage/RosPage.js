@@ -217,7 +217,7 @@ class RosPage extends React.Component {
                         <ManageColumnsModal
                             isModalOpen={this.state.isColumnModalOpen}
                             setModalOpen={this.setColumnModalOpen}
-                            activeColumns={this.props.columns}
+                            modalColumns={this.props.columns}
                             saveColumns={(columns) => this.props.changeSystemColumns({ columns })}
                         />
                         <InventoryTable
