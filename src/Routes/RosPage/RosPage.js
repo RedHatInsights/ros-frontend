@@ -9,14 +9,17 @@ import { connect } from 'react-redux';
 import { InventoryTable } from '@redhat-cloud-services/frontend-components/Inventory';
 import { register } from '../../store';
 import './ros-page.scss';
-import { entitiesReducer, systemName, scoreProgress, recommendations, displayState } from '../../store/entitiesReducer';
-import { loadIsConfiguredInfo } from '../../store/actions';
-import { CUSTOM_FILTERS, ROS_API_ROOT, SYSTEMS_API_ROOT, WITH_SUGGESTIONS_PARAM, WITH_WAITING_FOR_DATA_PARAM } from '../../constants';
+import { entitiesReducer } from '../../store/entitiesReducer';
+import { changeSystemColumns, loadIsConfiguredInfo } from '../../store/actions';
+import {
+    CUSTOM_FILTERS, ROS_API_ROOT,
+    SYSTEMS_API_ROOT, SYSTEM_TABLE_COLUMNS,
+    WITH_SUGGESTIONS_PARAM, WITH_WAITING_FOR_DATA_PARAM } from '../../constants';
 import { ServiceNotConfigured } from '../../Components/ServiceNotConfigured/ServiceNotConfigured';
 import { PermissionContext } from '../../App';
 
 import { NotAuthorized } from '@redhat-cloud-services/frontend-components/NotAuthorized';
-import { DiskUsageData, diskUsageTitle } from '../../Components/RosTable/DiskUsage';
+import { ManageColumnsModal } from '../../Components/Modals/ManageColumnsModal';
 
 /**
  * A smart component that handles all the api calls and data needed by the dumb components.
@@ -35,20 +38,13 @@ class RosPage extends React.Component {
             perPage: 10,
             orderBy: 'display_name',
             orderDirection: SortByDirection.asc,
-            columns: [
-                { key: 'display_name', title: 'Name', renderFunc: systemName },
-                { key: 'performance_utilization.cpu', title: 'CPU utilization', renderFunc: scoreProgress() },
-                { key: 'performance_utilization.memory', title: 'Memory utilization', renderFunc: scoreProgress() },
-                { key: 'performance_utilization.max_io', title: diskUsageTitle(), dataLabel: 'I/O utilization', renderFunc: DiskUsageData },
-                { key: 'number_of_suggestions', title: 'Suggestions',
-                    renderFunc: recommendations },
-                { key: 'state', title: 'State', renderFunc: displayState }
-            ],
-            stateFilterValue: []
+            stateFilterValue: [],
+            isColumnModalOpen: false
         };
 
         this.sortingHeader = {
             display_name: 'display_name', /* eslint-disable-line camelcase */
+            os: 'os',
             'performance_utilization.cpu': 'cpu',
             'performance_utilization.memory': 'memory',
             'performance_utilization.max_io': 'max_io',
@@ -198,14 +194,32 @@ class RosPage extends React.Component {
             : [];
     }
 
+    setColumnModalOpen = (modalState) => {
+        this.setState({
+            isColumnModalOpen: modalState
+        });
+    }
+
+    getActiveColumns = () => {
+        const { columns } = this.props;
+        return columns.filter(column => column.isChecked);
+    }
+
     renderConfigStepsOrTable() {
         const { state: SFObject } = CUSTOM_FILTERS;
+        const activeColumns = this.getActiveColumns();
 
         return (
             this.props.showConfigSteps
                 ?   <ServiceNotConfigured/>
                 :   <Card className='pf-t-light  pf-m-opaque-100'>
                     <CardBody>
+                        <ManageColumnsModal
+                            isModalOpen={this.state.isColumnModalOpen}
+                            setModalOpen={this.setColumnModalOpen}
+                            modalColumns={this.props.columns}
+                            saveColumns={(columns) => this.props.changeSystemColumns({ columns })}
+                        />
                         <InventoryTable
                             disableDefaultColumns
                             ref={this.inventory}
@@ -220,6 +234,7 @@ class RosPage extends React.Component {
                             customFilters={{
                                 stateFilter: this.state.stateFilterValue
                             }}
+                            columns={activeColumns}
                             getEntities={async (_items, config) => {
                                 this.setState(() => ({
                                     orderBy: config.orderBy,
@@ -261,7 +276,7 @@ class RosPage extends React.Component {
                                 register({
                                     ...mergeWithEntities(
                                         entitiesReducer(
-                                            INVENTORY_ACTION_TYPES, this.state.columns
+                                            INVENTORY_ACTION_TYPES, SYSTEM_TABLE_COLUMNS
                                         )
                                     )
                                 });
@@ -285,6 +300,15 @@ class RosPage extends React.Component {
                             activeFiltersConfig={{
                                 filters: this.getActiveFilterConfig(),
                                 onDelete: this.onDeleteFilters
+                            }}
+                            actionsConfig={{
+                                actions: [
+                                    '',
+                                    {
+                                        label: 'Manage columns',
+                                        onClick: () => this.setColumnModalOpen(true)
+                                    }
+                                ]
                             }}
                             onExpandClick={(_e, _i, isOpen, { id }) => this.props.expandRow(id, isOpen, 'EXPAND_ROW')}
                         >
@@ -327,13 +351,15 @@ function mapDispatchToProps(dispatch) {
                 direction: orderByDirection
             }
         }),
-        isROSConfigured: () => dispatch(loadIsConfiguredInfo())
+        isROSConfigured: () => dispatch(loadIsConfiguredInfo()),
+        changeSystemColumns: (payload) => dispatch(changeSystemColumns(payload))
     };
 }
 
 const mapStateToProps = (state, props) => {
     return {
         showConfigSteps: state.isConfiguredReducer?.showConfigSteps,
+        columns: state.systemColumnsReducer.columns,
         ...props
     };
 };
@@ -343,7 +369,9 @@ RosPage.propTypes = {
     setSort: PropTypes.func,
     isROSConfigured: PropTypes.func,
     showConfigSteps: PropTypes.bool,
-    location: PropTypes.object
+    location: PropTypes.object,
+    columns: PropTypes.array,
+    changeSystemColumns: PropTypes.func
 };
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(RosPage));

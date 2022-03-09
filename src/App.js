@@ -6,7 +6,7 @@ import { Routes } from './Routes';
 import './App.scss';
 import NotificationsPortal from '@redhat-cloud-services/frontend-components-notifications/NotificationPortal';
 import { notificationsReducer } from '@redhat-cloud-services/frontend-components-notifications/redux';
-import { systemRecsReducer, systemDetailReducer, isConfiguredReducer } from './store/reducers';
+import { systemRecsReducer, systemDetailReducer, isConfiguredReducer, systemColumnsReducer } from './store/reducers';
 import { register } from './store';
 
 export const PermissionContext = createContext();
@@ -44,7 +44,9 @@ class App extends Component {
             notifications: notificationsReducer,
             systemDetailReducer,
             systemRecsReducer,
-            isConfiguredReducer });
+            isConfiguredReducer,
+            systemColumnsReducer
+        });
         insights.chrome.init();
         insights.chrome.identifyApp('ros');
         this.unregister = insights.chrome.on('APP_NAVIGATION', (event) => {
