@@ -76,8 +76,18 @@ export const fetchSystems = async (fetchParams) => {
 
     const { perPage, orderBy, orderHow  } = fetchParams || {};
 
+    const sortingHeader = {
+        display_name: 'display_name', /* eslint-disable-line camelcase */
+        os: 'os',
+        'performance_utilization.cpu': 'cpu',
+        'performance_utilization.memory': 'memory',
+        'performance_utilization.max_io': 'max_io',
+        number_of_suggestions: 'number_of_suggestions', /* eslint-disable-line camelcase */
+        state: 'state'
+    };
+
     let params = {
-        order_by: orderBy || 'display_name', /* eslint-disable-line camelcase */
+        order_by: sortingHeader[orderBy] || 'display_name', /* eslint-disable-line camelcase */
         order_how: orderHow || SortByDirection.asc, /* eslint-disable-line camelcase */
         limit: perPage ? perPage : -1,
         ...fetchParams?.page && {

@@ -42,7 +42,8 @@ class RosPage extends React.Component {
             orderDirection: SortByDirection.asc,
             stateFilterValue: [],
             isColumnModalOpen: false,
-            exportSystemsPDF: false
+            exportSystemsPDF: false,
+            nameFilterValue: ''
         };
 
         this.sortingHeader = {
@@ -217,19 +218,12 @@ class RosPage extends React.Component {
     renderConfigStepsOrTable() {
         const { state: SFObject } = CUSTOM_FILTERS;
         const activeColumns = this.getActiveColumns();
-        const { exportSystemsPDF } = this.state;
+        const { exportSystemsPDF, stateFilterValue, nameFilterValue, orderBy, orderDirection } = this.state;
 
         return (
             this.props.showConfigSteps
                 ?   <ServiceNotConfigured/>
                 :   <Card className='pf-t-light  pf-m-opaque-100'>
-                    {exportSystemsPDF &&
-                        <DownloadSystemsPDFReport
-                            showButton={false}
-                            onSuccess={() => this.setExportSystemsPDF(false)}
-                            filters={this.state.stateFilterValue}
-                        />
-                    }
                     <CardBody>
                         <ManageColumnsModal
                             isModalOpen={this.state.isColumnModalOpen}
@@ -249,13 +243,14 @@ class RosPage extends React.Component {
                             hideFilters={{ all: true, name: false }}
                             autoRefresh= {true}
                             customFilters={{
-                                stateFilter: this.state.stateFilterValue
+                                stateFilter: stateFilterValue
                             }}
                             columns={activeColumns}
                             getEntities={async (_items, config) => {
                                 this.setState(() => ({
                                     orderBy: config.orderBy,
-                                    orderDirection: config.orderDirection
+                                    orderDirection: config.orderDirection,
+                                    nameFilterValue: config.filters?.hostnameOrId
                                 }));
                                 const results = await this.fetchSystems(
                                     {
@@ -309,7 +304,7 @@ class RosPage extends React.Component {
                                         filterValues: {
                                             items: SFObject.filterValues.items,
                                             onChange: (_e, values) => this.updateStateFilter(values),
-                                            value: this.state.stateFilterValue
+                                            value: stateFilterValue
                                         }
                                     }
                                 ]
@@ -328,6 +323,7 @@ class RosPage extends React.Component {
                                 ]
                             }}
                             exportConfig={{
+                                //extraItems: [kebabItemDownloadPDF(this.state.exportSystemsPDF, this.setExportSystemsPDF)],
                                 extraItems: [<Button key='pdf-download-button' variant='plain' onClick={() => this.setExportSystemsPDF(true)}>Export as PDF</Button>],
                                 ouiaId: 'export',
                                 onSelect: (_event, fileType) => { console.log('Checking:', _event, fileType);}
@@ -335,6 +331,18 @@ class RosPage extends React.Component {
                             onExpandClick={(_e, _i, isOpen, { id }) => this.props.expandRow(id, isOpen, 'EXPAND_ROW')}
                         >
                         </InventoryTable>
+                        {exportSystemsPDF &&
+                            <DownloadSystemsPDFReport
+                                showButton={false}
+                                onSuccess={() => this.setExportSystemsPDF(false)}
+                                filters={{
+                                    stateFilter: stateFilterValue,
+                                    hostnameOrId: nameFilterValue
+                                }}
+                                orderBy={orderBy}
+                                orderHow={orderDirection}
+                            />
+                        }
                     </CardBody>
                 </Card>
         );
