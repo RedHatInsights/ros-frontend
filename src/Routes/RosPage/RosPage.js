@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 import { PageHeader, PageHeaderTitle } from '@redhat-cloud-services/frontend-components/PageHeader';
 import { Main } from '@redhat-cloud-services/frontend-components/Main';
-import { Card, CardBody } from '@patternfly/react-core';
+import { Button, Card, CardBody } from '@patternfly/react-core';
 import { SortByDirection } from '@patternfly/react-table';
 import { connect } from 'react-redux';
 import { InventoryTable } from '@redhat-cloud-services/frontend-components/Inventory';
@@ -20,6 +20,8 @@ import { PermissionContext } from '../../App';
 
 import { NotAuthorized } from '@redhat-cloud-services/frontend-components/NotAuthorized';
 import { ManageColumnsModal } from '../../Components/Modals/ManageColumnsModal';
+import { kebabItemDownloadPDF } from '../../Components/Reports/Common/KebabItems';
+import { DownloadSystemsPDFReport } from '../../Components/Reports/SystemsPDFReport';
 
 /**
  * A smart component that handles all the api calls and data needed by the dumb components.
@@ -39,7 +41,8 @@ class RosPage extends React.Component {
             orderBy: 'display_name',
             orderDirection: SortByDirection.asc,
             stateFilterValue: [],
-            isColumnModalOpen: false
+            isColumnModalOpen: false,
+            exportSystemsPDF: false
         };
 
         this.sortingHeader = {
@@ -205,14 +208,28 @@ class RosPage extends React.Component {
         return columns.filter(column => column.isChecked);
     }
 
+    setExportSystemsPDF(exportSystemsPDF) {
+        this.setState({
+            exportSystemsPDF
+        });
+    }
+
     renderConfigStepsOrTable() {
         const { state: SFObject } = CUSTOM_FILTERS;
         const activeColumns = this.getActiveColumns();
+        const { exportSystemsPDF } = this.state;
 
         return (
             this.props.showConfigSteps
                 ?   <ServiceNotConfigured/>
                 :   <Card className='pf-t-light  pf-m-opaque-100'>
+                    {exportSystemsPDF &&
+                        <DownloadSystemsPDFReport
+                            showButton={false}
+                            onSuccess={() => this.setExportSystemsPDF(false)}
+                            filters={this.state.stateFilterValue}
+                        />
+                    }
                     <CardBody>
                         <ManageColumnsModal
                             isModalOpen={this.state.isColumnModalOpen}
@@ -309,6 +326,11 @@ class RosPage extends React.Component {
                                         onClick: () => this.setColumnModalOpen(true)
                                     }
                                 ]
+                            }}
+                            exportConfig={{
+                                extraItems: [<Button key='pdf-download-button' variant='plain' onClick={() => this.setExportSystemsPDF(true)}>Export as PDF</Button>],
+                                ouiaId: 'export',
+                                onSelect: (_event, fileType) => { console.log('Checking:', _event, fileType);}
                             }}
                             onExpandClick={(_e, _i, isOpen, { id }) => this.props.expandRow(id, isOpen, 'EXPAND_ROW')}
                         >

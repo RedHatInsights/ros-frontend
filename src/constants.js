@@ -139,3 +139,8 @@ export const SYSTEM_TABLE_COLUMNS = [
         isShownByDefault: true
     }
 ];
+
+// Reports
+
+export const SYSTEMS_PDF_REPORT_NAME = 'Insights Resource Optimization Systems Report';
+export const SYSTEMS_PDF_REPORT_FILE_NAME = 'resource_optimizarion--';
