@@ -2,7 +2,7 @@ import { StyleSheet } from '@react-pdf/renderer';
 
 export default StyleSheet.create({
     bodyCell: {
-        textAlign: 'left',
+        textAlign: 'center',
         fontSize: 8,
         paddingBottom: 2,
         paddingTop: 2,
@@ -10,12 +10,25 @@ export default StyleSheet.create({
         flex: 1
     },
     headerCell: {
-        textAlign: 'left',
+        textAlign: 'center',
         fontSize: 8,
         flex: 1
     },
     systemNameCell: {
-        width: '120px'
+        textAlign: 'left',
+        fontSize: 8,
+        flex: 2.5,
+        paddingBottom: 2,
+        paddingTop: 2,
+        paddingRight: 2,
+    },
+    osCell: {
+        textAlign: 'left',
+        fontSize: 8,
+        flex: 0.8,
+        paddingBottom: 2,
+        paddingTop: 2,
+        paddingRight: 2,
     },
     headerStyle: {
         display: 'flex',
