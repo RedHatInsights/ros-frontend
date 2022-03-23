@@ -14,7 +14,7 @@ export const buildSystemsRows = (data) => {
         rowKeys.map((rowKey) =>{
             let rowValue =  rowKey === 'reported_date' ? '03 Mar 2022 06:58 UTC'  : get(systemItem, rowKey, '').toString();
             rowValue = (rowKey === 'performance_utilization.cpu' || rowKey === 'performance_utilization.memory') ? `${rowValue}%` : rowValue;
-            let styleArr = rowKey === 'display_name' ? [styles.systemNameCell, styles.bodyCell] : [styles.bodyCell];
+            let styleArr = rowKey === 'display_name' ? [styles.systemNameCell] : [styles.bodyCell];
             rowValueArr.push(columnBuilder({ value: rowValue, style: styleArr }));
         });
 
@@ -29,7 +29,7 @@ export const buildSystemsHeader = () => {
 
     const headerContent = ['Name', 'OS', 'CPU utilization', 'Memory utilization', 'I/O utilization', 'Suggestions', 'State', 'Last reported'];
     const formattedHeader = headerContent.map(item => {
-        let styleArr = item === 'Name' ? [styles.systemNameCell, styles.headerCell] : [styles.headerCell];
+        let styleArr = item === 'Name' ? [styles.systemNameCell] : [styles.headerCell];
         return columnBuilder({ value: item, style: styleArr });
     });
 
