@@ -97,7 +97,7 @@ export const ManageColumnsModal = ({ modalColumns, isModalOpen, setModalOpen, sa
                                     dataListCells={[
                                         <DataListCell key={`column-table-item-${index}`}>
                                             <label>
-                                                {column.title}
+                                                {column.modalTitle}
                                             </label>
                                         </DataListCell>
                                     ]}

@@ -68,6 +68,7 @@ export const SYSTEM_TABLE_COLUMNS = [
     {
         key: 'display_name',
         title: 'Name',
+        modalTitle: 'Name',
         renderFunc: (data, id, item) => systemName(data, id, item),
         isChecked: true,
         isDisabled: true,
@@ -80,6 +81,7 @@ export const SYSTEM_TABLE_COLUMNS = [
                 <span>OS</span>
             </Tooltip>
         ),
+        modalTitle: 'Operating system',
         dataLabel: 'Operating system',
         renderFunc: (data) => displayOS(data),
         props: { isStatic: true },
@@ -90,6 +92,7 @@ export const SYSTEM_TABLE_COLUMNS = [
     {
         key: 'performance_utilization.cpu',
         title: 'CPU utilization',
+        modalTitle: 'CPU utilization',
         renderFunc: (data, id, item) => scoreProgress(data, id, item),
         isChecked: true,
         isDisabled: false,
@@ -98,6 +101,7 @@ export const SYSTEM_TABLE_COLUMNS = [
     {
         key: 'performance_utilization.memory',
         title: 'Memory utilization',
+        modalTitle: 'Memory utilization',
         renderFunc: (data, id, item) => scoreProgress(data, id, item),
         isChecked: true,
         isDisabled: false,
@@ -110,6 +114,7 @@ export const SYSTEM_TABLE_COLUMNS = [
                 <span>I/O utilization</span>
             </Tooltip>
         ),
+        modalTitle: 'I/O utilization',
         dataLabel: 'I/O utilization',
         renderFunc: (data, id, item) => diskUsageData(data, id, item),
         isChecked: true,
@@ -119,6 +124,7 @@ export const SYSTEM_TABLE_COLUMNS = [
     {
         key: 'number_of_suggestions',
         title: 'Suggestions',
+        modalTitle: 'Suggestions',
         renderFunc: (data, id, item) => recommendations(data, id, item),
         isChecked: true,
         isDisabled: false,
@@ -127,6 +133,7 @@ export const SYSTEM_TABLE_COLUMNS = [
     {
         key: 'state',
         title: 'State',
+        modalTitle: 'State',
         renderFunc: (data) => displayState(data),
         isChecked: true,
         isDisabled: false,
