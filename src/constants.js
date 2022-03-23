@@ -84,7 +84,6 @@ export const SYSTEM_TABLE_COLUMNS = [
         modalTitle: 'Operating system',
         dataLabel: 'Operating system',
         renderFunc: (data) => displayOS(data),
-        props: { isStatic: true },
         isChecked: true,
         isDisabled: false,
         isShownByDefault: true
