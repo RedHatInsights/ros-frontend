@@ -20,8 +20,6 @@ export const responseToPDFData = (data) => {
 
 };
 
-
-
 export const generateFilterText = (filters) => {
     let filterText  = '';
     const hasStateFilter = filters?.stateFilter?.length > 0;
