@@ -26,9 +26,9 @@ const buildSystemsRows = (rowsData) => {
         const formattedRows = rowItem.map((rowValue, index) => {
             let styleArr = index === 0 ? [styles.systemNameCell] : [styles.bodyCell];
             return columnBuilder({ value: rowValue, style: styleArr });
-        })
+        });
         return formattedRows;
-    })
+    });
 
     return systemsRows;
 };
@@ -48,7 +48,7 @@ const generateSystemsPDFReport = async (filters, orderBy, orderHow) => {
     const pdfData = responseToPDFData(systemsResponse.data);
 
     const systemsRows = buildSystemsRows(pdfData);
-   
+
     // description text
     const totalSystems = systemsResponse?.meta?.count;
     const filterText = generateFilterText(filters);
