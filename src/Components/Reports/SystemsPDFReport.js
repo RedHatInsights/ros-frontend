@@ -3,13 +3,41 @@ import { Text } from '@react-pdf/renderer';
 import { DownloadButton, Section, Column, Table } from '@redhat-cloud-services/frontend-components-pdf-generator';
 import { SYSTEMS_PDF_REPORT_FILE_NAME, SYSTEMS_PDF_REPORT_NAME } from '../../constants';
 import { fetchSystems } from '../../Utilities/api';
-import { buildSystemsHeader, buildSystemsRows, generateFilterText } from './Util';
+import { generateFilterText, responseToPDFData } from './Util';
 import propTypes from 'prop-types';
+import styles from './Common/styles';
 
-export const columnBuilder = ({ value, style }) => <Text key={value} style={style}>{value}</Text>;
+const columnBuilder = ({ value, style }) => <Text key={value} style={style}>{value}</Text>;
+
+const buildSystemsHeader = () => {
+
+    const headerContent = ['Name', 'OS', 'CPU utilization', 'Memory utilization', 'I/O utilization', 'Suggestions', 'State', 'Last reported'];
+    const formattedHeader = headerContent.map(item => {
+        let styleArr = item === 'Name' ? [styles.systemNameCell] : [styles.headerCell];
+        return columnBuilder({ value: item, style: styleArr });
+    });
+
+    return formattedHeader;
+
+};
+
+const buildSystemsRows = (rowsData) => {
+    const systemsRows =  rowsData.map((rowItem) => {
+        const formattedRows = rowItem.map((rowValue, index) => {
+            let styleArr = index === 0 ? [styles.systemNameCell] : [styles.bodyCell];
+            return columnBuilder({ value: rowValue, style: styleArr });
+        })
+        return formattedRows;
+    })
+
+    return systemsRows;
+};
 
 const generateSystemsPDFReport = async (filters, orderBy, orderHow) => {
+    // Table header
+    const systemsHeader = buildSystemsHeader();
 
+    // Table rows
     const fetchSystemParams = {
         filters,
         stateFilter: filters.stateFilter,
@@ -17,10 +45,11 @@ const generateSystemsPDFReport = async (filters, orderBy, orderHow) => {
         orderHow
     };
     const systemsResponse = await fetchSystems(fetchSystemParams);
+    const pdfData = responseToPDFData(systemsResponse.data);
 
-    const systemsRows = buildSystemsRows(systemsResponse.data);
-    const systemsHeader = buildSystemsHeader();
-
+    const systemsRows = buildSystemsRows(pdfData);
+   
+    // description text
     const totalSystems = systemsResponse?.meta?.count;
     const filterText = generateFilterText(filters);
 
