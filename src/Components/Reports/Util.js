@@ -1,9 +1,7 @@
 import { get } from 'lodash';
-import { columnBuilder } from './SystemsPDFReport';
-import styles from './Common/styles';
 
-export const buildSystemsRows = (data) => {
-    const systemsRows = [];
+export const responseToPDFData = (data) => {
+    const systemsRowsData = [];
     const rowKeys = ['display_name', 'os', 'performance_utilization.cpu', 'performance_utilization.memory', 'performance_utilization.max_io',
         'number_of_suggestions', 'state', 'reported_date'];
 
@@ -12,28 +10,17 @@ export const buildSystemsRows = (data) => {
         rowKeys.map((rowKey) =>{
             let rowValue =  rowKey === 'reported_date' ? '03 Mar 2022 06:58 UTC'  : get(systemItem, rowKey, '').toString();
             rowValue = (rowKey === 'performance_utilization.cpu' || rowKey === 'performance_utilization.memory') ? `${rowValue}%` : rowValue;
-            let styleArr = rowKey === 'display_name' ? [styles.systemNameCell] : [styles.bodyCell];
-            rowValueArr.push(columnBuilder({ value: rowValue, style: styleArr }));
+            rowValueArr.push(rowValue);
         });
 
-        systemsRows.push(rowValueArr);
+        systemsRowsData.push(rowValueArr);
     });
 
-    return systemsRows;
+    return systemsRowsData;
 
 };
 
-export const buildSystemsHeader = () => {
 
-    const headerContent = ['Name', 'OS', 'CPU utilization', 'Memory utilization', 'I/O utilization', 'Suggestions', 'State', 'Last reported'];
-    const formattedHeader = headerContent.map(item => {
-        let styleArr = item === 'Name' ? [styles.systemNameCell] : [styles.headerCell];
-        return columnBuilder({ value: item, style: styleArr });
-    });
-
-    return formattedHeader;
-
-};
 
 export const generateFilterText = (filters) => {
     let filterText  = '';
