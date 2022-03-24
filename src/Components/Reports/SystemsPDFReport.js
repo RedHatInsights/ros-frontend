@@ -1,8 +1,12 @@
 import React, { Fragment } from 'react';
+import { Text } from '@react-pdf/renderer';
 import { DownloadButton, Section, Column, Table } from '@redhat-cloud-services/frontend-components-pdf-generator';
 import { SYSTEMS_PDF_REPORT_FILE_NAME, SYSTEMS_PDF_REPORT_NAME } from '../../constants';
 import { fetchSystems } from '../../Utilities/api';
 import { buildSystemsHeader, buildSystemsRows, generateFilterText } from './Util';
+import propTypes from 'prop-types';
+
+export const columnBuilder = ({ value, style }) => <Text key={value} style={style}>{value}</Text>;
 
 const generateSystemsPDFReport = async (filters, orderBy, orderHow) => {
 
@@ -61,4 +65,16 @@ export const DownloadSystemsPDFReport = ({ filters, orderBy, orderHow, ...props 
         </div>
     );
 
+};
+
+DownloadSystemsPDFReport.propTypes = {
+    filters: propTypes.object,
+    orderBy: propTypes.string,
+    orderHow: propTypes.string
+
+};
+
+columnBuilder.propTypes = {
+    value: propTypes.string,
+    style: propTypes.array
 };

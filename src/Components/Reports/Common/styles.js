@@ -20,7 +20,7 @@ export default StyleSheet.create({
         flex: 2.5,
         paddingBottom: 2,
         paddingTop: 2,
-        paddingRight: 2,
+        paddingRight: 2
     },
     osCell: {
         textAlign: 'left',
@@ -28,7 +28,7 @@ export default StyleSheet.create({
         flex: 0.8,
         paddingBottom: 2,
         paddingTop: 2,
-        paddingRight: 2,
+        paddingRight: 2
     },
     headerStyle: {
         display: 'flex',

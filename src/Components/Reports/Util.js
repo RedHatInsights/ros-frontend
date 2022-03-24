@@ -1,13 +1,11 @@
-import React from 'react';
-import { Text } from '@react-pdf/renderer';
-import styles from './Common/styles';
 import { get } from 'lodash';
-
-const columnBuilder = ({ value, style }) => <Text key={value} style={style}>{value}</Text>;
+import { columnBuilder } from './SystemsPDFReport';
+import styles from './Common/styles';
 
 export const buildSystemsRows = (data) => {
     const systemsRows = [];
-    const rowKeys = ['display_name', 'os', 'performance_utilization.cpu', 'performance_utilization.memory', 'performance_utilization.max_io', 'number_of_suggestions', 'state', 'reported_date'];
+    const rowKeys = ['display_name', 'os', 'performance_utilization.cpu', 'performance_utilization.memory', 'performance_utilization.max_io',
+        'number_of_suggestions', 'state', 'reported_date'];
 
     data.map((systemItem) => {
         let rowValueArr = [];
@@ -38,13 +36,13 @@ export const buildSystemsHeader = () => {
 };
 
 export const generateFilterText = (filters) => {
-
     let filterText  = '';
     const hasStateFilter = filters?.stateFilter?.length > 0;
     const hasNameFilter =  filters?.hostnameOrId?.length > 0;
+
     if (hasStateFilter || hasNameFilter) {
         filterText = `\nFilters applied\n`;
-        filterText = hasStateFilter ? filterText.concat(`State:${filters.stateFilter.toString()}\t\t\t\t\t`) : filterText;
+        filterText = hasStateFilter ? filterText.concat(`State: ${filters.stateFilter.toString()}\t\t\t\t\t`) : filterText;
         filterText = hasNameFilter ? filterText.concat(`Name: ${filters.hostnameOrId}`) : filterText;
     }
 
