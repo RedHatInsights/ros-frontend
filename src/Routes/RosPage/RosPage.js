@@ -20,7 +20,6 @@ import { PermissionContext } from '../../App';
 
 import { NotAuthorized } from '@redhat-cloud-services/frontend-components/NotAuthorized';
 import { ManageColumnsModal } from '../../Components/Modals/ManageColumnsModal';
-import { kebabItemDownloadPDF } from '../../Components/Reports/Common/KebabItems';
 import { DownloadSystemsPDFReport } from '../../Components/Reports/SystemsPDFReport';
 
 /**
@@ -215,6 +214,14 @@ class RosPage extends React.Component {
         });
     }
 
+    onExportOptionSelect(fileType) {
+        if (fileType === 'cvs') {
+            // TODO: Download CSV file
+        } else if (fileType === 'json') {
+            // TODO: Download JSON file
+        }
+    }
+
     renderConfigStepsOrTable() {
         const { state: SFObject } = CUSTOM_FILTERS;
         const activeColumns = this.getActiveColumns();
@@ -323,10 +330,13 @@ class RosPage extends React.Component {
                                 ]
                             }}
                             exportConfig={{
-                                //extraItems: [kebabItemDownloadPDF(this.state.exportSystemsPDF, this.setExportSystemsPDF)],
-                                extraItems: [<Button key='pdf-download-button' variant='plain' onClick={() => this.setExportSystemsPDF(true)}>Export as PDF</Button>],
+                                extraItems: [<Button
+                                    key='pdf-download-button' variant='plain'
+                                    onClick={() => this.setExportSystemsPDF(true)}>
+                                        Export as PDF
+                                </Button>],
                                 ouiaId: 'export',
-                                onSelect: (_event, fileType) => { console.log('Checking:', _event, fileType);}
+                                onSelect: (_event, fileType) => this.onExportOptionSelect(fileType)
                             }}
                             onExpandClick={(_e, _i, isOpen, { id }) => this.props.expandRow(id, isOpen, 'EXPAND_ROW')}
                         >
