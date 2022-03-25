@@ -41,10 +41,11 @@ class RosPage extends React.Component {
             orderBy: 'display_name',
             orderDirection: SortByDirection.asc,
             stateFilterValue: [],
+            osFilterValue: [],
             isColumnModalOpen: false,
             exportSystemsPDF: false,
             nameFilterValue: '',
-            disableExport: true
+            disableExport: true,
         };
 
         this.sortingHeader = {
@@ -84,6 +85,14 @@ class RosPage extends React.Component {
                 stateFilterValue: ['Undersized', 'Oversized', 'Under pressure', 'Idling']
             });
         }
+
+        this.setState({
+            osFilterValue: [
+                'RHEL 7.0', 'RHEL 7.1', 'RHEL 7.2', 'RHEL 7.3', 'RHEL 7.4', 'RHEL 7.5', 'RHEL 7.6',
+                'RHEL 7.7', 'RHEL 7.8', 'RHEL 7.9', 'RHEL 8.0', 'RHEL 8.1', 'RHEL 8.2', 'RHEL 8.3',
+                'RHEL 8.4', 'RHEL 8.5'
+            ]
+        });
     }
 
     clearStateQueryParams() {
@@ -117,6 +126,9 @@ class RosPage extends React.Component {
         let query = new URLSearchParams(params);
         fetchParams?.stateFilter?.forEach((stateFilterValue) => {
             query.append('state', stateFilterValue);
+        });
+        fetchParams?.osFilter?.forEach((osFilterValue) => {
+            query.append('os', osFilterValue);
         });
         url.search = query.toString();
         return fetch(url).then((res) => {
@@ -168,6 +180,11 @@ class RosPage extends React.Component {
             stateFilterValue: value
         });
     }
+    updateOSFilter = (value) => {
+        this.setState({
+            osFilterValue: value
+        });
+    }
 
     onDeleteFilters = (e, filtersArr) => {
         const deletedStateFilters = filtersArr.filter((filterObject) => {
@@ -186,9 +203,11 @@ class RosPage extends React.Component {
                 stateFilterValue: activeStateFilters
             });
         }
+        // Fixme : how to delete os filter here?
     }
 
     getActiveFilterConfig = () => {
+        // Fixme : how to define os filter here?
         const activeFilters = this.state.stateFilterValue.map((value)=> ({ name: value }));
 
         return activeFilters.length > 0
@@ -229,6 +248,7 @@ class RosPage extends React.Component {
 
     renderConfigStepsOrTable() {
         const { state: SFObject } = CUSTOM_FILTERS;
+        const { os: OSFObject } = CUSTOM_FILTERS;
         const activeColumns = this.getActiveColumns();
         const { exportSystemsPDF, stateFilterValue, nameFilterValue,
             orderBy, orderDirection, disableExport } = this.state;
@@ -256,7 +276,8 @@ class RosPage extends React.Component {
                             hideFilters={{ all: true, name: false }}
                             autoRefresh= {true}
                             customFilters={{
-                                stateFilter: stateFilterValue
+                                stateFilter: stateFilterValue,
+                                osFilter: this.state.osFilterValue
                             }}
                             columns={activeColumns}
                             getEntities={async (_items, config) => {
@@ -271,7 +292,8 @@ class RosPage extends React.Component {
                                         orderBy: this.sortingHeader[config.orderBy],
                                         orderHow: config.orderDirection,
                                         filters: config.filters,
-                                        stateFilter: config.stateFilter
+                                        stateFilter: config.stateFilter,
+                                        osFilter: config.osFilter
                                     }
                                 );
 
@@ -325,6 +347,16 @@ class RosPage extends React.Component {
                                             items: SFObject.filterValues.items,
                                             onChange: (_e, values) => this.updateStateFilter(values),
                                             value: stateFilterValue
+                                        }
+                                    },
+                                    {
+                                        label: OSFObject.label,
+                                        type: OSFObject.type,
+                                        value: `checkbox-state`,
+                                        filterValues: {
+                                            items: OSFObject.filterValues.items,
+                                            onChange: (_e, values) => this.updateOSFilter(values),
+                                            value: this.state.osFilterValue
                                         }
                                     }
                                 ]
