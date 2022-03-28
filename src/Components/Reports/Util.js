@@ -11,7 +11,7 @@ export const formatData = (data, type) => {
 
         rowKeys.map((rowKey) =>{
             let rowValue =  get(systemItem, rowKey, '');
-            rowValue = rowValue ? rowValue.toString() : 'N/A';
+            rowValue = (rowValue === null || rowValue === -1) ?  'N/A' : rowValue.toString();
             rowValue = (rowValue !== 'N/A' && percentageKeys.includes(rowKey)) ? `${rowValue}%` : rowValue;
 
             if (type === 'json') {
