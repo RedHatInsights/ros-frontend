@@ -142,5 +142,13 @@ export const SYSTEM_TABLE_COLUMNS = [
 
 // Reports
 
-export const SYSTEMS_PDF_REPORT_NAME = 'Insights Resource Optimization Systems Report';
-export const SYSTEMS_PDF_REPORT_FILE_NAME = 'resource_optimization--';
+export const SYSTEMS_PDF_REPORT_TITLE = 'Insights Resource Optimization Systems Report';
+export const SYSTEMS_REPORT_FILE_NAME = 'resource_optimization--';
+
+export const pdfRowKeys = ['display_name', 'os', 'performance_utilization.cpu', 'performance_utilization.memory', 'performance_utilization.max_io',
+    'number_of_suggestions', 'state'];
+
+export const reportRowKeys = ['display_name', 'os', 'performance_utilization.cpu', 'performance_utilization.memory', 'performance_utilization.max_io',
+    'number_of_suggestions', 'state', 'cloud_provider', 'instance_type', 'idling_time'];
+
+export const percentageKeys = ['performance_utilization.cpu', 'performance_utilization.memory', 'idling_time'];

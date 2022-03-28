@@ -1,9 +1,9 @@
 import React, { Fragment } from 'react';
 import { Text } from '@react-pdf/renderer';
 import { DownloadButton, Section, Column, Table } from '@redhat-cloud-services/frontend-components-pdf-generator';
-import { SYSTEMS_PDF_REPORT_FILE_NAME, SYSTEMS_PDF_REPORT_NAME } from '../../constants';
+import { SYSTEMS_PDF_REPORT_TITLE } from '../../constants';
 import { fetchSystems } from '../../Utilities/api';
-import { generateFilterText, responseToPDFData } from './Util';
+import { formatData, generateFilterText, getSystemsReportFileName } from './Util';
 import propTypes from 'prop-types';
 import styles from './Common/styles';
 
@@ -11,7 +11,7 @@ const columnBuilder = ({ value, style }) => <Text key={value} style={style}>{val
 
 const buildSystemsHeader = () => {
 
-    const headerContent = ['Name', 'OS', 'CPU utilization', 'Memory utilization', 'I/O utilization', 'Suggestions', 'State', 'Last reported'];
+    const headerContent = ['Name', 'OS', 'CPU utilization', 'Memory utilization', 'I/O utilization', 'Suggestions', 'State'];
     const formattedHeader = headerContent.map(item => {
         let styleArr = item === 'Name' ? [styles.systemNameCell] : [styles.headerCell];
         return columnBuilder({ value: item, style: styleArr });
@@ -45,7 +45,7 @@ const generateSystemsPDFReport = async (filters, orderBy, orderHow) => {
         orderHow
     };
     const systemsResponse = await fetchSystems(fetchSystemParams);
-    const pdfData = responseToPDFData(systemsResponse.data);
+    const pdfData = formatData(systemsResponse.data, 'pdf');
 
     const systemsRows = buildSystemsRows(pdfData);
 
@@ -76,14 +76,13 @@ const generateSystemsPDFReport = async (filters, orderBy, orderHow) => {
 };
 
 export const DownloadSystemsPDFReport = ({ filters, orderBy, orderHow, ...props }) => {
-    const currentDate = `${new Date().toISOString().replace(/[T:]/g, '-').split('.')[0]}-utc`;
-    const reportFileName = `${SYSTEMS_PDF_REPORT_FILE_NAME}${currentDate}`;
+    const reportFileName = getSystemsReportFileName();
 
     return (
         <div>
             <DownloadButton
                 {...props}
-                reportName={SYSTEMS_PDF_REPORT_NAME}
+                reportName={SYSTEMS_PDF_REPORT_TITLE}
                 type=""
                 fileName={`${reportFileName}.pdf`}
                 size="A4"

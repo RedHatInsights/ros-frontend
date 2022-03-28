@@ -21,6 +21,7 @@ import { PermissionContext } from '../../App';
 import { NotAuthorized } from '@redhat-cloud-services/frontend-components/NotAuthorized';
 import { ManageColumnsModal } from '../../Components/Modals/ManageColumnsModal';
 import { DownloadSystemsPDFReport } from '../../Components/Reports/SystemsPDFReport';
+import { downloadReport } from '../../Components/Reports/DownloadReport';
 
 /**
  * A smart component that handles all the api calls and data needed by the dumb components.
@@ -215,11 +216,14 @@ class RosPage extends React.Component {
     }
 
     onExportOptionSelect(fileType) {
-        if (fileType === 'cvs') {
-            // TODO: Download CSV file
-        } else if (fileType === 'json') {
-            // TODO: Download JSON file
-        }
+        const { stateFilterValue, nameFilterValue, orderBy, orderDirection } = this.state;
+
+        const filters = {
+            stateFilter: stateFilterValue,
+            hostnameOrId: nameFilterValue
+        };
+
+        downloadReport(fileType, filters, orderBy, orderDirection);
     }
 
     renderConfigStepsOrTable() {
