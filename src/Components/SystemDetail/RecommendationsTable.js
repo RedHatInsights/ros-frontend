@@ -1,5 +1,5 @@
 import React from 'react';
-import { Table, TableHeader, TableBody, expandable } from '@patternfly/react-table';
+import { Table, TableHeader, TableBody, expandable, TableComposable, Thead, Tr, Th, Td, Tbody } from '@patternfly/react-table';
 import propTypes from 'prop-types';
 import { flatMap } from 'lodash';
 import { EmptyTable } from '@redhat-cloud-services/frontend-components/EmptyTable';
@@ -15,10 +15,48 @@ const renderExpandedView = (row) => {
                 <Text><strong>Detected issues</strong></Text>
                 {row.reason}
             </Text>
+            {row.detected_issues && <TableComposable
+                arial-label="Detected issues table"
+                variant="compact"
+                borders={false}
+                className="borderTop"
+                style={{ marginLeft: '3%', width: '40%' }}
+            >
+                <Thead>
+                    <Tr>
+                        <Th>Identified issues by ROS</Th>
+                    </Tr>
+                </Thead>
+                <Tbody>
+                    <Tr>
+                        <Td dataLabel="Detected Issues" className="newline tab">{row.detected_issues}</Td>
+                    </Tr>
+                </Tbody>
+            </TableComposable> }
             <Text component={TextVariants.p} className="newline">
                 <Text><strong>Suggestion</strong></Text>
                 {row.resolution}
             </Text>
+            <TableComposable
+                arial-label="Detected issues table"
+                variant="compact"
+                borders={false}
+                className="borderTop"
+                style={{ marginLeft: '3%', width: '90%' }}
+            >
+                <Thead>
+                    <Tr>
+                        <Th>Instance</Th>
+                        <Th>Suggested instances that fit the load better</Th>
+                    </Tr>
+                </Thead>
+                <Tbody>
+                    <Tr>
+                        <Td dataLabel="Current Instance">{row.current_instance}</Td>
+                        <Td dataLabel="Suggested Instances" className="newline">{row.suggested_instances}</Td>
+                    </Tr>
+                </Tbody>
+            </TableComposable>
         </TextContent>
     );
 };
