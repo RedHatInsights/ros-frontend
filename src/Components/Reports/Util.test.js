@@ -1,4 +1,5 @@
-import { generateFilterText, formatData } from './Util';
+import { generateFilterText, formatData, responseToCSVData, responseToJSONData } from './Util';
+import { sysResponseTestData } from './UtilTestData';
 
 describe('Util generateFilterText method tests', () => {
     it('should generate filter text for name filter', () => {
@@ -70,89 +71,22 @@ describe('Util formatData method tests', () => {
             ['ros-system.internal', 'RHEL 8.4', '90%', '97%', '0.314', '1', 'Undersized']
         ];
 
-        const testData = [
-            {
-                fqdn: 'ip-172-31-28-69.ec2.internal',
-                display_name: 'ip-172-31-28-69.ec2.internal', /* eslint-disable-line camelcase */
-                inventory_id: 'cd96482e-1fcb-49b4-958d-06315da16b9a', /* eslint-disable-line camelcase */
-                account: '6089719',
-                number_of_suggestions: 1, /* eslint-disable-line camelcase */
-                state: 'Undersized',
-                performance_utilization: {  /* eslint-disable-line camelcase */
-                    cpu: 90, memory: 97,
-                    max_io: 0.314, io_all: { xvda: 0.314 }  /* eslint-disable-line camelcase */
-                },
-                cloud_provider: 'aws',  /* eslint-disable-line camelcase */
-                instance_type: 't2.micro',  /* eslint-disable-line camelcase */
-                idling_time: '19.70',  /* eslint-disable-line camelcase */
-                os: 'RHEL 8.4'
-            },
-            {
-                fqdn: 'ip-172-31-28-69.ec2.internal',
-                display_name: 'ros-system.internal', /* eslint-disable-line camelcase */
-                inventory_id: 'cd96482e-1fcb-49b4-958d-06315da16b9a', /* eslint-disable-line camelcase */
-                account: '6089719',
-                number_of_suggestions: 1, /* eslint-disable-line camelcase */
-                state: 'Undersized',
-                performance_utilization: {  /* eslint-disable-line camelcase */
-                    cpu: 90, memory: 97,
-                    max_io: 0.314, io_all: { xvda: 0.314 }  /* eslint-disable-line camelcase */
-                },
-                cloud_provider: 'aws',  /* eslint-disable-line camelcase */
-                instance_type: 't2.micro',  /* eslint-disable-line camelcase */
-                idling_time: '19.70',  /* eslint-disable-line camelcase */
-                os: 'RHEL 8.4'
-            }
-        ];
-
-        const actualSystemsRowsData = formatData(testData, 'pdf');
+        const actualSystemsRowsData = formatData(sysResponseTestData, 'pdf');
 
         expect(actualSystemsRowsData).toEqual(expectedSystemsRowsData);
 
     });
 
-    it('should generate array of data in the format required to generate PDF', () => {
+    it('should generate array of data (with 0%) in the format required to generate PDF', () => {
         const expectedSystemsRowsData = [
             ['ip-172-31-28-69.ec2.internal', 'RHEL 8.4', '0%', '0%', '0.314', '1', 'Undersized'],
             ['ros-system.internal', 'RHEL 8.4', '90%', '97%', '0.314', '1', 'Undersized']
         ];
 
-        const testData = [
-            {
-                fqdn: 'ip-172-31-28-69.ec2.internal',
-                display_name: 'ip-172-31-28-69.ec2.internal', /* eslint-disable-line camelcase */
-                inventory_id: 'cd96482e-1fcb-49b4-958d-06315da16b9a', /* eslint-disable-line camelcase */
-                account: '6089719',
-                number_of_suggestions: 1, /* eslint-disable-line camelcase */
-                state: 'Undersized',
-                performance_utilization: {  /* eslint-disable-line camelcase */
-                    cpu: 0, memory: 0,
-                    max_io: 0.314, io_all: { xvda: 0.314 }  /* eslint-disable-line camelcase */
-                },
-                cloud_provider: 'aws',  /* eslint-disable-line camelcase */
-                instance_type: 't2.micro',  /* eslint-disable-line camelcase */
-                idling_time: '19.70',  /* eslint-disable-line camelcase */
-                os: 'RHEL 8.4'
-            },
-            {
-                fqdn: 'ip-172-31-28-69.ec2.internal',
-                display_name: 'ros-system.internal', /* eslint-disable-line camelcase */
-                inventory_id: 'cd96482e-1fcb-49b4-958d-06315da16b9a', /* eslint-disable-line camelcase */
-                account: '6089719',
-                number_of_suggestions: 1, /* eslint-disable-line camelcase */
-                state: 'Undersized',
-                performance_utilization: {  /* eslint-disable-line camelcase */
-                    cpu: 90, memory: 97,
-                    max_io: 0.314, io_all: { xvda: 0.314 }  /* eslint-disable-line camelcase */
-                },
-                cloud_provider: 'aws',  /* eslint-disable-line camelcase */
-                instance_type: 't2.micro',  /* eslint-disable-line camelcase */
-                idling_time: '19.70',  /* eslint-disable-line camelcase */
-                os: 'RHEL 8.4'
-            }
-        ];
+        sysResponseTestData[0].performance_utilization.cpu = 0;
+        sysResponseTestData[0].performance_utilization.memory = 0;
 
-        const actualSystemsRowsData = formatData(testData, 'pdf');
+        const actualSystemsRowsData = formatData(sysResponseTestData, 'pdf');
 
         expect(actualSystemsRowsData).toEqual(expectedSystemsRowsData);
 
@@ -164,44 +98,45 @@ describe('Util formatData method tests', () => {
             ['ros-system.internal', 'RHEL 8.4', '90%', '97%', '0.314', '1', 'Undersized']
         ];
 
-        const testData = [
-            {
-                fqdn: 'ip-172-31-28-69.ec2.internal',
-                display_name: 'ip-172-31-28-69.ec2.internal', /* eslint-disable-line camelcase */
-                inventory_id: 'cd96482e-1fcb-49b4-958d-06315da16b9a', /* eslint-disable-line camelcase */
-                account: '6089719',
-                number_of_suggestions: null, /* eslint-disable-line camelcase */
-                state: 'Undersized',
-                performance_utilization: {  /* eslint-disable-line camelcase */
-                    cpu: null, memory: null,
-                    max_io: 0.314, io_all: { xvda: 0.314 }  /* eslint-disable-line camelcase */
-                },
-                cloud_provider: 'aws',  /* eslint-disable-line camelcase */
-                instance_type: 't2.micro',  /* eslint-disable-line camelcase */
-                idling_time: '19.70',  /* eslint-disable-line camelcase */
-                os: 'RHEL 8.4'
-            },
-            {
-                fqdn: 'ip-172-31-28-69.ec2.internal',
-                display_name: 'ros-system.internal', /* eslint-disable-line camelcase */
-                inventory_id: 'cd96482e-1fcb-49b4-958d-06315da16b9a', /* eslint-disable-line camelcase */
-                account: '6089719',
-                number_of_suggestions: 1, /* eslint-disable-line camelcase */
-                state: 'Undersized',
-                performance_utilization: {  /* eslint-disable-line camelcase */
-                    cpu: 90, memory: 97,
-                    max_io: 0.314, io_all: { xvda: 0.314 }  /* eslint-disable-line camelcase */
-                },
-                cloud_provider: 'aws',  /* eslint-disable-line camelcase */
-                instance_type: 't2.micro',  /* eslint-disable-line camelcase */
-                idling_time: '19.70',  /* eslint-disable-line camelcase */
-                os: 'RHEL 8.4'
-            }
-        ];
+        sysResponseTestData[0].number_of_suggestions = null;  /* eslint-disable-line camelcase */
+        sysResponseTestData[0].performance_utilization.cpu = null;
+        sysResponseTestData[0].performance_utilization.memory = null;
 
-        const actualSystemsRowsData = formatData(testData, 'pdf');
+        const actualSystemsRowsData = formatData(sysResponseTestData, 'pdf');
 
         expect(actualSystemsRowsData).toEqual(expectedSystemsRowsData);
 
+    });
+});
+
+describe('Util responseToCSVData test', () => {
+    it('should format the data into CSV format', () => {
+        // eslint-disable-next-line max-len
+        const expectedSystemsRowsData = `display_name,os,performance_utilization.cpu,performance_utilization.memory,performance_utilization.max_io,number_of_suggestions,state,cloud_provider,instance_type,idling_time\r\n"ip-172-31-28-69.ec2.internal","RHEL 8.4","90%","97%","0.314","1","Undersized","aws","t2.micro","19.70%"\r\n"ros-system.internal","RHEL 8.4","90%","97%","0.314","1","Undersized","aws","t2.micro","19.70%"`;
+
+        sysResponseTestData[0].number_of_suggestions = 1;  /* eslint-disable-line camelcase */
+        sysResponseTestData[0].performance_utilization.cpu = 90;
+        sysResponseTestData[0].performance_utilization.memory = 97;
+
+        const actualSystemsRowsData = responseToCSVData(sysResponseTestData);
+
+        expect(actualSystemsRowsData).toEqual(expectedSystemsRowsData);
+    });
+});
+
+describe('Util responseToJSONData test', () => {
+    it('should format the data into JSON string format ', () => {
+        // eslint-disable-next-line max-len
+        const expectedSystemsRowsData = '[{"display_name":"ip-172-31-28-69.ec2.internal","os":"RHEL 8.4","performance_utilization.cpu":"90%","performance_utilization.memory":"97%","performance_utilization.max_io":"0.314","number_of_suggestions":"1","state":"Undersized","cloud_provider":"aws","instance_type":"t2.micro","idling_time":"19.70%"}]';
+
+        sysResponseTestData[0].number_of_suggestions = 1;  /* eslint-disable-line camelcase */
+        sysResponseTestData[0].performance_utilization.cpu = 90;
+        sysResponseTestData[0].performance_utilization.memory = 97;
+
+        const sysResponseJSONData = sysResponseTestData.slice(0, 1);
+
+        const actualSystemsRowsData = responseToJSONData(sysResponseJSONData);
+
+        expect(actualSystemsRowsData).toEqual(expectedSystemsRowsData);
     });
 });
