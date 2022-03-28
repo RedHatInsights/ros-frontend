@@ -43,7 +43,8 @@ class RosPage extends React.Component {
             stateFilterValue: [],
             isColumnModalOpen: false,
             exportSystemsPDF: false,
-            nameFilterValue: ''
+            nameFilterValue: '',
+            disableExport: true
         };
 
         this.sortingHeader = {
@@ -272,12 +273,19 @@ class RosPage extends React.Component {
                                         stateFilter: config.stateFilter
                                     }
                                 );
+
                                 const invIds = (results.data || []).map(({ inventory_id: inventoryId }) => inventoryId);
                                 const invSystems = await this.fetchInventoryDetails(invIds, {
                                     ...config,
                                     page: 1,
                                     hasItems: true
                                 });
+
+                                const disableExport = results?.meta?.count === 0;
+                                this.setState(() => ({
+                                    disableExport
+                                }));
+
                                 return {
                                     results: results.data.map((system) => {
                                         const invRec = invSystems.find(({ id }) => id === system.inventory_id);
@@ -334,6 +342,7 @@ class RosPage extends React.Component {
                                 ]
                             }}
                             exportConfig={{
+                                isDisabled: this.state.disableExport,
                                 extraItems: [<Button
                                     key='pdf-download-button' variant='plain'
                                     onClick={() => this.setExportSystemsPDF(true)}>
