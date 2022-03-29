@@ -4,23 +4,22 @@ import propTypes from 'prop-types';
 import { flatMap } from 'lodash';
 import { EmptyTable } from '@redhat-cloud-services/frontend-components/EmptyTable';
 import { EmptyStateDisplay } from '../EmptyStateDisplay/EmptyStateDisplay';
-import { CheckCircleIcon } from '@patternfly/react-icons';
+import { CheckCircleIcon, BullseyeIcon, WrenchIcon } from '@patternfly/react-icons';
 import { TextContent, Text, TextVariants } from '@patternfly/react-core';
 import './RecommendationsTable.scss';
 
 const renderExpandedView = (row) => {
     return (
         <TextContent>
-            <Text component={TextVariants.p} className="newline tab">
-                <Text><strong>Detected issues</strong></Text>
+            <Text component={TextVariants.p}>
+                <Text className="margin-text-bottom"><BullseyeIcon/><strong>Detected issues</strong></Text>
                 {row.reason}
             </Text>
             {row.detected_issues && <TableComposable
                 arial-label="Detected issues table"
                 variant="compact"
                 borders={false}
-                className="borderTop"
-                style={{ marginLeft: '3%', width: '40%' }}
+                className="table-border-top detected-issues-table"
             >
                 <Thead>
                     <Tr>
@@ -33,16 +32,16 @@ const renderExpandedView = (row) => {
                     </Tr>
                 </Tbody>
             </TableComposable> }
-            <Text component={TextVariants.p} className="newline">
-                <Text><strong>Suggestion</strong></Text>
+            <hr/>
+            <Text component={TextVariants.p}>
+                <Text className="margin-text-bottom"><WrenchIcon/><strong>Suggestion</strong></Text>
                 {row.resolution}
             </Text>
             <TableComposable
-                arial-label="Detected issues table"
+                arial-label="Suggestions table"
                 variant="compact"
                 borders={false}
-                className="borderTop"
-                style={{ marginLeft: '3%', width: '90%' }}
+                className="table-border-top suggestions-table"
             >
                 <Thead>
                     <Tr>
@@ -52,8 +51,8 @@ const renderExpandedView = (row) => {
                 </Thead>
                 <Tbody>
                     <Tr>
-                        <Td dataLabel="Current Instance">{row.current_instance}</Td>
-                        <Td dataLabel="Suggested Instances" className="newline">{row.suggested_instances}</Td>
+                        <Td dataLabel="Instance">{row.current_instance}</Td>
+                        <Td dataLabel="Suggested instances" className="newline">{row.suggested_instances}</Td>
                     </Tr>
                 </Tbody>
             </TableComposable>

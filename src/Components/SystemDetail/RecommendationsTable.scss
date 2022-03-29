@@ -2,21 +2,35 @@
   tr {
     --pf-c-table--cell--FontSize: var(--pf-global--FontSize--md);
   }
-  .newline {
-    white-space: pre-line;
-  }
-  .tab {
-    white-space: pre-wrap;
-  }
   .recs-table-empty {
     .pf-c-empty-state__icon {
       fill: var(--pf-global--success-color--100);
     }
   }
-  .borderTop {
-    border-top: 1px solid #d9d9d9;
-  }
-  Th {
-    font-weight: normal;
-  }
+}
+.newline {
+  white-space: pre-line;
+}
+.tab {
+  white-space: pre-wrap;
+}
+Th {
+  font-weight: normal;
+}
+strong {
+  padding: 12px;
+}
+.table-border-top {
+  border-top: 1px solid #d9d9d9;
+}
+.detected-issues-table {
+  margin-left: 3%;
+  width: 40%
+}
+.suggestions-table {
+  margin-left: 3%;
+  width: 90%;
+}
+.margin-text-bottom {
+  margin-bottom: 2%;
 }
