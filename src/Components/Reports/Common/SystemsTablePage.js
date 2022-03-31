@@ -4,14 +4,14 @@ import { Section, Column, Table } from '@redhat-cloud-services/frontend-componen
 import { Text } from '@react-pdf/renderer';
 import styles from './styles';
 
-const columnBuilder = ({ value, style }) => <Text key={value} style={style}>{value}</Text>;
+const columnBuilder = ({ value, style, key }) => <Text key={key} style={style}>{value}</Text>;
 
 const buildSystemsHeader = () => {
 
     const headerContent = ['Name', 'OS', 'CPU utilization', 'Memory utilization', 'I/O utilization', 'Suggestions', 'State'];
-    const formattedHeader = headerContent.map(item => {
+    const formattedHeader = headerContent.map((item, index) => {
         let styleArr = item === 'Name' ? [styles.systemNameCell] : [styles.headerCell];
-        return columnBuilder({ value: item, style: styleArr });
+        return columnBuilder({ value: item, style: styleArr, key: `${index}-${item}` });
     });
 
     return formattedHeader;
@@ -22,7 +22,7 @@ const buildSystemsRows = (rowsData) => {
     const systemsRows =  rowsData.map((rowItem) => {
         const formattedRows = rowItem.map((rowValue, index) => {
             let styleArr = index === 0 ? [styles.systemNameCell] : [styles.bodyCell];
-            return columnBuilder({ value: rowValue, style: styleArr });
+            return columnBuilder({ value: rowValue, style: styleArr, key: `${index}-${rowValue}` });
         });
         return formattedRows;
     });
@@ -61,5 +61,6 @@ SystemsTablePage.propTypes = {
 
 columnBuilder.propTypes = {
     value: propTypes.string,
-    style: propTypes.array
+    style: propTypes.array,
+    key: propTypes.string
 };
