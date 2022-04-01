@@ -46,3 +46,11 @@ export const displayOS = (data) => {
             <span>{ data }</span>
     );
 };
+
+export const displayLastReported = (data) => {
+    return (
+        data === null ? 
+            <span>{ NO_DATA_VALUE }</span> :
+            <span>{ data }</span>
+    )
+}

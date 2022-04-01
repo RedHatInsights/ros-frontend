@@ -54,7 +54,8 @@ class RosPage extends React.Component {
             'performance_utilization.memory': 'memory',
             'performance_utilization.max_io': 'max_io',
             number_of_suggestions: 'number_of_suggestions', /* eslint-disable-line camelcase */
-            state: 'state' };
+            state: 'state',
+            report_date: 'report_date' };
 
         this.chunkSize = 50;
         this.inventory = React.createRef();

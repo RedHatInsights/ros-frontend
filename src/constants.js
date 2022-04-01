@@ -1,7 +1,7 @@
 import React from 'react';
 import { Tooltip } from '@patternfly/react-core';
 import { displayState, recommendations, scoreProgress, systemName } from './store/entitiesReducer';
-import { diskUsageData, displayOS } from './Components/RosTable/RenderColumn';
+import { diskUsageData, displayLastReported, displayOS } from './Components/RosTable/RenderColumn';
 
 // API
 export const ROS_API_ROOT = '/api/ros/v1';
@@ -137,6 +137,15 @@ export const SYSTEM_TABLE_COLUMNS = [
         isChecked: true,
         isDisabled: false,
         isShownByDefault: true
+    },
+    {
+        key: 'report_date',
+        title: 'Last reported',
+        modalTitle: 'Last reported',
+        renderFunc: (data) => displayLastReported(data),
+        isChecked: true,
+        isDisabled: false,
+        isShownByDefault: true
     }
 ];
 
@@ -146,10 +155,10 @@ export const SYSTEMS_PDF_REPORT_TITLE = 'Insights Resource Optimization Systems 
 export const SYSTEMS_REPORT_FILE_NAME = 'resource_optimization--';
 
 export const pdfRowKeys = ['display_name', 'os', 'performance_utilization.cpu', 'performance_utilization.memory', 'performance_utilization.max_io',
-    'number_of_suggestions', 'state'];
+    'number_of_suggestions', 'state', 'report_date'];
 
 export const reportRowKeys = ['display_name', 'os', 'performance_utilization.cpu', 'performance_utilization.memory', 'performance_utilization.max_io',
-    'number_of_suggestions', 'state', 'cloud_provider', 'instance_type', 'idling_time'];
+    'number_of_suggestions', 'state', 'cloud_provider', 'instance_type', 'idling_time', 'report_date'];
 
 export const percentageKeys = ['performance_utilization.cpu', 'performance_utilization.memory', 'idling_time'];
 
