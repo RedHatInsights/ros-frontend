@@ -14,3 +14,8 @@ export const loadIsConfiguredInfo = () => ({
     type: 'LOAD_IS_CONFIGURED_INFO',
     payload: isROSConfigured()
 });
+
+export const changeSystemColumns = (payload) =>({
+    type: 'CHANGE_SYSTEM_COLUMNS',
+    payload
+});

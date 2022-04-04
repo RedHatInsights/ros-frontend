@@ -31,7 +31,7 @@ export const displayState = (data) => {
     return (<SystemState stateValue={ data }/>);
 };
 
-export const scoreProgress = () => (data, id, { state }) => {
+export const scoreProgress = (data, id, { state }) => {
     return (
         state === NO_DATA_STATE ?
             <span>{ NO_DATA_VALUE }</span> :
