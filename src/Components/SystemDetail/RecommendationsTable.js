@@ -9,13 +9,15 @@ import { TextContent, Text, TextVariants } from '@patternfly/react-core';
 import './RecommendationsTable.scss';
 
 const renderExpandedView = (row) => {
+    const { resolution, reason, detected_issues: detectedIssues, current_instance: currentInstance, suggested_instances: suggestedInstances } = row;
+
     return (
         <TextContent>
             <Text component={TextVariants.p}>
                 <Text className="margin-text-bottom"><BullseyeIcon/><strong className="strong-tag-style">Detected issues</strong></Text>
-                {row.reason}
+                {reason}
             </Text>
-            {row.detected_issues && <TableComposable
+            { detectedIssues && <TableComposable
                 arial-label="Detected issues table"
                 variant="compact"
                 borders={false}
@@ -23,21 +25,22 @@ const renderExpandedView = (row) => {
             >
                 <Thead>
                     <Tr>
-                        <Th className="Th-tag-style">Identified issues by ROS</Th>
+                        <Th>Identified issues by ROS</Th>
                     </Tr>
                 </Thead>
                 <Tbody>
                     <Tr>
-                        <Td dataLabel="Identified issues by ROS" className="newline tab">{row.detected_issues}</Td>
+                        <Td dataLabel="Identified issues by ROS" className="newline tab">
+                            {detectedIssues}</Td>
                     </Tr>
                 </Tbody>
             </TableComposable> }
             <hr/>
             <Text component={TextVariants.p}>
                 <Text className="margin-text-bottom"><WrenchIcon/><strong className="strong-tag-style">Suggestion</strong></Text>
-                {row.resolution}
+                {resolution}
             </Text>
-            <TableComposable
+            { currentInstance && suggestedInstances && <TableComposable
                 arial-label="Suggestions table"
                 variant="compact"
                 borders={false}
@@ -45,17 +48,18 @@ const renderExpandedView = (row) => {
             >
                 <Thead>
                     <Tr>
-                        <Th className="Th-tag-style">Instance</Th>
-                        <Th className="Th-tag-style">Suggested instances that fit the load better</Th>
+                        <Th>Instance</Th>
+                        <Th>Suggested instances that fit the load better</Th>
                     </Tr>
                 </Thead>
                 <Tbody>
                     <Tr>
-                        <Td dataLabel="Instance">{row.current_instance}</Td>
-                        <Td dataLabel="Suggested instances that fit the load better" className="newline">{row.suggested_instances}</Td>
+                        <Td dataLabel="Instance">{currentInstance}</Td>
+                        <Td dataLabel="Suggested instances that fit the load better" className="newline">
+                            {suggestedInstances}</Td>
                     </Tr>
                 </Tbody>
-            </TableComposable>
+            </TableComposable> }
         </TextContent>
     );
 };
