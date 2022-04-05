@@ -12,7 +12,7 @@ const renderExpandedView = (row) => {
     return (
         <TextContent>
             <Text component={TextVariants.p}>
-                <Text className="margin-text-bottom"><BullseyeIcon/><strong>Detected issues</strong></Text>
+                <Text className="margin-text-bottom"><BullseyeIcon/><strong className="strong-tag-style">Detected issues</strong></Text>
                 {row.reason}
             </Text>
             {row.detected_issues && <TableComposable
@@ -23,18 +23,18 @@ const renderExpandedView = (row) => {
             >
                 <Thead>
                     <Tr>
-                        <Th>Identified issues by ROS</Th>
+                        <Th className="Th-tag-style">Identified issues by ROS</Th>
                     </Tr>
                 </Thead>
                 <Tbody>
                     <Tr>
-                        <Td dataLabel="Detected Issues" className="newline tab">{row.detected_issues}</Td>
+                        <Td dataLabel="Identified issues by ROS" className="newline tab">{row.detected_issues}</Td>
                     </Tr>
                 </Tbody>
             </TableComposable> }
             <hr/>
             <Text component={TextVariants.p}>
-                <Text className="margin-text-bottom"><WrenchIcon/><strong>Suggestion</strong></Text>
+                <Text className="margin-text-bottom"><WrenchIcon/><strong className="strong-tag-style">Suggestion</strong></Text>
                 {row.resolution}
             </Text>
             <TableComposable
@@ -45,14 +45,14 @@ const renderExpandedView = (row) => {
             >
                 <Thead>
                     <Tr>
-                        <Th>Instance</Th>
-                        <Th>Suggested instances that fit the load better</Th>
+                        <Th className="Th-tag-style">Instance</Th>
+                        <Th className="Th-tag-style">Suggested instances that fit the load better</Th>
                     </Tr>
                 </Thead>
                 <Tbody>
                     <Tr>
                         <Td dataLabel="Instance">{row.current_instance}</Td>
-                        <Td dataLabel="Suggested instances" className="newline">{row.suggested_instances}</Td>
+                        <Td dataLabel="Suggested instances that fit the load better" className="newline">{row.suggested_instances}</Td>
                     </Tr>
                 </Tbody>
             </TableComposable>
