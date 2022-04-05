@@ -38,8 +38,8 @@ class RosPage extends React.Component {
 
         this.state = {
             perPage: 10,
-            orderBy: 'display_name',
-            orderDirection: SortByDirection.asc,
+            orderBy: 'report_date',
+            orderDirection: SortByDirection.desc,
             stateFilterValue: [],
             isColumnModalOpen: false,
             exportSystemsPDF: false,
