@@ -112,7 +112,7 @@ describe('Util formatData method tests', () => {
 describe('Util responseToCSVData test', () => {
     it('should format the data into CSV format', () => {
         // eslint-disable-next-line max-len
-        const expectedSystemsRowsData = `display_name,os,performance_utilization.cpu,performance_utilization.memory,performance_utilization.max_io,number_of_suggestions,state,cloud_provider,instance_type,idling_time\r\n"ip-172-31-28-69.ec2.internal","RHEL 8.4","90%","97%","0.314","1","Undersized","aws","t2.micro","19.70%"\r\n"ros-system.internal","RHEL 8.4","90%","97%","0.314","1","Undersized","aws","t2.micro","19.70%"`;
+        const expectedSystemsRowsData = `display_name,os,performance_utilization.cpu,performance_utilization.memory,performance_utilization.max_io,number_of_suggestions,state,cloud_provider,instance_type,idling_time\r\nip-172-31-28-69.ec2.internal,RHEL 8.4,90%,97%,0.314,1,Undersized,aws,t2.micro,19.70%\r\nros-system.internal,RHEL 8.4,90%,97%,0.314,1,Undersized,aws,t2.micro,19.70%`;
 
         sysResponseTestData[0].number_of_suggestions = 1;  /* eslint-disable-line camelcase */
         sysResponseTestData[0].performance_utilization.cpu = 90;

@@ -35,11 +35,10 @@ export const responseToJSONData = (data) => {
 
 export const responseToCSVData = (data) => {
     const items =  formatData(data, 'json');
-    const replacer = (key, value) => value === null ? 'N/A' : value;
     const header = Object.keys(items[0]);
     const csvData = [
         header.join(','), // header row first
-        ...items.map(row => header.map(fieldName => JSON.stringify(row[fieldName], replacer)).join(','))
+        ...items.map(row => header.map(fieldName => row[fieldName]).join(','))
     ].join('\r\n');
 
     return csvData;
@@ -47,12 +46,13 @@ export const responseToCSVData = (data) => {
 
 export const generateFilterText = (filters) => {
     let filterText  = '';
+    const filterSeparatorOnLine = '\t\t\t\t\t';
     const hasStateFilter = filters?.stateFilter?.length > 0;
     const hasNameFilter =  filters?.hostnameOrId?.length > 0;
 
     if (hasStateFilter || hasNameFilter) {
         filterText = `\nFilters applied\n`;
-        filterText = hasStateFilter ? filterText.concat(`State: ${filters.stateFilter.toString()}\t\t\t\t\t`) : filterText;
+        filterText = hasStateFilter ? filterText.concat(`State: ${filters.stateFilter.toString()}${filterSeparatorOnLine}`) : filterText;
         filterText = hasNameFilter ? filterText.concat(`Name: ${filters.hostnameOrId}`) : filterText;
     }
 
