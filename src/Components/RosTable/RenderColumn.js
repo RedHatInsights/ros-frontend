@@ -1,6 +1,7 @@
 import { Tooltip } from '@patternfly/react-core';
 import React from 'react';
 import { NO_DATA_STATE, NO_DATA_VALUE } from '../../constants';
+import { formatLastReported } from '../Reports/Util';
 import './RenderColumn.scss';
 
 export const diskUsageData = (data, id, item) => {
@@ -49,8 +50,8 @@ export const displayOS = (data) => {
 
 export const displayLastReported = (data) => {
     return (
-        data === null ? 
+        data === null ?
             <span>{ NO_DATA_VALUE }</span> :
-            <span>{ data }</span>
-    )
-}
+            <span>{ formatLastReported(data) }</span>
+    );
+};
