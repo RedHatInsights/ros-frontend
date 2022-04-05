@@ -13,7 +13,8 @@ export const sysResponseTestData = [
         cloud_provider: 'aws',  /* eslint-disable-line camelcase */
         instance_type: 't2.micro',  /* eslint-disable-line camelcase */
         idling_time: '19.70',  /* eslint-disable-line camelcase */
-        os: 'RHEL 8.4'
+        os: 'RHEL 8.4',
+        report_date: '2022-03-29'  /* eslint-disable-line camelcase */
     },
     {
         fqdn: 'ip-172-31-28-69.ec2.internal',
@@ -29,6 +30,7 @@ export const sysResponseTestData = [
         cloud_provider: 'aws',  /* eslint-disable-line camelcase */
         instance_type: 't2.micro',  /* eslint-disable-line camelcase */
         idling_time: '19.70',  /* eslint-disable-line camelcase */
-        os: 'RHEL 8.4'
+        os: 'RHEL 8.4',
+        report_date: '2022-03-30 12:02:00+00:00'  /* eslint-disable-line camelcase */
     }
 ];

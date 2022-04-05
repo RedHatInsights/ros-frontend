@@ -188,6 +188,19 @@ State: Undersized,Under pressure,Waiting for data			Name: iqe
             >
               State
             </TEXT>
+            <TEXT
+              style={
+                Array [
+                  Object {
+                    "flex": 1,
+                    "fontSize": 8,
+                    "textAlign": "left",
+                  },
+                ]
+              }
+            >
+              Last reported
+            </TEXT>
           </VIEW>
           <VIEW
             style={
@@ -772,6 +785,19 @@ State: Undersized			Name: iqe
               }
             >
               State
+            </TEXT>
+            <TEXT
+              style={
+                Array [
+                  Object {
+                    "flex": 1,
+                    "fontSize": 8,
+                    "textAlign": "left",
+                  },
+                ]
+              }
+            >
+              Last reported
             </TEXT>
           </VIEW>
           <VIEW
