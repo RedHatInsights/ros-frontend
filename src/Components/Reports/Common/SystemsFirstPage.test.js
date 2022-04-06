@@ -13,7 +13,7 @@ describe('Systems First Page Component', () => {
                 ['iqe-ros-bb519f81', 'RHEL 8.4', 'N/A', 'N/A', 'N/A', '2', 'Waiting for data']
             ],
             totalSystems: 3,
-            filterText: `Filters applied\nState: Undersized,Under pressure,Waiting for data\t\t\tName: iqe`
+            filterText: `Filters applied\nState: Undersized,Under pressure,Waiting for data\nName: iqe`
         };
 
         const component = renderer.create(<SystemsFirstPage {...firstPageProps} />).toJSON();
@@ -29,7 +29,7 @@ describe('Systems First Page Component', () => {
                 ['iqe-ros-bb519f81', 'RHEL 8.4', '90%', '80%', '0.314', '2', 'Undersized']
             ],
             totalSystems: 1,
-            filterText: `Filters applied\nState: Undersized\t\t\tName: iqe`
+            filterText: `Filters applied\nState: Undersized\nName: iqe`
         };
 
         const component = renderer.create(<SystemsFirstPage {...firstPageProps} />).toJSON();
