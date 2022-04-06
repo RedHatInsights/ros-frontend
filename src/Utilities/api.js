@@ -1,3 +1,4 @@
+import { SortByDirection } from '@patternfly/react-table';
 import { ROS_API_ROOT, SYSTEMS_API_ROOT, IS_CONFIGURED_API } from '../constants';
 
 export function handleErrors(response) {
@@ -68,5 +69,47 @@ export const fetchSystemRecommendations = (inventoryId, options = {}) => {
     );
 
     return response;
+};
+
+export const fetchSystems = async (fetchParams) => {
+    await window.insights.chrome.auth.getUser();
+
+    const { perPage, orderBy, orderHow  } = fetchParams || {};
+
+    const sortingHeader = {
+        display_name: 'display_name', /* eslint-disable-line camelcase */
+        os: 'os',
+        'performance_utilization.cpu': 'cpu',
+        'performance_utilization.memory': 'memory',
+        'performance_utilization.max_io': 'max_io',
+        number_of_suggestions: 'number_of_suggestions', /* eslint-disable-line camelcase */
+        state: 'state'
+    };
+
+    let params = {
+        order_by: sortingHeader[orderBy] || 'display_name', /* eslint-disable-line camelcase */
+        order_how: orderHow || SortByDirection.asc, /* eslint-disable-line camelcase */
+        limit: perPage ? perPage : -1,
+        ...fetchParams?.page && {
+            offset: (fetchParams.page - 1) * fetchParams.perPage
+        },
+        ...fetchParams?.filters?.hostnameOrId && {
+            display_name: fetchParams.filters.hostnameOrId /* eslint-disable-line camelcase */
+        }
+    };
+
+    let url = new URL(ROS_API_ROOT + SYSTEMS_API_ROOT,  window.location.origin);
+    let query = new URLSearchParams(params);
+    fetchParams?.stateFilter?.forEach((stateFilterValue) => {
+        query.append('state', stateFilterValue);
+    });
+    url.search = query.toString();
+    return fetch(url).then((res) => {
+        if (!res.ok) {
+            throw Error(res.statusText);
+        }
+
+        return res;
+    }).then(res =>  res.json());
 };
 

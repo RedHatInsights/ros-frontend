@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 import { PageHeader, PageHeaderTitle } from '@redhat-cloud-services/frontend-components/PageHeader';
 import { Main } from '@redhat-cloud-services/frontend-components/Main';
-import { Card, CardBody } from '@patternfly/react-core';
+import { Button, Card, CardBody } from '@patternfly/react-core';
 import { SortByDirection } from '@patternfly/react-table';
 import { connect } from 'react-redux';
 import { InventoryTable } from '@redhat-cloud-services/frontend-components/Inventory';
@@ -20,6 +20,8 @@ import { PermissionContext } from '../../App';
 
 import { NotAuthorized } from '@redhat-cloud-services/frontend-components/NotAuthorized';
 import { ManageColumnsModal } from '../../Components/Modals/ManageColumnsModal';
+import { DownloadSystemsPDFReport } from '../../Components/Reports/SystemsPDFReport';
+import { downloadReport } from '../../Components/Reports/DownloadReport';
 
 /**
  * A smart component that handles all the api calls and data needed by the dumb components.
@@ -39,7 +41,10 @@ class RosPage extends React.Component {
             orderBy: 'display_name',
             orderDirection: SortByDirection.asc,
             stateFilterValue: [],
-            isColumnModalOpen: false
+            isColumnModalOpen: false,
+            exportSystemsPDF: false,
+            nameFilterValue: '',
+            disableExport: true
         };
 
         this.sortingHeader = {
@@ -205,9 +210,28 @@ class RosPage extends React.Component {
         return columns.filter(column => column.isChecked);
     }
 
+    setExportSystemsPDF(exportSystemsPDF) {
+        this.setState({
+            exportSystemsPDF
+        });
+    }
+
+    onExportOptionSelect(fileType) {
+        const { stateFilterValue, nameFilterValue, orderBy, orderDirection } = this.state;
+
+        const filters = {
+            stateFilter: stateFilterValue,
+            hostnameOrId: nameFilterValue
+        };
+
+        downloadReport(fileType, filters, orderBy, orderDirection);
+    }
+
     renderConfigStepsOrTable() {
         const { state: SFObject } = CUSTOM_FILTERS;
         const activeColumns = this.getActiveColumns();
+        const { exportSystemsPDF, stateFilterValue, nameFilterValue,
+            orderBy, orderDirection, disableExport } = this.state;
 
         return (
             this.props.showConfigSteps
@@ -232,13 +256,14 @@ class RosPage extends React.Component {
                             hideFilters={{ all: true, name: false }}
                             autoRefresh= {true}
                             customFilters={{
-                                stateFilter: this.state.stateFilterValue
+                                stateFilter: stateFilterValue
                             }}
                             columns={activeColumns}
                             getEntities={async (_items, config) => {
                                 this.setState(() => ({
                                     orderBy: config.orderBy,
-                                    orderDirection: config.orderDirection
+                                    orderDirection: config.orderDirection,
+                                    nameFilterValue: config.filters?.hostnameOrId
                                 }));
                                 const results = await this.fetchSystems(
                                     {
@@ -249,12 +274,19 @@ class RosPage extends React.Component {
                                         stateFilter: config.stateFilter
                                     }
                                 );
+
                                 const invIds = (results.data || []).map(({ inventory_id: inventoryId }) => inventoryId);
                                 const invSystems = await this.fetchInventoryDetails(invIds, {
                                     ...config,
                                     page: 1,
                                     hasItems: true
                                 });
+
+                                const disableExport = results?.meta?.count === 0;
+                                this.setState(() => ({
+                                    disableExport
+                                }));
+
                                 return {
                                     results: results.data.map((system) => {
                                         const invRec = invSystems.find(({ id }) => id === system.inventory_id);
@@ -292,7 +324,7 @@ class RosPage extends React.Component {
                                         filterValues: {
                                             items: SFObject.filterValues.items,
                                             onChange: (_e, values) => this.updateStateFilter(values),
-                                            value: this.state.stateFilterValue
+                                            value: stateFilterValue
                                         }
                                     }
                                 ]
@@ -310,9 +342,31 @@ class RosPage extends React.Component {
                                     }
                                 ]
                             }}
+                            exportConfig={{
+                                isDisabled: disableExport,
+                                extraItems: [<Button
+                                    key='pdf-download-button' variant='plain'
+                                    onClick={() => this.setExportSystemsPDF(true)}>
+                                        Export as PDF
+                                </Button>],
+                                ouiaId: 'export',
+                                onSelect: (_event, fileType) => this.onExportOptionSelect(fileType)
+                            }}
                             onExpandClick={(_e, _i, isOpen, { id }) => this.props.expandRow(id, isOpen, 'EXPAND_ROW')}
                         >
                         </InventoryTable>
+                        {exportSystemsPDF &&
+                            <DownloadSystemsPDFReport
+                                showButton={false}
+                                onSuccess={() => this.setExportSystemsPDF(false)}
+                                filters={{
+                                    stateFilter: stateFilterValue,
+                                    hostnameOrId: nameFilterValue
+                                }}
+                                orderBy={orderBy}
+                                orderHow={orderDirection}
+                            />
+                        }
                     </CardBody>
                 </Card>
         );
