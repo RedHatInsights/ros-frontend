@@ -13,7 +13,7 @@ describe('Util generateFilterText method tests', () => {
     });
 
     it('should generate filter text for state filter', () => {
-        const expectedFilterText = `\nFilters applied\nState: Undersized,Waiting for data,Oversized\t\t\t\t\t`;
+        const expectedFilterText = `\nFilters applied\nState: Undersized,Waiting for data,Oversized\n`;
         const filters = {
             stateFilter: ['Undersized', 'Waiting for data', 'Oversized']
         };
@@ -23,7 +23,7 @@ describe('Util generateFilterText method tests', () => {
     });
 
     it('should generate filter text for name & state filter', () => {
-        const expectedFilterText = `\nFilters applied\nState: Undersized,Waiting for data,Oversized\t\t\t\t\tName: ros-system`;
+        const expectedFilterText = `\nFilters applied\nState: Undersized,Waiting for data,Oversized\nName: ros-system`;
         const filters = {
             hostnameOrId: 'ros-system',
             stateFilter: ['Undersized', 'Waiting for data', 'Oversized']

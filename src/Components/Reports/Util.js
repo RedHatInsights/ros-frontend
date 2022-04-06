@@ -46,7 +46,7 @@ export const responseToCSVData = (data) => {
 
 export const generateFilterText = (filters) => {
     let filterText  = '';
-    const filterSeparatorOnLine = '\t\t\t\t\t';
+    const filterSeparatorOnLine = '\n';
     const hasStateFilter = filters?.stateFilter?.length > 0;
     const hasNameFilter =  filters?.hostnameOrId?.length > 0;
 
