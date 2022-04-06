@@ -85,14 +85,6 @@ class RosPage extends React.Component {
                 stateFilterValue: ['Undersized', 'Oversized', 'Under pressure', 'Idling']
             });
         }
-
-        this.setState({
-            osFilterValue: [
-                'RHEL 7.0', 'RHEL 7.1', 'RHEL 7.2', 'RHEL 7.3', 'RHEL 7.4', 'RHEL 7.5', 'RHEL 7.6',
-                'RHEL 7.7', 'RHEL 7.8', 'RHEL 7.9', 'RHEL 8.0', 'RHEL 8.1', 'RHEL 8.2', 'RHEL 8.3',
-                'RHEL 8.4', 'RHEL 8.5'
-            ]
-        });
     }
 
     clearStateQueryParams() {
@@ -198,24 +190,41 @@ class RosPage extends React.Component {
                 return chip?.name;
             });
             const activeStateFilters = this.state.stateFilterValue.filter(filterName => !resetFiltersList.includes(filterName));
+            const activeOSFilters = this.state.osFilterValue.filter(filterName => !resetFiltersList.includes(filterName));
 
             this.setState ({
-                stateFilterValue: activeStateFilters
+                stateFilterValue: activeStateFilters,
+                osFilterValue: activeOSFilters
             });
         }
-        // Fixme : how to delete os filter here?
     }
 
     getActiveFilterConfig = () => {
-        // Fixme : how to define os filter here?
-        const activeFilters = this.state.stateFilterValue.map((value)=> ({ name: value }));
+        const activeStateFilters = this.state.stateFilterValue.map((value)=> ({ name: value }));
+        const activeOSFilters = this.state.osFilterValue.map((value)=> ({ name: value }));
 
-        return activeFilters.length > 0
-            ? [{
+        if (activeStateFilters.length > 0 && activeOSFilters.length > 0) {
+            return [{
                 category: 'State',
-                chips: activeFilters
-            }]
-            : [];
+                chips: activeStateFilters
+            },
+            {
+                category: 'Operating System',
+                chips: activeOSFilters
+            }];
+        } else if (activeStateFilters.length > 0 && activeOSFilters.length === 0) {
+            return [{
+                category: 'State',
+                chips: activeStateFilters
+            }];
+        } else if (activeStateFilters.length === 0 && activeOSFilters.length > 0) {
+            return [{
+                category: 'Operating System',
+                chips: activeOSFilters
+            }];
+        } else {
+            return [];
+        }
     }
 
     setColumnModalOpen = (modalState) => {
@@ -352,7 +361,7 @@ class RosPage extends React.Component {
                                     {
                                         label: OSFObject.label,
                                         type: OSFObject.type,
-                                        value: `checkbox-state`,
+                                        value: `checkbox-os`,
                                         filterValues: {
                                             items: OSFObject.filterValues.items,
                                             onChange: (_e, values) => this.updateOSFilter(values),

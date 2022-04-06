@@ -63,51 +63,51 @@ export const CUSTOM_FILTERS = {
             items: [
                 {
                     label: 'RHEL 7.0',
-                    value: 'RHEL 7.0'
+                    value: '7.0'
                 },
                 {
                     label: 'RHEL 7.1',
-                    value: 'RHEL 7.1'
+                    value: '7.1'
                 },
                 {
                     label: 'RHEL 7.2',
-                    value: 'RHEL 7.2'
+                    value: '7.2'
                 },
                 {
                     label: 'RHEL 7.3',
-                    value: 'RHEL 7.3'
+                    value: '7.3'
                 },
                 {
                     label: 'RHEL 7.4',
-                    value: 'RHEL 7.4'
+                    value: '7.4'
                 },
                 {
                     label: 'RHEL 7.5',
-                    value: 'RHEL 7.5'
+                    value: '7.5'
                 },
                 {
                     label: 'RHEL 7.6',
-                    value: 'RHEL 7.6'
+                    value: '7.6'
                 },
                 {
                     label: 'RHEL 7.7',
-                    value: 'RHEL 7.7'
+                    value: '7.7'
                 },
                 {
                     label: 'RHEL 7.8',
-                    value: 'RHEL 7.8'
+                    value: '7.8'
                 },
                 {
                     label: 'RHEL 7.9',
-                    value: 'RHEL 7.9'
+                    value: '7.9'
                 },
                 {
                     label: 'RHEL 8.0',
-                    value: 'RHEL 8.0'
+                    value: '8.0'
                 },
                 {
                     label: 'RHEL 8.1',
-                    value: 'RHEL 8.1'
+                    value: '8.1'
                 },
                 {
                     label: 'RHEL 8.2',
@@ -115,15 +115,15 @@ export const CUSTOM_FILTERS = {
                 },
                 {
                     label: 'RHEL 8.3',
-                    value: 'RHEL 8.3'
+                    value: '8.3'
                 },
                 {
                     label: 'RHEL 8.4',
-                    value: 'RHEL 8.4'
+                    value: '8.4'
                 },
                 {
                     label: 'RHEL 8.5',
-                    value: 'RHEL 8.5'
+                    value: '8.5'
                 }
             ]
         }
