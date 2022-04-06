@@ -20,13 +20,12 @@ const generateSystemsPDFReport = async (filters, orderBy, orderHow) => {
     };
     const systemsResponse = await fetchSystems(fetchSystemParams);
     const pdfData = formatData(systemsResponse.data, 'pdf');
-  
+
     // first page description and data
     const totalSystems = systemsResponse?.meta?.count;
     const filterText = generateFilterText(filters);
     const firstPageData =  pdfData.splice(0, systemsReportFirstPage);
 
-    //const firstPage = SystemsFirstPage({ data: firstPageData, totalSystems, filterText });
     const firstPage = <SystemsFirstPage
         data={firstPageData}
         totalSystems={totalSystems}

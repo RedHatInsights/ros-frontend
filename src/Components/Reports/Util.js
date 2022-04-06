@@ -35,7 +35,6 @@ export const responseToJSONData = (data) => {
 
 export const responseToCSVData = (data) => {
     const items =  formatData(data, 'json');
-
     const header = Object.keys(items[0]);
     const csvData = [
         header.join(','), // header row first
@@ -48,7 +47,6 @@ export const responseToCSVData = (data) => {
 export const generateFilterText = (filters) => {
     let filterText  = '';
     const filterSeparatorOnLine = '\n';
-
     const hasStateFilter = filters?.stateFilter?.length > 0;
     const hasNameFilter =  filters?.hostnameOrId?.length > 0;
 
