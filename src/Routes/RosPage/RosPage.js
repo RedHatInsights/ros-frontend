@@ -230,7 +230,8 @@ class RosPage extends React.Component {
     renderConfigStepsOrTable() {
         const { state: SFObject } = CUSTOM_FILTERS;
         const activeColumns = this.getActiveColumns();
-        const { exportSystemsPDF, stateFilterValue, nameFilterValue, orderBy, orderDirection } = this.state;
+        const { exportSystemsPDF, stateFilterValue, nameFilterValue,
+            orderBy, orderDirection, disableExport } = this.state;
 
         return (
             this.props.showConfigSteps
@@ -342,7 +343,7 @@ class RosPage extends React.Component {
                                 ]
                             }}
                             exportConfig={{
-                                isDisabled: this.state.disableExport,
+                                isDisabled: disableExport,
                                 extraItems: [<Button
                                     key='pdf-download-button' variant='plain'
                                     onClick={() => this.setExportSystemsPDF(true)}>

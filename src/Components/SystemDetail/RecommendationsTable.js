@@ -1,24 +1,65 @@
 import React from 'react';
-import { Table, TableHeader, TableBody, expandable } from '@patternfly/react-table';
+import { Table, TableHeader, TableBody, expandable, TableComposable, Thead, Tr, Th, Td, Tbody } from '@patternfly/react-table';
 import propTypes from 'prop-types';
 import { flatMap } from 'lodash';
 import { EmptyTable } from '@redhat-cloud-services/frontend-components/EmptyTable';
 import { EmptyStateDisplay } from '../EmptyStateDisplay/EmptyStateDisplay';
-import { CheckCircleIcon } from '@patternfly/react-icons';
+import { CheckCircleIcon, BullseyeIcon, WrenchIcon } from '@patternfly/react-icons';
 import { TextContent, Text, TextVariants } from '@patternfly/react-core';
 import './RecommendationsTable.scss';
 
 const renderExpandedView = (row) => {
+    const { resolution, reason, detected_issues: detectedIssues, current_instance: currentInstance, suggested_instances: suggestedInstances } = row;
+
     return (
         <TextContent>
-            <Text component={TextVariants.p} className="newline tab">
-                <Text><strong>Detected issues</strong></Text>
-                {row.reason}
+            <Text component={TextVariants.p}>
+                <Text className="margin-text-bottom"><BullseyeIcon/><strong className="strong-tag-style">Detected issues</strong></Text>
+                {reason}
             </Text>
-            <Text component={TextVariants.p} className="newline">
-                <Text><strong>Suggestion</strong></Text>
-                {row.resolution}
+            { detectedIssues && <TableComposable
+                arial-label="Detected issues table"
+                variant="compact"
+                borders={false}
+                className="table-border-top detected-issues-table"
+            >
+                <Thead>
+                    <Tr>
+                        <Th>Identified issues by ROS</Th>
+                    </Tr>
+                </Thead>
+                <Tbody>
+                    <Tr>
+                        <Td dataLabel="Identified issues by ROS" className="newline tab">
+                            {detectedIssues}</Td>
+                    </Tr>
+                </Tbody>
+            </TableComposable> }
+            <hr/>
+            <Text component={TextVariants.p}>
+                <Text className="margin-text-bottom"><WrenchIcon/><strong className="strong-tag-style">Suggestion</strong></Text>
+                {resolution}
             </Text>
+            { currentInstance && suggestedInstances && <TableComposable
+                arial-label="Suggestions table"
+                variant="compact"
+                borders={false}
+                className="table-border-top suggestions-table"
+            >
+                <Thead>
+                    <Tr>
+                        <Th>Instance</Th>
+                        <Th>Suggested instances that fit the load better</Th>
+                    </Tr>
+                </Thead>
+                <Tbody>
+                    <Tr>
+                        <Td dataLabel="Instance">{currentInstance}</Td>
+                        <Td dataLabel="Suggested instances that fit the load better" className="newline">
+                            {suggestedInstances}</Td>
+                    </Tr>
+                </Tbody>
+            </TableComposable> }
         </TextContent>
     );
 };
