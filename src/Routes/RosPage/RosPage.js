@@ -45,7 +45,7 @@ class RosPage extends React.Component {
             isColumnModalOpen: false,
             exportSystemsPDF: false,
             nameFilterValue: '',
-            disableExport: true,
+            disableExport: true
         };
 
         this.sortingHeader = {
@@ -183,19 +183,32 @@ class RosPage extends React.Component {
             return filterObject.category === 'State';
         });
 
+        const deletedOSFilters = filtersArr.filter((filterObject) => {
+            return filterObject.category === 'Operating System';
+        });
+
         if (deletedStateFilters.length > 0) {
             this.clearStateQueryParams();
-
             const resetFiltersList = deletedStateFilters[0]?.chips.map((chip) =>{
                 return chip?.name;
             });
             const activeStateFilters = this.state.stateFilterValue.filter(filterName => !resetFiltersList.includes(filterName));
-            const activeOSFilters = this.state.osFilterValue.filter(filterName => !resetFiltersList.includes(filterName));
 
             this.setState ({
-                stateFilterValue: activeStateFilters,
+                stateFilterValue: activeStateFilters
+            });
+        }
+
+        if (deletedOSFilters.length > 0) {
+            const resetOSFilterList = deletedOSFilters[0]?.chips.map((chip) => {
+                return chip?.name;
+            });
+
+            const activeOSFilters = this.state.osFilterValue.filter(filterName => !resetOSFilterList.includes(filterName));
+            this.setState ({
                 osFilterValue: activeOSFilters
             });
+
         }
     }
 
@@ -203,28 +216,22 @@ class RosPage extends React.Component {
         const activeStateFilters = this.state.stateFilterValue.map((value)=> ({ name: value }));
         const activeOSFilters = this.state.osFilterValue.map((value)=> ({ name: value }));
 
-        if (activeStateFilters.length > 0 && activeOSFilters.length > 0) {
-            return [{
+        const activeFilters = [];
+        if (activeStateFilters.length > 0) {
+            activeFilters.push({
                 category: 'State',
                 chips: activeStateFilters
-            },
-            {
-                category: 'Operating System',
-                chips: activeOSFilters
-            }];
-        } else if (activeStateFilters.length > 0 && activeOSFilters.length === 0) {
-            return [{
-                category: 'State',
-                chips: activeStateFilters
-            }];
-        } else if (activeStateFilters.length === 0 && activeOSFilters.length > 0) {
-            return [{
-                category: 'Operating System',
-                chips: activeOSFilters
-            }];
-        } else {
-            return [];
+            });
         }
+
+        if (activeOSFilters.length > 0) {
+            activeFilters.push({
+                category: 'Operating System',
+                chips: activeOSFilters
+            });
+        }
+
+        return activeFilters;
     }
 
     setColumnModalOpen = (modalState) => {
