@@ -15,7 +15,7 @@ describe('Util generateFilterText method tests', () => {
     });
 
     it('should generate filter text for state filter', () => {
-        const expectedFilterText = `\nFilters applied\nState: Undersized,Waiting for data,Oversized\t\t\t\t\t`;
+        const expectedFilterText = `\nFilters applied\nState: Undersized,Waiting for data,Oversized\n`;
         const filters = {
             stateFilter: ['Undersized', 'Waiting for data', 'Oversized']
         };
@@ -25,7 +25,7 @@ describe('Util generateFilterText method tests', () => {
     });
 
     it('should generate filter text for name & state filter', () => {
-        const expectedFilterText = `\nFilters applied\nState: Undersized,Waiting for data,Oversized\t\t\t\t\tName: ros-system`;
+        const expectedFilterText = `\nFilters applied\nState: Undersized,Waiting for data,Oversized\nName: ros-system`;
         const filters = {
             hostnameOrId: 'ros-system',
             stateFilter: ['Undersized', 'Waiting for data', 'Oversized']
@@ -114,7 +114,7 @@ describe('Util formatData method tests', () => {
 describe('Util responseToCSVData test', () => {
     it('should format the data into CSV format', () => {
         // eslint-disable-next-line max-len
-        const expectedSystemsRowsData = `display_name,os,performance_utilization.cpu,performance_utilization.memory,performance_utilization.max_io,number_of_suggestions,state,cloud_provider,instance_type,idling_time,report_date\r\n"ip-172-31-28-69.ec2.internal","RHEL 8.4","90%","97%","0.314","1","Undersized","aws","t2.micro","19.70%","2 days ago"\r\n"ros-system.internal","RHEL 8.4","90%","97%","0.314","1","Undersized","aws","t2.micro","19.70%","32 minutes ago"`;
+        const expectedSystemsRowsData = `display_name,os,performance_utilization.cpu,performance_utilization.memory,performance_utilization.max_io,number_of_suggestions,state,cloud_provider,instance_type,idling_time,report_date\r\nip-172-31-28-69.ec2.internal,RHEL 8.4,90%,97%,0.314,1,Undersized,aws,t2.micro,19.70%,2 days ago\r\nros-system.internal,RHEL 8.4,90%,97%,0.314,1,Undersized,aws,t2.micro,19.70%,32 minutes ago`;
 
         sysResponseTestData[0].number_of_suggestions = 1;  /* eslint-disable-line camelcase */
         sysResponseTestData[0].performance_utilization.cpu = 90;

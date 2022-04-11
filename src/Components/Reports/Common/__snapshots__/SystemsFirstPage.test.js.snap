@@ -39,7 +39,8 @@ Array [
       >
         <TEXT>
           This report identified 3 RHEL systems. Filters applied
-State: Undersized,Under pressure,Waiting for data			Name: iqe
+State: Undersized,Under pressure,Waiting for data
+Name: iqe
         </TEXT>
       </VIEW>
     </VIEW>
@@ -637,7 +638,8 @@ Array [
       >
         <TEXT>
           This report identified 1 RHEL system. Filters applied
-State: Undersized			Name: iqe
+State: Undersized
+Name: iqe
         </TEXT>
       </VIEW>
     </VIEW>

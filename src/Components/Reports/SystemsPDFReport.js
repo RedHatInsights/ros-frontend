@@ -26,7 +26,6 @@ const generateSystemsPDFReport = async (filters, orderBy, orderHow) => {
     const filterText = generateFilterText(filters);
     const firstPageData =  pdfData.splice(0, systemsReportFirstPage);
 
-    //const firstPage = SystemsFirstPage({ data: firstPageData, totalSystems, filterText });
     const firstPage = <SystemsFirstPage
         data={firstPageData}
         totalSystems={totalSystems}
@@ -34,7 +33,8 @@ const generateSystemsPDFReport = async (filters, orderBy, orderHow) => {
 
     const otherPages = [];
 
-    while (pdfData.length > 1) {
+
+    while (pdfData.length > 0) {
         otherPages.push(pdfData.splice(0, systemsReportRestPages));
     }
 
