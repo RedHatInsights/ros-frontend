@@ -159,3 +159,18 @@ export const PDF_REPORT_PER_PAGE = {
 
 };
 
+export const REPORT_NOTIFICATIONS = {
+    start: {
+        variant: 'info',
+        title: 'Generating data. Download may take a moment to start.'
+    },
+    success: {
+        variant: 'success',
+        title: 'Export successful'
+    },
+    failure: {
+        variant: 'danger',
+        autoDismiss: false,
+        title: 'Export failed. Please try exporting again.'
+    }
+};
