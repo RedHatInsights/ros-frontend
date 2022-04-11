@@ -1,41 +1,15 @@
-import React, { Fragment } from 'react';
-import { Text } from '@react-pdf/renderer';
-import { DownloadButton, Section, Column, Table } from '@redhat-cloud-services/frontend-components-pdf-generator';
-import { SYSTEMS_PDF_REPORT_TITLE } from '../../constants';
+import React from 'react';
+import { DownloadButton } from '@redhat-cloud-services/frontend-components-pdf-generator';
+import { PDF_REPORT_PER_PAGE, SYSTEMS_PDF_REPORT_TITLE } from '../../constants';
 import { fetchSystems } from '../../Utilities/api';
 import { formatData, generateFilterText, getSystemsReportFileName } from './Util';
 import propTypes from 'prop-types';
-import styles from './Common/styles';
-
-const columnBuilder = ({ value, style }) => <Text key={value} style={style}>{value}</Text>;
-
-const buildSystemsHeader = () => {
-
-    const headerContent = ['Name', 'OS', 'CPU utilization', 'Memory utilization', 'I/O utilization', 'Suggestions', 'State'];
-    const formattedHeader = headerContent.map(item => {
-        let styleArr = item === 'Name' ? [styles.systemNameCell] : [styles.headerCell];
-        return columnBuilder({ value: item, style: styleArr });
-    });
-
-    return formattedHeader;
-
-};
-
-const buildSystemsRows = (rowsData) => {
-    const systemsRows =  rowsData.map((rowItem) => {
-        const formattedRows = rowItem.map((rowValue, index) => {
-            let styleArr = index === 0 ? [styles.systemNameCell] : [styles.bodyCell];
-            return columnBuilder({ value: rowValue, style: styleArr });
-        });
-        return formattedRows;
-    });
-
-    return systemsRows;
-};
+import { SystemsTablePage } from './Common/SystemsTablePage';
+import { SystemsFirstPage } from './Common/SystemsFirstPage';
 
 const generateSystemsPDFReport = async (filters, orderBy, orderHow) => {
-    // Table header
-    const systemsHeader = buildSystemsHeader();
+
+    const { systemsReportFirstPage, systemsReportRestPages } = PDF_REPORT_PER_PAGE;
 
     // Table rows
     const fetchSystemParams = {
@@ -47,32 +21,27 @@ const generateSystemsPDFReport = async (filters, orderBy, orderHow) => {
     const systemsResponse = await fetchSystems(fetchSystemParams);
     const pdfData = formatData(systemsResponse.data, 'pdf');
 
-    const systemsRows = buildSystemsRows(pdfData);
-
-    // description text
+    // first page description and data
     const totalSystems = systemsResponse?.meta?.count;
     const filterText = generateFilterText(filters);
+    const firstPageData =  pdfData.splice(0, systemsReportFirstPage);
+
+    const firstPage = <SystemsFirstPage
+        data={firstPageData}
+        totalSystems={totalSystems}
+        filterText={filterText} />;
+
+    const otherPages = [];
+
+    while (pdfData.length > 0) {
+        otherPages.push(pdfData.splice(0, systemsReportRestPages));
+    }
 
     return [
-        <Fragment key="first-section">
-            <Section>
-                <Column>
-                    {`This report identified ${totalSystems} ${totalSystems > 1 ? 'RHEL systems' : 'RHEL system' }. ${filterText}`}
-                </Column>
-            </Section>
-            <Section>
-                <Column>
-                    <Table
-                        withHeader
-                        rows={[
-                            systemsHeader,
-                            ... systemsRows
-                        ]}
-                    />
-                </Column>
-            </Section>
-        </Fragment>
+        firstPage,
+        ...otherPages.map((systemsPage, index) => <SystemsTablePage key={index} data={systemsPage}  page={index + 1}/>)
     ];
+
 };
 
 export const DownloadSystemsPDFReport = ({ filters, orderBy, orderHow, ...props }) => {
@@ -100,9 +69,4 @@ DownloadSystemsPDFReport.propTypes = {
     orderBy: propTypes.string,
     orderHow: propTypes.string
 
-};
-
-columnBuilder.propTypes = {
-    value: propTypes.string,
-    style: propTypes.array
 };

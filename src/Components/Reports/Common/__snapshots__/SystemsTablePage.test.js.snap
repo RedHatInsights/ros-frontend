@@ -1,0 +1,542 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Systems Table Page Component should matches snapshot for systems table page and renders correctly 1`] = `
+<VIEW
+  style={
+    Object {
+      "margin": "7 0",
+    }
+  }
+>
+  <TEXT
+    style={
+      Object {
+        "color": "#c9190b",
+        "fontSize": 9,
+        "fontWeight": 700,
+        "margin": "7 0",
+      }
+    }
+  >
+    
+  </TEXT>
+  <VIEW
+    style={
+      Object {
+        "display": "flex",
+        "flexDirection": "row",
+        "justifyContent": "space-between",
+      }
+    }
+  >
+    <VIEW
+      style={
+        Object {
+          "flex": 1,
+        }
+      }
+    >
+      <VIEW
+        style={Object {}}
+      >
+        <VIEW
+          style={
+            Object {
+              "display": "flex",
+              "flexDirection": "row",
+              "justifyContent": "space-between",
+              "paddingBottom": "0.5rem",
+              "paddingLeft": "0.5rem",
+              "paddingTop": "0.5rem",
+            }
+          }
+        >
+          <TEXT
+            style={
+              Array [
+                Object {
+                  "flex": 2.5,
+                  "fontSize": 8,
+                  "paddingBottom": 2,
+                  "paddingRight": 2,
+                  "paddingTop": 2,
+                  "textAlign": "left",
+                },
+              ]
+            }
+          >
+            Name
+          </TEXT>
+          <TEXT
+            style={
+              Array [
+                Object {
+                  "flex": 1,
+                  "fontSize": 8,
+                  "textAlign": "left",
+                },
+              ]
+            }
+          >
+            OS
+          </TEXT>
+          <TEXT
+            style={
+              Array [
+                Object {
+                  "flex": 1,
+                  "fontSize": 8,
+                  "textAlign": "left",
+                },
+              ]
+            }
+          >
+            CPU utilization
+          </TEXT>
+          <TEXT
+            style={
+              Array [
+                Object {
+                  "flex": 1,
+                  "fontSize": 8,
+                  "textAlign": "left",
+                },
+              ]
+            }
+          >
+            Memory utilization
+          </TEXT>
+          <TEXT
+            style={
+              Array [
+                Object {
+                  "flex": 1,
+                  "fontSize": 8,
+                  "textAlign": "left",
+                },
+              ]
+            }
+          >
+            I/O utilization
+          </TEXT>
+          <TEXT
+            style={
+              Array [
+                Object {
+                  "flex": 1,
+                  "fontSize": 8,
+                  "textAlign": "left",
+                },
+              ]
+            }
+          >
+            Suggestions
+          </TEXT>
+          <TEXT
+            style={
+              Array [
+                Object {
+                  "flex": 1,
+                  "fontSize": 8,
+                  "textAlign": "left",
+                },
+              ]
+            }
+          >
+            State
+          </TEXT>
+        </VIEW>
+        <VIEW
+          style={
+            Object {
+              "borderBottomColor": "#8a8d90",
+              "borderBottomStyle": "solid",
+              "borderBottomWidth": 1,
+              "borderTopColor": "#8a8d90",
+              "borderTopStyle": "solid",
+              "borderTopWidth": 1,
+            }
+          }
+        >
+          <VIEW
+            style={
+              Object {
+                "display": "flex",
+                "flexDirection": "row",
+                "justifyContent": "space-between",
+                "paddingBottom": "0.5rem",
+                "paddingLeft": "0.5rem",
+                "paddingTop": "0.5rem",
+              }
+            }
+          >
+            <TEXT
+              style={
+                Array [
+                  Object {
+                    "flex": 2.5,
+                    "fontSize": 8,
+                    "paddingBottom": 2,
+                    "paddingRight": 2,
+                    "paddingTop": 2,
+                    "textAlign": "left",
+                  },
+                ]
+              }
+            >
+              iqe-ros-bb519f81
+            </TEXT>
+            <TEXT
+              style={
+                Array [
+                  Object {
+                    "flex": 1,
+                    "fontSize": 8,
+                    "paddingBottom": 2,
+                    "paddingRight": 2,
+                    "paddingTop": 2,
+                    "textAlign": "left",
+                  },
+                ]
+              }
+            >
+              RHEL 8.4
+            </TEXT>
+            <TEXT
+              style={
+                Array [
+                  Object {
+                    "flex": 1,
+                    "fontSize": 8,
+                    "paddingBottom": 2,
+                    "paddingRight": 2,
+                    "paddingTop": 2,
+                    "textAlign": "left",
+                  },
+                ]
+              }
+            >
+              90%
+            </TEXT>
+            <TEXT
+              style={
+                Array [
+                  Object {
+                    "flex": 1,
+                    "fontSize": 8,
+                    "paddingBottom": 2,
+                    "paddingRight": 2,
+                    "paddingTop": 2,
+                    "textAlign": "left",
+                  },
+                ]
+              }
+            >
+              80%
+            </TEXT>
+            <TEXT
+              style={
+                Array [
+                  Object {
+                    "flex": 1,
+                    "fontSize": 8,
+                    "paddingBottom": 2,
+                    "paddingRight": 2,
+                    "paddingTop": 2,
+                    "textAlign": "left",
+                  },
+                ]
+              }
+            >
+              0.314
+            </TEXT>
+            <TEXT
+              style={
+                Array [
+                  Object {
+                    "flex": 1,
+                    "fontSize": 8,
+                    "paddingBottom": 2,
+                    "paddingRight": 2,
+                    "paddingTop": 2,
+                    "textAlign": "left",
+                  },
+                ]
+              }
+            >
+              2
+            </TEXT>
+            <TEXT
+              style={
+                Array [
+                  Object {
+                    "flex": 1,
+                    "fontSize": 8,
+                    "paddingBottom": 2,
+                    "paddingRight": 2,
+                    "paddingTop": 2,
+                    "textAlign": "left",
+                  },
+                ]
+              }
+            >
+              Undersized
+            </TEXT>
+          </VIEW>
+          <VIEW
+            style={
+              Object {
+                "backgroundColor": "#f0f0f0",
+                "display": "flex",
+                "flexDirection": "row",
+                "justifyContent": "space-between",
+                "paddingBottom": "0.5rem",
+                "paddingLeft": "0.5rem",
+                "paddingTop": "0.5rem",
+              }
+            }
+          >
+            <TEXT
+              style={
+                Array [
+                  Object {
+                    "flex": 2.5,
+                    "fontSize": 8,
+                    "paddingBottom": 2,
+                    "paddingRight": 2,
+                    "paddingTop": 2,
+                    "textAlign": "left",
+                  },
+                ]
+              }
+            >
+              iqe-ros-bb519f81
+            </TEXT>
+            <TEXT
+              style={
+                Array [
+                  Object {
+                    "flex": 1,
+                    "fontSize": 8,
+                    "paddingBottom": 2,
+                    "paddingRight": 2,
+                    "paddingTop": 2,
+                    "textAlign": "left",
+                  },
+                ]
+              }
+            >
+              RHEL 8.4
+            </TEXT>
+            <TEXT
+              style={
+                Array [
+                  Object {
+                    "flex": 1,
+                    "fontSize": 8,
+                    "paddingBottom": 2,
+                    "paddingRight": 2,
+                    "paddingTop": 2,
+                    "textAlign": "left",
+                  },
+                ]
+              }
+            >
+              90%
+            </TEXT>
+            <TEXT
+              style={
+                Array [
+                  Object {
+                    "flex": 1,
+                    "fontSize": 8,
+                    "paddingBottom": 2,
+                    "paddingRight": 2,
+                    "paddingTop": 2,
+                    "textAlign": "left",
+                  },
+                ]
+              }
+            >
+              80%
+            </TEXT>
+            <TEXT
+              style={
+                Array [
+                  Object {
+                    "flex": 1,
+                    "fontSize": 8,
+                    "paddingBottom": 2,
+                    "paddingRight": 2,
+                    "paddingTop": 2,
+                    "textAlign": "left",
+                  },
+                ]
+              }
+            >
+              0.314
+            </TEXT>
+            <TEXT
+              style={
+                Array [
+                  Object {
+                    "flex": 1,
+                    "fontSize": 8,
+                    "paddingBottom": 2,
+                    "paddingRight": 2,
+                    "paddingTop": 2,
+                    "textAlign": "left",
+                  },
+                ]
+              }
+            >
+              2
+            </TEXT>
+            <TEXT
+              style={
+                Array [
+                  Object {
+                    "flex": 1,
+                    "fontSize": 8,
+                    "paddingBottom": 2,
+                    "paddingRight": 2,
+                    "paddingTop": 2,
+                    "textAlign": "left",
+                  },
+                ]
+              }
+            >
+              Under pressure
+            </TEXT>
+          </VIEW>
+          <VIEW
+            style={
+              Object {
+                "display": "flex",
+                "flexDirection": "row",
+                "justifyContent": "space-between",
+                "paddingBottom": "0.5rem",
+                "paddingLeft": "0.5rem",
+                "paddingTop": "0.5rem",
+              }
+            }
+          >
+            <TEXT
+              style={
+                Array [
+                  Object {
+                    "flex": 2.5,
+                    "fontSize": 8,
+                    "paddingBottom": 2,
+                    "paddingRight": 2,
+                    "paddingTop": 2,
+                    "textAlign": "left",
+                  },
+                ]
+              }
+            >
+              iqe-ros-bb519f81
+            </TEXT>
+            <TEXT
+              style={
+                Array [
+                  Object {
+                    "flex": 1,
+                    "fontSize": 8,
+                    "paddingBottom": 2,
+                    "paddingRight": 2,
+                    "paddingTop": 2,
+                    "textAlign": "left",
+                  },
+                ]
+              }
+            >
+              RHEL 8.4
+            </TEXT>
+            <TEXT
+              style={
+                Array [
+                  Object {
+                    "flex": 1,
+                    "fontSize": 8,
+                    "paddingBottom": 2,
+                    "paddingRight": 2,
+                    "paddingTop": 2,
+                    "textAlign": "left",
+                  },
+                ]
+              }
+            >
+              N/A
+            </TEXT>
+            <TEXT
+              style={
+                Array [
+                  Object {
+                    "flex": 1,
+                    "fontSize": 8,
+                    "paddingBottom": 2,
+                    "paddingRight": 2,
+                    "paddingTop": 2,
+                    "textAlign": "left",
+                  },
+                ]
+              }
+            >
+              N/A
+            </TEXT>
+            <TEXT
+              style={
+                Array [
+                  Object {
+                    "flex": 1,
+                    "fontSize": 8,
+                    "paddingBottom": 2,
+                    "paddingRight": 2,
+                    "paddingTop": 2,
+                    "textAlign": "left",
+                  },
+                ]
+              }
+            >
+              N/A
+            </TEXT>
+            <TEXT
+              style={
+                Array [
+                  Object {
+                    "flex": 1,
+                    "fontSize": 8,
+                    "paddingBottom": 2,
+                    "paddingRight": 2,
+                    "paddingTop": 2,
+                    "textAlign": "left",
+                  },
+                ]
+              }
+            >
+              2
+            </TEXT>
+            <TEXT
+              style={
+                Array [
+                  Object {
+                    "flex": 1,
+                    "fontSize": 8,
+                    "paddingBottom": 2,
+                    "paddingRight": 2,
+                    "paddingTop": 2,
+                    "textAlign": "left",
+                  },
+                ]
+              }
+            >
+              Waiting for data
+            </TEXT>
+          </VIEW>
+        </VIEW>
+      </VIEW>
+    </VIEW>
+  </VIEW>
+</VIEW>
+`;

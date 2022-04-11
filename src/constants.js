@@ -152,3 +152,10 @@ export const reportRowKeys = ['display_name', 'os', 'performance_utilization.cpu
     'number_of_suggestions', 'state', 'cloud_provider', 'instance_type', 'idling_time'];
 
 export const percentageKeys = ['performance_utilization.cpu', 'performance_utilization.memory', 'idling_time'];
+
+export const PDF_REPORT_PER_PAGE = {
+    systemsReportFirstPage: 18,
+    systemsReportRestPages: 22
+
+};
+
