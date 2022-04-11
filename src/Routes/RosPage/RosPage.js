@@ -353,15 +353,15 @@ class RosPage extends React.Component {
                             exportConfig={{
                                 isDisabled: disableExport,
                                 extraItems: [
-                                <li role='menuitem'>
-                                    <Button
-                                        key='pdf-download-button' 
-                                        variant='none'
-                                        className="pf-c-dropdown__menu-item"
-                                        onClick={() => this.setExportSystemsPDF(true)}>
+                                    <li key='pdf-button-item' role='menuitem'>
+                                        <Button
+                                            key='pdf-download-button'
+                                            variant='none'
+                                            className="pf-c-dropdown__menu-item"
+                                            onClick={() => this.setExportSystemsPDF(true)}>
                                             Export as PDF
-                                    </Button>
-                                </li>
+                                        </Button>
+                                    </li>
                                 ],
                                 ouiaId: 'export',
                                 onSelect: (_event, fileType) => this.onExportOptionSelect(fileType)
