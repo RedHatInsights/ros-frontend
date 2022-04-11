@@ -33,7 +33,7 @@ const generateSystemsPDFReport = async (filters, orderBy, orderHow) => {
 
     const otherPages = [];
 
-    while (pdfData.length > 1) {
+    while (pdfData.length > 0) {
         otherPages.push(pdfData.splice(0, systemsReportRestPages));
     }
 
