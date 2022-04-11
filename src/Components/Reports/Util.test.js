@@ -162,5 +162,12 @@ describe('Util formatLastReported test', () => {
         const actualLastReportedDate = formatLastReported('2022-03-30 12:23:00+00:00');
         expect(actualLastReportedDate).toEqual(expectedLastReportedDate);
     });
+
+    it('should format the date into last reported format - for today without time', () => {
+        const expectedLastReportedDate = 'Today';
+        const actualLastReportedDate = formatLastReported('2022-03-30');
+        expect(actualLastReportedDate).toEqual(expectedLastReportedDate);
+
+    });
 });
 

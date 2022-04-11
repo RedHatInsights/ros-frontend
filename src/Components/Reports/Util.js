@@ -2,7 +2,11 @@ import { get } from 'lodash';
 import moment from 'moment';
 import { pdfRowKeys, percentageKeys, reportRowKeys, SYSTEMS_REPORT_FILE_NAME } from '../../constants';
 
-export const formatLastReported = (date) => moment(date).fromNow();
+export const formatLastReported = (date) => {
+    const today = moment().format('YYYY-MM-DD');
+    const isTodayWithoutTime =  today === date;
+    return isTodayWithoutTime ? 'Today' : moment(date).fromNow();
+};
 
 export const formatData = (data, type) => {
 
