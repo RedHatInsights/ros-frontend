@@ -83,12 +83,13 @@ export const fetchSystems = async (fetchParams) => {
         'performance_utilization.memory': 'memory',
         'performance_utilization.max_io': 'max_io',
         number_of_suggestions: 'number_of_suggestions', /* eslint-disable-line camelcase */
-        state: 'state'
+        state: 'state',
+        report_date: 'report_date' /* eslint-disable-line camelcase */
     };
 
     let params = {
-        order_by: sortingHeader[orderBy] || 'display_name', /* eslint-disable-line camelcase */
-        order_how: orderHow || SortByDirection.asc, /* eslint-disable-line camelcase */
+        order_by: sortingHeader[orderBy] || 'report_date', /* eslint-disable-line camelcase */
+        order_how: orderHow || SortByDirection.desc, /* eslint-disable-line camelcase */
         limit: perPage ? perPage : -1,
         ...fetchParams?.page && {
             offset: (fetchParams.page - 1) * fetchParams.perPage

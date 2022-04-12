@@ -38,8 +38,8 @@ class RosPage extends React.Component {
 
         this.state = {
             perPage: 10,
-            orderBy: 'display_name',
-            orderDirection: SortByDirection.asc,
+            orderBy: 'report_date',
+            orderDirection: SortByDirection.desc,
             stateFilterValue: [],
             isColumnModalOpen: false,
             exportSystemsPDF: false,
@@ -54,7 +54,8 @@ class RosPage extends React.Component {
             'performance_utilization.memory': 'memory',
             'performance_utilization.max_io': 'max_io',
             number_of_suggestions: 'number_of_suggestions', /* eslint-disable-line camelcase */
-            state: 'state' };
+            state: 'state',
+            report_date: 'report_date' }; /* eslint-disable-line camelcase */
 
         this.chunkSize = 50;
         this.inventory = React.createRef();

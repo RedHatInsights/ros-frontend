@@ -8,7 +8,7 @@ const columnBuilder = ({ value, style, key }) => <Text key={key} style={style}>{
 
 const buildSystemsHeader = () => {
 
-    const headerContent = ['Name', 'OS', 'CPU utilization', 'Memory utilization', 'I/O utilization', 'Suggestions', 'State'];
+    const headerContent = ['Name', 'OS', 'CPU utilization', 'Memory utilization', 'I/O utilization', 'Suggestions', 'State', 'Last reported'];
     const formattedHeader = headerContent.map((item, index) => {
         let styleArr = item === 'Name' ? [styles.systemNameCell] : [styles.headerCell];
         return columnBuilder({ value: item, style: styleArr, key: `${index}-${item}` });
