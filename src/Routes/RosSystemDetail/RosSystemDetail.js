@@ -21,6 +21,7 @@ import {
     DescriptionListGroup,
     DescriptionListDescription
 } from '@patternfly/react-core';
+import { HistoricalDataChart } from '../../Components/HistoricalDataChart/HistoricalDataChart';
 
 class RosSystemDetail extends React.Component {
     constructor(props) {
@@ -101,12 +102,20 @@ class RosSystemDetail extends React.Component {
                                             </div>
                                         </BreadcrumbItem>
                                     </Breadcrumb>
-                                    <InventoryDetailHead
-                                        hideBack
-                                        showDelete={ false }
-                                        hideInvDrawer
-                                    />
-                                    { this.renderChildrenNode() }
+                                    
+                                    <Grid hasGutter className='ros-system-info'>
+                                        <GridItem span={5}>
+                                            <InventoryDetailHead
+                                                    hideBack
+                                                    showDelete={ false }
+                                                    hideInvDrawer
+                                            />
+                                            { this.renderChildrenNode() }
+                                        </GridItem>
+                                        <GridItem span={7}>
+                                            <HistoricalDataChart />
+                                        </GridItem>
+                                    </Grid>
                                 </PageHeader>
                                 <Main>
                                     <Grid gutter="md">
