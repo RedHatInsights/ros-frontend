@@ -1,12 +1,6 @@
 import { get } from 'lodash';
-import moment from 'moment';
 import { pdfRowKeys, percentageKeys, reportRowKeys, SYSTEMS_REPORT_FILE_NAME } from '../../constants';
-
-export const formatLastReported = (date) => {
-    const today = moment().format('YYYY-MM-DD');
-    const isTodayWithoutTime =  today === date;
-    return isTodayWithoutTime ? 'Today' : moment(date).fromNow();
-};
+import { dateStringByType } from '@redhat-cloud-services/frontend-components/DateFormat/helper';
 
 export const formatData = (data, type) => {
 
@@ -20,7 +14,7 @@ export const formatData = (data, type) => {
             let rowValue =  get(systemItem, rowKey, '');
             rowValue = (rowValue === null || rowValue === -1) ?  'N/A' : rowValue.toString();
             rowValue = (rowValue !== 'N/A' && percentageKeys.includes(rowKey)) ? `${rowValue}%` : rowValue;
-            rowValue = (rowKey === 'report_date') ? formatLastReported(rowValue) : rowValue;
+            rowValue = (rowKey === 'report_date') ? dateStringByType('relative')(new Date(rowValue)) : rowValue;
 
             if (type === 'json') {
                 rowData[rowKey] = rowValue;

@@ -1,7 +1,7 @@
 import { Tooltip } from '@patternfly/react-core';
 import React from 'react';
 import { NO_DATA_STATE, NO_DATA_VALUE } from '../../constants';
-import { formatLastReported } from '../Reports/Util';
+import { DateFormat } from '@redhat-cloud-services/frontend-components/DateFormat';
 import './RenderColumn.scss';
 
 export const diskUsageData = (data, id, item) => {
@@ -52,6 +52,6 @@ export const displayLastReported = (data) => {
     return (
         data === null ?
             <span>{ NO_DATA_VALUE }</span> :
-            <span>{ formatLastReported(data) }</span>
+            <DateFormat date={ data } />
     );
 };
