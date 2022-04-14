@@ -56,6 +56,78 @@ export const CUSTOM_FILTERS = {
                 }
             ]
         }
+    },
+    os: {
+        label: 'Operating system',
+        type: 'checkbox',
+        filterValues: {
+            items: [
+                {
+                    label: 'RHEL 7.0',
+                    value: 'RHEL 7.0'
+                },
+                {
+                    label: 'RHEL 7.1',
+                    value: 'RHEL 7.1'
+                },
+                {
+                    label: 'RHEL 7.2',
+                    value: 'RHEL 7.2'
+                },
+                {
+                    label: 'RHEL 7.3',
+                    value: 'RHEL 7.3'
+                },
+                {
+                    label: 'RHEL 7.4',
+                    value: 'RHEL 7.4'
+                },
+                {
+                    label: 'RHEL 7.5',
+                    value: 'RHEL 7.5'
+                },
+                {
+                    label: 'RHEL 7.6',
+                    value: 'RHEL 7.6'
+                },
+                {
+                    label: 'RHEL 7.7',
+                    value: 'RHEL 7.7'
+                },
+                {
+                    label: 'RHEL 7.8',
+                    value: 'RHEL 7.8'
+                },
+                {
+                    label: 'RHEL 7.9',
+                    value: 'RHEL 7.9'
+                },
+                {
+                    label: 'RHEL 8.0',
+                    value: 'RHEL 8.0'
+                },
+                {
+                    label: 'RHEL 8.1',
+                    value: 'RHEL 8.1'
+                },
+                {
+                    label: 'RHEL 8.2',
+                    value: 'RHEL 8.2'
+                },
+                {
+                    label: 'RHEL 8.3',
+                    value: 'RHEL 8.3'
+                },
+                {
+                    label: 'RHEL 8.4',
+                    value: 'RHEL 8.4'
+                },
+                {
+                    label: 'RHEL 8.5',
+                    value: 'RHEL 8.5'
+                }
+            ]
+        }
     }
 };
 
