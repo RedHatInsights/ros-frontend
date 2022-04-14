@@ -1,4 +1,5 @@
 import React from 'react';
+import { nowrap } from '@patternfly/react-table';
 import { Tooltip } from '@patternfly/react-core';
 import { displayState, recommendations, scoreProgress, systemName } from './store/entitiesReducer';
 import { diskUsageData, displayLastReported, displayOS } from './Components/RosTable/RenderColumn';
@@ -145,7 +146,9 @@ export const SYSTEM_TABLE_COLUMNS = [
         renderFunc: (data) => displayLastReported(data),
         isChecked: true,
         isDisabled: false,
-        isShownByDefault: true
+        isShownByDefault: true,
+        transforms: [nowrap],
+        cellTransforms: [nowrap]
     }
 ];
 
