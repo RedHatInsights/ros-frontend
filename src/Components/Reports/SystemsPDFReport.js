@@ -51,7 +51,7 @@ export const DownloadSystemsPDFReport = ({ filters, orderBy, orderHow, ...props 
             data: pdfData.splice(0, firstPageCount),
             totalSystems: systemsResponse?.meta?.count,
             filterText: generateFilterText(filters)
-        }    
+        };
 
         const otherPages = [];
 
@@ -63,7 +63,7 @@ export const DownloadSystemsPDFReport = ({ filters, orderBy, orderHow, ...props 
         dispatch(addNotification(success));
 
         return [
-            <SystemsFirstPage {...firstPageProps} />,
+            <SystemsFirstPage key='first-page' {...firstPageProps} />,
             ...otherPages.map((systemsPage, index) => <SystemsTablePage key={index} data={systemsPage}  page={index + 1}/>)
         ];
 
