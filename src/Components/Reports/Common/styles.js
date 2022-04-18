@@ -22,10 +22,10 @@ export default StyleSheet.create({
         paddingTop: 2,
         paddingRight: 2
     },
-    osCell: {
+    lastReportedCell: {
         textAlign: 'left',
         fontSize: 8,
-        flex: 0.8,
+        flex: 1.2,
         paddingBottom: 2,
         paddingTop: 2,
         paddingRight: 2

@@ -193,8 +193,11 @@ Name: iqe
               style={
                 Array [
                   Object {
-                    "flex": 1,
+                    "flex": 1.2,
                     "fontSize": 8,
+                    "paddingBottom": 2,
+                    "paddingRight": 2,
+                    "paddingTop": 2,
                     "textAlign": "left",
                   },
                 ]
@@ -792,8 +795,11 @@ Name: iqe
               style={
                 Array [
                   Object {
-                    "flex": 1,
+                    "flex": 1.2,
                     "fontSize": 8,
+                    "paddingBottom": 2,
+                    "paddingRight": 2,
+                    "paddingTop": 2,
                     "textAlign": "left",
                   },
                 ]

@@ -149,8 +149,11 @@ exports[`Systems Table Page Component should matches snapshot for systems table 
             style={
               Array [
                 Object {
-                  "flex": 1,
+                  "flex": 1.2,
                   "fontSize": 8,
+                  "paddingBottom": 2,
+                  "paddingRight": 2,
+                  "paddingTop": 2,
                   "textAlign": "left",
                 },
               ]
