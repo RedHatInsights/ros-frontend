@@ -22,6 +22,10 @@ import { NotAuthorized } from '@redhat-cloud-services/frontend-components/NotAut
 import { ManageColumnsModal } from '../../Components/Modals/ManageColumnsModal';
 import { DownloadSystemsPDFReport } from '../../Components/Reports/SystemsPDFReport';
 import { downloadReport } from '../../Components/Reports/DownloadReport';
+import {
+    addNotification,
+    clearNotifications
+} from '@redhat-cloud-services/frontend-components-notifications/redux';
 
 /**
  * A smart component that handles all the api calls and data needed by the dumb components.
@@ -260,7 +264,11 @@ class RosPage extends React.Component {
             hostnameOrId: nameFilterValue
         };
 
-        downloadReport(fileType, filters, orderBy, orderDirection);
+        const { addNotification, clearNotifications } = this.props;
+
+        downloadReport(fileType, filters, orderBy, orderDirection,
+            notification => addNotification(notification),
+            () => clearNotifications());
     }
 
     renderConfigStepsOrTable() {
@@ -393,11 +401,17 @@ class RosPage extends React.Component {
                             }}
                             exportConfig={{
                                 isDisabled: disableExport,
-                                extraItems: [<Button
-                                    key='pdf-download-button' variant='plain'
-                                    onClick={() => this.setExportSystemsPDF(true)}>
-                                        Export as PDF
-                                </Button>],
+                                extraItems: [
+                                    <li key='pdf-button-item' role='menuitem'>
+                                        <Button
+                                            key='pdf-download-button'
+                                            variant='none'
+                                            className="pf-c-dropdown__menu-item"
+                                            onClick={() => this.setExportSystemsPDF(true)}>
+                                            Export as PDF
+                                        </Button>
+                                    </li>
+                                ],
                                 ouiaId: 'export',
                                 onSelect: (_event, fileType) => this.onExportOptionSelect(fileType)
                             }}
@@ -455,7 +469,9 @@ function mapDispatchToProps(dispatch) {
             }
         }),
         isROSConfigured: () => dispatch(loadIsConfiguredInfo()),
-        changeSystemColumns: (payload) => dispatch(changeSystemColumns(payload))
+        changeSystemColumns: (payload) => dispatch(changeSystemColumns(payload)),
+        addNotification: (payload) => dispatch(addNotification(payload)),
+        clearNotifications: () => dispatch(clearNotifications())
     };
 }
 
@@ -474,7 +490,9 @@ RosPage.propTypes = {
     showConfigSteps: PropTypes.bool,
     location: PropTypes.object,
     columns: PropTypes.array,
-    changeSystemColumns: PropTypes.func
+    changeSystemColumns: PropTypes.func,
+    addNotification: PropTypes.func,
+    clearNotifications: PropTypes.func
 };
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(RosPage));
