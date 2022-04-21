@@ -20,7 +20,7 @@ export const HistoricalDataChart = () => {
 
     const [isOpen, setOpen] = useState(false);
     const [dateRange, setDateRange] = useState(7);
-    const [zoomedXDomain, setZoomedXDomain] = useState();
+    const [zoomedXDomain, setZoomedXDomain] = useState([new Date('2022-03-31'), new Date('2022-04-07')]);
     const [chartData, setChartData] = useState(series_7_days);
     const [xTickValue, setXTickValues] = useState(tick_values_7)
     
@@ -39,9 +39,9 @@ export const HistoricalDataChart = () => {
         if(dateRange === 7){
             setChartData(series_7_days);
             setXTickValues(tick_values_7);
-            setZoomedXDomain([new Date('2022-04-01'), new Date('2022-04-07')])
+            setZoomedXDomain([new Date('2022-03-31'), new Date('2022-04-07')])
         } else if(dateRange === 45){
-            setChartData(series);
+            setChartData(series_less_days_45);
             setXTickValues(tick_values_45);
             setZoomedXDomain([new Date('2022-04-04'), new Date('2022-05-15')])
         }
@@ -53,15 +53,16 @@ export const HistoricalDataChart = () => {
     ]
 
     const getEntireDomain = () => {
+        const xDomain = dateRange === 7 ?  [new Date('2022-03-31'), new Date('2022-04-07')] : [new Date('2022-04-04'), new Date('2022-05-15')]
         return {
             y: [0, 100],
-            x: [1, 14]
+            x: xDomain
         };
     }
 
     const handleDomainChange = (domain) => {
         console.log("Handling zoom domain:", domain);
-        //setZoomedXDomain(domain.x);
+        setZoomedXDomain(domain.x);
     }
 
     const getData = () => {
@@ -93,7 +94,8 @@ export const HistoricalDataChart = () => {
             
             <div style={{ height: "275px" }}>
                 <Chart
-                    scale={{x: "time"}}
+                    domain={getEntireDomain()}
+                    scale={{x: "time", y: "linear"}}
                     ariaDesc="System Utilization"
                     ariaTitle="System Utilization"
                     containerComponent={
@@ -121,7 +123,7 @@ export const HistoricalDataChart = () => {
                     themeColor={ChartThemeColor.blue}>
 
                     <ChartAxis 
-                        tickValues={xTickValue}
+                        //tickValues={xTickValue}
                         tickFormat={(x) => `${new Date(x).getDate()} ${months[new Date(x).getMonth()]}`}
                         />
                     <ChartAxis 
