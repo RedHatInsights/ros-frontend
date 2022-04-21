@@ -104,6 +104,9 @@ export const fetchSystems = async (fetchParams) => {
     fetchParams?.stateFilter?.forEach((stateFilterValue) => {
         query.append('state', stateFilterValue);
     });
+    fetchParams?.osFilter?.forEach((osFilterValue) => {
+        query.append('os', osFilterValue);
+    });
     url.search = query.toString();
     return fetch(url).then((res) => {
         if (!res.ok) {

@@ -51,11 +51,13 @@ export const generateFilterText = (filters) => {
     const filterSeparatorOnLine = '\n';
     const hasStateFilter = filters?.stateFilter?.length > 0;
     const hasNameFilter =  filters?.hostnameOrId?.length > 0;
+    const hasOsFilter =  filters?.osFilter?.length > 0;
 
-    if (hasStateFilter || hasNameFilter) {
-        filterText = `\nFilters applied\n`;
+    if (hasStateFilter || hasNameFilter || hasOsFilter) {
+        filterText = `${filterSeparatorOnLine}Filters applied${filterSeparatorOnLine}`;
         filterText = hasStateFilter ? filterText.concat(`State: ${filters.stateFilter.toString()}${filterSeparatorOnLine}`) : filterText;
-        filterText = hasNameFilter ? filterText.concat(`Name: ${filters.hostnameOrId}`) : filterText;
+        filterText = hasNameFilter ? filterText.concat(`Name: ${filters.hostnameOrId}${filterSeparatorOnLine}`) : filterText;
+        filterText = hasOsFilter ? filterText.concat(`Operating System: ${filters.osFilter.toString()}${filterSeparatorOnLine}`) : filterText;
     }
 
     return filterText;
