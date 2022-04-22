@@ -6,7 +6,7 @@ import {
   ChartLine,
   ChartScatter,
   ChartThemeColor,
-  createContainer
+  createContainer,
 } from "@patternfly/react-charts";
 import { Dropdown, DropdownItem, DropdownToggle, Tooltip } from '@patternfly/react-core';
 import CaretDownIcon from '@patternfly/react-icons/dist/js/icons/caret-down-icon';
@@ -20,9 +20,7 @@ export const HistoricalDataChart = () => {
 
     const [isOpen, setOpen] = useState(false);
     const [dateRange, setDateRange] = useState(7);
-    const [zoomedXDomain, setZoomedXDomain] = useState([new Date('2022-03-31'), new Date('2022-04-07')]);
     const [chartData, setChartData] = useState(series_7_days);
-    const [xTickValue, setXTickValues] = useState(tick_values_7)
     
     const VictoryZoomVoronoiContainer = createContainer("zoom", "voronoi");
 
@@ -30,20 +28,13 @@ export const HistoricalDataChart = () => {
         setOpen(isOpen);
     }
 
-    const onSelect = () => {
-        setOpen(!isOpen);
-    }
 
     const updateChart = (dateRange) => {
         setDateRange(dateRange);
         if(dateRange === 7){
             setChartData(series_7_days);
-            setXTickValues(tick_values_7);
-            setZoomedXDomain([new Date('2022-03-31'), new Date('2022-04-07')])
         } else if(dateRange === 45){
-            setChartData(series_less_days_45);
-            setXTickValues(tick_values_45);
-            setZoomedXDomain([new Date('2022-04-04'), new Date('2022-05-15')])
+            setChartData(series_random_days);
         }
     }
 
@@ -53,33 +44,24 @@ export const HistoricalDataChart = () => {
     ]
 
     const getEntireDomain = () => {
-        const xDomain = dateRange === 7 ?  [new Date('2022-03-31'), new Date('2022-04-07')] : [new Date('2022-04-04'), new Date('2022-05-15')]
+        const xDomain = dateRange === 7 ?  [new Date('2022-03-31'), new Date('2022-04-07')] : [new Date('2022-03-28'), new Date('2022-05-15')]
         return {
             y: [0, 100],
             x: xDomain
         };
     }
 
-    const handleDomainChange = (domain) => {
-        console.log("Handling zoom domain:", domain);
-        setZoomedXDomain(domain.x);
-    }
-
-    const getData = () => {
-        console.log("Getting data");
-    }
 
     const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
     return(
         <div className='chartContainer'>
             <span className='dropdownContainer'>
-                <Tooltip content={<div>Scroll or pan to zoom in</div>}>
+                <Tooltip content={<div>Scroll and pan to zoom and move</div>}>
                     <OutlinedQuestionCircleIcon size='sm' />
                 </Tooltip>
                 <Dropdown
                     className='dateDropdown'
-                    onSelect={onSelect}
                     toggle={
                         <DropdownToggle 
                         id='chart-date-toggle' 
@@ -100,11 +82,12 @@ export const HistoricalDataChart = () => {
                     ariaTitle="System Utilization"
                     containerComponent={
                         <VictoryZoomVoronoiContainer 
-                            labels={({ datum }) => datum.childName.includes('line-') ? `${datum.name}: ${datum.y}%` : null}  
+                            labels={({ datum }) => {
+                                return datum.childName.includes('scatter-') && datum.y !== null ? `${datum.name}: ${datum.y}%` : null} 
+                            } 
                             constrainToVisibleArea
+                            voronoiDimension="x"
                             zoomDimension="x"
-                            onZoomDomainChange={(domain) => handleDomainChange(domain)}
-                            zoomDomain={{x: zoomedXDomain}}
                         />
                     }
                     legendData={[{ name: "CPU Utilization" }, { name: "Memory Utilization" }]}
@@ -123,8 +106,11 @@ export const HistoricalDataChart = () => {
                     themeColor={ChartThemeColor.blue}>
 
                     <ChartAxis 
-                        //tickValues={xTickValue}
+                        tickValues={chartData[0].datapoints.map(d => d.x)}
                         tickFormat={(x) => `${new Date(x).getDate()} ${months[new Date(x).getMonth()]}`}
+                        fixLabelOverlap 
+                        tickCount={6}
+                       
                         />
                     <ChartAxis 
                         dependentAxis showGrid 
@@ -139,6 +125,7 @@ export const HistoricalDataChart = () => {
                                 data={s.datapoints}
                                 key={"scatter-" + idx}
                                 name={"scatter-" + idx}
+                                
                             />
                             );
                         })}
@@ -151,6 +138,7 @@ export const HistoricalDataChart = () => {
                                 key={"line-" + idx}
                                 name={"line-" + idx}
                                 data={s.datapoints}
+                                
                             />
                             );
                         })}

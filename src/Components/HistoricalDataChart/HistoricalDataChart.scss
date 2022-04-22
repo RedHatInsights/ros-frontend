@@ -1,11 +1,16 @@
 .chartContainer{
    display: flex;
    flex-direction: column;
-   align-items: flex-end;
+   align-items: flex-start;
+   position: absolute;
+   top: 0;
+   right: 0;
+   margin-right: 8%;
 }
 
 .dropdownContainer {
    margin-right: 200px;
+   align-self: flex-end;
 }
 
 .dateDropdown{

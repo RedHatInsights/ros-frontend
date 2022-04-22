@@ -102,20 +102,16 @@ class RosSystemDetail extends React.Component {
                                             </div>
                                         </BreadcrumbItem>
                                     </Breadcrumb>
-                                    
-                                    <Grid hasGutter className='ros-system-info'>
-                                        <GridItem span={5}>
-                                            <InventoryDetailHead
+                                
+                                    <div className='detail-header-container'>
+                                        <InventoryDetailHead
                                                     hideBack
                                                     showDelete={ false }
                                                     hideInvDrawer
-                                            />
-                                            { this.renderChildrenNode() }
-                                        </GridItem>
-                                        <GridItem span={7}>
-                                            <HistoricalDataChart />
-                                        </GridItem>
-                                    </Grid>
+                                                />
+                                          { this.renderChildrenNode() }
+                                          <HistoricalDataChart />
+                                    </div>
                                 </PageHeader>
                                 <Main>
                                     <Grid gutter="md">
