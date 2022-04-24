@@ -77,6 +77,7 @@ class RosSystemDetail extends React.Component {
 
     render() {
         const entity = this.props.entity;
+        const { inventoryId } = this.props.match.params;
         return (
             <React.Fragment>
                 <PermissionContext.Consumer>
@@ -110,7 +111,8 @@ class RosSystemDetail extends React.Component {
                                                     hideInvDrawer
                                                 />
                                           { this.renderChildrenNode() }
-                                          <HistoricalDataChart />
+                                          <HistoricalDataChart 
+                                            inventoryId={inventoryId}/>
                                     </div>
                                 </PageHeader>
                                 <Main>
