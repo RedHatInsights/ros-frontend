@@ -103,15 +103,15 @@ class RosSystemDetail extends React.Component {
                                             </div>
                                         </BreadcrumbItem>
                                     </Breadcrumb>
-                                
+
                                     <div className='detail-header-container'>
                                         <InventoryDetailHead
-                                                    hideBack
-                                                    showDelete={ false }
-                                                    hideInvDrawer
-                                                />
-                                          { this.renderChildrenNode() }
-                                          <HistoricalDataChart 
+                                            hideBack
+                                            showDelete={ false }
+                                            hideInvDrawer
+                                        />
+                                        { this.renderChildrenNode() }
+                                        <HistoricalDataChart
                                             inventoryId={inventoryId}/>
                                     </div>
                                 </PageHeader>

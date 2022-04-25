@@ -258,3 +258,9 @@ export const REPORT_NOTIFICATIONS = {
         title: 'Export failed. Please try exporting again.'
     }
 };
+// Historical Chart
+export const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+
+export const DATE_RANGE_7_DAYS = 7;
+export const DATE_RANGE_49_DAYS = 49;
+export const RANGE_DROPDOWN_45_DAYS = 45;

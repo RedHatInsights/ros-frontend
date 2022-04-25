@@ -122,10 +122,10 @@ export const fetchSystemHistory = (inventoryId, limit) => {
     let params = {
         limit
     };
-    
+
     let query = new URLSearchParams(params);
     url.search = query.toString();
-    
+
     let response = window.insights.chrome.auth
     .getUser()
     .then(() =>
