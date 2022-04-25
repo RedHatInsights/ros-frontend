@@ -55,9 +55,9 @@ export const generateFilterText = (filters) => {
 
     if (hasStateFilter || hasNameFilter || hasOsFilter) {
         filterText = `${filterSeparatorOnLine}Filters applied${filterSeparatorOnLine}`;
-        filterText = hasStateFilter ? filterText.concat(`State: ${filters.stateFilter.toString()}${filterSeparatorOnLine}`) : filterText;
         filterText = hasNameFilter ? filterText.concat(`Name: ${filters.hostnameOrId}${filterSeparatorOnLine}`) : filterText;
-        filterText = hasOsFilter ? filterText.concat(`Operating System: ${filters.osFilter.toString()}${filterSeparatorOnLine}`) : filterText;
+        filterText = hasStateFilter ? filterText.concat(`State: ${filters.stateFilter.toString()}${filterSeparatorOnLine}`) : filterText;
+        filterText = hasOsFilter ? filterText.concat(`Operating System: ${filters.osFilter.sort().toString()}${filterSeparatorOnLine}`) : filterText;
     }
 
     return filterText;
