@@ -105,8 +105,6 @@ export const HistoricalDataChart = ({ inventoryId }) => {
                             <Chart
                                 domain={getEntireDomain()}
                                 scale={{ x: 'time', y: 'linear' }}
-                                ariaDesc="System Utilization"
-                                ariaTitle="System Utilization"
                                 containerComponent={
                                     <VictoryZoomVoronoiContainer
                                         labels={({ datum }) => {

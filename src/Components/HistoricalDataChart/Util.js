@@ -1,4 +1,4 @@
-export const formatHistoricalData = (data, dateRange) =>{
+export const formatHistoricalData = (responseData, dateRange) =>{
 
     const chartData = [];
     let today = new Date();
@@ -18,7 +18,7 @@ export const formatHistoricalData = (data, dateRange) =>{
         let dateToCheck = new Date();
         dateToCheck =   new Date(dateToCheck.setDate(today.getDate() - i)).toDateString();
 
-        data.map((dataObj) => {
+        responseData.map((dataObj) => {
             let reportDate = new Date(dataObj.report_date).toDateString();
 
             if (!dataFound && reportDate === dateToCheck) {
