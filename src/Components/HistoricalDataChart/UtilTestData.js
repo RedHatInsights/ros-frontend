@@ -71,24 +71,24 @@ export const testHistoryResponseData_7 = [
 export const expectedChartData_7 = [
     {
         datapoints: [
-            { name: 'CPU Utilization', x: new Date('2022-04-18T18:30:00.000Z'), y: null },
-            { name: 'CPU Utilization', x: new Date('2022-04-19T18:30:00.000Z'), y: null },
-            { name: 'CPU Utilization', x: new Date('2022-04-20T18:30:00.000Z'), y: null },
-            { name: 'CPU Utilization', x: new Date('2022-04-21T18:30:00.000Z'), y: null },
-            { name: 'CPU Utilization', x: new Date('2022-04-22T18:30:00.000Z'), y: 10 },
-            { name: 'CPU Utilization', x: new Date('2022-04-23T18:30:00.000Z'), y: 90 },
-            { name: 'CPU Utilization', x: new Date('2022-04-24T18:30:00.000Z'), y: 10 }
+            { name: 'CPU Utilization', x: new Date('Tue Apr 19 2022'), y: null },
+            { name: 'CPU Utilization', x: new Date('Wed Apr 20 2022'), y: null },
+            { name: 'CPU Utilization', x: new Date('Thu Apr 21 2022'), y: null },
+            { name: 'CPU Utilization', x: new Date('Fri Apr 22 2022'), y: null },
+            { name: 'CPU Utilization', x: new Date('Sat Apr 23 2022'), y: 10 },
+            { name: 'CPU Utilization', x: new Date('Sun Apr 24 2022'), y: 90 },
+            { name: 'CPU Utilization', x: new Date('Mon Apr 25 2022'), y: 10 }
         ]
     },
     {
         datapoints: [
-            { name: 'Memory Utilization', x: new Date('2022-04-18T18:30:00.000Z'), y: null },
-            { name: 'Memory Utilization', x: new Date('2022-04-19T18:30:00.000Z'), y: null },
-            { name: 'Memory Utilization', x: new Date('2022-04-20T18:30:00.000Z'), y: null },
-            { name: 'Memory Utilization', x: new Date('2022-04-21T18:30:00.000Z'), y: null },
-            { name: 'Memory Utilization', x: new Date('2022-04-22T18:30:00.000Z'), y: 12 },
-            { name: 'Memory Utilization', x: new Date('2022-04-23T18:30:00.000Z'), y: 97 },
-            { name: 'Memory Utilization', x: new Date('2022-04-24T18:30:00.000Z'), y: 12 }
+            { name: 'Memory Utilization', x: new Date('Tue Apr 19 2022'), y: null },
+            { name: 'Memory Utilization', x: new Date('Wed Apr 20 2022'), y: null },
+            { name: 'Memory Utilization', x: new Date('Thu Apr 21 2022'), y: null },
+            { name: 'Memory Utilization', x: new Date('Fri Apr 22 2022'), y: null },
+            { name: 'Memory Utilization', x: new Date('Sat Apr 23 2022'), y: 12 },
+            { name: 'Memory Utilization', x: new Date('Sun Apr 24 2022'), y: 97 },
+            { name: 'Memory Utilization', x: new Date('Mon Apr 25 2022'), y: 12 }
         ]
     }
 ];
