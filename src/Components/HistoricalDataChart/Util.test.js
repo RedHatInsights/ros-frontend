@@ -4,9 +4,17 @@
 import { formatHistoricalData } from './Util';
 import { expectedChartData_45, expectedChartData_7, testHistoryResponseData_45, testHistoryResponseData_7 } from './UtilTestData';
 
-Date.now = jest.fn(() => new Date('2022-04-25T14:11:14.466Z'));
-
 describe('formatHistoricalData method', () => {
+
+    beforeAll(() => {
+        jest.useFakeTimers('modern');
+
+        jest.setSystemTime(new Date('2022-04-24T00:00:00.000Z').getTime());
+    });
+
+    afterAll(() => {
+        jest.useRealTimers();
+    });
 
     it('should format response into historical chart data - Last 7 days', () =>{
 
