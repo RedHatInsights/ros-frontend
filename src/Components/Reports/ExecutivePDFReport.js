@@ -11,26 +11,22 @@ import {
 import { ExecutiveFirstPage } from './Common/ExecutiveFirstPage';
 import { ExecutiveSecondPage } from './Common/ExecutiveSecondPage';
 import propTypes from 'prop-types';
+import { REPORT_NOTIFICATIONS } from '../../constants';
 
 export const DownloadExecutivePDFReport = ({ isDisabled }) => {
     const [loading, setLoading] = useState(false);
     const dispatch = useDispatch();
+    const { start, success, failure } = REPORT_NOTIFICATIONS;
 
     const generateExecutivePDFReport =  async () =>{
         try {
             setLoading(true);
-            dispatch(addNotification({
-                variant: 'info',
-                title: 'Generating data. Download may take a moment to start.'
-            }));
+            dispatch(addNotification(start));
 
             const executiveReportResponse = await fetchExecutiveReport();
 
             dispatch(clearNotifications());
-            dispatch(addNotification({
-                variant: 'success',
-                title: 'Export successful'
-            }));
+            dispatch(addNotification(success));
             setLoading(false);
 
             return [
@@ -41,11 +37,7 @@ export const DownloadExecutivePDFReport = ({ isDisabled }) => {
         }
         catch (error) {
             dispatch(clearNotifications());
-            dispatch(addNotification({
-                variant: 'danger',
-                autoDismiss: false,
-                title: 'Export failed. Please try exporting again.'
-            }));
+            dispatch(addNotification(failure));
         }
 
     };
@@ -60,7 +52,7 @@ export const DownloadExecutivePDFReport = ({ isDisabled }) => {
                 }
                 reportName={'Resource optimization service report'}
                 type=""
-                fileName={`Resource-Optimization-Executive-Report--${new Date().toUTCString().replace(/ /g, '-')}.pdf`}
+                fileName={`Resource-Optimization-Executive-Report--${new Date().toISOString().replace(/[T:]/g, '-').split('.')[0]}-utc.pdf`}
                 size="A4"
                 allPagesHaveTitle={false}
                 asyncFunction={() => generateExecutivePDFReport()}
