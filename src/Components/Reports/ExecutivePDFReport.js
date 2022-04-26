@@ -10,6 +10,7 @@ import {
 } from '@redhat-cloud-services/frontend-components-notifications/redux';
 import { ExecutiveFirstPage } from './Common/ExecutiveFirstPage';
 import { ExecutiveSecondPage } from './Common/ExecutiveSecondPage';
+import propTypes from 'prop-types';
 
 export const DownloadExecutivePDFReport = ({ isDisabled }) => {
     const [loading, setLoading] = useState(false);
@@ -25,8 +26,6 @@ export const DownloadExecutivePDFReport = ({ isDisabled }) => {
 
             const executiveReportResponse = await fetchExecutiveReport();
 
-            console.log('Executive Response:', executiveReportResponse);
-
             dispatch(clearNotifications());
             dispatch(addNotification({
                 variant: 'success',
@@ -35,8 +34,8 @@ export const DownloadExecutivePDFReport = ({ isDisabled }) => {
             setLoading(false);
 
             return [
-                <ExecutiveFirstPage data={executiveReportResponse} />,
-                <ExecutiveSecondPage />
+                <ExecutiveFirstPage key='executive-first-page' data={executiveReportResponse} />,
+                <ExecutiveSecondPage key='executive-second-page'/>
             ];
 
         }
@@ -76,4 +75,8 @@ export const DownloadExecutivePDFReport = ({ isDisabled }) => {
             />
         </Fragment>
     );
+};
+
+DownloadExecutivePDFReport.propTypes = {
+    isDisabled: propTypes.bool
 };

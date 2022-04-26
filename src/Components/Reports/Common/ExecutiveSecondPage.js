@@ -1,5 +1,4 @@
 import React, { Fragment } from 'react';
-import propTypes from 'prop-types';
 import {  Dl, Dt, Dd } from '@redhat-cloud-services/frontend-components-pdf-generator';
 import { Canvas, Text, View } from '@react-pdf/renderer';
 import { TachometerAltIconConfig } from '@patternfly/react-icons/dist/js/icons/tachometer-alt-icon';
@@ -7,11 +6,12 @@ import { AngleDoubleDownIconConfig } from '@patternfly/react-icons/dist/js/icons
 import { AngleDoubleUpIconConfig } from '@patternfly/react-icons/dist/js/icons/angle-double-up-icon';
 import { AutomationIconConfig } from '@patternfly/react-icons/dist/js/icons/automation-icon';
 import { InProgressIconConfig } from '@patternfly/react-icons/dist/js/icons/in-progress-icon';
+import styles from './styles';
 
 export const ExecutiveSecondPage = () => {
 
     return <Fragment key="second-page">
-        <Text>Description of states</Text>
+        <Text style={styles.execHeading}>Description of states</Text>
         <Dl>
             <Dt>
                 <View style={{ display: 'flex',
@@ -109,7 +109,7 @@ export const ExecutiveSecondPage = () => {
             <Dd>Data has not been received or is being processed. Initial data processing takes up to 24 hours.</Dd>
         </Dl>
 
-        <Text>Description of conditions</Text>
+        <Text style={styles.execHeading}>Description of conditions</Text>
         <Dl>
             <Dt>
                 <View style={{ display: 'flex',
@@ -126,6 +126,14 @@ export const ExecutiveSecondPage = () => {
                 </View>
             </Dt>
             <Dd>RAM registered peaks higher than 20% over several one-minute time periods</Dd>
+
+            <Dt>
+                <View style={{ display: 'flex',
+                    flexDirection: 'row' }}>
+                    <Text>Disk I/O  pressure</Text>
+                </View>
+            </Dt>
+            <Dd>Disk I/O registered peaks higher than 20% over several one-minute time periods</Dd>
         </Dl>
     </Fragment>;
 };

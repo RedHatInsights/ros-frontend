@@ -4,6 +4,7 @@ import { Section, Column, Chart, Table } from '@redhat-cloud-services/frontend-c
 import { Canvas, Text, View } from '@react-pdf/renderer';
 import { CircleIconConfig } from '@patternfly/react-icons/dist/js/icons/circle-icon';
 import { formatExecutiveReportData } from '../Util';
+import styles from './styles';
 
 export const ExecutiveFirstPage = ({ data }) => {
     const { conditions_count: conditionsCount, non_optimized_count: nonOptimizedCount, total_count: totalCount } = data?.meta;
@@ -12,7 +13,7 @@ export const ExecutiveFirstPage = ({ data }) => {
 
     const ioOccuranceTableData = [
         [
-            <View style={{ display: 'flex',
+            <View key={'disk-io-title'} style={{ display: 'flex',
                 flexDirection: 'row' }}>
                 <Canvas
                     style={{
@@ -22,7 +23,7 @@ export const ExecutiveFirstPage = ({ data }) => {
                     }}
                     paint={({ path, scale }) => {
                         scale(0.014);
-                        path(CircleIconConfig.svgPath).fill('#7dc3e8');
+                        path(CircleIconConfig.svgPath).fill('#8BC1F7');
                     }}
                 />
                 <Text>Disk I/O</Text>
@@ -33,7 +34,7 @@ export const ExecutiveFirstPage = ({ data }) => {
 
     const ramOccuranceTableData = [
         [
-            <View style={{ display: 'flex',
+            <View key={'ram-title'}  style={{ display: 'flex',
                 flexDirection: 'row' }}>
                 <Canvas
                     style={{
@@ -43,7 +44,7 @@ export const ExecutiveFirstPage = ({ data }) => {
                     }}
                     paint={({ path, scale }) => {
                         scale(0.014);
-                        path(CircleIconConfig.svgPath).fill('#00659c');
+                        path(CircleIconConfig.svgPath).fill('#002F5D');
                     }}
                 />
                 <Text>RAM</Text>
@@ -54,7 +55,7 @@ export const ExecutiveFirstPage = ({ data }) => {
 
     const cpuOccuranceTableData = [
         [
-            <View style={{ display: 'flex',
+            <View key={'cpu-title'} style={{ display: 'flex',
                 flexDirection: 'row' }}>
                 <Canvas
                     style={{
@@ -64,7 +65,7 @@ export const ExecutiveFirstPage = ({ data }) => {
                     }}
                     paint={({ path, scale }) => {
                         scale(0.014);
-                        path(CircleIconConfig.svgPath).fill('#002235');
+                        path(CircleIconConfig.svgPath).fill('#0066CC');
                     }}
                 />
                 <Text>CPU</Text>
@@ -83,7 +84,10 @@ export const ExecutiveFirstPage = ({ data }) => {
 
     return <Fragment key="first-page">
         <Text>
-            {`This executive summary highlights the performance for your registered systems included in the resource optimization service. This report gives you an overview of:${newLine}`}
+            This executive summary highlights the performance for your registered systems included in the resource optimization service.
+        </Text>
+        <Text>
+            {`This report gives you an overview of:${newLine}`}
         </Text>
 
         <Text>
@@ -92,20 +96,17 @@ export const ExecutiveFirstPage = ({ data }) => {
                 ${bullet} Number of registered systems in a non-optimal state
                 ${bullet} Number of system performance issues
                 ${bullet} Description of system performance levels
-                ${bullet} Performance level details for system resources operating in a non-optimal state
-                `}
+                ${bullet} Performance level details for system resources operating in a non-optimal state`}
         </Text>
 
         {/* {Total Systems} */}
-        <Section>
-            <Text>Total systems registered</Text>
-        </Section>
+
+        <Text style={styles.execHeading}>Total systems registered</Text>
         <Text>{`There are ${totalCount} systems registered in the resource optimization service.`}</Text>
 
         {/* {State Data} */}
-        <Section>
-            <Text>Number of registered systems in a non-optimal state</Text>
-        </Section>
+
+        <Text style={styles.execHeading}>Number of registered systems in a non-optimal state</Text>
         <Text>{`There are ${nonOptimizedCount} registered systems in a non-optimal state.`}</Text>
 
         <Section>
@@ -127,10 +128,9 @@ export const ExecutiveFirstPage = ({ data }) => {
                 />
             </Column>
         </Section>
+        <Text style={styles.execInfoText}>Description of states are on the second page of the report*</Text>
 
-        <Section>
-            <Text>Number of system performance issues</Text>
-        </Section>
+        <Text style={styles.execHeading}>Number of system performance issues</Text>
         <Text>{`There are ${conditionsCount} system performance issues.`}</Text>
 
         <Section>
@@ -153,9 +153,7 @@ export const ExecutiveFirstPage = ({ data }) => {
             </Column>
         </Section>
 
-        <Section>
-            <Text>Breakdown of occurences</Text>
-        </Section>
+        <Text style={styles.occuranceHeading}>Breakdown of occurences</Text>
 
         <Section>
             <Column>
@@ -181,6 +179,12 @@ export const ExecutiveFirstPage = ({ data }) => {
                 />
             </Column>
         </Section>
+
+        <Text style={styles.execInfoText}>Description of conditions are on the second page of the report*</Text>
     </Fragment>;
+};
+
+ExecutiveFirstPage.propTypes = {
+    data: propTypes.object
 };
 
