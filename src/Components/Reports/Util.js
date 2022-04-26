@@ -70,3 +70,63 @@ export const getSystemsReportFileName = () =>  {
 
     return reportFileName;
 };
+
+export const formatExecutiveReportData = (data) => {
+
+    const { systems_per_state: systemsPerState, conditions } = data;
+
+    const stateChartData = [];
+    const stateTableData = [['# of systems']];
+
+    const conditionsChartData = [];
+    const conditionsTableData = [['# of Occurrences']];
+
+    const condtionsInfo = {
+        io: {
+            name: 'Disk IO',
+            occurances: []
+        },
+        ram: {
+            name: 'RAM',
+            occurances: []
+        },
+        cpu: {
+            name: 'CPU',
+            occurances: []
+        }
+    };
+
+    const stateNameMapping = {
+        idling: 'Idling',
+        oversized: 'Oversized',
+        under_pressure: 'Under pressure', /* eslint-disable-line camelcase */
+        undersized: 'Undersized',
+        waiting_for_data: 'Waiting for data' /* eslint-disable-line camelcase */
+    };
+
+    Object.keys(systemsPerState).map((state) => {
+        const stateName = stateNameMapping[state];
+        const percentage = Math.floor(systemsPerState[state]?.percentage);
+        const count = systemsPerState[state]?.count;
+
+        stateChartData.push({ x: stateName, y: percentage });
+        stateTableData.push([`${count} (${percentage}% of total)`]);
+    });
+
+    Object.keys(conditions).map((condition) => {
+        const conditionName = condtionsInfo[condition].name;
+        const percentage = Math.floor(conditions[condition]?.percentage);
+        const count = conditions[condition]?.count;
+
+        conditionsChartData.push({ x: conditionName, y: percentage });
+        conditionsTableData.push([`${count}`]);
+
+        const underPressureValue = conditions[condition].under_pressure ? conditions[condition].under_pressure : 'N/A';
+        const undersizedValue = conditions[condition].undersized ? conditions[condition].undersized : 'N/A';
+
+        condtionsInfo[condition].occurances.push(['Under pressure', `${underPressureValue}`]);
+        condtionsInfo[condition].occurances.push(['Undersized', `${undersizedValue}`]);
+    });
+
+    return { stateChartData, stateTableData, conditionsChartData, conditionsTableData, condtionsInfo };
+};

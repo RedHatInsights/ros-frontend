@@ -153,4 +153,4 @@ export const fetchExecutiveReport = async () => {
         return res;
     }).then(res =>  res.json());
 
-}
+};

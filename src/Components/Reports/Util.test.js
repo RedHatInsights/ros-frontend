@@ -1,5 +1,5 @@
-import { generateFilterText, formatData, responseToCSVData, responseToJSONData } from './Util';
-import { sysResponseTestData } from './UtilTestData';
+import { generateFilterText, formatData, responseToCSVData, responseToJSONData, formatExecutiveReportData } from './Util';
+import { executiveReponseTestData, sysResponseTestData } from './UtilTestData';
 
 describe('Util generateFilterText method tests', () => {
     it('should generate filter text for name filter', () => {
@@ -154,3 +154,60 @@ describe('Util responseToJSONData test', () => {
     });
 });
 
+describe('formatExecutiveReportData', () => {
+    it('should format the data for generating executive PDF report', () => {
+        const expectedStateChartData = [
+            { x: 'Under pressure', y: 5 },
+            { x: 'Undersized', y: 7 },
+            { x: 'Oversized', y: 8 },
+            { x: 'Waiting for data', y: 5 },
+            { x: 'Idling', y: 5 }
+        ];
+
+        const expectedStateTableData = [
+            ['# of systems'],
+            ['0 (5% of total)'],
+            ['1 (7% of total)'],
+            ['7 (8% of total)'],
+            ['8 (5% of total)'],
+            ['8 (5% of total)']
+        ];
+        const expectedConditionsChartData = [
+            { x: 'CPU', y: 20 },
+            { x: 'Disk IO', y: 20 },
+            { x: 'RAM', y: 20 }
+        ];
+        const expectedConditionsTableData = [
+            ['# of Occurrences'],
+            ['23'],
+            ['23'],
+            ['23']
+        ];
+
+        const expectedIoOccurances = [
+            ['Under pressure', '10'],
+            ['Undersized', '10']
+        ];
+
+        const expectedRAMOccurances = [
+            ['Under pressure', '10'],
+            ['Undersized', '10']
+        ] ;
+
+        const expectedCPUOccurances = [
+            ['Under pressure', '10'],
+            ['Undersized', 'N/A']
+        ] ;
+
+        const actualFormattedData = formatExecutiveReportData(executiveReponseTestData);
+
+        const { stateChartData, stateTableData, conditionsChartData, conditionsTableData, condtionsInfo } =  actualFormattedData;
+        expect(stateChartData).toEqual(expectedStateChartData);
+        expect(stateTableData).toEqual(expectedStateTableData);
+        expect(conditionsChartData).toEqual(expectedConditionsChartData);
+        expect(conditionsTableData).toEqual(expectedConditionsTableData);
+        expect(condtionsInfo.io.occurances).toEqual(expectedIoOccurances);
+        expect(condtionsInfo.ram.occurances).toEqual(expectedRAMOccurances);
+        expect(condtionsInfo.cpu.occurances).toEqual(expectedCPUOccurances);
+    });
+});

@@ -1,4 +1,4 @@
-import React, { Fragment, useState, useEffect } from 'react';
+import React, { Fragment, useState } from 'react';
 import { DownloadButton } from '@redhat-cloud-services/frontend-components-pdf-generator';
 import ExportIcon from '@patternfly/react-icons/dist/js/icons/export-icon';
 import './ExecutiveePDFReport.scss';
@@ -11,54 +11,53 @@ import {
 import { ExecutiveFirstPage } from './Common/ExecutiveFirstPage';
 import { ExecutiveSecondPage } from './Common/ExecutiveSecondPage';
 
-
 export const DownloadExecutivePDFReport = ({ isDisabled }) => {
     const [loading, setLoading] = useState(false);
     const dispatch = useDispatch();
 
-
     const generateExecutivePDFReport =  async () =>{
         try {
+            setLoading(true);
             dispatch(addNotification({
                 variant: 'info',
                 title: 'Generating data. Download may take a moment to start.'
             }));
-            
+
             const executiveReportResponse = await fetchExecutiveReport();
 
-            console.log("Executive Response:", executiveReportResponse);
+            console.log('Executive Response:', executiveReportResponse);
 
             dispatch(clearNotifications());
-            dispatch(addNotification( {
+            dispatch(addNotification({
                 variant: 'success',
                 title: 'Export successful'
             }));
+            setLoading(false);
 
             return [
-                <ExecutiveFirstPage />,
+                <ExecutiveFirstPage data={executiveReportResponse} />,
                 <ExecutiveSecondPage />
-            ]
+            ];
 
         }
-        catch(error){
+        catch (error) {
             dispatch(clearNotifications());
-            dispatch(addNotification( {
+            dispatch(addNotification({
                 variant: 'danger',
                 autoDismiss: false,
                 title: 'Export failed. Please try exporting again.'
             }));
         }
 
-    }
-
+    };
 
     return (
         <Fragment>
             <DownloadButton
                 label={
                     loading
-                    ? 'Loading...'
-                    : 'Download executive report'
+                        ? 'Loading...'
+                        : 'Download executive report'
                 }
                 reportName={'Resource optimization service report'}
                 type=""
@@ -72,7 +71,7 @@ export const DownloadExecutivePDFReport = ({ isDisabled }) => {
                     icon: <ExportIcon className="iconOverride" />,
                     className: 'downloadButtonOverride',
                     isAriaDisabled: isDisabled,
-                    ...(loading ? { isDisabled: true } : null),
+                    ...(loading ? { isDisabled: true } : null)
                 }}
             />
         </Fragment>

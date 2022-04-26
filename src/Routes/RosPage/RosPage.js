@@ -442,14 +442,14 @@ class RosPage extends React.Component {
             <React.Fragment>
                 <PageHeader className='ros-page-header'>
                     <PageHeaderTitle title='Resource Optimization'/>
-                    <DownloadExecutivePDFReport isDisabled={false} />
+                    <DownloadExecutivePDFReport isDisabled={this.state.disableExport} />
                 </PageHeader>
                 <Main>
                     <PermissionContext.Consumer>
                         { value =>
                             value.permissions.systemsRead === false
                                 ? <NotAuthorized serviceName='Resource Optimization' />
-                                : this.renderConfigStepsOrTable()  
+                                : this.renderConfigStepsOrTable()
                         }
                     </PermissionContext.Consumer>
                 </Main>
