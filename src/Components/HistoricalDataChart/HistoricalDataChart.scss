@@ -21,3 +21,16 @@
    width: 756px;
    height: 275px;
 }
+
+// Media Query
+@media (max-width: 1620px ){
+   .chartContainer {
+      position: static; 
+   } 
+
+    .dropdownContainer {
+      margin-left: 56px;
+      align-self: center;
+      margin-right: 0px;
+   }
+}

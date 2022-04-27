@@ -14,7 +14,7 @@ import { OutlinedQuestionCircleIcon } from '@patternfly/react-icons';
 import './HistoricalDataChart.scss';
 import { fetchSystemHistory } from '../../Utilities/api';
 import { formatHistoricalData } from './Util';
-import { DATE_RANGE_49_DAYS, DATE_RANGE_7_DAYS, months, RANGE_DROPDOWN_45_DAYS } from '../../constants';
+import { DATE_RANGE_49_DAYS, DATE_RANGE_7_DAYS, MONTHS, RANGE_DROPDOWN_45_DAYS } from '../../constants';
 import propTypes from 'prop-types';
 
 export const HistoricalDataChart = ({ inventoryId }) => {
@@ -134,7 +134,7 @@ export const HistoricalDataChart = ({ inventoryId }) => {
                                     tickValues={chartData[0].datapoints.map(d => d.x)}
                                     tickFormat={(x) => {
                                         const isToday = new Date().toDateString() === new Date(x).toDateString();
-                                        return isToday ? 'Today' : `${new Date(x).getDate()} ${months[new Date(x).getMonth()]}`;}
+                                        return isToday ? 'Today' : `${new Date(x).getDate()} ${MONTHS[new Date(x).getMonth()]}`;}
                                     }
                                     fixLabelOverlap
                                     tickCount={6}
