@@ -11,41 +11,35 @@ export const formatHistoricalData = (responseData, dateRange) =>{
         datapoints: []
     };
 
-    let dataFound = false;
+    let mapResponseData = new Map();
+    
+    for (let index=0; index<responseData.length; index++) {
+        mapResponseData.set(new Date(responseData[index].report_date).toDateString() ,responseData[index]);
+    }
 
-    for (let i = (dateRange - 1); i >= 0; i--) {
-        dataFound = false;
+    for (let index = (dateRange - 1); index >= 0; index--) {
         let dateToCheck = new Date();
-        dateToCheck =   new Date(dateToCheck.setDate(today.getDate() - i)).toDateString();
-
-        responseData.map((dataObj) => {
-            let reportDate = new Date(dataObj.report_date).toDateString();
-
-            if (!dataFound && reportDate === dateToCheck) {
-
-                cpu.datapoints.push({
-                    name: 'CPU Utilization',
-                    x: new Date(dateToCheck),
-                    y: dataObj.cpu
-                });
-
-                memory.datapoints.push({
-                    name: 'Memory Utilization',
-                    x: new Date(dateToCheck),
-                    y: dataObj.memory
-                });
-
-                dataFound = true;
-            }
-        });
-
-        if (!dataFound) {
+        dateToCheck =   new Date(dateToCheck.setDate(today.getDate() - index)).toDateString();
+        if (mapResponseData.has(dateToCheck)){
+            cpu.datapoints.push({
+                name: 'CPU Utilization',
+                x: new Date(dateToCheck),
+                y: mapResponseData.get(dateToCheck).cpu
+            });
+                        
+            memory.datapoints.push({
+                name: 'Memory Utilization',
+                x: new Date(dateToCheck),
+                y: mapResponseData.get(dateToCheck).memory
+            });
+        }
+        else {
             cpu.datapoints.push({
                 name: 'CPU Utilization',
                 x: new Date(dateToCheck),
                 y: null
             });
-
+        
             memory.datapoints.push({
                 name: 'Memory Utilization',
                 x: new Date(dateToCheck),
