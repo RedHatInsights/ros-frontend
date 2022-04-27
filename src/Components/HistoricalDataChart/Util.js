@@ -13,9 +13,9 @@ export const formatHistoricalData = (responseData, dateRange) =>{
 
     let mapResponseData = new Map();
 
-    for (let index = 0; index < responseData.length; index++) {
-        mapResponseData.set(new Date(responseData[index].report_date).toDateString(), responseData[index]);
-    }
+    responseData.forEach((responseValue) => {
+        mapResponseData.set(new Date(responseValue.report_date).toDateString(), responseValue);
+    });
 
     for (let index = (dateRange - 1); index >= 0; index--) {
         let dateToCheck = new Date();
