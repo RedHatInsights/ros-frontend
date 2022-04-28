@@ -178,7 +178,7 @@ describe('formatExecutiveReportData', () => {
             { x: 'RAM', y: 20 }
         ];
         const expectedConditionsTableData = [
-            ['# of Occurrences'],
+            ['# of occurrences'],
             ['23'],
             ['23'],
             ['23']
@@ -196,7 +196,7 @@ describe('formatExecutiveReportData', () => {
 
         const expectedCPUOccurances = [
             ['Under pressure', '10'],
-            ['Undersized', 'N/A']
+            ['Undersized', '0']
         ] ;
 
         const actualFormattedData = formatExecutiveReportData(executiveReponseTestData);
