@@ -81,7 +81,7 @@ export const HistoricalDataChart = ({ inventoryId }) => {
                 Something went wrong
             </Title>
             <EmptyStateBody>
-                There was a problem processing the request. Please try again later.
+                There was a problem while requesting historical data. Please try again later.
             </EmptyStateBody>
         </EmptyState>;
     };
