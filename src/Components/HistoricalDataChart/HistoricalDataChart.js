@@ -8,7 +8,10 @@ import {
     ChartThemeColor,
     createContainer
 } from '@patternfly/react-charts';
-import { Dropdown, DropdownItem, DropdownToggle, EmptyState, Title, Tooltip } from '@patternfly/react-core';
+import {
+    Bullseye, Dropdown, DropdownItem, DropdownToggle,
+    EmptyState, EmptyStateBody, EmptyStateVariant, Spinner, Title, Tooltip
+} from '@patternfly/react-core';
 import CaretDownIcon from '@patternfly/react-icons/dist/js/icons/caret-down-icon';
 import { OutlinedQuestionCircleIcon } from '@patternfly/react-icons';
 import './HistoricalDataChart.scss';
@@ -72,108 +75,124 @@ export const HistoricalDataChart = ({ inventoryId }) => {
         setOpen(isOpen);
     };
 
+    const displayError = () => {
+        return <EmptyState className='loadingErrorContainer' variant={EmptyStateVariant.small}>
+            <Title headingLevel="h2" size="lg">
+                Something went wrong
+            </Title>
+            <EmptyStateBody>
+                There was a problem processing the request. Please try again later.
+            </EmptyStateBody>
+        </EmptyState>;
+    };
+
+    const displayChart = () => {
+
+        return  chartData.length === 0 ?
+            <Bullseye className='loadingErrorContainer'>
+                <Spinner size="xl" aria-labelledby="loading-historical-chart"/>
+            </Bullseye> :
+            <Fragment>
+                <span className='dropdownContainer'>
+                    <Tooltip content={<div>Scroll and pan to zoom and move</div>}>
+                        <OutlinedQuestionCircleIcon size='sm' />
+                    </Tooltip>
+                    <Dropdown
+                        className='dateDropdown'
+                        toggle={
+                            <DropdownToggle
+                                id='chart-date-toggle'
+                                onToggle={onToggle}
+                                toggleIndicator={CaretDownIcon} >
+                                {`Last ${dateRange === DATE_RANGE_7_DAYS ? DATE_RANGE_7_DAYS : RANGE_DROPDOWN_45_DAYS} Days`}
+                            </DropdownToggle>
+                        }
+                        isOpen={isOpen}
+                        dropdownItems={dropdownItems}
+                    />
+                </span>
+
+                <div style={{ height: '275px' }}>
+                    <Chart
+                        domain={getEntireDomain()}
+                        scale={{ x: 'time', y: 'linear' }}
+                        containerComponent={
+                            <VictoryZoomVoronoiContainer
+                                labels={({ datum }) => {
+                                    return datum.childName.includes('scatter-') && datum.y !== null ? `${datum.name}: ${datum.y}%` : null;}
+                                }
+                                constrainToVisibleArea
+                                voronoiDimension="x"
+                                zoomDimension="x"
+                            />
+                        }
+                        legendData={[{ name: 'CPU Utilization' }, { name: 'Memory Utilization' }]}
+                        legendOrientation="vertical"
+                        legendPosition="right"
+                        height={275}
+                        width={756}
+                        maxDomain={{ y: 100 }}
+                        minDomain={{ y: 0 }}
+                        padding={{
+                            bottom: 50,
+                            left: 50,
+                            right: 200, // Adjusted to accommodate legend
+                            top: 50
+                        }}
+                        themeColor={ChartThemeColor.blue}>
+
+                        <ChartAxis
+                            tickValues={chartData[0].datapoints.map(d => d.x)}
+                            tickFormat={(x) => {
+                                const isToday = new Date().toDateString() === new Date(x).toDateString();
+                                return isToday ? 'Today' : `${new Date(x).getDate()} ${MONTHS[new Date(x).getMonth()]}`;}
+                            }
+                            fixLabelOverlap
+                            tickCount={6}
+
+                        />
+                        <ChartAxis
+                            dependentAxis showGrid
+                            tickValues={[0, 20, 40, 60, 80, 100]}
+                            tickFormat={(t) => `${t}%`} />
+
+                        <ChartGroup>
+                            {chartData.map((s, idx) => {
+                                return (
+                                    <ChartScatter
+                                        data={s.datapoints}
+                                        key={'scatter-' + idx}
+                                        name={'scatter-' + idx}
+
+                                    />
+                                );
+                            })}
+                        </ChartGroup>
+
+                        <ChartGroup>
+                            {chartData.map((s, idx) => {
+                                return (
+                                    <ChartLine
+                                        key={'line-' + idx}
+                                        name={'line-' + idx}
+                                        data={s.datapoints}
+
+                                    />
+                                );
+                            })}
+                        </ChartGroup>
+
+                    </Chart>
+                </div>
+            </Fragment>;
+
+    };
+
     return (
         <div className='chartContainer'>
             {
-                chartData.length === 0 ?
-                    <EmptyState className='loading' >
-                        <Title size="lg" headingLevel="h4">
-                            { showError ? 'Something went wrong while loading historical chart' :  'Loading hostorical chart...'}
-                        </Title>
-                    </EmptyState> :
-                    <Fragment>
-                        <span className='dropdownContainer'>
-                            <Tooltip content={<div>Scroll and pan to zoom and move</div>}>
-                                <OutlinedQuestionCircleIcon size='sm' />
-                            </Tooltip>
-                            <Dropdown
-                                className='dateDropdown'
-                                toggle={
-                                    <DropdownToggle
-                                        id='chart-date-toggle'
-                                        onToggle={onToggle}
-                                        toggleIndicator={CaretDownIcon} >
-                                        {`Last ${dateRange === DATE_RANGE_7_DAYS ? DATE_RANGE_7_DAYS : RANGE_DROPDOWN_45_DAYS} Days`}
-                                    </DropdownToggle>
-                                }
-                                isOpen={isOpen}
-                                dropdownItems={dropdownItems}
-                            />
-                        </span>
+                showError ?  displayError() : displayChart()
 
-                        <div style={{ height: '275px' }}>
-                            <Chart
-                                domain={getEntireDomain()}
-                                scale={{ x: 'time', y: 'linear' }}
-                                containerComponent={
-                                    <VictoryZoomVoronoiContainer
-                                        labels={({ datum }) => {
-                                            return datum.childName.includes('scatter-') && datum.y !== null ? `${datum.name}: ${datum.y}%` : null;}
-                                        }
-                                        constrainToVisibleArea
-                                        voronoiDimension="x"
-                                        zoomDimension="x"
-                                    />
-                                }
-                                legendData={[{ name: 'CPU Utilization' }, { name: 'Memory Utilization' }]}
-                                legendOrientation="vertical"
-                                legendPosition="right"
-                                height={275}
-                                width={756}
-                                maxDomain={{ y: 100 }}
-                                minDomain={{ y: 0 }}
-                                padding={{
-                                    bottom: 50,
-                                    left: 50,
-                                    right: 200, // Adjusted to accommodate legend
-                                    top: 50
-                                }}
-                                themeColor={ChartThemeColor.blue}>
-
-                                <ChartAxis
-                                    tickValues={chartData[0].datapoints.map(d => d.x)}
-                                    tickFormat={(x) => {
-                                        const isToday = new Date().toDateString() === new Date(x).toDateString();
-                                        return isToday ? 'Today' : `${new Date(x).getDate()} ${MONTHS[new Date(x).getMonth()]}`;}
-                                    }
-                                    fixLabelOverlap
-                                    tickCount={6}
-
-                                />
-                                <ChartAxis
-                                    dependentAxis showGrid
-                                    tickValues={[0, 20, 40, 60, 80, 100]}
-                                    tickFormat={(t) => `${t}%`} />
-
-                                <ChartGroup>
-                                    {chartData.map((s, idx) => {
-                                        return (
-                                            <ChartScatter
-                                                data={s.datapoints}
-                                                key={'scatter-' + idx}
-                                                name={'scatter-' + idx}
-
-                                            />
-                                        );
-                                    })}
-                                </ChartGroup>
-
-                                <ChartGroup>
-                                    {chartData.map((s, idx) => {
-                                        return (
-                                            <ChartLine
-                                                key={'line-' + idx}
-                                                name={'line-' + idx}
-                                                data={s.datapoints}
-
-                                            />
-                                        );
-                                    })}
-                                </ChartGroup>
-
-                            </Chart>
-                        </div>
-                    </Fragment>
             }
         </div>
     );
