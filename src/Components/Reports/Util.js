@@ -79,7 +79,7 @@ export const formatExecutiveReportData = (data) => {
     const stateTableData = [['# of systems']];
 
     const conditionsChartData = [];
-    const conditionsTableData = [['# of Occurrences']];
+    const conditionsTableData = [['# of occurrences']];
 
     const condtionsInfo = {
         io: {
@@ -122,7 +122,7 @@ export const formatExecutiveReportData = (data) => {
         conditionsTableData.push([`${count}`]);
 
         const underPressureValue = conditions[condition].under_pressure ? conditions[condition].under_pressure : 'N/A';
-        const undersizedValue = conditions[condition].undersized ? conditions[condition].undersized : 'N/A';
+        const undersizedValue = conditions[condition].undersized ? conditions[condition].undersized : 0;
 
         condtionsInfo[condition].occurances.push(['Under pressure', `${underPressureValue}`]);
         condtionsInfo[condition].occurances.push(['Undersized', `${undersizedValue}`]);

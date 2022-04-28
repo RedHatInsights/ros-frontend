@@ -101,20 +101,20 @@ export const ExecutiveFirstPage = ({ data }) => {
 
         {/* {Total Systems} */}
 
-        <Text style={styles.execHeading}>Total systems registered</Text>
+        <Text style={styles.execHeading}>Registered systems</Text>
         <Text>{`There are ${totalCount} systems registered in the resource optimization service.`}</Text>
 
         {/* {State Data} */}
 
-        <Text style={styles.execHeading}>Number of registered systems in a non-optimal state</Text>
+        <Text style={styles.execHeading}>Systems in a non-optimal state</Text>
         <Text>{`There are ${nonOptimizedCount} registered systems in a non-optimal state.`}</Text>
 
         <Section>
             <Column>
                 <Chart
                     chartType="pie"
-                    subTitle="State"
-                    title="100"
+                    subTitle="Non-optimal"
+                    title={nonOptimizedCount}
                     data={stateChartData}
                     colorSchema={'multi'}
                     legendHeader={'State'}
@@ -130,15 +130,15 @@ export const ExecutiveFirstPage = ({ data }) => {
         </Section>
         <Text style={styles.execInfoText}>Description of states are on the second page of the report*</Text>
 
-        <Text style={styles.execHeading}>Number of system performance issues</Text>
+        <Text style={styles.execHeading}>System performance issues</Text>
         <Text>{`There are ${conditionsCount} system performance issues.`}</Text>
 
         <Section>
             <Column>
                 <Chart
-                    chartType="pie"
+                    chartType="donut"
                     subTitle="Conditions"
-                    title="100"
+                    title={conditionsCount}
                     data={conditionsChartData}
                     colorSchema={'blue'}
                     legendHeader={'Conditions'}
