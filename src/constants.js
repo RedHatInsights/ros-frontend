@@ -1,7 +1,8 @@
 import React from 'react';
+import { nowrap } from '@patternfly/react-table';
 import { Tooltip } from '@patternfly/react-core';
 import { displayState, recommendations, scoreProgress, systemName } from './store/entitiesReducer';
-import { diskUsageData, displayOS } from './Components/RosTable/RenderColumn';
+import { diskUsageData, displayLastReported, displayOS } from './Components/RosTable/RenderColumn';
 
 // API
 export const ROS_API_ROOT = '/api/ros/v1';
@@ -52,6 +53,78 @@ export const CUSTOM_FILTERS = {
                 {
                     label: 'Waiting for data',
                     value: 'Waiting for data'
+                }
+            ]
+        }
+    },
+    os: {
+        label: 'Operating system',
+        type: 'checkbox',
+        filterValues: {
+            items: [
+                {
+                    label: 'RHEL 7.0',
+                    value: 'RHEL 7.0'
+                },
+                {
+                    label: 'RHEL 7.1',
+                    value: 'RHEL 7.1'
+                },
+                {
+                    label: 'RHEL 7.2',
+                    value: 'RHEL 7.2'
+                },
+                {
+                    label: 'RHEL 7.3',
+                    value: 'RHEL 7.3'
+                },
+                {
+                    label: 'RHEL 7.4',
+                    value: 'RHEL 7.4'
+                },
+                {
+                    label: 'RHEL 7.5',
+                    value: 'RHEL 7.5'
+                },
+                {
+                    label: 'RHEL 7.6',
+                    value: 'RHEL 7.6'
+                },
+                {
+                    label: 'RHEL 7.7',
+                    value: 'RHEL 7.7'
+                },
+                {
+                    label: 'RHEL 7.8',
+                    value: 'RHEL 7.8'
+                },
+                {
+                    label: 'RHEL 7.9',
+                    value: 'RHEL 7.9'
+                },
+                {
+                    label: 'RHEL 8.0',
+                    value: 'RHEL 8.0'
+                },
+                {
+                    label: 'RHEL 8.1',
+                    value: 'RHEL 8.1'
+                },
+                {
+                    label: 'RHEL 8.2',
+                    value: 'RHEL 8.2'
+                },
+                {
+                    label: 'RHEL 8.3',
+                    value: 'RHEL 8.3'
+                },
+                {
+                    label: 'RHEL 8.4',
+                    value: 'RHEL 8.4'
+                },
+                {
+                    label: 'RHEL 8.5',
+                    value: 'RHEL 8.5'
                 }
             ]
         }
@@ -137,5 +210,51 @@ export const SYSTEM_TABLE_COLUMNS = [
         isChecked: true,
         isDisabled: false,
         isShownByDefault: true
+    },
+    {
+        key: 'report_date',
+        title: 'Last reported',
+        modalTitle: 'Last reported',
+        renderFunc: (data) => displayLastReported(data),
+        isChecked: true,
+        isDisabled: false,
+        isShownByDefault: true,
+        transforms: [nowrap],
+        cellTransforms: [nowrap]
     }
 ];
+
+// Reports
+
+export const SYSTEMS_PDF_REPORT_TITLE = 'Insights Resource Optimization Systems Report';
+export const SYSTEMS_REPORT_FILE_NAME = 'resource_optimization--';
+
+export const pdfRowKeys = ['display_name', 'os', 'performance_utilization.cpu', 'performance_utilization.memory', 'performance_utilization.max_io',
+    'number_of_suggestions', 'state', 'report_date'];
+
+export const reportRowKeys = ['display_name', 'os', 'performance_utilization.cpu', 'performance_utilization.memory', 'performance_utilization.max_io',
+    'number_of_suggestions', 'state', 'cloud_provider', 'instance_type', 'idling_time', 'report_date'];
+
+export const percentageKeys = ['performance_utilization.cpu', 'performance_utilization.memory', 'idling_time'];
+
+export const PDF_RECORDS_PER_PAGE = {
+    firstPageCount: 16,
+    otherPageCount: 22
+
+};
+
+export const REPORT_NOTIFICATIONS = {
+    start: {
+        variant: 'info',
+        title: 'Generating data. Download may take a moment to start.'
+    },
+    success: {
+        variant: 'success',
+        title: 'Export successful'
+    },
+    failure: {
+        variant: 'danger',
+        autoDismiss: false,
+        title: 'Export failed. Please try exporting again.'
+    }
+};
