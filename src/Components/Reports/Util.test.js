@@ -1,8 +1,6 @@
 import { generateFilterText, formatData, responseToCSVData, responseToJSONData } from './Util';
 import { sysResponseTestData } from './UtilTestData';
 
-Date.now = jest.fn(() => new Date('2022-03-30T00:33:37.000Z'));
-
 describe('Util generateFilterText method tests', () => {
     it('should generate filter text for name filter', () => {
         const expectedFilterText = `\nFilters applied\nName: ros-system\n`;

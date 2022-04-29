@@ -21,6 +21,7 @@ import {
     DescriptionListGroup,
     DescriptionListDescription
 } from '@patternfly/react-core';
+import { HistoricalDataChart } from '../../Components/HistoricalDataChart/HistoricalDataChart';
 
 class RosSystemDetail extends React.Component {
     constructor(props) {
@@ -76,6 +77,7 @@ class RosSystemDetail extends React.Component {
 
     render() {
         const entity = this.props.entity;
+        const { inventoryId } = this.props.match.params;
         return (
             <React.Fragment>
                 <PermissionContext.Consumer>
@@ -101,12 +103,17 @@ class RosSystemDetail extends React.Component {
                                             </div>
                                         </BreadcrumbItem>
                                     </Breadcrumb>
-                                    <InventoryDetailHead
-                                        hideBack
-                                        showDelete={ false }
-                                        hideInvDrawer
-                                    />
-                                    { this.renderChildrenNode() }
+
+                                    <div className='detail-header-container'>
+                                        <InventoryDetailHead
+                                            hideBack
+                                            showDelete={ false }
+                                            hideInvDrawer
+                                        />
+                                        { this.renderChildrenNode() }
+                                        <HistoricalDataChart
+                                            inventoryId={inventoryId}/>
+                                    </div>
                                 </PageHeader>
                                 <Main>
                                     <Grid gutter="md">
