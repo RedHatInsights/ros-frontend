@@ -32,8 +32,14 @@
       "!src/**/stories/*"
     ],
     "coverageDirectory": "./coverage/",
+    "transformIgnorePatterns": [
+      "<rootDir>/node_modules/(?!(@patternfly/react-core/|@patternfly/react-tokens/|@patternfly/react-icons/|@redhat-cloud-services)).*$"
+    ],
     "moduleNameMapper": {
-      "\\.(css|scss)$": "identity-obj-proxy"
+      "\\.(css|scss)$": "identity-obj-proxy",
+      "PFReactCore": "@patternfly/react-core",
+      "PFReactTable": "@patternfly/react-table",
+      "^@redhat-cloud-services/frontend-components-pdf-generator$": "<rootDir>/node_modules/@redhat-cloud-services/frontend-components-pdf-generator/dist/esm/index.js"
     },
     "roots": [
       "<rootDir>/src/"
@@ -52,8 +58,10 @@
     "@patternfly/react-icons": "^4.43.15",
     "@patternfly/react-styles": "4.42.15",
     "@patternfly/react-table": "4.61.15",
+    "@react-pdf/renderer": "^2.1.1",
     "@redhat-cloud-services/frontend-components": "3.4.11",
     "@redhat-cloud-services/frontend-components-notifications": "3.2.2",
+    "@redhat-cloud-services/frontend-components-pdf-generator": "^2.6.12",
     "@redhat-cloud-services/frontend-components-utilities": "3.2.3",
     "babel-plugin-transform-imports": "^2.0.0",
     "classnames": "2.2.6",

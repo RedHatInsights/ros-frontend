@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 import { PageHeader, PageHeaderTitle } from '@redhat-cloud-services/frontend-components/PageHeader';
 import { Main } from '@redhat-cloud-services/frontend-components/Main';
-import { Card, CardBody } from '@patternfly/react-core';
+import { Button, Card, CardBody } from '@patternfly/react-core';
 import { SortByDirection } from '@patternfly/react-table';
 import { connect } from 'react-redux';
 import { InventoryTable } from '@redhat-cloud-services/frontend-components/Inventory';
@@ -20,6 +20,12 @@ import { PermissionContext } from '../../App';
 
 import { NotAuthorized } from '@redhat-cloud-services/frontend-components/NotAuthorized';
 import { ManageColumnsModal } from '../../Components/Modals/ManageColumnsModal';
+import { DownloadSystemsPDFReport } from '../../Components/Reports/SystemsPDFReport';
+import { downloadReport } from '../../Components/Reports/DownloadReport';
+import {
+    addNotification,
+    clearNotifications
+} from '@redhat-cloud-services/frontend-components-notifications/redux';
 
 /**
  * A smart component that handles all the api calls and data needed by the dumb components.
@@ -36,10 +42,14 @@ class RosPage extends React.Component {
 
         this.state = {
             perPage: 10,
-            orderBy: 'display_name',
-            orderDirection: SortByDirection.asc,
+            orderBy: 'report_date',
+            orderDirection: SortByDirection.desc,
             stateFilterValue: [],
-            isColumnModalOpen: false
+            osFilterValue: [],
+            isColumnModalOpen: false,
+            exportSystemsPDF: false,
+            nameFilterValue: '',
+            disableExport: true
         };
 
         this.sortingHeader = {
@@ -49,7 +59,8 @@ class RosPage extends React.Component {
             'performance_utilization.memory': 'memory',
             'performance_utilization.max_io': 'max_io',
             number_of_suggestions: 'number_of_suggestions', /* eslint-disable-line camelcase */
-            state: 'state' };
+            state: 'state',
+            report_date: 'report_date' }; /* eslint-disable-line camelcase */
 
         this.chunkSize = 50;
         this.inventory = React.createRef();
@@ -113,6 +124,9 @@ class RosPage extends React.Component {
         fetchParams?.stateFilter?.forEach((stateFilterValue) => {
             query.append('state', stateFilterValue);
         });
+        fetchParams?.osFilter?.forEach((osFilterValue) => {
+            query.append('os', osFilterValue);
+        });
         url.search = query.toString();
         return fetch(url).then((res) => {
             if (!res.ok) {
@@ -163,15 +177,23 @@ class RosPage extends React.Component {
             stateFilterValue: value
         });
     }
+    updateOSFilter = (value) => {
+        this.setState({
+            osFilterValue: value
+        });
+    }
 
     onDeleteFilters = (e, filtersArr) => {
         const deletedStateFilters = filtersArr.filter((filterObject) => {
             return filterObject.category === 'State';
         });
 
+        const deletedOSFilters = filtersArr.filter((filterObject) => {
+            return filterObject.category === 'Operating System';
+        });
+
         if (deletedStateFilters.length > 0) {
             this.clearStateQueryParams();
-
             const resetFiltersList = deletedStateFilters[0]?.chips.map((chip) =>{
                 return chip?.name;
             });
@@ -181,17 +203,40 @@ class RosPage extends React.Component {
                 stateFilterValue: activeStateFilters
             });
         }
+
+        if (deletedOSFilters.length > 0) {
+            const resetOSFilterList = deletedOSFilters[0]?.chips.map((chip) => {
+                return chip?.name;
+            });
+
+            const activeOSFilters = this.state.osFilterValue.filter(filterName => !resetOSFilterList.includes(filterName));
+            this.setState ({
+                osFilterValue: activeOSFilters
+            });
+
+        }
     }
 
     getActiveFilterConfig = () => {
-        const activeFilters = this.state.stateFilterValue.map((value)=> ({ name: value }));
+        const activeStateFilters = this.state.stateFilterValue.map((value)=> ({ name: value }));
+        const activeOSFilters = this.state.osFilterValue.map((value)=> ({ name: value }));
 
-        return activeFilters.length > 0
-            ? [{
+        const activeFilters = [];
+        if (activeStateFilters.length > 0) {
+            activeFilters.push({
                 category: 'State',
-                chips: activeFilters
-            }]
-            : [];
+                chips: activeStateFilters
+            });
+        }
+
+        if (activeOSFilters.length > 0) {
+            activeFilters.push({
+                category: 'Operating System',
+                chips: activeOSFilters
+            });
+        }
+
+        return activeFilters;
     }
 
     setColumnModalOpen = (modalState) => {
@@ -205,9 +250,33 @@ class RosPage extends React.Component {
         return columns.filter(column => column.isChecked);
     }
 
+    setExportSystemsPDF(exportSystemsPDF) {
+        this.setState({
+            exportSystemsPDF
+        });
+    }
+
+    onExportOptionSelect(fileType) {
+        const { stateFilterValue, nameFilterValue, orderBy, orderDirection } = this.state;
+
+        const filters = {
+            stateFilter: stateFilterValue,
+            hostnameOrId: nameFilterValue
+        };
+
+        const { addNotification, clearNotifications } = this.props;
+
+        downloadReport(fileType, filters, orderBy, orderDirection,
+            notification => addNotification(notification),
+            () => clearNotifications());
+    }
+
     renderConfigStepsOrTable() {
         const { state: SFObject } = CUSTOM_FILTERS;
+        const { os: OSFObject } = CUSTOM_FILTERS;
         const activeColumns = this.getActiveColumns();
+        const { exportSystemsPDF, stateFilterValue, nameFilterValue,
+            orderBy, orderDirection, disableExport } = this.state;
 
         return (
             this.props.showConfigSteps
@@ -232,13 +301,15 @@ class RosPage extends React.Component {
                             hideFilters={{ all: true, name: false }}
                             autoRefresh= {true}
                             customFilters={{
-                                stateFilter: this.state.stateFilterValue
+                                stateFilter: stateFilterValue,
+                                osFilter: this.state.osFilterValue
                             }}
                             columns={activeColumns}
                             getEntities={async (_items, config) => {
                                 this.setState(() => ({
                                     orderBy: config.orderBy,
-                                    orderDirection: config.orderDirection
+                                    orderDirection: config.orderDirection,
+                                    nameFilterValue: config.filters?.hostnameOrId
                                 }));
                                 const results = await this.fetchSystems(
                                     {
@@ -246,15 +317,23 @@ class RosPage extends React.Component {
                                         orderBy: this.sortingHeader[config.orderBy],
                                         orderHow: config.orderDirection,
                                         filters: config.filters,
-                                        stateFilter: config.stateFilter
+                                        stateFilter: config.stateFilter,
+                                        osFilter: config.osFilter
                                     }
                                 );
+
                                 const invIds = (results.data || []).map(({ inventory_id: inventoryId }) => inventoryId);
                                 const invSystems = await this.fetchInventoryDetails(invIds, {
                                     ...config,
                                     page: 1,
                                     hasItems: true
                                 });
+
+                                const disableExport = results?.meta?.count === 0;
+                                this.setState(() => ({
+                                    disableExport
+                                }));
+
                                 return {
                                     results: results.data.map((system) => {
                                         const invRec = invSystems.find(({ id }) => id === system.inventory_id);
@@ -292,7 +371,17 @@ class RosPage extends React.Component {
                                         filterValues: {
                                             items: SFObject.filterValues.items,
                                             onChange: (_e, values) => this.updateStateFilter(values),
-                                            value: this.state.stateFilterValue
+                                            value: stateFilterValue
+                                        }
+                                    },
+                                    {
+                                        label: OSFObject.label,
+                                        type: OSFObject.type,
+                                        value: `checkbox-os`,
+                                        filterValues: {
+                                            items: OSFObject.filterValues.items,
+                                            onChange: (_e, values) => this.updateOSFilter(values),
+                                            value: this.state.osFilterValue
                                         }
                                     }
                                 ]
@@ -310,9 +399,37 @@ class RosPage extends React.Component {
                                     }
                                 ]
                             }}
+                            exportConfig={{
+                                isDisabled: disableExport,
+                                extraItems: [
+                                    <li key='pdf-button-item' role='menuitem'>
+                                        <Button
+                                            key='pdf-download-button'
+                                            variant='none'
+                                            className="pf-c-dropdown__menu-item"
+                                            onClick={() => this.setExportSystemsPDF(true)}>
+                                            Export as PDF
+                                        </Button>
+                                    </li>
+                                ],
+                                ouiaId: 'export',
+                                onSelect: (_event, fileType) => this.onExportOptionSelect(fileType)
+                            }}
                             onExpandClick={(_e, _i, isOpen, { id }) => this.props.expandRow(id, isOpen, 'EXPAND_ROW')}
                         >
                         </InventoryTable>
+                        {exportSystemsPDF &&
+                            <DownloadSystemsPDFReport
+                                showButton={false}
+                                onSuccess={() => this.setExportSystemsPDF(false)}
+                                filters={{
+                                    stateFilter: stateFilterValue,
+                                    hostnameOrId: nameFilterValue
+                                }}
+                                orderBy={orderBy}
+                                orderHow={orderDirection}
+                            />
+                        }
                     </CardBody>
                 </Card>
         );
@@ -352,7 +469,9 @@ function mapDispatchToProps(dispatch) {
             }
         }),
         isROSConfigured: () => dispatch(loadIsConfiguredInfo()),
-        changeSystemColumns: (payload) => dispatch(changeSystemColumns(payload))
+        changeSystemColumns: (payload) => dispatch(changeSystemColumns(payload)),
+        addNotification: (payload) => dispatch(addNotification(payload)),
+        clearNotifications: () => dispatch(clearNotifications())
     };
 }
 
@@ -371,7 +490,9 @@ RosPage.propTypes = {
     showConfigSteps: PropTypes.bool,
     location: PropTypes.object,
     columns: PropTypes.array,
-    changeSystemColumns: PropTypes.func
+    changeSystemColumns: PropTypes.func,
+    addNotification: PropTypes.func,
+    clearNotifications: PropTypes.func
 };
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(RosPage));
