@@ -29,6 +29,7 @@ export const DownloadSystemsPDFReport = ({ filters, orderBy, orderHow, ...props 
         const fetchSystemParams = {
             filters,
             stateFilter: filters.stateFilter,
+            osFilter: filters.osFilter,
             orderBy,
             orderHow
         };

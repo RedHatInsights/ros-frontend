@@ -13,6 +13,7 @@ export const downloadReport = async (format, filters, orderBy, orderHow, showNot
     const fetchSystemParams = {
         filters,
         stateFilter: filters.stateFilter,
+        osFilter: filters.osFilter,
         orderBy,
         orderHow
     };
