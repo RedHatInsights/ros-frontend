@@ -2,7 +2,8 @@
 /* eslint-disable camelcase */
 
 import { formatHistoricalData } from './Util';
-import { expectedChartData_45, expectedChartData_7, testHistoryResponseData_45, testHistoryResponseData_7 } from './UtilTestData';
+import { expectedChartData_45, expectedChartData_7, expectedChartData_7_same_day,
+    testHistoryResponseData_45, testHistoryResponseData_7, testHistoryResponseData_7_same_day } from './UtilTestData';
 
 describe('formatHistoricalData method', () => {
 
@@ -21,6 +22,14 @@ describe('formatHistoricalData method', () => {
         const actualChartData = formatHistoricalData(testHistoryResponseData_7, 7);
 
         expect(actualChartData).toEqual(expectedChartData_7);
+
+    });
+
+    it('should format response into historical chart data - latest record if same day', () =>{
+
+        const actualChartData = formatHistoricalData(testHistoryResponseData_7_same_day, 7);
+
+        expect(actualChartData).toEqual(expectedChartData_7_same_day);
 
     });
 
