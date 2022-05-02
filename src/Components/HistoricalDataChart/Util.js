@@ -13,7 +13,7 @@ export const formatHistoricalData = (responseData, dateRange) =>{
 
     let mapResponseData = new Map();
 
-    responseData.forEach((responseValue) => {
+    responseData.reverse().forEach((responseValue) => {
         mapResponseData.set(new Date(responseValue.report_date).toDateString(), responseValue);
     });
 

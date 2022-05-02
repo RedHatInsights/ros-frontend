@@ -93,6 +93,98 @@ export const expectedChartData_7 = [
     }
 ];
 
+export const testHistoryResponseData_7_same_day = [
+    {
+        cpu: 75,
+        memory: 60,
+        io_all: {
+            xvda: 0.314
+        },
+        max_io: 0.314,
+        report_date: '2022-04-24 19:22:08.632151+00:00'
+    },
+    {
+        cpu: 90,
+        memory: 97,
+        io_all: {
+            xvda: 0.314
+        },
+        max_io: 0.314,
+        report_date: '2022-04-24 18:22:08.632151+00:00'
+    },
+    {
+        cpu: 10,
+        memory: 12,
+        io_all: {
+            xvda: 0.314
+        },
+        max_io: 0.314,
+        report_date: '2022-04-22 19:23:47.360751+00:00'
+    },
+    {
+        cpu: 90,
+        memory: 97,
+        io_all: {
+            xvda: 0.314
+        },
+        max_io: 0.314,
+        report_date: '2022-04-04 19:22:08.887880+00:00'
+    },
+    {
+        cpu: 10,
+        memory: 12,
+        io_all: {
+            xvda: 0.314
+        },
+        max_io: 0.314,
+        report_date: '2022-03-17 19:22:08.494760+00:00'
+    },
+    {
+        cpu: 10,
+        memory: 12,
+        io_all: {
+            xvda: 0.314
+        },
+        max_io: 0.314,
+        report_date: '2022-03-16 19:27:57.187123+00:00'
+    },
+    {
+        cpu: 10,
+        memory: 12,
+        io_all: {
+            xvda: 0.314
+        },
+        max_io: 0.314,
+        report_date: '2022-03-15 19:31:11.300610+00:00'
+    }
+];
+
+/* eslint-disable-line camelcase */
+export const expectedChartData_7_same_day = [
+    {
+        datapoints: [
+            { name: 'CPU Utilization', x: new Date('Tue Apr 18 2022'), y: null },
+            { name: 'CPU Utilization', x: new Date('Wed Apr 19 2022'), y: null },
+            { name: 'CPU Utilization', x: new Date('Thu Apr 20 2022'), y: null },
+            { name: 'CPU Utilization', x: new Date('Fri Apr 21 2022'), y: null },
+            { name: 'CPU Utilization', x: new Date('Sat Apr 22 2022'), y: 10 },
+            { name: 'CPU Utilization', x: new Date('Sun Apr 23 2022'), y: null },
+            { name: 'CPU Utilization', x: new Date('Mon Apr 24 2022'), y: 75 }
+        ]
+    },
+    {
+        datapoints: [
+            { name: 'Memory Utilization', x: new Date('Tue Apr 18 2022'), y: null },
+            { name: 'Memory Utilization', x: new Date('Wed Apr 19 2022'), y: null },
+            { name: 'Memory Utilization', x: new Date('Thu Apr 20 2022'), y: null },
+            { name: 'Memory Utilization', x: new Date('Fri Apr 21 2022'), y: null },
+            { name: 'Memory Utilization', x: new Date('Sat Apr 22 2022'), y: 12 },
+            { name: 'Memory Utilization', x: new Date('Sun Apr 23 2022'), y: null },
+            { name: 'Memory Utilization', x: new Date('Mon Apr 24 2022'), y: 60 }
+        ]
+    }
+];
+
 export const testHistoryResponseData_45 = [
     {
         cpu: 10,
