@@ -257,11 +257,11 @@ class RosPage extends React.Component {
     }
 
     onExportOptionSelect(fileType) {
-        const { stateFilterValue, nameFilterValue, orderBy, orderDirection } = this.state;
-
+        const { stateFilterValue, nameFilterValue, osFilterValue, orderBy, orderDirection } = this.state;
         const filters = {
             stateFilter: stateFilterValue,
-            hostnameOrId: nameFilterValue
+            hostnameOrId: nameFilterValue,
+            osFilter: osFilterValue
         };
 
         const { addNotification, clearNotifications } = this.props;
@@ -275,7 +275,7 @@ class RosPage extends React.Component {
         const { state: SFObject } = CUSTOM_FILTERS;
         const { os: OSFObject } = CUSTOM_FILTERS;
         const activeColumns = this.getActiveColumns();
-        const { exportSystemsPDF, stateFilterValue, nameFilterValue,
+        const { exportSystemsPDF, stateFilterValue, nameFilterValue, osFilterValue,
             orderBy, orderDirection, disableExport } = this.state;
 
         return (
@@ -424,7 +424,8 @@ class RosPage extends React.Component {
                                 onSuccess={() => this.setExportSystemsPDF(false)}
                                 filters={{
                                     stateFilter: stateFilterValue,
-                                    hostnameOrId: nameFilterValue
+                                    hostnameOrId: nameFilterValue,
+                                    osFilter: osFilterValue
                                 }}
                                 orderBy={orderBy}
                                 orderHow={orderDirection}

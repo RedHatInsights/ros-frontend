@@ -104,6 +104,9 @@ export const fetchSystems = async (fetchParams) => {
     fetchParams?.stateFilter?.forEach((stateFilterValue) => {
         query.append('state', stateFilterValue);
     });
+    fetchParams?.osFilter?.forEach((osFilterValue) => {
+        query.append('os', osFilterValue);
+    });
     url.search = query.toString();
     return fetch(url).then((res) => {
         if (!res.ok) {
@@ -112,5 +115,27 @@ export const fetchSystems = async (fetchParams) => {
 
         return res;
     }).then(res =>  res.json());
+};
+
+export const fetchSystemHistory = (inventoryId, limit) => {
+    let url = new URL(
+        `${ROS_API_ROOT}${SYSTEMS_API_ROOT}/${inventoryId}/history`,
+        window.location.origin
+    );
+    let params = {
+        limit
+    };
+
+    let query = new URLSearchParams(params);
+    url.search = query.toString();
+
+    let response = window.insights.chrome.auth
+    .getUser()
+    .then(() =>
+        fetch(url).then(handleErrors)
+        .then(res =>  res.json()).then(result => result)
+    );
+
+    return response;
 };
 

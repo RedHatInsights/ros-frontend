@@ -1,11 +1,9 @@
 import { generateFilterText, formatData, responseToCSVData, responseToJSONData } from './Util';
 import { sysResponseTestData } from './UtilTestData';
 
-Date.now = jest.fn(() => new Date('2022-03-30T00:33:37.000Z'));
-
 describe('Util generateFilterText method tests', () => {
     it('should generate filter text for name filter', () => {
-        const expectedFilterText = `\nFilters applied\nName: ros-system`;
+        const expectedFilterText = `\nFilters applied\nName: ros-system\n`;
         const filters = {
             hostnameOrId: 'ros-system'
         };
@@ -25,10 +23,23 @@ describe('Util generateFilterText method tests', () => {
     });
 
     it('should generate filter text for name & state filter', () => {
-        const expectedFilterText = `\nFilters applied\nState: Undersized,Waiting for data,Oversized\nName: ros-system`;
+        const expectedFilterText = `\nFilters applied\nName: ros-system\nState: Undersized,Waiting for data,Oversized\n`;
         const filters = {
             hostnameOrId: 'ros-system',
             stateFilter: ['Undersized', 'Waiting for data', 'Oversized']
+        };
+        const actualFilterText = generateFilterText(filters);
+
+        expect(actualFilterText).toBe(expectedFilterText);
+    });
+
+    it('should generate filter text for name, state & os filter', () => {
+        let expectedFilterText = `\nFilters applied\nName: ros-system\nState: Undersized,Waiting for data,Oversized\n`;
+        expectedFilterText = expectedFilterText + `Operating System: RHEL 7.2,RHEL 7.7,RHEL 8.0\n`;
+        const filters = {
+            hostnameOrId: 'ros-system',
+            stateFilter: ['Undersized', 'Waiting for data', 'Oversized'],
+            osFilter: ['RHEL 7.7', 'RHEL 8.0', 'RHEL 7.2']
         };
         const actualFilterText = generateFilterText(filters);
 
