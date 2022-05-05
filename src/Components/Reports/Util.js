@@ -101,7 +101,8 @@ export const formatExecutiveReportData = (data) => {
         oversized: 'Oversized',
         under_pressure: 'Under pressure', /* eslint-disable-line camelcase */
         undersized: 'Undersized',
-        waiting_for_data: 'Waiting for data' /* eslint-disable-line camelcase */
+        waiting_for_data: 'Waiting for data', /* eslint-disable-line camelcase */
+        optimized: 'Optimized'
     };
 
     Object.keys(systemsPerState).map((state) => {

@@ -139,7 +139,6 @@ export const fetchSystemHistory = (inventoryId, limit) => {
     return response;
 };
 
-
 export const fetchExecutiveReport = async () => {
     await window.insights.chrome.auth.getUser();
 
