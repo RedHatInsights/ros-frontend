@@ -70,15 +70,12 @@ export const ExecutiveFirstPage = ({ data }) => {
         </Text>
 
         {/* {Total Systems} */}
-
+        {/* FIXME: Add count of optimized systems */}
         <Text style={styles.execHeading}>Registered systems</Text>
-        <Text>{`There are ${totalCount} systems registered in the resource optimization service.`}</Text>
+        {/* eslint-disable-next-line max-len */}
+        <Text>{`There are ${totalCount} systems registered in the resource optimization service. The service identified 32 of ${totalCount} systems as optimized, and ${nonOptimizedCount} of ${totalCount} registered systems as having a non-optimal state.`}</Text>
 
-        {/* {State Data} */}
-
-        <Text style={styles.execHeading}>Systems in a non-optimal state</Text>
-        <Text>{`There are ${nonOptimizedCount} registered systems in a non-optimal state.`}</Text>
-
+        <Text style={styles.execHeading}>Breakdown of registered systems</Text>
         <Section>
             <Column>
                 <Chart

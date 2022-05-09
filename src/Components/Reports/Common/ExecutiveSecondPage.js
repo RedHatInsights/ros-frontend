@@ -13,6 +13,13 @@ export const ExecutiveSecondPage = () => {
 
     const stateDescription = [
         {
+            title: 'Optimized',
+            description: 'Performing at an optimal level',
+            iconPath: CheckCircleIconConfig.svgPath,
+            iconScale: 0.014,
+            fillColor: 'green'
+        },
+        {
             title: 'Under pressure',
             description: 'Peaking occasionally',
             iconPath: TachometerAltIconConfig.svgPath,
@@ -46,13 +53,6 @@ export const ExecutiveSecondPage = () => {
             iconPath: InProgressIconConfig.svgPath,
             iconScale: 0.008,
             fillColor: '#2B9AF3'
-        },
-        {
-            title: 'Optimized',
-            description: 'Performing at an optimal level',
-            iconPath: CheckCircleIconConfig.svgPath,
-            iconScale: 0.014,
-            fillColor: 'green'
         }
     ];
 
