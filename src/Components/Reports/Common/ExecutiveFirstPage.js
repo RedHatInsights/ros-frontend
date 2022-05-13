@@ -24,7 +24,7 @@ export const ExecutiveFirstPage = ({ data }) => {
 
     const ramOccuranceTableData = [
         [
-            <View key={'ram-title'}  style={{ display: 'flex',
+            <View key={'memory-title'}  style={{ display: 'flex',
                 flexDirection: 'row' }}>
                 <IconCanvas fillColor='#002F5D'/>
                 <Text>RAM</Text>
@@ -49,7 +49,7 @@ export const ExecutiveFirstPage = ({ data }) => {
     const { stateChartData, stateTableData, conditionsChartData,  conditionsTableData, condtionsInfo } = formattedReportData;
 
     ioOccuranceTableData.push(...condtionsInfo.io.occurances);
-    ramOccuranceTableData.push(...condtionsInfo.ram.occurances);
+    ramOccuranceTableData.push(...condtionsInfo.memory.occurances);
     cpuOccuranceTableData.push(...condtionsInfo.cpu.occurances);
 
     return <Fragment key="first-page">
@@ -126,13 +126,6 @@ export const ExecutiveFirstPage = ({ data }) => {
             <Column>
                 <Table
                     withHeader
-                    rows={cpuOccuranceTableData}
-                />
-            </Column>
-            <Column style={{ flex: 0.2 }} />
-            <Column>
-                <Table
-                    withHeader
                     rows={ioOccuranceTableData}
                 />
             </Column>
@@ -141,6 +134,13 @@ export const ExecutiveFirstPage = ({ data }) => {
                 <Table
                     withHeader
                     rows={ramOccuranceTableData}
+                />
+            </Column>
+            <Column style={{ flex: 0.2 }} />
+            <Column>
+                <Table
+                    withHeader
+                    rows={cpuOccuranceTableData}
                 />
             </Column>
         </Section>

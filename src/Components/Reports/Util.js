@@ -86,7 +86,7 @@ export const formatExecutiveReportData = (data) => {
             name: 'Disk IO',
             occurances: []
         },
-        ram: {
+        memory: {
             name: 'RAM',
             occurances: []
         },
@@ -122,7 +122,7 @@ export const formatExecutiveReportData = (data) => {
         conditionsChartData.push({ x: conditionName, y: percentage });
         conditionsTableData.push([`${count}`]);
 
-        const underPressureValue = conditions[condition].under_pressure ? conditions[condition].under_pressure : 'N/A';
+        const underPressureValue = conditions[condition].under_pressure ? conditions[condition].under_pressure : 0;
         const undersizedValue = conditions[condition].undersized ? conditions[condition].undersized : 0;
 
         condtionsInfo[condition].occurances.push(['Under pressure', `${underPressureValue}`]);
