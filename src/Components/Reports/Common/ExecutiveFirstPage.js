@@ -8,6 +8,7 @@ import { IconCanvas } from './IconCanvas';
 
 export const ExecutiveFirstPage = ({ data }) => {
     const { conditions_count: conditionsCount, non_optimized_count: nonOptimizedCount, total_count: totalCount } = data?.meta;
+    const optimizedCount = data?.systems_per_state?.optimized?.count;
     const newLine = '\n';
     const bullet = '\u2022';
 
@@ -70,10 +71,9 @@ export const ExecutiveFirstPage = ({ data }) => {
         </Text>
 
         {/* {Total Systems} */}
-        {/* FIXME: Add count of optimized systems */}
         <Text style={styles.execHeading}>Registered systems</Text>
         {/* eslint-disable-next-line max-len */}
-        <Text>{`There are ${totalCount} systems registered in the resource optimization service. The service identified 32 of ${totalCount} systems as optimized, and ${nonOptimizedCount} of ${totalCount} registered systems as having a non-optimal state.`}</Text>
+        <Text>{`There are ${totalCount} systems registered in the resource optimization service. The service identified ${optimizedCount} of ${totalCount} systems as optimized, and ${nonOptimizedCount} of ${totalCount} registered systems as having a non-optimal state.`}</Text>
 
         <Text style={styles.execHeading}>Breakdown of registered systems</Text>
         <Section>
