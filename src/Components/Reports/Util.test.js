@@ -186,17 +186,20 @@ describe('formatExecutiveReportData', () => {
 
         const expectedIoOccurances = [
             ['Under pressure', '10'],
-            ['Undersized', '10']
+            ['Undersized', '10'],
+            ['Oversized', '3']
         ];
 
         const expectedRAMOccurances = [
             ['Under pressure', '10'],
-            ['Undersized', '10']
+            ['Undersized', '10'],
+            ['Oversized', '0']
         ] ;
 
         const expectedCPUOccurances = [
             ['Under pressure', '10'],
-            ['Undersized', '0']
+            ['Undersized', '0'],
+            ['Oversized', '0']
         ] ;
 
         const actualFormattedData = formatExecutiveReportData(executiveReponseTestData);
@@ -207,7 +210,7 @@ describe('formatExecutiveReportData', () => {
         expect(conditionsChartData).toEqual(expectedConditionsChartData);
         expect(conditionsTableData).toEqual(expectedConditionsTableData);
         expect(condtionsInfo.io.occurances).toEqual(expectedIoOccurances);
-        expect(condtionsInfo.ram.occurances).toEqual(expectedRAMOccurances);
+        expect(condtionsInfo.memory.occurances).toEqual(expectedRAMOccurances);
         expect(condtionsInfo.cpu.occurances).toEqual(expectedCPUOccurances);
     });
 });

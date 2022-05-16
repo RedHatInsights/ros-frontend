@@ -65,7 +65,7 @@ export const executiveReponseTestData = {
             count: 23,
             percentage: 20.88,
             undersized: null,
-            oversized: null,
+            oversized: 0,
             under_pressure: 10
         },
         io: {
@@ -75,7 +75,7 @@ export const executiveReponseTestData = {
             oversized: 3,
             under_pressure: 10
         },
-        ram: {
+        memory: {
             count: 23,
             percentage: 20.88,
             undersized: 10,
