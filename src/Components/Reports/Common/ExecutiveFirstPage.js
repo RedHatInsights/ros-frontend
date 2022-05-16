@@ -8,7 +8,7 @@ import { IconCanvas } from './IconCanvas';
 
 export const ExecutiveFirstPage = ({ data }) => {
     const { conditions_count: conditionsCount, non_optimized_count: nonOptimizedCount, total_count: totalCount } = data?.meta;
-    const optimizedCount = data?.systems_per_state?.optimized?.count;
+    const optimizedCount = data?.systems_per_state?.optimized?.count;   /* eslint-disable-line camelcase */
     const newLine = '\n';
     const bullet = '\u2022';
 
