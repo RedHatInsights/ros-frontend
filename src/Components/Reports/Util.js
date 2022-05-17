@@ -127,8 +127,10 @@ export const formatExecutiveReportData = (data) => {
         const oversizedValue = conditions[condition].oversized ? conditions[condition].oversized : 0;
 
         condtionsInfo[condition].occurances.push(['Under pressure', `${underPressureValue}`]);
-        condtionsInfo[condition].occurances.push(['Undersized', `${undersizedValue}`]);
-        condtionsInfo[condition].occurances.push(['Oversized', `${oversizedValue}`]);
+        if (condition !== 'io') {
+            condtionsInfo[condition].occurances.push(['Undersized', `${undersizedValue}`]);
+            condtionsInfo[condition].occurances.push(['Oversized', `${oversizedValue}`]);
+        }
     });
 
     return { stateChartData, stateTableData, conditionsChartData, conditionsTableData, condtionsInfo };
