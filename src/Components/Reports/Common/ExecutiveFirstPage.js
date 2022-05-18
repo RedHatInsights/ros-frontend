@@ -145,7 +145,8 @@ export const ExecutiveFirstPage = ({ data }) => {
             </Column>
         </Section>
 
-        <Text style={styles.execInfoText}>Under pressure conditions can be encountered when systems are having PSI enabled*</Text>
+        {/* eslint-disable-next-line max-len */}
+        <Text style={styles.execInfoText}>Under pressure conditions are only reported for systems where Kernel Pressure Stall Information is enabled. Check the documentation for details.*</Text>
         <Text style={styles.execInfoText}>Description of conditions are on the second page of the report*</Text>
     </Fragment>;
 };
