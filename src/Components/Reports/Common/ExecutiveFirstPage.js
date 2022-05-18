@@ -145,6 +145,7 @@ export const ExecutiveFirstPage = ({ data }) => {
             </Column>
         </Section>
 
+        <Text style={styles.execInfoText}>Under pressure conditions can be encountered when systems are having PSI enabled*</Text>
         <Text style={styles.execInfoText}>Description of conditions are on the second page of the report*</Text>
     </Fragment>;
 };

@@ -71,8 +71,8 @@ export const executiveReponseTestData = {
         io: {
             count: 23,
             percentage: 20.88,
-            undersized: 10,
-            oversized: 3,
+            undersized: -1,
+            oversized: -1,
             under_pressure: 10
         },
         memory: {

@@ -122,12 +122,12 @@ export const formatExecutiveReportData = (data) => {
         conditionsChartData.push({ x: conditionName, y: percentage });
         conditionsTableData.push([`${count}`]);
 
-        const underPressureValue = conditions[condition].under_pressure ? conditions[condition].under_pressure : 0;
-        const undersizedValue = conditions[condition].undersized ? conditions[condition].undersized : 0;
-        const oversizedValue = conditions[condition].oversized ? conditions[condition].oversized : 0;
+        const underPressureValue = (conditions[condition].under_pressure !== null) ? conditions[condition].under_pressure : 0;
+        const undersizedValue = (conditions[condition].undersized !== null) ? conditions[condition].undersized : 0;
+        const oversizedValue = (conditions[condition].oversized !== null) ? conditions[condition].oversized : 0;
 
         condtionsInfo[condition].occurances.push(['Under pressure', `${underPressureValue}`]);
-        if (condition !== 'io') {
+        if (undersizedValue !== -1 && oversizedValue !== -1) {
             condtionsInfo[condition].occurances.push(['Undersized', `${undersizedValue}`]);
             condtionsInfo[condition].occurances.push(['Oversized', `${oversizedValue}`]);
         }
