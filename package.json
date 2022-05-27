@@ -22,7 +22,7 @@
     "start:prod": "NODE_ENV=development ENVIRONMENT=prod webpack serve --config config/dev.webpack.config.js",
     "start:prod:beta": "NODE_ENV=development BETA=true ENVIRONMENT=prod webpack serve --config config/dev.webpack.config.js",
     "local": "NODE_ENV=development webpack serve --config config/dev.local.webpack.config.js",
-    "test": "TZ=UTC jest --verbose",
+    "test": "TZ=UTC jest --verbose --no-cache",
     "verify": "npm-run-all build lint test"
   },
   "jest": {
