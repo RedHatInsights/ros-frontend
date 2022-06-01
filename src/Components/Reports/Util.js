@@ -107,7 +107,7 @@ export const formatExecutiveReportData = (data) => {
 
     Object.keys(systemsPerState).map((state) => {
         const stateName = stateNameMapping[state];
-        const percentage = Math.floor(systemsPerState[state]?.percentage);
+        const percentage = systemsPerState[state]?.percentage;
         const count = systemsPerState[state]?.count;
 
         stateChartData.push({ x: stateName, y: percentage });

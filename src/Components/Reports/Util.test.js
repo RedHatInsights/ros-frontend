@@ -157,20 +157,20 @@ describe('Util responseToJSONData test', () => {
 describe('formatExecutiveReportData', () => {
     it('should format the data for generating executive PDF report', () => {
         const expectedStateChartData = [
-            { x: 'Under pressure', y: 5 },
-            { x: 'Undersized', y: 7 },
-            { x: 'Oversized', y: 8 },
-            { x: 'Waiting for data', y: 5 },
-            { x: 'Idling', y: 5 }
+            { x: 'Under pressure', y: 5.57 },
+            { x: 'Undersized', y: 7.68 },
+            { x: 'Oversized', y: 8.91 },
+            { x: 'Waiting for data', y: 5.57 },
+            { x: 'Idling', y: 5.57 }
         ];
 
         const expectedStateTableData = [
             ['# of systems'],
-            ['0 (5% of total)'],
-            ['1 (7% of total)'],
-            ['7 (8% of total)'],
-            ['8 (5% of total)'],
-            ['8 (5% of total)']
+            ['0 (5.57% of total)'],
+            ['1 (7.68% of total)'],
+            ['7 (8.91% of total)'],
+            ['8 (5.57% of total)'],
+            ['8 (5.57% of total)']
         ];
         const expectedConditionsChartData = [
             { x: 'CPU', y: 20 },
