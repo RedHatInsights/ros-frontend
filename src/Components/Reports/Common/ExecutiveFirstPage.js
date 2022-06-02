@@ -86,6 +86,7 @@ export const ExecutiveFirstPage = ({ data }) => {
                     colorSchema={'multi'}
                     legendHeader={'State'}
                     showLabels={false}
+                    labels={() => ''}
                 />
             </Column>
             <Column>
