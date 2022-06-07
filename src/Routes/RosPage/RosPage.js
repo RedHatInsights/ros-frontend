@@ -26,6 +26,7 @@ import {
     addNotification,
     clearNotifications
 } from '@redhat-cloud-services/frontend-components-notifications/redux';
+import { DownloadExecutivePDFReport } from '../../Components/Reports/ExecutivePDFReport';
 
 /**
  * A smart component that handles all the api calls and data needed by the dumb components.
@@ -439,15 +440,16 @@ class RosPage extends React.Component {
     render() {
         return (
             <React.Fragment>
-                <PageHeader>
+                <PageHeader className='ros-page-header'>
                     <PageHeaderTitle title='Resource Optimization'/>
+                    <DownloadExecutivePDFReport isDisabled={this.state.disableExport} />
                 </PageHeader>
                 <Main>
                     <PermissionContext.Consumer>
                         { value =>
                             value.permissions.systemsRead === false
                                 ? <NotAuthorized serviceName='Resource Optimization' />
-                                :  this.renderConfigStepsOrTable()
+                                : this.renderConfigStepsOrTable()
                         }
                     </PermissionContext.Consumer>
                 </Main>
