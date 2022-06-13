@@ -40,6 +40,25 @@ export default StyleSheet.create({
         display: 'flex',
         flexDirection: 'row',
         justifyContent: 'center'
+    },
+    execHeading: {
+        textAlign: 'left',
+        fontSize: 10,
+        color: '#C9190B',
+        marginBottom: 4,
+        marginTop: 10
+    },
+    occuranceHeading: {
+        textAlign: 'left',
+        fontSize: 10,
+        color: '#C9190B',
+        marginTop: 12,
+        marginBottom: -4
+    },
+    execInfoText: {
+        flex: 1,
+        textAlign: 'right',
+        fontSize: 6
     }
 
 });
