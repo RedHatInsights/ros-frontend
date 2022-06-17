@@ -90,7 +90,6 @@ class RosSystemDetail extends React.Component {
     render() {
         const entity = this.props.entity;
         const { inventoryId } = this.props.match.params;
-        let report_date = displayLastReported(this.props.rosSystemInfo?.report_date); /* eslint-disable-line camelcase */
         return (
             <React.Fragment>
                 <PermissionContext.Consumer>
@@ -122,7 +121,7 @@ class RosSystemDetail extends React.Component {
                                             hideBack
                                             showDelete={ false }
                                             hideInvDrawer
-                                            LastSeenWrapper={() => <div>{report_date}</div>} /* eslint-disable-line camelcase */
+                                            className='rosDetailsHead'
                                         />
                                         { this.renderChildrenNode() }
                                         <HistoricalDataChart

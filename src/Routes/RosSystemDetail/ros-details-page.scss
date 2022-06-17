@@ -17,3 +17,12 @@
   position: relative;
   padding-bottom: 72px;
 }
+.rosDetailsHead {
+  .ins-entity-detail {
+    .ins-entity-facts {
+      .pf-l-flex:last-child {
+        display: none !important;
+      }
+    }
+  }
+}
