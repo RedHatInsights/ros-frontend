@@ -15,6 +15,7 @@ import RecommendationRating from '../../Components/RecommendationRating/Recommen
 import { SystemState } from '../../Components/RosTable/SystemState';
 import { NotAuthorized } from '@redhat-cloud-services/frontend-components/NotAuthorized';
 import { PermissionContext } from '../../App';
+import { displayLastReported } from '../../Components/RosTable/RenderColumn';
 import {
     DescriptionList,
     DescriptionListTerm,
@@ -44,12 +45,23 @@ class RosSystemDetail extends React.Component {
                 cloud_provider: cloudProvider,
                 instance_type: instanceType,
                 idling_time: idlingTime,
+                report_date: reportDate,
                 rating,
-                state: state
+                state
             } = this.props.rosSystemInfo;
             const { inventoryId } = this.props.match.params;
             return (
                 <Grid className='ros-system-info'>
+                    <GridItem>
+                        <DescriptionList className='expanded-row' isCompact isHorizontal>
+                            <DescriptionListGroup>
+                                <DescriptionListTerm>Last reported</DescriptionListTerm>
+                                <DescriptionListDescription>
+                                    { displayLastReported(reportDate) }
+                                </DescriptionListDescription>
+                            </DescriptionListGroup>
+                        </DescriptionList>
+                    </GridItem>
                     <GridItem>
                         <DescriptionList className='expanded-row' isCompact isHorizontal>
                             <DescriptionListGroup>
@@ -109,6 +121,7 @@ class RosSystemDetail extends React.Component {
                                             hideBack
                                             showDelete={ false }
                                             hideInvDrawer
+                                            className='rosDetailsHead'
                                         />
                                         { this.renderChildrenNode() }
                                         <HistoricalDataChart
