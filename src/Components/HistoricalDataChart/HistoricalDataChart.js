@@ -123,10 +123,11 @@ export const HistoricalDataChart = ({ inventoryId }) => {
                         containerComponent={
                             <VictoryZoomVoronoiContainer
                                 labels={({ datum }) => {
-                                    console.log("checking data:", datum);
+                                    console.log('checking data:', datum);
                                     const isToday = new Date().toDateString() === new Date(datum.x).toDateString();
                                     const xAxisDate = isToday ? 'Today' : `${new Date(datum.x).getDate()} ${MONTHS[new Date(datum.x).getMonth()]}`;
-                                    return datum.childName.includes('scatter-') && datum.y !== null ? `${xAxisDate}\n${datum.name}: ${datum.y}%` : null;}
+                                    return datum.childName.includes('scatter-')
+                                        && datum.y !== null ? `${xAxisDate}\n${datum.name}: ${datum.y}%` : null;}
                                 }
                                 constrainToVisibleArea
                                 voronoiDimension="x"
