@@ -324,7 +324,11 @@ class RosPage extends React.Component {
                                 );
 
                                 const invIds = (results.data || []).map(({ inventory_id: inventoryId }) => inventoryId);
-                                const invSystems = []
+                                const invSystems = await this.fetchInventoryDetails(invIds, {
+                                    ...config,
+                                    page: 1,
+                                    hasItems: true
+                                });
 
                                 const disableExport = results?.meta?.count === 0;
                                 this.setState(() => ({

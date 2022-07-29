@@ -7,15 +7,12 @@ import { IconCanvas } from './IconCanvas';
 export const InstancesTable = ({ key, type, systemCount, description }) => {
 
     return (
-        <Dl key={key}>
-            <Dt>
-                <View>
-                    <Text>{type}</Text>
-                </View>
-            </Dt>
-            <Dd>{systemCount}</Dd>
-            <Dd>{description}</Dd>
-        </Dl>
+        <View key={key} style={{ display: 'flex', flexDirection: 'row' }}>
+            
+            <Text style={{ paddingHorizontal: 8 }}>{type}</Text>
+            <Text>{systemCount}</Text>
+            <Text>{description}</Text>
+        </View>
     );
 };
 
