@@ -59,6 +59,33 @@ export default StyleSheet.create({
         flex: 1,
         textAlign: 'right',
         fontSize: 6
+    },
+    instanceTypeHeading: {
+        textAlign: 'left',
+        fontSize: 14,
+        color: '#C9190B',
+        marginTop: 16
+    },
+    instanceTypeHeadingFirst: {
+        textAlign: 'left',
+        fontSize: 14,
+        color: '#C9190B'
+    },
+    instanceTypeDesc: {
+        fontSize: 12,
+        textAlign: 'left',
+        marginBottom: 4
+    },
+    instanceTableHeading :{
+        fontSize: 12,
+        textAlign: 'left',
+        color: '#909090'
+    },
+    instanceTableText :{
+        fontSize: 12,
+        textAlign: 'left',
+        paddingHorizontal: 8,
+        flexWrap: 'wrap'
     }
 
 });
