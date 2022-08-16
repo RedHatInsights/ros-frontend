@@ -1,5 +1,7 @@
 .ros-system-info {
-  .pf-c-description-list.expanded-row {    
+  .pf-c-description-list.expanded-row {
+    font-size: var(--pf-global--FontSize--md);
+
     dt {
       font-weight: var(--pf-global--FontWeight--normal);
       
@@ -7,10 +9,19 @@
         content: ":";
       }
     }
+    row-gap: 0;
   }
   .pf-c-description-list__group {
     row-gap: 0;
+
+    .pf-c-description-list__term .pf-c-description-list__text {
+      font-size: var(--pf-global--FontSize--md);
+    }
   }
+}
+
+.ros-system-info > .pf-l-flex.pf-m-column {
+  margin-bottom: var(--pf-l-flex--spacer);
 }
 
 .detail-header-container {

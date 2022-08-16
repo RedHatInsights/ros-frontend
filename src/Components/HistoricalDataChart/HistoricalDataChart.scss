@@ -1,36 +1,4 @@
-.chartContainer{
-   display: flex;
-   flex-direction: column;
-   align-items: flex-start;
-   position: absolute;
-   top: 0;
-   right: 0;
-   margin-right: 8%;
-}
-
-.dropdownContainer {
-   margin-right: 200px;
-   align-self: flex-end;
-}
-
 .dateDropdown{
    padding-left: 8px;
-}
-
-.loadingErrorContainer {
-   width: 756px;
-   height: 275px;
-}
-
-// Media Query
-@media (max-width: 1620px ){
-   .chartContainer {
-      position: static; 
-   } 
-
-    .dropdownContainer {
-      margin-left: 56px;
-      align-self: center;
-      margin-right: 0px;
-   }
+   margin-right: 200px;
 }
