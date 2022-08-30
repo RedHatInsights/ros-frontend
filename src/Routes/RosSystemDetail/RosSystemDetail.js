@@ -77,7 +77,7 @@ class RosSystemDetail extends React.Component {
                                 <ExpandedRow
                                     { ...{ cloudProvider, instanceType, idlingTime, inventoryId } }
                                 />
-                                <RecommendationRating system={ { ...{ rating, inventoryId } } } />
+                                <RecommendationRating system={{ rating, inventoryId }} />
                             </FlexItem>
                         </Flex>
                         <Flex grow={{ default: 'grow' }} direction={{ default: 'column' }} >

@@ -76,8 +76,8 @@ export const HistoricalDataChart = ({ inventoryId }) => {
     };
 
     const displayError = () => {
-        return  <FlexItem  alignSelf={{ default: 'alignSelfBaseline' }}>
-            <EmptyState className='loadingErrorContainer' variant={EmptyStateVariant.small}>
+        return  <FlexItem alignSelf={{ default: 'alignSelfBaseline' }}>
+            <EmptyState variant={EmptyStateVariant.small}>
                 <Title headingLevel="h2" size="lg">
                     Something went wrong
                 </Title>
@@ -90,14 +90,14 @@ export const HistoricalDataChart = ({ inventoryId }) => {
 
     const displayChart = () => {
         return  chartData.length === 0 ?
-            <FlexItem  alignSelf={{ default: 'alignSelfBaseline' }}>
-                <Bullseye className='loadingErrorContainer'>
+            <FlexItem alignSelf={{ default: 'alignSelfBaseline' }}>
+                <Bullseye>
                     <Spinner size="xl" aria-labelledby="loading-historical-chart"/>
                 </Bullseye>
             </FlexItem> :
             <Flex direction={{ default: 'column' }} alignSelf={{ default: 'alignSelfBaseline' }} align={{ default: 'alignRight' }}>
                 <FlexItem align={{ default: 'alignRight' }}>
-                    <span className='dropdownContainer'>
+                    <span>
                         <Tooltip content={<div>Scroll and pan to zoom and move</div>}>
                             <OutlinedQuestionCircleIcon size='sm' />
                         </Tooltip>
