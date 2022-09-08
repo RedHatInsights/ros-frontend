@@ -76,7 +76,7 @@ export default StyleSheet.create({
         textAlign: 'left',
         marginBottom: 4
     },
-    instanceTableRow: {
+    flexRow: {
         display: 'flex',
         flexDirection: 'row'
     },

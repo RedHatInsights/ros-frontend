@@ -126,7 +126,7 @@ export const formatExecutiveReportData = (data) => {
         const undersizedValue = (conditions[condition].undersized !== null) ? conditions[condition].undersized : 0;
         const oversizedValue = (conditions[condition].oversized !== null) ? conditions[condition].oversized : 0;
 
-        condtionsInfo[condition].occurances.push(['Under pressure', `${underPressureValue}`]);
+        condtionsInfo[condition].occurances.push(['Under pressure', `${underPressureValue}*`]);
         if (undersizedValue !== -1 && oversizedValue !== -1) {
             condtionsInfo[condition].occurances.push(['Undersized', `${undersizedValue}`]);
             condtionsInfo[condition].occurances.push(['Oversized', `${oversizedValue}`]);

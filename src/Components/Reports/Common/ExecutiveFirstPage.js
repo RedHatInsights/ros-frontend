@@ -14,8 +14,7 @@ export const ExecutiveFirstPage = ({ data }) => {
 
     const ioOccuranceTableData = [
         [
-            <View key={'disk-io-title'} style={{ display: 'flex',
-                flexDirection: 'row' }}>
+            <View key={'disk-io-title'} style={styles.flexRow}>
                 <IconCanvas fillColor='#8BC1F7'/>
                 <Text>Disk I/O</Text>
             </View>
@@ -25,8 +24,7 @@ export const ExecutiveFirstPage = ({ data }) => {
 
     const ramOccuranceTableData = [
         [
-            <View key={'memory-title'}  style={{ display: 'flex',
-                flexDirection: 'row' }}>
+            <View key={'memory-title'}  style={styles.flexRow}>
                 <IconCanvas fillColor='#002F5D'/>
                 <Text>RAM</Text>
             </View>
@@ -36,8 +34,7 @@ export const ExecutiveFirstPage = ({ data }) => {
 
     const cpuOccuranceTableData = [
         [
-            <View key={'cpu-title'} style={{ display: 'flex',
-                flexDirection: 'row' }}>
+            <View key={'cpu-title'} style={styles.flexRow}>
                 <IconCanvas fillColor='#0066CC'/>
                 <Text>CPU</Text>
             </View>
@@ -147,7 +144,7 @@ export const ExecutiveFirstPage = ({ data }) => {
         </Section>
 
         {/* eslint-disable-next-line max-len */}
-        <Text style={styles.execInfoText}>Under pressure conditions are only reported for systems where Kernel Pressure Stall Information is enabled. Check the documentation for details.*</Text>
+        <Text style={styles.execInfoText}>Under pressure (*) conditions are only reported for systems where Kernel Pressure Stall Information is enabled. Check the documentation for details.*</Text>
         <Text style={styles.execInfoText}>Description of conditions are on the second page of the report*</Text>
     </Fragment>;
 };

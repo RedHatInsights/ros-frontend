@@ -8,7 +8,7 @@ export const InstancesTable = ({ id, instanceDetails, heading, description }) =>
         <View>
             <Text style={id === 'current_instance_types' ? styles.instanceTypeHeadingFirst : styles.instanceTypeHeading}>{heading}</Text>
             <Text style={styles.instanceTypeDesc}>{description}</Text>
-            <View key={id} style={styles.instanceTableRow}>
+            <View key={id} style={styles.flexRow}>
                 <Text style={[{ width: 100 }, styles.instanceTableHeading]}>Instance type</Text>
                 <Text style={[{ width: 80 }, styles.instanceTableHeading]}>
                     {`# of ${ id === 'historical_instance_types' ? 'times' : 'systems'}`}
@@ -17,7 +17,7 @@ export const InstancesTable = ({ id, instanceDetails, heading, description }) =>
             </View>
             {
                 instanceDetails.map(
-                    (instanceDetail, index) => <View key={`${id}-${index}`} style={styles.instanceTableRow}>
+                    (instanceDetail, index) => <View key={`${id}-${index}`} style={styles.flexRow}>
                         <Text style={{ width: 100 }}>{instanceDetail.type}</Text>
                         <Text style={{ width: 80, paddingLeft: 4 }}>{instanceDetail.systemCount}</Text>
                         <Text style={{ flex: 1 }}>{instanceDetail.description}</Text>
