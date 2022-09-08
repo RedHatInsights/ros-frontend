@@ -10,9 +10,9 @@ import {
 } from '@redhat-cloud-services/frontend-components-notifications/redux';
 import { ExecutiveFirstPage } from './Common/ExecutiveFirstPage';
 import { ExecutiveSecondPage } from './Common/ExecutiveSecondPage';
+import { ExecutiveThirdPage } from './Common/ExecutiveThirdPage';
 import propTypes from 'prop-types';
 import { REPORT_NOTIFICATIONS } from '../../constants';
-import { ExecutiveThirdPage } from './Common/ExecutiveThirdPage';
 
 export const DownloadExecutivePDFReport = ({ isDisabled }) => {
     const [loading, setLoading] = useState(false);
@@ -32,8 +32,8 @@ export const DownloadExecutivePDFReport = ({ isDisabled }) => {
 
             return [
                 <ExecutiveFirstPage key='executive-first-page' data={executiveReportResponse} />,
-                <ExecutiveThirdPage key='executive-third-page' />,
-                <ExecutiveSecondPage key='executive-second-page'/>
+                <ExecutiveSecondPage key='executive-second-page' />,
+                <ExecutiveThirdPage key='executive-third-page' />
             ];
 
         }
