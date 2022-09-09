@@ -185,17 +185,17 @@ describe('formatExecutiveReportData', () => {
         ];
 
         const expectedIoOccurances = [
-            ['Under pressure', '10']
+            ['Under pressure', '10*']
         ];
 
         const expectedRAMOccurances = [
-            ['Under pressure', '10'],
+            ['Under pressure', '10*'],
             ['Undersized', '10'],
             ['Oversized', '0']
         ] ;
 
         const expectedCPUOccurances = [
-            ['Under pressure', '10'],
+            ['Under pressure', '10*'],
             ['Undersized', '0'],
             ['Oversized', '0']
         ] ;
