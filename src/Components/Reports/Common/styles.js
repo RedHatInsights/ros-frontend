@@ -58,7 +58,8 @@ export default StyleSheet.create({
     execInfoText: {
         flex: 1,
         textAlign: 'right',
-        fontSize: 6
+        fontSize: 7,
+        color: '#6A6E73'
     },
     instanceTypeHeading: {
         textAlign: 'left',

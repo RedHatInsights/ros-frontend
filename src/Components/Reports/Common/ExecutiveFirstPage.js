@@ -10,7 +10,6 @@ export const ExecutiveFirstPage = ({ data }) => {
     const { conditions_count: conditionsCount, non_optimized_count: nonOptimizedCount, total_count: totalCount } = data?.meta;
     const optimizedCount = data?.systems_per_state?.optimized?.count;   /* eslint-disable-line camelcase */
     const newLine = '\n';
-    const bullet = '\u2022';
 
     const ioOccuranceTableData = [
         [
@@ -54,25 +53,19 @@ export const ExecutiveFirstPage = ({ data }) => {
         <Text>
             This executive summary highlights the performance for your registered systems included in the resource optimization service.
         </Text>
-        <Text>
-            {`This report gives you an overview of:${newLine}`}
-        </Text>
-
-        <Text>
-            {
-                `${bullet} The number of systems registered
-                ${bullet} Number of registered systems in a non-optimal state
-                ${bullet} Number of system performance issues
-                ${bullet} Description of system performance levels
-                ${bullet} Performance level details for system resources operating in a non-optimal state`}
-        </Text>
 
         {/* {Total Systems} */}
         <Text style={styles.execHeading}>Registered systems</Text>
         {/* eslint-disable-next-line max-len */}
-        <Text>{`There are ${totalCount} systems registered in the resource optimization service. The service identified ${optimizedCount} of ${totalCount} systems as optimized, and ${nonOptimizedCount} of ${totalCount} registered systems as having a non-optimal state.`}</Text>
+        <Text>{`There are ${totalCount} systems registered in the resource optimization service.${newLine}${optimizedCount} of ${totalCount} systems are identified as optimized, ${nonOptimizedCount} of ${totalCount} systems as having a non-optimal state.${newLine}20 of ${totalCount} systems are stale*`}</Text>
+        <Text style={styles.execInfoText}>Suggestions for stale systems might no longer apply due to systems not being refreshed in 7 days.*</Text>
 
         <Text style={styles.execHeading}>Breakdown of registered systems</Text>
+
+        {/* TODO: update based on api response */}
+        {/* eslint-disable-next-line max-len */}
+        <Text>{`47 systems out of a total of 110 systems have Kernel Pressure Stall Information Enabled. That helps us provide better suggestions either in breakdown of occurance or registered system section`}</Text>
+
         <Section>
             <Column>
                 <Chart
@@ -93,7 +86,7 @@ export const ExecutiveFirstPage = ({ data }) => {
                 />
             </Column>
         </Section>
-        <Text style={styles.execInfoText}>Description of states are on the second page of the report*</Text>
+        <Text style={styles.execInfoText}>Description of states are on the last page of the report*</Text>
 
         <Text style={styles.execHeading}>System performance issues</Text>
         <Text>{`There are ${conditionsCount} system performance issues.`}</Text>
