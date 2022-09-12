@@ -86,6 +86,10 @@ export default StyleSheet.create({
         color: '#6A6E73',
         paddingBottom: 4,
         fontWeight: 'bold'
+    },
+    bold: {
+        fontFamily: 'Helvetica-Bold',
+        fontWeight: 700
     }
 
 });

@@ -75,8 +75,9 @@ export const ExecutiveThirdPage = () => {
         <Text style={styles.execHeading}>Description of states</Text>
         {
             stateDescription.map(
-                (state) => <DescriptionList
-                    key={state.title}
+                (state, index) => <DescriptionList
+                    key={`${index}-${state.title}`}
+                    id={state.title}
                     title={state.title}
                     description={state.description}
                     iconPath={state.iconPath}
@@ -87,8 +88,9 @@ export const ExecutiveThirdPage = () => {
         <Text style={styles.execHeading}>Description of conditions</Text>
         {
             conditionsDescription.map(
-                (condition) => <DescriptionList
-                    key={condition.title}
+                (condition, index) => <DescriptionList
+                    key={`${index}-${condition.title}`}
+                    id={condition.title}
                     title={condition.title}
                     description={condition.description}/>)
         }

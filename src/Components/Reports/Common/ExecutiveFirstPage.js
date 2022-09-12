@@ -57,14 +57,23 @@ export const ExecutiveFirstPage = ({ data }) => {
         {/* {Total Systems} */}
         <Text style={styles.execHeading}>Registered systems</Text>
         {/* eslint-disable-next-line max-len */}
-        <Text>{`There are ${totalCount} systems registered in the resource optimization service.${newLine}${optimizedCount} of ${totalCount} systems are identified as optimized, ${nonOptimizedCount} of ${totalCount} systems as having a non-optimal state.${newLine}20 of ${totalCount} systems are stale*`}</Text>
+        <Text>
+            {/* eslint-disable-next-line max-len */}
+            <Text>{`There are`}</Text><Text style={styles.bold}>{` ${totalCount} registered systems `}</Text><Text>{`in the resource optimization service.${newLine}`}</Text>
+            {/* eslint-disable-next-line max-len */}
+            <Text style={styles.bold}>{`${optimizedCount}`}</Text><Text>{` of ${totalCount} systems are identified as `}</Text><Text style={styles.bold}>optimized, </Text>
+            {/* eslint-disable-next-line max-len */}
+            <Text style={styles.bold}>{`${nonOptimizedCount}`}</Text><Text>{` of ${totalCount} systems as having a `}</Text><Text style={styles.bold}>non-optimal</Text><Text>{` state.${newLine}`}</Text>
+            <Text style={styles.bold}>{`3`}</Text><Text>{` of ${totalCount} systems are `}</Text><Text style={styles.bold}>stale*</Text>
+        </Text>
+
         <Text style={styles.execInfoText}>Suggestions for stale systems might no longer apply due to systems not being refreshed in 7 days.*</Text>
 
         <Text style={styles.execHeading}>Breakdown of registered systems</Text>
 
         {/* TODO: update based on api response */}
         {/* eslint-disable-next-line max-len */}
-        <Text>{`47 systems out of a total of 110 systems have Kernel Pressure Stall Information Enabled. That helps us provide better suggestions either in breakdown of occurance or registered system section`}</Text>
+        <Text>{`6 systems out of a total of ${totalCount} systems have Kernel Pressure Stall Information Enabled. That helps us provide better suggestions either in breakdown of occurance or registered system section`}</Text>
 
         <Section>
             <Column>
