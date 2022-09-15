@@ -5,7 +5,7 @@ export const sysResponseTestData = [
         fqdn: 'ip-172-31-28-69.ec2.internal',
         display_name: 'ip-172-31-28-69.ec2.internal', /* eslint-disable-line camelcase */
         inventory_id: 'cd96482e-1fcb-49b4-958d-06315da16b9a', /* eslint-disable-line camelcase */
-        account: '6089719',
+        org_id: '6089719',
         number_of_suggestions: 1, /* eslint-disable-line camelcase */
         state: 'Undersized',
         performance_utilization: {  /* eslint-disable-line camelcase */
@@ -22,7 +22,7 @@ export const sysResponseTestData = [
         fqdn: 'ip-172-31-28-69.ec2.internal',
         display_name: 'ros-system.internal', /* eslint-disable-line camelcase */
         inventory_id: 'cd96482e-1fcb-49b4-958d-06315da16b9a', /* eslint-disable-line camelcase */
-        account: '6089719',
+        org_id: '6089719',
         number_of_suggestions: 1, /* eslint-disable-line camelcase */
         state: 'Undersized',
         performance_utilization: {  /* eslint-disable-line camelcase */
