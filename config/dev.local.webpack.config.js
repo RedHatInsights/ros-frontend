@@ -10,6 +10,8 @@ const { config: webpackConfig, plugins } = config({
     deployment: process.env.BETA ? 'beta/apps' : 'apps',
     useProxy: true,
     proxyVerbose: true,
+    useChromeTemplate: true,
+    localChrome: process.env.INSIGHTS_CHROME,
     routes: {
         '/api/ros/v1': {
             host: 'http://localhost:8000'
