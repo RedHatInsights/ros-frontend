@@ -2,7 +2,9 @@ import React, { useState, useEffect }  from 'react';
 import {
     Chart,
     ChartAxis,
+    ChartCursorTooltip,
     ChartGroup,
+    ChartLabel,
     ChartLine,
     ChartScatter,
     ChartThemeColor,
@@ -125,9 +127,20 @@ export const HistoricalDataChart = ({ inventoryId }) => {
                                 labels={({ datum }) => {
                                     const isToday = new Date().toDateString() === new Date(datum.x).toDateString();
                                     let xAxisDate = isToday ? 'Today' : `${new Date(datum.x).getDate()} ${MONTHS[new Date(datum.x).getMonth()]}`;
-                                    xAxisDate = datum.name.includes('CPU') ? `${xAxisDate}\n` : '';
+                                    xAxisDate = datum.name.includes('CPU') ? `${xAxisDate}\n   \n` : '';
                                     return datum.childName.includes('scatter-')
                                         && datum.y !== null ? `${xAxisDate}${datum.name}: ${datum.y}%` : null;}
+                                }
+                                labelComponent={
+                                    <ChartCursorTooltip
+                                        labelComponent={<ChartLabel
+                                            style={[
+                                                { fill: 'white', fontSize: 16,  fontWeight: 700 },
+                                                { fill: 'white' },
+                                                { fill: 'white' },
+                                                { fill: 'white' }
+                                            ]}/>}
+                                    />
                                 }
                                 constrainToVisibleArea
                                 voronoiDimension="x"
