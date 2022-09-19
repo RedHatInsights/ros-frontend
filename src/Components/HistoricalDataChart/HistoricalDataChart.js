@@ -124,9 +124,10 @@ export const HistoricalDataChart = ({ inventoryId }) => {
                             <VictoryZoomVoronoiContainer
                                 labels={({ datum }) => {
                                     const isToday = new Date().toDateString() === new Date(datum.x).toDateString();
-                                    const xAxisDate = isToday ? 'Today' : `${new Date(datum.x).getDate()} ${MONTHS[new Date(datum.x).getMonth()]}`;
+                                    let xAxisDate = isToday ? 'Today' : `${new Date(datum.x).getDate()} ${MONTHS[new Date(datum.x).getMonth()]}`;
+                                    xAxisDate = datum.name.includes('CPU') ? `${xAxisDate}\n` : '';
                                     return datum.childName.includes('scatter-')
-                                        && datum.y !== null ? `${xAxisDate}\n${datum.name}: ${datum.y}%` : null;}
+                                        && datum.y !== null ? `${xAxisDate}${datum.name}: ${datum.y}%` : null;}
                                 }
                                 constrainToVisibleArea
                                 voronoiDimension="x"
