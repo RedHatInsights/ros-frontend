@@ -3,6 +3,7 @@ import React from 'react';
 import { NO_DATA_STATE, NO_DATA_VALUE } from '../../constants';
 import { DateFormat } from '@redhat-cloud-services/frontend-components/DateFormat';
 import './RenderColumn.scss';
+import moment from 'moment';
 
 export const diskUsageData = (data, id, item) => {
     const { state, performance_utilization: performanceUtilization } = item;
@@ -49,9 +50,17 @@ export const displayOS = (data) => {
 };
 
 export const displayLastReported = (data) => {
+    const daysAgo_7 = moment().subtract(7, 'days');
+    console.log("after 7 days Date:", data, daysAgo_7);
+    const isStale = moment(data).isBefore(daysAgo_7);
+    const text = `System was not refreshed in the last 7 days.\nSuggestions for the system might be outdated due to reporting issues.\nLast reported: ${data}`;
+    console.log("isStale:", isStale);
     return (
         data === null ?
             <span>{ NO_DATA_VALUE }</span> :
-            <DateFormat date={ data } />
+            isStale ? <Tooltip content={<div>{ text }</div>}>
+                <span>{moment(data).fromNow()}</span>
+            </Tooltip> 
+            : <DateFormat date={ data } />
     );
 };
