@@ -6,7 +6,6 @@ import { ExclamationTriangleIcon } from '@patternfly/react-icons';
 import './RenderColumn.scss';
 import moment from 'moment';
 
-
 export const diskUsageData = (data, id, item) => {
     const { state, performance_utilization: performanceUtilization } = item;
     const { io_all: iopsAll } = performanceUtilization;
@@ -52,21 +51,22 @@ export const displayOS = (data) => {
 };
 
 export const displayLastReported = (data) => {
-    const daysAgo_7 = moment().subtract(7, 'days');
-    const isStale = moment(data).isBefore(daysAgo_7);
+    const daysAgoSeven = moment().subtract(7, 'days');
+    const isStale = moment(data).isBefore(daysAgoSeven);
     const exactDate = dateStringByType('exact')(new Date(data));
     const relativeDate = dateStringByType('relative')(new Date(data));
+    // eslint-disable-next-line max-len
     const staleTooltipText = `System was not refreshed in the last 7 days.\nSuggestions for the system might be outdated due to reporting issues.\nLast reported: ${exactDate}`;
-  
+
     return (
         data === null ?
             <span>{ NO_DATA_VALUE }</span> :
-            isStale ? 
-            <Tooltip content={<div>{ staleTooltipText }</div>}>
-                <span className='staleText'>
-                    <ExclamationTriangleIcon color='#f09800' size='sm'/> {relativeDate}
-                </span>
-            </Tooltip> 
-            : <DateFormat date={ data } />
+            isStale ?
+                <Tooltip content={<div>{ staleTooltipText }</div>}>
+                    <span className='staleText'>
+                        <ExclamationTriangleIcon color='#f09800' size='sm'/> {relativeDate}
+                    </span>
+                </Tooltip>
+                : <DateFormat date={ data } />
     );
 };
