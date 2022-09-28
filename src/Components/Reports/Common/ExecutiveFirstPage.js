@@ -7,7 +7,7 @@ import styles from './styles';
 import { IconCanvas } from './IconCanvas';
 
 export const ExecutiveFirstPage = ({ data }) => {
-    const { conditions_count: conditionsCount, non_optimized_count: nonOptimizedCount, total_count: totalCount } = data?.meta;
+    const { conditions_count: conditionsCount, non_optimized_count: nonOptimizedCount, total_count: totalCount, stale_count: staleCount } = data?.meta;
     const optimizedCount = data?.systems_per_state?.optimized?.count;   /* eslint-disable-line camelcase */
     const newLine = '\n';
 
@@ -64,7 +64,7 @@ export const ExecutiveFirstPage = ({ data }) => {
             <Text style={styles.bold}>{`${optimizedCount}`}</Text><Text>{` of ${totalCount} systems are identified as `}</Text><Text style={styles.bold}>optimized, </Text>
             {/* eslint-disable-next-line max-len */}
             <Text style={styles.bold}>{`${nonOptimizedCount}`}</Text><Text>{` of ${totalCount} systems as having a `}</Text><Text style={styles.bold}>non-optimal</Text><Text>{` state.${newLine}`}</Text>
-            <Text style={styles.bold}>{`3`}</Text><Text>{` of ${totalCount} systems are `}</Text><Text style={styles.bold}>stale*</Text>
+            <Text style={styles.bold}>{`${staleCount}`}</Text><Text>{` of ${totalCount} systems are `}</Text><Text style={styles.bold}>stale*</Text>
         </Text>
 
         <Text style={styles.execInfoText}>Suggestions for stale systems might no longer apply due to systems not being refreshed in 7 days.*</Text>

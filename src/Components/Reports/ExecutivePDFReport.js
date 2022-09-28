@@ -32,7 +32,7 @@ export const DownloadExecutivePDFReport = ({ isDisabled }) => {
 
             return [
                 <ExecutiveFirstPage key='executive-first-page' data={executiveReportResponse} />,
-                <ExecutiveSecondPage key='executive-second-page' />,
+                <ExecutiveSecondPage key='executive-second-page' data={executiveReportResponse} />,
                 <ExecutiveThirdPage key='executive-third-page' />
             ];
 

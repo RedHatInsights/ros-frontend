@@ -19,8 +19,8 @@ export const InstancesTable = ({ id, instanceDetails, heading, description }) =>
                 instanceDetails.map(
                     (instanceDetail, index) => <View key={`${id}-${index}`} style={styles.flexRow}>
                         <Text style={{ width: 100 }}>{instanceDetail.type}</Text>
-                        <Text style={{ width: 80, paddingLeft: 4 }}>{instanceDetail.systemCount}</Text>
-                        <Text style={{ flex: 1 }}>{instanceDetail.description}</Text>
+                        <Text style={{ width: 80, paddingLeft: 4 }}>{instanceDetail.count}</Text>
+                        <Text style={{ flex: 1 }}>{instanceDetail.desc}</Text>
                     </View>)
             }
         </View>

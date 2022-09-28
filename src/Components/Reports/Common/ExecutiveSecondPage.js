@@ -1,117 +1,26 @@
 import React, { Fragment } from 'react';
 import { InstancesTable } from './InstancesTable';
 
-export const ExecutiveSecondPage = () => {
+export const ExecutiveSecondPage = (data) => {
+
+    const { current, suggested, historical } =  data?.instance_types_highlights;
 
     const currentInstancesDetails = {
         heading: 'Current instance types',
         description: 'This is your current state, that represents reality of how your instance types are doing',
-        data: [
-            {
-                type: 't3.small',
-                systemCount: '30',
-                // eslint-disable-next-line max-len
-                description: 'Intel Xeon E5-2680 v2 (Ivy Bridge) instance with 8 vCPUs and 15 GiB of RAM, running on AWS eu-west-1 and eu-west-2 regions'
-            },
-            {
-                type: 't4g.small',
-                systemCount: '42',
-                // eslint-disable-next-line max-len
-                description: 'Intel Xeon E5-2680 v2 (Ivy Bridge) instance with 8 vCPUs and 15 GiB of RAM, running on AWS eu-west-1 and eu-west-2 regions'
-            },
-            {
-                type: 't1.micro',
-                systemCount: '44',
-                // eslint-disable-next-line max-len
-                description: 'Intel Xeon E5-2680 v2 (Ivy Bridge) instance with 8 vCPUs and 15 GiB of RAM, running on AWS eu-west-1 and eu-west-2 regions'
-            },
-            {
-                type: 't3.micro',
-                systemCount: '20',
-                // eslint-disable-next-line max-len
-                description: 'Intel Xeon E5-2680 v2 (Ivy Bridge) instance with 8 vCPUs and 15 GiB of RAM, running on AWS eu-west-1 and eu-west-2 regions'
-            },
-            {
-                type: 't3.nano',
-                systemCount: '10',
-                // eslint-disable-next-line max-len
-                description: 'Intel Xeon E5-2680 v2 (Ivy Bridge) instance with 8 vCPUs and 15 GiB of RAM, running on AWS eu-west-1 and eu-west-2 regions'
-            }
-        ]
+        data: current
     };
 
     const suggestedInstancesDetails = {
         heading: 'Most suggested instance types (yesterday)',
         description: 'Yesterday we identified these instance types',
-        data: [
-            {
-                type: 't3.nano',
-                systemCount: '40',
-                // eslint-disable-next-line max-len
-                description: 'Intel Xeon E5-2680 v2 (Ivy Bridge) instance with 8 vCPUs and 15 GiB of RAM, running on AWS eu-west-1 and eu-west-2 regions'
-            },
-            {
-                type: 't4g.nano',
-                systemCount: '20',
-                // eslint-disable-next-line max-len
-                description: 'Intel Xeon E5-2680 v2 (Ivy Bridge) instance with 8 vCPUs and 15 GiB of RAM, running on AWS eu-west-1 and eu-west-2 regions'
-            },
-            {
-                type: 't1.micro',
-                systemCount: '30',
-                // eslint-disable-next-line max-len
-                description: 'Intel Xeon E5-2680 v2 (Ivy Bridge) instance with 8 vCPUs and 15 GiB of RAM, running on AWS eu-west-1 and eu-west-2 regions'
-            },
-            {
-                type: 't3.micro',
-                systemCount: '20',
-                // eslint-disable-next-line max-len
-                description: 'Intel Xeon E5-2680 v2 (Ivy Bridge) instance with 8 vCPUs and 15 GiB of RAM, running on AWS eu-west-1 and eu-west-2 regions'
-            },
-            {
-                type: 't2.nano',
-                systemCount: '10',
-                // eslint-disable-next-line max-len
-                description: 'Intel Xeon E5-2680 v2 (Ivy Bridge) instance with 8 vCPUs and 15 GiB of RAM, running on AWS eu-west-1 and eu-west-2 regions'
-            }
-        ]
+        data: suggested
     };
 
     const historicalInstancesDetails = {
         heading: 'Most suggested instance types (45 days)',
         description: 'In the last 45 days we suggested you these instances # of times',
-        data: [
-            {
-                type: 't3.nano',
-                systemCount: '30',
-                // eslint-disable-next-line max-len
-                description: 'Intel Xeon E5-2680 v2 (Ivy Bridge) instance with 8 vCPUs and 15 GiB of RAM, running on AWS eu-west-1 and eu-west-2 regions'
-            },
-            {
-                type: 't2.nano',
-                systemCount: '42',
-                // eslint-disable-next-line max-len
-                description: 'Intel Xeon E5-2680 v2 (Ivy Bridge) instance with 8 vCPUs and 15 GiB of RAM, running on AWS eu-west-1 and eu-west-2 regions'
-            },
-            {
-                type: 't1.micro',
-                systemCount: '44',
-                // eslint-disable-next-line max-len
-                description: 'Intel Xeon E5-2680 v2 (Ivy Bridge) instance with 8 vCPUs and 15 GiB of RAM, running on AWS eu-west-1 and eu-west-2 regions'
-            },
-            {
-                type: 't3.micro',
-                systemCount: '20',
-                // eslint-disable-next-line max-len
-                description: 'Intel Xeon E5-2680 v2 (Ivy Bridge) instance with 8 vCPUs and 15 GiB of RAM, running on AWS eu-west-1 and eu-west-2 regions'
-            },
-            {
-                type: 'm1.small',
-                systemCount: '10',
-                // eslint-disable-next-line max-len
-                description: 'Intel Xeon E5-2680 v2 (Ivy Bridge) instance with 8 vCPUs and 15 GiB of RAM, running on AWS eu-west-1 and eu-west-2 regions'
-            }
-        ]
+        data: historical
     };
 
     return <Fragment key="third-page">
