@@ -3,7 +3,7 @@ import { InstancesTable } from './InstancesTable';
 
 export const ExecutiveSecondPage = (data) => {
 
-    const { current, suggested, historical } =  data?.instance_types_highlights;
+    const { current, suggested, historical } =  data?.instance_types_highlights;  /* eslint-disable-line camelcase */
 
     const currentInstancesDetails = {
         heading: 'Current instance types',

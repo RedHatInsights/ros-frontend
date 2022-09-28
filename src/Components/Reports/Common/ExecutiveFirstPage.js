@@ -7,7 +7,8 @@ import styles from './styles';
 import { IconCanvas } from './IconCanvas';
 
 export const ExecutiveFirstPage = ({ data }) => {
-    const { conditions_count: conditionsCount, non_optimized_count: nonOptimizedCount, total_count: totalCount, stale_count: staleCount } = data?.meta;
+    const { conditions_count: conditionsCount, non_optimized_count: nonOptimizedCount,
+        total_count: totalCount, stale_count: staleCount } = data?.meta;
     const optimizedCount = data?.systems_per_state?.optimized?.count;   /* eslint-disable-line camelcase */
     const newLine = '\n';
 
