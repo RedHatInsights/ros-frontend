@@ -66,6 +66,7 @@ export const DownloadExecutivePDFReport = ({ isDisabled }) => {
                     isAriaDisabled: isDisabled,
                     ...(loading ? { isDisabled: true } : null)
                 }}
+                ErrorComponent=<div>Error while loading executive report</div>
             />
         </Fragment>
     );
