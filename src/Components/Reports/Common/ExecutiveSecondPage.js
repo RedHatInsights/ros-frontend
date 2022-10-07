@@ -1,13 +1,15 @@
 import React, { Fragment } from 'react';
 import { InstancesTable } from './InstancesTable';
+import propTypes from 'prop-types';
 
-export const ExecutiveSecondPage = (data) => {
+export const ExecutiveSecondPage = ({ data }) => {
 
     const { current, suggested, historical } =  data?.instance_types_highlights;  /* eslint-disable-line camelcase */
+    const { stale_count: staleCount } = data?.meta;
 
     const currentInstancesDetails = {
         heading: 'Current instance types',
-        description: 'This is your current state, that represents reality of how your instance types are doing',
+        description: 'This is your current state, representing the instances that are already reporting data.',
         data: current
     };
 
@@ -19,7 +21,8 @@ export const ExecutiveSecondPage = (data) => {
 
     const historicalInstancesDetails = {
         heading: 'Most suggested instance types (45 days)',
-        description: 'In the last 45 days we suggested you these instances # of times',
+        description: 'In the last 45 days we suggested you these instances # of times. ',
+        staleDescription: 'Report includes instances running on systems service identified as stale.',
         data: historical
     };
 
@@ -43,8 +46,13 @@ export const ExecutiveSecondPage = (data) => {
             id='historical_instance_types'
             instanceDetails={historicalInstancesDetails.data}
             heading={historicalInstancesDetails.heading}
-            description={historicalInstancesDetails.description}
+            description={staleCount > 0
+                ? `${historicalInstancesDetails.description}${historicalInstancesDetails.staleDescription}`
+                : `${historicalInstancesDetails.description}` }
         />
     </Fragment>;
 };
 
+ExecutiveSecondPage.propTypes = {
+    data: propTypes.object
+};
