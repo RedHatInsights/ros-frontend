@@ -10,19 +10,19 @@ export const ExecutiveSecondPage = ({ data }) => {
 
     const instanceDetails = {
         current: {
-            heading: 'Current instance types',
-            description: 'This is your current state, representing the instances that are already reporting data.',
+            heading: 'Most used current instance types',
+            description: 'Based on instances that are already reporting data.',
             data: currentData
         },
         suggested: {
             heading: 'Most suggested instance types (yesterday)',
-            description: 'Yesterday we identified these instance types',
+            description: 'Yesterday we identified these instance types.',
             data: suggestedData
         },
         historical: {
             heading: 'Most suggested instance types (45 days)',
             description: 'In the last 45 days we suggested you these instances # of times. ',
-            staleDescription: 'Report includes instances running on systems service identified as stale.',
+            staleDescription: 'Some of the instances are now identified as stale (more than 7 days not reporting data).',
             data: historicalData
         }
     };
