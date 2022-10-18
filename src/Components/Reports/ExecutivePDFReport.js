@@ -45,7 +45,6 @@ export const DownloadExecutivePDFReport = ({ isDisabled }) => {
     return (
         <Fragment>
             <DownloadButton
-                scope="chrome"
                 label={
                     loading
                         ? 'Loading...'
