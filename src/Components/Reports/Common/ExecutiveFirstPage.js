@@ -2,7 +2,7 @@ import React, { Fragment } from 'react';
 import propTypes from 'prop-types';
 import { Section, Column, Chart, Table } from '@redhat-cloud-services/frontend-components-pdf-generator';
 import { Text, View } from '@react-pdf/renderer';
-import { formatExecutiveReportData } from '../Util';
+import { formatExecutiveReportData, pluralize } from '../Util';
 import styles from './styles';
 import { IconCanvas } from './IconCanvas';
 
@@ -60,12 +60,13 @@ export const ExecutiveFirstPage = ({ data }) => {
         {/* eslint-disable-next-line max-len */}
         <Text>
             {/* eslint-disable-next-line max-len */}
-            <Text>{`There are`}</Text><Text style={styles.bold}>{` ${totalCount} registered systems `}</Text><Text>{`in the resource optimization service.${newLine}`}</Text>
+            <Text>{`There ${pluralize(totalCount, 'is', 'are')}`}</Text><Text style={styles.bold}>{` ${totalCount} registered ${pluralize(totalCount, 'system')} `}</Text><Text>{`in the resource optimization service.${newLine}`}</Text>
             {/* eslint-disable-next-line max-len */}
-            <Text style={styles.bold}>{`${optimizedCount}`}</Text><Text>{` of ${totalCount} systems are identified as `}</Text><Text style={styles.bold}>optimized, </Text>
+            <Text style={styles.bold}>{`${optimizedCount}`}</Text><Text>{` of ${totalCount} ${pluralize(totalCount, 'system')} ${pluralize(optimizedCount, 'is', 'are')} identified as `}</Text><Text style={styles.bold}>optimized, </Text>
             {/* eslint-disable-next-line max-len */}
-            <Text style={styles.bold}>{`${nonOptimizedCount}`}</Text><Text>{` of ${totalCount} systems as having a `}</Text><Text style={styles.bold}>non-optimal</Text><Text>{` state.${newLine}`}</Text>
-            <Text style={styles.bold}>{`${staleCount}`}</Text><Text>{` of ${totalCount} systems are `}</Text><Text style={styles.bold}>stale*</Text>
+            <Text style={styles.bold}>{`${nonOptimizedCount}`}</Text><Text>{` of ${totalCount} ${pluralize(totalCount, 'system')} as having a `}</Text><Text style={styles.bold}>non-optimal</Text><Text>{` state.${newLine}`}</Text>
+            {/* eslint-disable-next-line max-len */}
+            <Text style={styles.bold}>{`${staleCount}`}</Text><Text>{` of ${totalCount} ${pluralize(totalCount, 'system')} ${pluralize(staleCount, 'is', 'are')} `}</Text><Text style={styles.bold}>stale*</Text>
         </Text>
 
         <Text style={styles.execInfoText}>Suggestions for stale systems might no longer apply due to systems not being refreshed in 7 days.*</Text>

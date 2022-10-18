@@ -135,3 +135,11 @@ export const formatExecutiveReportData = (data) => {
 
     return { stateChartData, stateTableData, conditionsChartData, conditionsTableData, condtionsInfo };
 };
+
+export const pluralize = (count, singular, plural) => {
+    if (!plural) {
+        plural = `${singular}s`;
+    }
+
+    return `${count === 1 ? singular : plural}`;
+};

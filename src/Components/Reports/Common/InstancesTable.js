@@ -16,14 +16,16 @@ export const InstancesTable = ({ id, instanceDetails, heading, description }) =>
                 <Text style={[{ flex: 1 }, styles.instanceTableHeading]}>Description</Text>
             </View>
             {
-                instanceDetails.map(
-                    (instanceDetail, index) => <View key={`${id}-${index}`} style={{
-                        ...styles.flexRow,
-                        ...(index % 2 && { ...styles.tableRowBackground }) }}>
-                        <Text style={{ width: 100 }}>{instanceDetail.type}</Text>
-                        <Text style={{ width: 80, paddingLeft: 4 }}>{instanceDetail.count}</Text>
-                        <Text style={{ flex: 1 }}>{instanceDetail.desc}</Text>
-                    </View>)
+                instanceDetails.length > 0 ?
+                    instanceDetails.map(
+                        (instanceDetail, index) => <View key={`${id}-${index}`} style={{
+                            ...styles.flexRow,
+                            ...(index % 2 && { ...styles.tableRowBackground }) }}>
+                            <Text style={{ width: 100 }}>{instanceDetail.type}</Text>
+                            <Text style={{ width: 80, paddingLeft: 4 }}>{instanceDetail.count}</Text>
+                            <Text style={{ flex: 1 }}>{instanceDetail.desc}</Text>
+                        </View>)
+                    : <Text style={styles.instanceTableHeading}>No data available.</Text>
             }
         </View>
     );

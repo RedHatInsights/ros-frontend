@@ -1,4 +1,4 @@
-import { generateFilterText, formatData, responseToCSVData, responseToJSONData, formatExecutiveReportData } from './Util';
+import { generateFilterText, formatData, responseToCSVData, responseToJSONData, formatExecutiveReportData, pluralize } from './Util';
 import { executiveReponseTestData, sysResponseTestData } from './UtilTestData';
 
 describe('Util generateFilterText method tests', () => {
@@ -210,5 +210,49 @@ describe('formatExecutiveReportData', () => {
         expect(condtionsInfo.io.occurrences).toEqual(expectedIoOccurrences);
         expect(condtionsInfo.memory.occurrences).toEqual(expectedRAMOccurrences);
         expect(condtionsInfo.cpu.occurrences).toEqual(expectedCPUOccurrences);
+    });
+});
+
+describe('Util pluralize test', () => {
+    it('should pluralize the string - count 3', () => {
+        const actualString = pluralize(3, 'system');
+        const expectedString = 'systems';
+
+        expect(actualString).toEqual(expectedString);
+    });
+
+    it('should pluralize the string - count 0', () => {
+        const actualString = pluralize(0, 'system');
+        const expectedString = 'systems';
+
+        expect(actualString).toEqual(expectedString);
+    });
+
+    it('should pluralize the string - count 0', () => {
+        const actualString = pluralize(0, 'is', 'are');
+        const expectedString = 'are';
+
+        expect(actualString).toEqual(expectedString);
+    });
+
+    it('should pluralize the string - count 10', () => {
+        const actualString = pluralize(10, 'is', 'are');
+        const expectedString = 'are';
+
+        expect(actualString).toEqual(expectedString);
+    });
+
+    it('should not pluralize the string - count 1', () => {
+        const actualString = pluralize(1, 'is', 'are');
+        const expectedString = 'is';
+
+        expect(actualString).toEqual(expectedString);
+    });
+
+    it('should not pluralize the string - count 1', () => {
+        const actualString = pluralize(1, 'system');
+        const expectedString = 'system';
+
+        expect(actualString).toEqual(expectedString);
     });
 });
