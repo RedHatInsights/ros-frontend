@@ -84,15 +84,15 @@ export const formatExecutiveReportData = (data) => {
     const condtionsInfo = {
         io: {
             name: 'Disk IO',
-            occurances: []
+            occurrences: []
         },
         memory: {
             name: 'RAM',
-            occurances: []
+            occurrences: []
         },
         cpu: {
             name: 'CPU',
-            occurances: []
+            occurrences: []
         }
     };
 
@@ -126,10 +126,10 @@ export const formatExecutiveReportData = (data) => {
         const undersizedValue = (conditions[condition].undersized !== null) ? conditions[condition].undersized : 0;
         const oversizedValue = (conditions[condition].oversized !== null) ? conditions[condition].oversized : 0;
 
-        condtionsInfo[condition].occurances.push(['Under pressure', `${underPressureValue}*`]);
+        condtionsInfo[condition].occurrences.push(['Under pressure', `${underPressureValue}*`]);
         if (undersizedValue !== -1 && oversizedValue !== -1) {
-            condtionsInfo[condition].occurances.push(['Undersized', `${undersizedValue}`]);
-            condtionsInfo[condition].occurances.push(['Oversized', `${oversizedValue}`]);
+            condtionsInfo[condition].occurrences.push(['Undersized', `${undersizedValue}`]);
+            condtionsInfo[condition].occurrences.push(['Oversized', `${oversizedValue}`]);
         }
     });
 

@@ -46,9 +46,9 @@ export const ExecutiveFirstPage = ({ data }) => {
 
     const { stateChartData, stateTableData, conditionsChartData,  conditionsTableData, condtionsInfo } = formattedReportData;
 
-    ioOccuranceTableData.push(...condtionsInfo.io.occurances);
-    ramOccuranceTableData.push(...condtionsInfo.memory.occurances);
-    cpuOccuranceTableData.push(...condtionsInfo.cpu.occurances);
+    ioOccuranceTableData.push(...condtionsInfo.io.occurrences);
+    ramOccuranceTableData.push(...condtionsInfo.memory.occurrences);
+    cpuOccuranceTableData.push(...condtionsInfo.cpu.occurrences);
 
     return <Fragment key="first-page">
         <Text>

@@ -11,7 +11,7 @@ import { DescriptionList } from './DescriptionList';
 
 export const ExecutiveThirdPage = () => {
 
-    const stateDescription = [
+    const sysStatesDescription = [
         {
             title: 'Optimized',
             description: 'Performing at an optimal level',
@@ -74,7 +74,7 @@ export const ExecutiveThirdPage = () => {
     return <Fragment key="second-page">
         <Text style={styles.execHeading}>Description of states</Text>
         {
-            stateDescription.map(
+            sysStatesDescription.map(
                 (state, index) => <DescriptionList
                     key={`${index}-${state.title}`}
                     id={state.title}
