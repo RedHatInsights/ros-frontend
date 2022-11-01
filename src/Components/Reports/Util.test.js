@@ -202,14 +202,14 @@ describe('formatExecutiveReportData', () => {
 
         const actualFormattedData = formatExecutiveReportData(executiveReponseTestData);
 
-        const { stateChartData, stateTableData, conditionsChartData, conditionsTableData, condtionsInfo } =  actualFormattedData;
+        const { stateChartData, stateTableData, conditionsChartData, conditionsTableData, conditionsInfo } =  actualFormattedData;
         expect(stateChartData).toEqual(expectedStateChartData);
         expect(stateTableData).toEqual(expectedStateTableData);
         expect(conditionsChartData).toEqual(expectedConditionsChartData);
         expect(conditionsTableData).toEqual(expectedConditionsTableData);
-        expect(condtionsInfo.io.occurrences).toEqual(expectedIoOccurrences);
-        expect(condtionsInfo.memory.occurrences).toEqual(expectedRAMOccurrences);
-        expect(condtionsInfo.cpu.occurrences).toEqual(expectedCPUOccurrences);
+        expect(conditionsInfo.io.occurrences).toEqual(expectedIoOccurrences);
+        expect(conditionsInfo.memory.occurrences).toEqual(expectedRAMOccurrences);
+        expect(conditionsInfo.cpu.occurrences).toEqual(expectedCPUOccurrences);
     });
 });
 

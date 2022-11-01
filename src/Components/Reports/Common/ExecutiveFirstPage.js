@@ -12,7 +12,7 @@ export const ExecutiveFirstPage = ({ data }) => {
     const optimizedCount = data?.systems_per_state?.optimized?.count;   /* eslint-disable-line camelcase */
     const newLine = '\n';
 
-    const ioOccuranceTableData = [
+    const ioOccurenceTableData = [
         [
             <View key={'disk-io-title'} style={styles.flexRow}>
                 <IconCanvas fillColor='#8BC1F7'/>
@@ -22,7 +22,7 @@ export const ExecutiveFirstPage = ({ data }) => {
         ]
     ];
 
-    const ramOccuranceTableData = [
+    const ramOccurrenceTableData = [
         [
             <View key={'memory-title'}  style={styles.flexRow}>
                 <IconCanvas fillColor='#002F5D'/>
@@ -32,7 +32,7 @@ export const ExecutiveFirstPage = ({ data }) => {
         ]
     ];
 
-    const cpuOccuranceTableData = [
+    const cpuOccurrenceTableData = [
         [
             <View key={'cpu-title'} style={styles.flexRow}>
                 <IconCanvas fillColor='#0066CC'/>
@@ -44,11 +44,11 @@ export const ExecutiveFirstPage = ({ data }) => {
 
     const formattedReportData = formatExecutiveReportData(data);
 
-    const { stateChartData, stateTableData, conditionsChartData,  conditionsTableData, condtionsInfo } = formattedReportData;
+    const { stateChartData, stateTableData, conditionsChartData,  conditionsTableData, conditionsInfo } = formattedReportData;
 
-    ioOccuranceTableData.push(...condtionsInfo.io.occurrences);
-    ramOccuranceTableData.push(...condtionsInfo.memory.occurrences);
-    cpuOccuranceTableData.push(...condtionsInfo.cpu.occurrences);
+    ioOccurenceTableData.push(...conditionsInfo.io.occurrences);
+    ramOccurrenceTableData.push(...conditionsInfo.memory.occurrences);
+    cpuOccurrenceTableData.push(...conditionsInfo.cpu.occurrences);
 
     return <Fragment key="first-page">
         <Text>
@@ -75,7 +75,7 @@ export const ExecutiveFirstPage = ({ data }) => {
 
         {/* TODO: update based on api response */}
         {/* eslint-disable-next-line max-len */}
-        <Text>{`6 systems out of a total of ${totalCount} systems have Kernel Pressure Stall Information Enabled. That helps us provide better suggestions either in breakdown of occurance or registered system section`}</Text>
+        <Text>{`6 systems out of a total of ${totalCount} systems have Kernel Pressure Stall Information Enabled. That helps us provide better suggestions either in breakdown of coccurrence or registered system section`}</Text>
 
         <Section>
             <Column>
@@ -122,27 +122,27 @@ export const ExecutiveFirstPage = ({ data }) => {
             </Column>
         </Section>
 
-        <Text style={styles.occuranceHeading}>Breakdown of occurences</Text>
+        <Text style={styles.occurrenceHeading}>Breakdown of occurences</Text>
 
         <Section>
             <Column>
                 <Table
                     withHeader
-                    rows={ioOccuranceTableData}
+                    rows={ioOccurenceTableData}
                 />
             </Column>
             <Column style={{ flex: 0.2 }} />
             <Column>
                 <Table
                     withHeader
-                    rows={ramOccuranceTableData}
+                    rows={ramOccurrenceTableData}
                 />
             </Column>
             <Column style={{ flex: 0.2 }} />
             <Column>
                 <Table
                     withHeader
-                    rows={cpuOccuranceTableData}
+                    rows={cpuOccurrenceTableData}
                 />
             </Column>
         </Section>

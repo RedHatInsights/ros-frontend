@@ -49,7 +49,7 @@ export default StyleSheet.create({
         marginBottom: 4,
         marginTop: 10
     },
-    occuranceHeading: {
+    occurrenceHeading: {
         textAlign: 'left',
         fontSize: 10,
         color: '#C9190B',
