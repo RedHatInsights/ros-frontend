@@ -40,7 +40,6 @@ export const REPORT_NOTIFICATIONS = {
     }
 };
 
-
 export const sysStatesDescription = [
     {
         title: 'Optimized',
