@@ -73,10 +73,6 @@ export const ExecutiveFirstPage = ({ data }) => {
 
         <Text style={styles.execHeading}>Breakdown of registered systems</Text>
 
-        {/* TODO: update based on api response */}
-        {/* eslint-disable-next-line max-len */}
-        <Text>{`6 systems out of a total of ${totalCount} systems have Kernel Pressure Stall Information Enabled. That helps us provide better suggestions either in breakdown of occurrence or registered system section`}</Text>
-
         <Section>
             <Column>
                 <Chart

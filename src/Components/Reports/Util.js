@@ -1,5 +1,5 @@
 import { get } from 'lodash';
-import { pdfRowKeys, percentageKeys, reportRowKeys, SYSTEMS_REPORT_FILE_NAME } from '../../constants';
+import { pdfRowKeys, percentageKeys, reportRowKeys, SYSTEMS_REPORT_FILE_NAME } from './Constants';
 import { dateStringByType } from '@redhat-cloud-services/frontend-components/DateFormat/helper';
 
 export const formatData = (data, type) => {

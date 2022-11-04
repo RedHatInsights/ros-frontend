@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { DownloadButton } from '@redhat-cloud-services/frontend-components-pdf-generator';
-import { PDF_RECORDS_PER_PAGE, REPORT_NOTIFICATIONS, SYSTEMS_PDF_REPORT_TITLE } from '../../constants';
+import { PDF_RECORDS_PER_PAGE, REPORT_NOTIFICATIONS, SYSTEMS_PDF_REPORT_TITLE } from './Constants';
 import { fetchSystems } from '../../Utilities/api';
 import { formatData, generateFilterText, getSystemsReportFileName } from './Util';
 import propTypes from 'prop-types';

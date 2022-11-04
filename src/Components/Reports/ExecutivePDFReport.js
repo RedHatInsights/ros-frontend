@@ -12,7 +12,7 @@ import { ExecutiveFirstPage } from './Common/ExecutiveFirstPage';
 import { ExecutiveSecondPage } from './Common/ExecutiveSecondPage';
 import { ExecutiveThirdPage } from './Common/ExecutiveThirdPage';
 import propTypes from 'prop-types';
-import { REPORT_NOTIFICATIONS } from '../../constants';
+import { REPORT_NOTIFICATIONS } from './Constants';
 
 export const DownloadExecutivePDFReport = ({ isDisabled }) => {
     const [loading, setLoading] = useState(false);
