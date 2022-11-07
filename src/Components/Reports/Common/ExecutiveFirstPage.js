@@ -6,11 +6,7 @@ import { formatExecutiveReportData, pluralize } from '../Util';
 import styles from './styles';
 import { IconCanvas } from './IconCanvas';
 
-export const ExecutiveFirstPage = ({ data }) => {
-    const { conditions_count: conditionsCount, non_optimized_count: nonOptimizedCount,
-        total_count: totalCount, stale_count: staleCount } = data?.meta;
-    const optimizedCount = data?.systems_per_state?.optimized?.count;   /* eslint-disable-line camelcase */
-    const newLine = '\n';
+const renderOccurrenceBreakdown = (conditionsInfo) => {
 
     const ioOccurenceTableData = [
         [
@@ -42,13 +38,52 @@ export const ExecutiveFirstPage = ({ data }) => {
         ]
     ];
 
-    const formattedReportData = formatExecutiveReportData(data);
-
-    const { stateChartData, stateTableData, conditionsChartData,  conditionsTableData, conditionsInfo } = formattedReportData;
-
     ioOccurenceTableData.push(...conditionsInfo.io.occurrences);
     ramOccurrenceTableData.push(...conditionsInfo.memory.occurrences);
     cpuOccurrenceTableData.push(...conditionsInfo.cpu.occurrences);
+
+    return <View>
+        <Text style={styles.occurrenceHeading}>Breakdown of occurences</Text>
+
+        <Section>
+            <Column>
+                <Table
+                    withHeader
+                    rows={ioOccurenceTableData}
+                />
+            </Column>
+            <Column style={{ flex: 0.2 }} />
+            <Column>
+                <Table
+                    withHeader
+                    rows={ramOccurrenceTableData}
+                />
+            </Column>
+            <Column style={{ flex: 0.2 }} />
+            <Column>
+                <Table
+                    withHeader
+                    rows={cpuOccurrenceTableData}
+                />
+            </Column>
+        </Section>
+
+        {/* eslint-disable-next-line max-len */}
+        <Text style={styles.execInfoText}>Under pressure (*) conditions are only reported for systems where Kernel Pressure Stall Information is enabled. Check the documentation for details.*</Text>
+        <Text style={styles.execInfoText}>Description of conditions are on the second page of the report*</Text>
+
+    </View>;
+};
+
+export const ExecutiveFirstPage = ({ data }) => {
+    const { conditions_count: conditionsCount, non_optimized_count: nonOptimizedCount,
+        total_count: totalCount, stale_count: staleCount } = data?.meta;
+    const optimizedCount = data?.systems_per_state?.optimized?.count;   /* eslint-disable-line camelcase */
+    const newLine = '\n';
+
+    const formattedReportData = formatExecutiveReportData(data);
+
+    const { stateChartData, stateTableData, conditionsChartData,  conditionsTableData, conditionsInfo } = formattedReportData;
 
     return <Fragment key="first-page">
         <Text>
@@ -118,34 +153,8 @@ export const ExecutiveFirstPage = ({ data }) => {
             </Column>
         </Section>
 
-        <Text style={styles.occurrenceHeading}>Breakdown of occurences</Text>
+        {renderOccurrenceBreakdown(conditionsInfo)}
 
-        <Section>
-            <Column>
-                <Table
-                    withHeader
-                    rows={ioOccurenceTableData}
-                />
-            </Column>
-            <Column style={{ flex: 0.2 }} />
-            <Column>
-                <Table
-                    withHeader
-                    rows={ramOccurrenceTableData}
-                />
-            </Column>
-            <Column style={{ flex: 0.2 }} />
-            <Column>
-                <Table
-                    withHeader
-                    rows={cpuOccurrenceTableData}
-                />
-            </Column>
-        </Section>
-
-        {/* eslint-disable-next-line max-len */}
-        <Text style={styles.execInfoText}>Under pressure (*) conditions are only reported for systems where Kernel Pressure Stall Information is enabled. Check the documentation for details.*</Text>
-        <Text style={styles.execInfoText}>Description of conditions are on the second page of the report*</Text>
     </Fragment>;
 };
 
