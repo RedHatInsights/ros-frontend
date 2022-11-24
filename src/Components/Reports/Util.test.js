@@ -1,4 +1,4 @@
-import { generateFilterText, formatData, responseToCSVData, responseToJSONData, formatExecutiveReportData } from './Util';
+import { generateFilterText, formatData, responseToCSVData, responseToJSONData, formatExecutiveReportData, pluralize } from './Util';
 import { executiveReponseTestData, sysResponseTestData } from './UtilTestData';
 
 describe('Util generateFilterText method tests', () => {
@@ -184,31 +184,75 @@ describe('formatExecutiveReportData', () => {
             ['23']
         ];
 
-        const expectedIoOccurances = [
-            ['Under pressure', '10']
+        const expectedIoOccurrences = [
+            ['Under pressure', '10*']
         ];
 
-        const expectedRAMOccurances = [
-            ['Under pressure', '10'],
+        const expectedRAMOccurrences = [
+            ['Under pressure', '10*'],
             ['Undersized', '10'],
             ['Oversized', '0']
         ] ;
 
-        const expectedCPUOccurances = [
-            ['Under pressure', '10'],
+        const expectedCPUOccurrences = [
+            ['Under pressure', '10*'],
             ['Undersized', '0'],
             ['Oversized', '0']
         ] ;
 
         const actualFormattedData = formatExecutiveReportData(executiveReponseTestData);
 
-        const { stateChartData, stateTableData, conditionsChartData, conditionsTableData, condtionsInfo } =  actualFormattedData;
+        const { stateChartData, stateTableData, conditionsChartData, conditionsTableData, conditionsInfo } =  actualFormattedData;
         expect(stateChartData).toEqual(expectedStateChartData);
         expect(stateTableData).toEqual(expectedStateTableData);
         expect(conditionsChartData).toEqual(expectedConditionsChartData);
         expect(conditionsTableData).toEqual(expectedConditionsTableData);
-        expect(condtionsInfo.io.occurances).toEqual(expectedIoOccurances);
-        expect(condtionsInfo.memory.occurances).toEqual(expectedRAMOccurances);
-        expect(condtionsInfo.cpu.occurances).toEqual(expectedCPUOccurances);
+        expect(conditionsInfo.io.occurrences).toEqual(expectedIoOccurrences);
+        expect(conditionsInfo.memory.occurrences).toEqual(expectedRAMOccurrences);
+        expect(conditionsInfo.cpu.occurrences).toEqual(expectedCPUOccurrences);
+    });
+});
+
+describe('Util pluralize test', () => {
+    it('should pluralize the string - count 3', () => {
+        const actualString = pluralize(3, 'system');
+        const expectedString = 'systems';
+
+        expect(actualString).toEqual(expectedString);
+    });
+
+    it('should pluralize the string - count 0', () => {
+        const actualString = pluralize(0, 'system');
+        const expectedString = 'systems';
+
+        expect(actualString).toEqual(expectedString);
+    });
+
+    it('should pluralize the string - count 0', () => {
+        const actualString = pluralize(0, 'is', 'are');
+        const expectedString = 'are';
+
+        expect(actualString).toEqual(expectedString);
+    });
+
+    it('should pluralize the string - count 10', () => {
+        const actualString = pluralize(10, 'is', 'are');
+        const expectedString = 'are';
+
+        expect(actualString).toEqual(expectedString);
+    });
+
+    it('should not pluralize the string - count 1', () => {
+        const actualString = pluralize(1, 'is', 'are');
+        const expectedString = 'is';
+
+        expect(actualString).toEqual(expectedString);
+    });
+
+    it('should not pluralize the string - count 1', () => {
+        const actualString = pluralize(1, 'system');
+        const expectedString = 'system';
+
+        expect(actualString).toEqual(expectedString);
     });
 });

@@ -2,20 +2,15 @@ import React, { Fragment } from 'react';
 import propTypes from 'prop-types';
 import { Section, Column, Chart, Table } from '@redhat-cloud-services/frontend-components-pdf-generator';
 import { Text, View } from '@react-pdf/renderer';
-import { formatExecutiveReportData } from '../Util';
+import { formatExecutiveReportData, pluralize } from '../Util';
 import styles from './styles';
 import { IconCanvas } from './IconCanvas';
 
-export const ExecutiveFirstPage = ({ data }) => {
-    const { conditions_count: conditionsCount, non_optimized_count: nonOptimizedCount, total_count: totalCount } = data?.meta;
-    const optimizedCount = data?.systems_per_state?.optimized?.count;   /* eslint-disable-line camelcase */
-    const newLine = '\n';
-    const bullet = '\u2022';
+const renderOccurrenceBreakdown = (conditionsInfo) => {
 
-    const ioOccuranceTableData = [
+    const ioOccurenceTableData = [
         [
-            <View key={'disk-io-title'} style={{ display: 'flex',
-                flexDirection: 'row' }}>
+            <View key={'disk-io-title'} style={styles.flexRow}>
                 <IconCanvas fillColor='#8BC1F7'/>
                 <Text>Disk I/O</Text>
             </View>
@@ -23,10 +18,9 @@ export const ExecutiveFirstPage = ({ data }) => {
         ]
     ];
 
-    const ramOccuranceTableData = [
+    const ramOccurrenceTableData = [
         [
-            <View key={'memory-title'}  style={{ display: 'flex',
-                flexDirection: 'row' }}>
+            <View key={'memory-title'}  style={styles.flexRow}>
                 <IconCanvas fillColor='#002F5D'/>
                 <Text>RAM</Text>
             </View>
@@ -34,10 +28,9 @@ export const ExecutiveFirstPage = ({ data }) => {
         ]
     ];
 
-    const cpuOccuranceTableData = [
+    const cpuOccurrenceTableData = [
         [
-            <View key={'cpu-title'} style={{ display: 'flex',
-                flexDirection: 'row' }}>
+            <View key={'cpu-title'} style={styles.flexRow}>
                 <IconCanvas fillColor='#0066CC'/>
                 <Text>CPU</Text>
             </View>
@@ -45,37 +38,76 @@ export const ExecutiveFirstPage = ({ data }) => {
         ]
     ];
 
+    ioOccurenceTableData.push(...conditionsInfo.io.occurrences);
+    ramOccurrenceTableData.push(...conditionsInfo.memory.occurrences);
+    cpuOccurrenceTableData.push(...conditionsInfo.cpu.occurrences);
+
+    return <View>
+        <Text style={styles.occurrenceHeading}>Breakdown of occurences</Text>
+
+        <Section>
+            <Column>
+                <Table
+                    withHeader
+                    rows={ioOccurenceTableData}
+                />
+            </Column>
+            <Column style={{ flex: 0.2 }} />
+            <Column>
+                <Table
+                    withHeader
+                    rows={ramOccurrenceTableData}
+                />
+            </Column>
+            <Column style={{ flex: 0.2 }} />
+            <Column>
+                <Table
+                    withHeader
+                    rows={cpuOccurrenceTableData}
+                />
+            </Column>
+        </Section>
+
+        {/* eslint-disable-next-line max-len */}
+        <Text style={styles.execInfoText}>Under pressure (*) conditions are only reported for systems where Kernel Pressure Stall Information is enabled. Check the documentation for details.*</Text>
+        <Text style={styles.execInfoText}>Description of conditions are on the second page of the report*</Text>
+
+    </View>;
+};
+
+export const ExecutiveFirstPage = ({ data }) => {
+    const { conditions_count: conditionsCount, non_optimized_count: nonOptimizedCount,
+        total_count: totalCount, stale_count: staleCount } = data?.meta;
+    const optimizedCount = data?.systems_per_state?.optimized?.count;   /* eslint-disable-line camelcase */
+    const newLine = '\n';
+
     const formattedReportData = formatExecutiveReportData(data);
 
-    const { stateChartData, stateTableData, conditionsChartData,  conditionsTableData, condtionsInfo } = formattedReportData;
-
-    ioOccuranceTableData.push(...condtionsInfo.io.occurances);
-    ramOccuranceTableData.push(...condtionsInfo.memory.occurances);
-    cpuOccuranceTableData.push(...condtionsInfo.cpu.occurances);
+    const { stateChartData, stateTableData, conditionsChartData,  conditionsTableData, conditionsInfo } = formattedReportData;
 
     return <Fragment key="first-page">
         <Text>
             This executive summary highlights the performance for your registered systems included in the resource optimization service.
         </Text>
-        <Text>
-            {`This report gives you an overview of:${newLine}`}
-        </Text>
-
-        <Text>
-            {
-                `${bullet} The number of systems registered
-                ${bullet} Number of registered systems in a non-optimal state
-                ${bullet} Number of system performance issues
-                ${bullet} Description of system performance levels
-                ${bullet} Performance level details for system resources operating in a non-optimal state`}
-        </Text>
 
         {/* {Total Systems} */}
         <Text style={styles.execHeading}>Registered systems</Text>
         {/* eslint-disable-next-line max-len */}
-        <Text>{`There are ${totalCount} systems registered in the resource optimization service. The service identified ${optimizedCount} of ${totalCount} systems as optimized, and ${nonOptimizedCount} of ${totalCount} registered systems as having a non-optimal state.`}</Text>
+        <Text>
+            {/* eslint-disable-next-line max-len */}
+            <Text>{`There ${pluralize(totalCount, 'is', 'are')}`}</Text><Text style={styles.bold}>{` ${totalCount} registered ${pluralize(totalCount, 'system')} `}</Text><Text>{`in the resource optimization service.${newLine}`}</Text>
+            {/* eslint-disable-next-line max-len */}
+            <Text style={styles.bold}>{`${optimizedCount}`}</Text><Text>{` of ${totalCount} ${pluralize(totalCount, 'system')} ${pluralize(optimizedCount, 'is', 'are')} identified as `}</Text><Text style={styles.bold}>optimized, </Text>
+            {/* eslint-disable-next-line max-len */}
+            <Text style={styles.bold}>{`${nonOptimizedCount}`}</Text><Text>{` of ${totalCount} ${pluralize(totalCount, 'system')} as having a `}</Text><Text style={styles.bold}>non-optimal</Text><Text>{` state.${newLine}`}</Text>
+            {/* eslint-disable-next-line max-len */}
+            <Text style={styles.bold}>{`${staleCount}`}</Text><Text>{` of ${totalCount} ${pluralize(totalCount, 'system')} ${pluralize(staleCount, 'is', 'are')} `}</Text><Text style={styles.bold}>stale*</Text>
+        </Text>
+
+        <Text style={styles.execInfoText}>Suggestions for stale systems might no longer apply due to systems not being refreshed in 7 days.*</Text>
 
         <Text style={styles.execHeading}>Breakdown of registered systems</Text>
+
         <Section>
             <Column>
                 <Chart
@@ -96,7 +128,7 @@ export const ExecutiveFirstPage = ({ data }) => {
                 />
             </Column>
         </Section>
-        <Text style={styles.execInfoText}>Description of states are on the second page of the report*</Text>
+        <Text style={styles.execInfoText}>Description of states are on the last page of the report*</Text>
 
         <Text style={styles.execHeading}>System performance issues</Text>
         <Text>{`There are ${conditionsCount} system performance issues.`}</Text>
@@ -121,34 +153,8 @@ export const ExecutiveFirstPage = ({ data }) => {
             </Column>
         </Section>
 
-        <Text style={styles.occuranceHeading}>Breakdown of occurences</Text>
+        {renderOccurrenceBreakdown(conditionsInfo)}
 
-        <Section>
-            <Column>
-                <Table
-                    withHeader
-                    rows={ioOccuranceTableData}
-                />
-            </Column>
-            <Column style={{ flex: 0.2 }} />
-            <Column>
-                <Table
-                    withHeader
-                    rows={ramOccuranceTableData}
-                />
-            </Column>
-            <Column style={{ flex: 0.2 }} />
-            <Column>
-                <Table
-                    withHeader
-                    rows={cpuOccuranceTableData}
-                />
-            </Column>
-        </Section>
-
-        {/* eslint-disable-next-line max-len */}
-        <Text style={styles.execInfoText}>Under pressure conditions are only reported for systems where Kernel Pressure Stall Information is enabled. Check the documentation for details.*</Text>
-        <Text style={styles.execInfoText}>Description of conditions are on the second page of the report*</Text>
     </Fragment>;
 };
 

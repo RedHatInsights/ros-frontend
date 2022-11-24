@@ -1,97 +1,52 @@
 import React, { Fragment } from 'react';
-import { Text } from '@react-pdf/renderer';
-import { TachometerAltIconConfig } from '@patternfly/react-icons/dist/js/icons/tachometer-alt-icon';
-import { AngleDoubleDownIconConfig } from '@patternfly/react-icons/dist/js/icons/angle-double-down-icon';
-import { AngleDoubleUpIconConfig } from '@patternfly/react-icons/dist/js/icons/angle-double-up-icon';
-import { AutomationIconConfig } from '@patternfly/react-icons/dist/js/icons/automation-icon';
-import { InProgressIconConfig } from '@patternfly/react-icons/dist/js/icons/in-progress-icon';
-import { CheckCircleIconConfig } from '@patternfly/react-icons/dist/js/icons/check-circle-icon';
-import styles from './styles';
-import { DescriptionList } from './DescriptionList';
+import { InstancesTable } from './InstancesTable';
+import propTypes from 'prop-types';
 
-export const ExecutiveSecondPage = () => {
+export const ExecutiveSecondPage = ({ data }) => {
 
-    const stateDescription = [
+    const { current: currentData, suggested: suggestedData,
+        historical: historicalData } =  data?.instance_types_highlights;  /* eslint-disable-line camelcase */
+    const { stale_count: staleCount } = data?.meta;
+
+    const instanceTableDetails = [
         {
-            title: 'Optimized',
-            description: 'Performing at an optimal level',
-            iconPath: CheckCircleIconConfig.svgPath,
-            iconScale: 0.014,
-            fillColor: 'green'
+            id: 'current_instance_types',
+            heading: 'Most used current instance types',
+            description: 'Based on instances that are already reporting data.',
+            data: currentData
         },
         {
-            title: 'Under pressure',
-            description: 'Peaking occasionally',
-            iconPath: TachometerAltIconConfig.svgPath,
-            iconScale: 0.014,
-            fillColor: '#030303'
+            id: 'suggested_instance_types',
+            heading: 'Most suggested instance types (yesterday)',
+            description: 'Yesterday we identified these instance types.',
+            data: suggestedData
         },
         {
-            title: 'Undersized',
-            description: 'Using more than 80% of system resources',
-            iconPath: AngleDoubleDownIconConfig.svgPath,
-            iconScale: 0.014,
-            fillColor: 'red'
-        },
-        {
-            title: 'Oversized',
-            description: 'Using less than 20% of system resources',
-            iconPath: AngleDoubleUpIconConfig.svgPath,
-            iconScale: 0.014,
-            fillColor: '#f09800'
-        },
-        {
-            title: 'Idling',
-            description: 'Consuming less than 5% of resources',
-            iconPath: AutomationIconConfig.svgPath,
-            iconScale: 0.008,
-            fillColor: '#030303'
-        },
-        {
-            title: 'Waiting for data',
-            description: 'Data has not been received or is being processed. Initial data processing takes up to 24 hours.',
-            iconPath: InProgressIconConfig.svgPath,
-            iconScale: 0.008,
-            fillColor: '#2B9AF3'
+            id: 'historical_instance_types',
+            heading: 'Most suggested instance types (45 days)',
+            description: 'In the last 45 days we suggested you these instances # of times. ',
+            staleDescription: 'Some of the instances are now identified as stale (more than 7 days not reporting data).',
+            data: historicalData
         }
     ];
 
-    const conditionsDescription = [
+    return <Fragment key="third-page">
         {
-            title: 'CPU pressure',
-            description: 'CPU registered peaks higher than 20% over several one-minute time periods'
-        },
-        {
-            title: 'Disk I/O  pressure',
-            description: 'Disk I/O registered peaks higher than 20% over several one-minute time periods'
-        },
-        {
-            title: 'RAM pressure',
-            description: 'RAM registered peaks higher than 20% over several one-minute time periods'
-        }
-    ];
-
-    return <Fragment key="second-page">
-        <Text style={styles.execHeading}>Description of states</Text>
-        {
-            stateDescription.map(
-                (state) => <DescriptionList
-                    key={state.title}
-                    title={state.title}
-                    description={state.description}
-                    iconPath={state.iconPath}
-                    iconScale={state.iconScale}
-                    fillColor={state.fillColor} />)
-        }
-
-        <Text style={styles.execHeading}>Description of conditions</Text>
-        {
-            conditionsDescription.map(
-                (condition) => <DescriptionList
-                    key={condition.title}
-                    title={condition.title}
-                    description={condition.description}/>)
+            instanceTableDetails.map(
+                (instanceTable, index) => <InstancesTable
+                    key={`${index}-${instanceTable.id}`}
+                    id={instanceTable.id}
+                    instanceDetails={instanceTable.data}
+                    heading={instanceTable.heading}
+                    description={staleCount > 0 && instanceTable.id.includes('historical')
+                        ? `${instanceTable.description}${instanceTable.staleDescription}`
+                        : `${instanceTable.description}` }
+                />
+            )
         }
     </Fragment>;
 };
 
+ExecutiveSecondPage.propTypes = {
+    data: propTypes.object
+};

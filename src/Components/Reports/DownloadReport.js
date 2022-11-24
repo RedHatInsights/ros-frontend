@@ -1,5 +1,5 @@
 import { downloadFile } from '@redhat-cloud-services/frontend-components-utilities/helpers/helpers';
-import { REPORT_NOTIFICATIONS } from '../../constants';
+import { REPORT_NOTIFICATIONS } from './Constants';
 import { fetchSystems } from '../../Utilities/api';
 import { getSystemsReportFileName, responseToCSVData, responseToJSONData } from './Util';
 
