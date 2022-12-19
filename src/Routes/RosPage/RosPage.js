@@ -46,7 +46,6 @@ class RosPage extends React.Component {
             orderBy: 'report_date',
             orderDirection: SortByDirection.desc,
             stateFilterValue: [],
-            osFilterValue: [],
             isColumnModalOpen: false,
             exportSystemsPDF: false,
             nameFilterValue: '',
@@ -125,7 +124,7 @@ class RosPage extends React.Component {
         fetchParams?.stateFilter?.forEach((stateFilterValue) => {
             query.append('state', stateFilterValue);
         });
-        fetchParams?.osFilter?.forEach((osFilterValue) => {
+        fetchParams?.filters?.osFilter?.forEach((osFilterValue) => {
             query.append('os', osFilterValue);
         });
         url.search = query.toString();
@@ -178,19 +177,10 @@ class RosPage extends React.Component {
             stateFilterValue: value
         });
     }
-    updateOSFilter = (value) => {
-        this.setState({
-            osFilterValue: value
-        });
-    }
 
     onDeleteFilters = (e, filtersArr) => {
         const deletedStateFilters = filtersArr.filter((filterObject) => {
             return filterObject.category === 'State';
-        });
-
-        const deletedOSFilters = filtersArr.filter((filterObject) => {
-            return filterObject.category === 'Operating System';
         });
 
         if (deletedStateFilters.length > 0) {
@@ -205,35 +195,16 @@ class RosPage extends React.Component {
             });
         }
 
-        if (deletedOSFilters.length > 0) {
-            const resetOSFilterList = deletedOSFilters[0]?.chips.map((chip) => {
-                return chip?.name;
-            });
-
-            const activeOSFilters = this.state.osFilterValue.filter(filterName => !resetOSFilterList.includes(filterName));
-            this.setState ({
-                osFilterValue: activeOSFilters
-            });
-
-        }
     }
 
     getActiveFilterConfig = () => {
         const activeStateFilters = this.state.stateFilterValue.map((value)=> ({ name: value }));
-        const activeOSFilters = this.state.osFilterValue.map((value)=> ({ name: value }));
 
         const activeFilters = [];
         if (activeStateFilters.length > 0) {
             activeFilters.push({
                 category: 'State',
                 chips: activeStateFilters
-            });
-        }
-
-        if (activeOSFilters.length > 0) {
-            activeFilters.push({
-                category: 'Operating System',
-                chips: activeOSFilters
             });
         }
 
@@ -274,7 +245,6 @@ class RosPage extends React.Component {
 
     renderConfigStepsOrTable() {
         const { state: SFObject } = CUSTOM_FILTERS;
-        const { os: OSFObject } = CUSTOM_FILTERS;
         const activeColumns = this.getActiveColumns();
         const { exportSystemsPDF, stateFilterValue, nameFilterValue, osFilterValue,
             orderBy, orderDirection, disableExport } = this.state;
@@ -299,11 +269,10 @@ class RosPage extends React.Component {
                                 className: 'ros-systems-table'
                             }}
                             variant="compact"
-                            hideFilters={{ all: true, name: false }}
+                            hideFilters={{ all: true, name: false, operatingSystem: false }}
                             autoRefresh= {true}
                             customFilters={{
-                                stateFilter: stateFilterValue,
-                                osFilter: this.state.osFilterValue
+                                stateFilter: stateFilterValue
                             }}
                             columns={activeColumns}
                             getEntities={async (_items, config) => {
@@ -375,16 +344,6 @@ class RosPage extends React.Component {
                                             items: SFObject.filterValues.items,
                                             onChange: (_e, values) => this.updateStateFilter(values),
                                             value: stateFilterValue
-                                        }
-                                    },
-                                    {
-                                        label: OSFObject.label,
-                                        type: OSFObject.type,
-                                        value: `checkbox-os`,
-                                        filterValues: {
-                                            items: OSFObject.filterValues.items,
-                                            onChange: (_e, values) => this.updateOSFilter(values),
-                                            value: this.state.osFilterValue
                                         }
                                     }
                                 ]
