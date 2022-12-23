@@ -24,15 +24,16 @@
   margin-bottom: var(--pf-l-flex--spacer);
 }
 
-.detail-header-container {
-  position: relative;
-  padding-bottom: 72px;
-}
 .rosDetailsHead {
   .ins-entity-detail {
     .ins-entity-facts {
       .pf-l-flex:last-child {
         display: none !important;
+      }
+    }
+    .ins-c-inventory__detail--header .pf-l-split__item:last-child {
+      div {
+        margin-right:0px;
       }
     }
   }

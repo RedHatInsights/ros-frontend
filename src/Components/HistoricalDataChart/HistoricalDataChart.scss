@@ -1,4 +1,10 @@
-.dateDropdown{
-   padding-left: 8px;
-   margin-right: 200px;
+.chartDateFilter {
+   .dateDropdown{
+      padding-left: 8px;
+      float:right;
+   }
+
+   :first-child {
+      vertical-align: bottom !important;
+   }
 }

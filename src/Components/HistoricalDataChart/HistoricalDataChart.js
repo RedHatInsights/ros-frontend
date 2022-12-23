@@ -67,8 +67,8 @@ export const HistoricalDataChart = ({ inventoryId }) => {
     };
 
     const dropdownItems = [
-        <DropdownItem key="action" component="button" onClick={() => updateChartRange(DATE_RANGE_7_DAYS)}>Last 7 Days</DropdownItem>,
-        <DropdownItem key="action" component="button" onClick={() => updateChartRange(DATE_RANGE_49_DAYS)}>Last 45 Days</DropdownItem>
+        <DropdownItem key="action_7" component="button" onClick={() => updateChartRange(DATE_RANGE_7_DAYS)}>Last 7 Days</DropdownItem>,
+        <DropdownItem key="action_45" component="button" onClick={() => updateChartRange(DATE_RANGE_49_DAYS)}>Last 45 Days</DropdownItem>
     ];
 
     const onToggle = (isOpen) => {
@@ -97,7 +97,7 @@ export const HistoricalDataChart = ({ inventoryId }) => {
             </FlexItem> :
             <Flex direction={{ default: 'column' }} alignSelf={{ default: 'alignSelfBaseline' }} align={{ default: 'alignRight' }}>
                 <FlexItem align={{ default: 'alignRight' }}>
-                    <span>
+                    <div className="chartDateFilter">
                         <Tooltip content={<div>Scroll and pan to zoom and move</div>}>
                             <OutlinedQuestionCircleIcon size='sm' />
                         </Tooltip>
@@ -114,7 +114,7 @@ export const HistoricalDataChart = ({ inventoryId }) => {
                             isOpen={isOpen}
                             dropdownItems={dropdownItems}
                         />
-                    </span>
+                    </div>
                 </FlexItem>
                 <FlexItem align={{ default: 'alignRight' }}>
                     <Chart
@@ -140,7 +140,7 @@ export const HistoricalDataChart = ({ inventoryId }) => {
                         padding={{
                             bottom: 50,
                             left: 50,
-                            right: 200, // Adjusted to accommodate legend
+                            right: 165, // Adjusted to accommodate legend
                             top: 50
                         }}
                         themeColor={ChartThemeColor.blue}>
