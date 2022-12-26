@@ -126,6 +126,14 @@ export const CUSTOM_FILTERS = {
                 {
                     label: 'RHEL 8.5',
                     value: 'RHEL 8.5'
+                },
+                {
+                    label: 'RHEL 8.6',
+                    value: 'RHEL 8.6'
+                },
+                {
+                    label: 'RHEL 9.0',
+                    value: 'RHEL 9.0'
                 }
             ]
         }
