@@ -116,7 +116,7 @@ export const HistoricalDataChart = ({ inventoryId }) => {
                         />
                     </div>
                 </FlexItem>
-                <FlexItem align={{ default: 'alignRight' }}>
+                <FlexItem align={{ default: 'alignRight' }} className='historical-chart-panel'>
                     <Chart
                         domain={getEntireDomain()}
                         scale={{ x: 'time', y: 'linear' }}
