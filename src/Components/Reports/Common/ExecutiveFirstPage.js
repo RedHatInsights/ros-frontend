@@ -112,7 +112,7 @@ export const ExecutiveFirstPage = ({ data }) => {
             nonPSICount > 0
              && <Text>{
                  /* eslint-disable-next-line max-len */
-                 `${psiEnabledCount} systems out of a total of ${totalCount} systems have Kernel Pressure Stall Information enabled. You could get better suggestions for ${nonPSICount} systems if you enabled Pressure Stall Information. Check the documentation on how to enable PSI on versions RHEL 8 and newer.`
+                 `${psiEnabledCount} ${pluralize(psiEnabledCount, 'system')} out of a total of ${totalCount} ${pluralize(totalCount, 'system')} have Kernel Pressure Stall Information enabled. You could get better suggestions for ${nonPSICount} ${pluralize(nonPSICount, 'system')} if you enabled Pressure Stall Information. Check the documentation on how to enable PSI on versions RHEL 8 and newer.`
              }</Text>
 
         }
