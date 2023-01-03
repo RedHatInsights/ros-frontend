@@ -12,13 +12,13 @@ export const ExecutiveSecondPage = ({ data }) => {
         {
             id: 'current_instance_types',
             heading: 'Most used current instance types',
-            description: 'Based on instances that are already reporting data.',
+            description: 'We have identified these instance types based on the data from the fresh systems.',
             data: currentData
         },
         {
             id: 'suggested_instance_types',
-            heading: 'Most suggested instance types (yesterday)',
-            description: 'Yesterday we identified these instance types.',
+            heading: 'Most suggested instance types',
+            description: 'We are suggesting these instance types based on the data from the fresh systems.',
             data: suggestedData
         },
         {

@@ -76,8 +76,8 @@ const renderOccurrenceBreakdown = (conditionsInfo) => {
 };
 
 export const ExecutiveFirstPage = ({ data }) => {
-    const { conditions_count: conditionsCount, non_optimized_count: nonOptimizedCount,
-        total_count: totalCount, stale_count: staleCount } = data?.meta;
+    const { conditions_count: conditionsCount, non_optimized_count: nonOptimizedCount, non_psi_count: nonPSICount,
+        psi_enabled_count: psiEnabledCount, total_count: totalCount, stale_count: staleCount } = data?.meta;
     const optimizedCount = data?.systems_per_state?.optimized?.count;   /* eslint-disable-line camelcase */
     const newLine = '\n';
 
@@ -107,6 +107,15 @@ export const ExecutiveFirstPage = ({ data }) => {
         <Text style={styles.execInfoText}>Suggestions for stale systems might no longer apply due to systems not being refreshed in 7 days.*</Text>
 
         <Text style={styles.execHeading}>Breakdown of registered systems</Text>
+
+        {
+            nonPSICount > 0
+             && <Text>{
+                 /* eslint-disable-next-line max-len */
+                 `${psiEnabledCount} ${pluralize(psiEnabledCount, 'system')} out of a total of ${totalCount} ${pluralize(totalCount, 'system')} have Kernel Pressure Stall Information enabled. You could get better suggestions for ${nonPSICount} ${pluralize(nonPSICount, 'system')} if you enabled Pressure Stall Information. Check the documentation on how to enable PSI on versions RHEL 8 and newer.`
+             }</Text>
+
+        }
 
         <Section>
             <Column>
@@ -161,4 +170,3 @@ export const ExecutiveFirstPage = ({ data }) => {
 ExecutiveFirstPage.propTypes = {
     data: propTypes.object
 };
-
