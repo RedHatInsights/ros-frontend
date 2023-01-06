@@ -29,10 +29,6 @@
   }
 }
 
-.pf-c-button.pf-m-plain {
-  color: black;
-}
-
 .progress-score-bar {
   grid-gap: var(--pf-global--spacer--xs);
 
@@ -51,13 +47,11 @@
   }
 }
 
-
 .blue-300{
   .pf-c-progress__indicator {
     background: var(--pf-global--palette--blue-300);
   }
 }
-
 
 .ros-page-header {
   width: auto;
