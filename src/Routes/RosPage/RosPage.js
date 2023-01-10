@@ -326,6 +326,8 @@ class RosPage extends React.Component {
                                 const invIds = (results.data || []).map(({ inventory_id: inventoryId }) => inventoryId);
                                 const invSystems = await this.fetchInventoryDetails(invIds, {
                                     ...config,
+                                    orderBy: undefined,
+                                    orderDirection: undefined,
                                     page: 1,
                                     hasItems: true
                                 });
