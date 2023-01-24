@@ -90,6 +90,15 @@ export const HistoricalDataChart = ({ inventoryId }) => {
         </FlexItem>;
     };
 
+    const getTooltipLabels = (datum) => {
+        const xDate = new Date(datum.x);
+        const isToday = new Date().toDateString() === xDate.toDateString();
+        let xDateString = isToday ? 'Today' : `${xDate.getDate()} ${MONTHS[xDate.getMonth()]}`;
+        xDateString = datum.name.includes('CPU') ? `${xDateString}\n   \n` : '';
+        return datum.childName.includes('scatter-')
+                && datum.y !== null ? `${xDateString}${datum.name}: ${datum.y}%` : null;
+    };
+
     const displayChart = () => {
         return  chartData.length === 0 ?
             <FlexItem alignSelf={{ default: 'alignSelfBaseline' }}>
@@ -124,13 +133,7 @@ export const HistoricalDataChart = ({ inventoryId }) => {
                         scale={{ x: 'time', y: 'linear' }}
                         containerComponent={
                             <VictoryZoomVoronoiContainer
-                                labels={({ datum }) => {
-                                    const isToday = new Date().toDateString() === new Date(datum.x).toDateString();
-                                    let xAxisDate = isToday ? 'Today' : `${new Date(datum.x).getDate()} ${MONTHS[new Date(datum.x).getMonth()]}`;
-                                    xAxisDate = datum.name.includes('CPU') ? `${xAxisDate}\n   \n` : '';
-                                    return datum.childName.includes('scatter-')
-                                        && datum.y !== null ? `${xAxisDate}${datum.name}: ${datum.y}%` : null;}
-                                }
+                                labels={({ datum }) => getTooltipLabels(datum)}
                                 labelComponent={
                                     <ChartCursorTooltip
                                         labelComponent={<ChartLabel
