@@ -13,7 +13,7 @@ Feel free to remove this section from PR description once done.
 
 Please include the __context of this change__ here.
 
-## Documentation update? :memo:
+## Documentation requires update? :memo:
 
 - [ ] Yes
 - [ ] No
