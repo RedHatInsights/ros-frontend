@@ -1,4 +1,5 @@
 import { StyleSheet } from '@react-pdf/renderer';
+import global_BorderColor_300 from '@patternfly/react-tokens/dist/js/global_BorderColor_300';  /* eslint-disable-line camelcase */
 
 export default StyleSheet.create({
     bodyCell: {
@@ -48,7 +49,7 @@ export default StyleSheet.create({
         marginBottom: 4,
         marginTop: 10
     },
-    occuranceHeading: {
+    occurrenceHeading: {
         textAlign: 'left',
         fontSize: 10,
         color: '#C9190B',
@@ -58,7 +59,41 @@ export default StyleSheet.create({
     execInfoText: {
         flex: 1,
         textAlign: 'right',
-        fontSize: 6
+        fontSize: 7,
+        color: '#6A6E73'
+    },
+    instanceTypeHeading: {
+        textAlign: 'left',
+        fontSize: 10,
+        color: '#C9190B',
+        marginTop: 20
+    },
+    instanceTypeHeadingFirst: {
+        textAlign: 'left',
+        fontSize: 10,
+        color: '#C9190B'
+    },
+    instanceTypeDesc: {
+        fontSize: 10,
+        textAlign: 'left',
+        marginBottom: 4
+    },
+    flexRow: {
+        display: 'flex',
+        flexDirection: 'row'
+    },
+    tableRowBackground: {
+        backgroundColor: global_BorderColor_300.value  /* eslint-disable-line camelcase */
+    },
+    instanceTableHeading: {
+        fontSize: 10,
+        color: '#6A6E73',
+        paddingBottom: 4,
+        fontWeight: 'bold'
+    },
+    bold: {
+        fontFamily: 'Helvetica-Bold',
+        fontWeight: 700
     }
 
 });

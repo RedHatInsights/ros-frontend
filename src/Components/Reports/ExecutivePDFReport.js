@@ -10,8 +10,9 @@ import {
 } from '@redhat-cloud-services/frontend-components-notifications/redux';
 import { ExecutiveFirstPage } from './Common/ExecutiveFirstPage';
 import { ExecutiveSecondPage } from './Common/ExecutiveSecondPage';
+import { ExecutiveThirdPage } from './Common/ExecutiveThirdPage';
 import propTypes from 'prop-types';
-import { REPORT_NOTIFICATIONS } from '../../constants';
+import { REPORT_NOTIFICATIONS } from './Constants';
 
 export const DownloadExecutivePDFReport = ({ isDisabled }) => {
     const [loading, setLoading] = useState(false);
@@ -31,7 +32,8 @@ export const DownloadExecutivePDFReport = ({ isDisabled }) => {
 
             return [
                 <ExecutiveFirstPage key='executive-first-page' data={executiveReportResponse} />,
-                <ExecutiveSecondPage key='executive-second-page'/>
+                <ExecutiveSecondPage key='executive-second-page' data={executiveReportResponse} />,
+                <ExecutiveThirdPage key='executive-third-page' />
             ];
 
         }
@@ -64,6 +66,10 @@ export const DownloadExecutivePDFReport = ({ isDisabled }) => {
                     isAriaDisabled: isDisabled,
                     ...(loading ? { isDisabled: true } : null)
                 }}
+                ErrorComponent= {(error) => <div>
+                    <h2> Error while loading executive report </h2>
+                    {error?.message && <p>{error.message}</p>}
+                </div>}
             />
         </Fragment>
     );

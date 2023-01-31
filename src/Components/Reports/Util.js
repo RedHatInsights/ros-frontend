@@ -1,5 +1,5 @@
 import { get } from 'lodash';
-import { pdfRowKeys, percentageKeys, reportRowKeys, SYSTEMS_REPORT_FILE_NAME } from '../../constants';
+import { pdfRowKeys, percentageKeys, reportRowKeys, SYSTEMS_REPORT_FILE_NAME } from './Constants';
 import { dateStringByType } from '@redhat-cloud-services/frontend-components/DateFormat/helper';
 
 export const formatData = (data, type) => {
@@ -81,18 +81,18 @@ export const formatExecutiveReportData = (data) => {
     const conditionsChartData = [];
     const conditionsTableData = [['# of occurrences']];
 
-    const condtionsInfo = {
+    const conditionsInfo = {
         io: {
             name: 'Disk IO',
-            occurances: []
+            occurrences: []
         },
         memory: {
             name: 'RAM',
-            occurances: []
+            occurrences: []
         },
         cpu: {
             name: 'CPU',
-            occurances: []
+            occurrences: []
         }
     };
 
@@ -115,7 +115,7 @@ export const formatExecutiveReportData = (data) => {
     });
 
     Object.keys(conditions).map((condition) => {
-        const conditionName = condtionsInfo[condition].name;
+        const conditionName = conditionsInfo[condition].name;
         const percentage = Math.floor(conditions[condition]?.percentage);
         const count = conditions[condition]?.count;
 
@@ -126,12 +126,20 @@ export const formatExecutiveReportData = (data) => {
         const undersizedValue = (conditions[condition].undersized !== null) ? conditions[condition].undersized : 0;
         const oversizedValue = (conditions[condition].oversized !== null) ? conditions[condition].oversized : 0;
 
-        condtionsInfo[condition].occurances.push(['Under pressure', `${underPressureValue}`]);
+        conditionsInfo[condition].occurrences.push(['Under pressure', `${underPressureValue}*`]);
         if (undersizedValue !== -1 && oversizedValue !== -1) {
-            condtionsInfo[condition].occurances.push(['Undersized', `${undersizedValue}`]);
-            condtionsInfo[condition].occurances.push(['Oversized', `${oversizedValue}`]);
+            conditionsInfo[condition].occurrences.push(['Undersized', `${undersizedValue}`]);
+            conditionsInfo[condition].occurrences.push(['Oversized', `${oversizedValue}`]);
         }
     });
 
-    return { stateChartData, stateTableData, conditionsChartData, conditionsTableData, condtionsInfo };
+    return { stateChartData, stateTableData, conditionsChartData, conditionsTableData, conditionsInfo };
+};
+
+export const pluralize = (count, singular, plural) => {
+    if (!plural) {
+        plural = `${singular}s`;
+    }
+
+    return `${count === 1 ? singular : plural}`;
 };
