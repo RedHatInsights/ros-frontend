@@ -1,8 +1,10 @@
 import { Tooltip } from '@patternfly/react-core';
 import React from 'react';
 import { NO_DATA_STATE, NO_DATA_VALUE } from '../../constants';
-import { DateFormat } from '@redhat-cloud-services/frontend-components/DateFormat';
+import { DateFormat, dateStringByType } from '@redhat-cloud-services/frontend-components/DateFormat';
+import { ExclamationTriangleIcon } from '@patternfly/react-icons';
 import './RenderColumn.scss';
+import moment from 'moment';
 
 export const diskUsageData = (data, id, item) => {
     const { state, performance_utilization: performanceUtilization } = item;
@@ -49,9 +51,23 @@ export const displayOS = (data) => {
 };
 
 export const displayLastReported = (data) => {
+    if (!data) {return <span>{ NO_DATA_VALUE }</span>;}
+
+    const daysAgoSeven = moment().subtract(7, 'days');
+    const isStale = moment(data).isBefore(daysAgoSeven);
+    const lastReported = new Date(data);
+    const exactDate = dateStringByType('exact')(lastReported);
+    const relativeDate = dateStringByType('relative')(lastReported);
+    // eslint-disable-next-line max-len
+    const staleTooltipText = `System was not refreshed in the last 7 days.\nSuggestions for this system might be outdated due to reporting issues.\nLast reported: ${exactDate}`;
+
     return (
-        data === null ?
-            <span>{ NO_DATA_VALUE }</span> :
-            <DateFormat date={ data } />
+        isStale ?
+            <Tooltip content={<div>{ staleTooltipText }</div>}>
+                <span className='staleText'>
+                    <ExclamationTriangleIcon color='var(--pf-global--warning-color--100)' size='sm'/> {relativeDate}
+                </span>
+            </Tooltip>
+            : <DateFormat date={ data } />
     );
 };

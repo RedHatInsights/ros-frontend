@@ -4,10 +4,10 @@ import { Text, View } from '@react-pdf/renderer';
 import {  Dl, Dt, Dd } from '@redhat-cloud-services/frontend-components-pdf-generator';
 import { IconCanvas } from './IconCanvas';
 
-export const DescriptionList = ({ key, title, description, iconPath, iconScale, fillColor }) => {
+export const DescriptionList = ({ id, title, description, iconPath, iconScale, fillColor }) => {
 
     return (
-        <Dl key={key}>
+        <Dl key={id}>
             <Dt>
                 <View style={{ display: 'flex',
                     flexDirection: 'row' }}>
@@ -23,7 +23,7 @@ export const DescriptionList = ({ key, title, description, iconPath, iconScale, 
 };
 
 DescriptionList.propTypes = {
-    key: propTypes.string,
+    id: propTypes.string,
     title: propTypes.string,
     description: propTypes.string,
     iconPath: propTypes.string,

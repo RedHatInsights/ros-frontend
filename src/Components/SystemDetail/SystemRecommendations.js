@@ -51,7 +51,7 @@ export const onDeleteFilter = (activeFilters, itemsToRemove) => {
             value: Array.isArray(activeFilters[currItem?.chipKey]?.value)
                 ? activeFilters[currItem?.chipKey]?.value?.filter(
                     (item) => !currItem?.chips?.find(({ name }) => name === item)
-                  )
+                )
                 : ''
         }
     };

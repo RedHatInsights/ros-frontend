@@ -7,3 +7,11 @@ th, td {
     border-bottom:0.8px solid white;
     padding-top: 4px;
 }
+
+.staleText {
+    color: var(--pf-global--warning-color--100);
+    font-size: 14px;
+    line-height: 21px;
+    text-align: left;
+    font-weight: var(--pf-global--FontWeight--bold);
+}

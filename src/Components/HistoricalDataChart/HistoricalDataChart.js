@@ -1,4 +1,4 @@
-import React, { useState, useEffect, Fragment }  from 'react';
+import React, { useState, useEffect }  from 'react';
 import {
     Chart,
     ChartAxis,
@@ -10,7 +10,7 @@ import {
 } from '@patternfly/react-charts';
 import {
     Bullseye, Dropdown, DropdownItem, DropdownToggle,
-    EmptyState, EmptyStateBody, EmptyStateVariant, Spinner, Title, Tooltip
+    EmptyState, EmptyStateBody, EmptyStateVariant, Spinner, Title, Tooltip, Flex, FlexItem
 } from '@patternfly/react-core';
 import CaretDownIcon from '@patternfly/react-icons/dist/js/icons/caret-down-icon';
 import { OutlinedQuestionCircleIcon } from '@patternfly/react-icons';
@@ -67,8 +67,8 @@ export const HistoricalDataChart = ({ inventoryId }) => {
     };
 
     const dropdownItems = [
-        <DropdownItem key="action" component="button" onClick={() => updateChartRange(DATE_RANGE_7_DAYS)}>Last 7 Days</DropdownItem>,
-        <DropdownItem key="action" component="button" onClick={() => updateChartRange(DATE_RANGE_49_DAYS)}>Last 45 Days</DropdownItem>
+        <DropdownItem key="action_7" component="button" onClick={() => updateChartRange(DATE_RANGE_7_DAYS)}>Last 7 Days</DropdownItem>,
+        <DropdownItem key="action_45" component="button" onClick={() => updateChartRange(DATE_RANGE_49_DAYS)}>Last 45 Days</DropdownItem>
     ];
 
     const onToggle = (isOpen) => {
@@ -76,43 +76,47 @@ export const HistoricalDataChart = ({ inventoryId }) => {
     };
 
     const displayError = () => {
-        return <EmptyState className='loadingErrorContainer' variant={EmptyStateVariant.small}>
-            <Title headingLevel="h2" size="lg">
-                Something went wrong
-            </Title>
-            <EmptyStateBody>
-                There was a problem while requesting historical data. Please try again later.
-            </EmptyStateBody>
-        </EmptyState>;
+        return  <FlexItem alignSelf={{ default: 'alignSelfBaseline' }}>
+            <EmptyState variant={EmptyStateVariant.small}>
+                <Title headingLevel="h2" size="lg">
+                    Something went wrong
+                </Title>
+                <EmptyStateBody>
+                    There was a problem while requesting historical data. Please try again later.
+                </EmptyStateBody>
+            </EmptyState>
+        </FlexItem>;
     };
 
     const displayChart = () => {
-
         return  chartData.length === 0 ?
-            <Bullseye className='loadingErrorContainer'>
-                <Spinner size="xl" aria-labelledby="loading-historical-chart"/>
-            </Bullseye> :
-            <Fragment>
-                <span className='dropdownContainer'>
-                    <Tooltip content={<div>Scroll and pan to zoom and move</div>}>
-                        <OutlinedQuestionCircleIcon size='sm' />
-                    </Tooltip>
-                    <Dropdown
-                        className='dateDropdown'
-                        toggle={
-                            <DropdownToggle
-                                id='chart-date-toggle'
-                                onToggle={onToggle}
-                                toggleIndicator={CaretDownIcon} >
-                                {`Last ${dateRange === DATE_RANGE_7_DAYS ? DATE_RANGE_7_DAYS : RANGE_DROPDOWN_45_DAYS} Days`}
-                            </DropdownToggle>
-                        }
-                        isOpen={isOpen}
-                        dropdownItems={dropdownItems}
-                    />
-                </span>
-
-                <div style={{ height: '275px' }}>
+            <FlexItem alignSelf={{ default: 'alignSelfBaseline' }}>
+                <Bullseye>
+                    <Spinner size="xl" aria-labelledby="loading-historical-chart"/>
+                </Bullseye>
+            </FlexItem> :
+            <Flex direction={{ default: 'column' }} alignSelf={{ default: 'alignSelfBaseline' }} align={{ default: 'alignRight' }}>
+                <FlexItem align={{ default: 'alignRight' }}>
+                    <div className="chartDateFilter">
+                        <Tooltip content={<div>Scroll and pan to zoom and move</div>}>
+                            <OutlinedQuestionCircleIcon size='sm' />
+                        </Tooltip>
+                        <Dropdown
+                            className='dateDropdown'
+                            toggle={
+                                <DropdownToggle
+                                    id='chart-date-toggle'
+                                    onToggle={onToggle}
+                                    toggleIndicator={CaretDownIcon} >
+                                    {`Last ${dateRange === DATE_RANGE_7_DAYS ? DATE_RANGE_7_DAYS : RANGE_DROPDOWN_45_DAYS} Days`}
+                                </DropdownToggle>
+                            }
+                            isOpen={isOpen}
+                            dropdownItems={dropdownItems}
+                        />
+                    </div>
+                </FlexItem>
+                <FlexItem align={{ default: 'alignRight' }} className='historical-chart-panel'>
                     <Chart
                         domain={getEntireDomain()}
                         scale={{ x: 'time', y: 'linear' }}
@@ -136,7 +140,7 @@ export const HistoricalDataChart = ({ inventoryId }) => {
                         padding={{
                             bottom: 50,
                             left: 50,
-                            right: 200, // Adjusted to accommodate legend
+                            right: 165, // Adjusted to accommodate legend
                             top: 50
                         }}
                         themeColor={ChartThemeColor.blue}>
@@ -183,18 +187,12 @@ export const HistoricalDataChart = ({ inventoryId }) => {
                         </ChartGroup>
 
                     </Chart>
-                </div>
-            </Fragment>;
-
+                </FlexItem>
+            </Flex>;
     };
 
     return (
-        <div className='chartContainer'>
-            {
-                showError ?  displayError() : displayChart()
-
-            }
-        </div>
+        showError ?  displayError() : displayChart()
     );
 
 };

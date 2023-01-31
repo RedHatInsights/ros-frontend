@@ -17,6 +17,10 @@ import { NotAuthorized } from '@redhat-cloud-services/frontend-components/NotAut
 import { PermissionContext } from '../../App';
 import { displayLastReported } from '../../Components/RosTable/RenderColumn';
 import {
+    Flex,
+    FlexItem,
+    Stack,
+    StackItem,
     DescriptionList,
     DescriptionListTerm,
     DescriptionListGroup,
@@ -51,36 +55,36 @@ class RosSystemDetail extends React.Component {
             } = this.props.rosSystemInfo;
             const { inventoryId } = this.props.match.params;
             return (
-                <Grid className='ros-system-info'>
-                    <GridItem>
-                        <DescriptionList className='expanded-row' isCompact isHorizontal>
-                            <DescriptionListGroup>
-                                <DescriptionListTerm>Last reported</DescriptionListTerm>
-                                <DescriptionListDescription>
-                                    { displayLastReported(reportDate) }
-                                </DescriptionListDescription>
-                            </DescriptionListGroup>
-                        </DescriptionList>
-                    </GridItem>
-                    <GridItem>
-                        <DescriptionList className='expanded-row' isCompact isHorizontal>
-                            <DescriptionListGroup>
-                                <DescriptionListTerm>State</DescriptionListTerm>
-                                <DescriptionListDescription>
-                                    <SystemState stateValue={ state }/>
-                                </DescriptionListDescription>
-                            </DescriptionListGroup>
-                        </DescriptionList>
-                    </GridItem>
-                    <GridItem>
-                        <ExpandedRow
-                            { ...{ cloudProvider, instanceType, idlingTime, inventoryId } }
-                        />
-                    </GridItem>
-                    <GridItem>
-                        <RecommendationRating system={ { ...{ rating, inventoryId } } } />
-                    </GridItem>
-                </Grid>
+
+                <Flex alignItems={{ default: 'alignItemsCenter' }}>
+                    <Flex grow={{ default: 'grow' }} className='ros-system-info'>
+                        <Flex flex={{ default: 'flex_4' }} direction={{ default: 'column' }}>
+                            <FlexItem>
+                                <DescriptionList className='expanded-row' isCompact isHorizontal>
+                                    <DescriptionListGroup>
+                                        <DescriptionListTerm>Last reported</DescriptionListTerm>
+                                        <DescriptionListDescription>
+                                            { displayLastReported(reportDate) }
+                                        </DescriptionListDescription>
+                                    </DescriptionListGroup>
+                                    <DescriptionListGroup>
+                                        <DescriptionListTerm>State</DescriptionListTerm>
+                                        <DescriptionListDescription>
+                                            <SystemState stateValue={ state }/>
+                                        </DescriptionListDescription>
+                                    </DescriptionListGroup>
+                                </DescriptionList>
+                                <ExpandedRow
+                                    { ...{ cloudProvider, instanceType, idlingTime, inventoryId } }
+                                />
+                                <RecommendationRating system={{ rating, inventoryId }} />
+                            </FlexItem>
+                        </Flex>
+                        <Flex grow={{ default: 'grow' }} direction={{ default: 'column' }} >
+                            <HistoricalDataChart inventoryId={inventoryId}/>
+                        </Flex>
+                    </Flex>
+                </Flex>
             );
         } else {
             return null;
@@ -89,7 +93,6 @@ class RosSystemDetail extends React.Component {
 
     render() {
         const entity = this.props.entity;
-        const { inventoryId } = this.props.match.params;
         return (
             <React.Fragment>
                 <PermissionContext.Consumer>
@@ -116,17 +119,17 @@ class RosSystemDetail extends React.Component {
                                         </BreadcrumbItem>
                                     </Breadcrumb>
 
-                                    <div className='detail-header-container'>
-                                        <InventoryDetailHead
-                                            hideBack
-                                            showDelete={ false }
-                                            hideInvDrawer
-                                            className='rosDetailsHead'
-                                        />
-                                        { this.renderChildrenNode() }
-                                        <HistoricalDataChart
-                                            inventoryId={inventoryId}/>
-                                    </div>
+                                    <Stack hasGutter>
+                                        <StackItem>
+                                            <InventoryDetailHead
+                                                hideBack
+                                                showDelete={ false }
+                                                hideInvDrawer
+                                                className='rosDetailsHead'
+                                            />
+                                        </StackItem>
+                                        <StackItem isFilled>{ this.renderChildrenNode() }</StackItem>
+                                    </Stack>
                                 </PageHeader>
                                 <Main>
                                     <Grid gutter="md">
