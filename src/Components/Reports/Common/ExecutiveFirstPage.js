@@ -11,7 +11,7 @@ const renderOccurrenceBreakdown = (conditionsInfo) => {
     const ioOccurenceTableData = [
         [
             <View key={'disk-io-title'} style={styles.flexRow}>
-                <IconCanvas fillColor='#8BC1F7'/>
+                <IconCanvas fillColor='#0066CC'/>
                 <Text>Disk I/O</Text>
             </View>
 
@@ -21,7 +21,7 @@ const renderOccurrenceBreakdown = (conditionsInfo) => {
     const ramOccurrenceTableData = [
         [
             <View key={'memory-title'}  style={styles.flexRow}>
-                <IconCanvas fillColor='#002F5D'/>
+                <IconCanvas fillColor='#8BC1F7'/>
                 <Text>RAM</Text>
             </View>
 
@@ -31,7 +31,7 @@ const renderOccurrenceBreakdown = (conditionsInfo) => {
     const cpuOccurrenceTableData = [
         [
             <View key={'cpu-title'} style={styles.flexRow}>
-                <IconCanvas fillColor='#0066CC'/>
+                <IconCanvas fillColor='#002F5D'/>
                 <Text>CPU</Text>
             </View>
 
