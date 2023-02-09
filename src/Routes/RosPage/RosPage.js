@@ -205,7 +205,7 @@ class RosPage extends React.Component {
         });
     }
 
-    updateOsFilter = (value) => {
+    updateOSFilter = (value) => {
         this.setState({
             osFilterValue: value
         });
@@ -236,10 +236,10 @@ class RosPage extends React.Component {
             const resetFiltersList = deletedOSFilters[0]?.chips.map((chip) =>{
                 return chip?.name;
             });
-            const activeOsFilters = this.state.osFilterValue.filter(filterName => !resetFiltersList.includes(filterName));
+            const activeOSFilters = this.state.osFilterValue.filter(filterName => !resetFiltersList.includes(filterName));
 
             this.setState ({
-                osFilterValue: activeOsFilters
+                osFilterValue: activeOSFilters
             });
         }
     }
@@ -407,7 +407,7 @@ class RosPage extends React.Component {
                                         value: `checkbox-os`,
                                         filterValues: {
                                             items: OSFObject.filterValues?.items,
-                                            onChange: (_e, values) => this.updateOsFilter(values),
+                                            onChange: (_e, values) => this.updateOSFilter(values),
                                             value: osFilterValue
                                         }
                                     }
