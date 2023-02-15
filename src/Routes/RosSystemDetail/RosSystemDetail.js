@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { withRouter, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { Grid, GridItem, Breadcrumb, BreadcrumbItem } from '@patternfly/react-core';
 import { Main } from '@redhat-cloud-services/frontend-components/Main';
@@ -169,8 +169,7 @@ function mapDispatchToProps(dispatch) {
     };
 }
 
-export default withRouter(
-    connect(
-        mapStateToProps,
-        mapDispatchToProps)(RosSystemDetail)
-);
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps)(RosSystemDetail);
+
