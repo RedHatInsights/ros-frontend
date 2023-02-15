@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React, { createContext, Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { Routes } from './Routes';
+import { ROSRoutes } from './Routes';
 import './App.scss';
 import NotificationsPortal from '@redhat-cloud-services/frontend-components-notifications/NotificationPortal';
 import { notificationsReducer } from '@redhat-cloud-services/frontend-components-notifications/redux';
@@ -84,7 +84,7 @@ class App extends Component {
                         }
                     } }>
                     <NotificationsPortal />
-                    <Routes childProps={ this.props } />
+                    <ROSRoutes childProps={ this.props } />
                 </PermissionContext.Provider>
                 : null
         );
