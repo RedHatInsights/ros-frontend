@@ -101,6 +101,7 @@ class RosSystemDetail extends React.Component {
                         value.permissions.systemsRead === false
                             ? <NotAuthorized serviceName='Resource Optimization'/>
                             : <DetailWrapper
+                                inventoryId={this.state.inventoryId}
                                 onLoad={({ mergeWithDetail, INVENTORY_ACTION_TYPES }) => {
                                     register(mergeWithDetail(
                                         entityDetailReducer(INVENTORY_ACTION_TYPES)
