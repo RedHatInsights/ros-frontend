@@ -12,7 +12,7 @@ export const ROSRoutes = () => (
     </Bullseye>}>
         <Routes>
             <Route path='/' element={<RosPage/>} />
-            <Route path='/suggested-instance-types' component={RosSuggestedInstance}/>
+            <Route path='suggested-instance-types' component={RosSuggestedInstance}/>
             <Route path=':inventoryId' element={<RosSystemDetail/>} />
             <Navigate to='/ros' />
         </Routes>

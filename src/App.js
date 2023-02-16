@@ -51,13 +51,7 @@ class App extends Component {
 
         const chrome = this.props.chrome;
         chrome?.updateDocumentTitle('Resource Optimization | Red Hat Insights');
-        this.unregister = chrome.on('APP_NAVIGATION', (event) => {
-            if (event.navId === 'ros') {
-                this.props.history.push(`/${location.search}${location.hash}`);
-            } else {
-                this.props.history.push(`/${event.navId}${location.search}${location.hash}`);
-            }
-        });
+
         (async () => {
             const rosPermissions = await chrome.getUserPermissions('ros', true);
             this.handlePermissionsUpdate(
@@ -65,12 +59,6 @@ class App extends Component {
             );
         })();
 
-    }
-
-    componentWillUnmount () {
-        if (typeof this.unregister === 'function') {
-            this.unregister();
-        }
     }
 
     render () {
@@ -94,7 +82,6 @@ class App extends Component {
 }
 
 App.propTypes = {
-    history: PropTypes.object,
     chrome: PropTypes.object
 };
 
