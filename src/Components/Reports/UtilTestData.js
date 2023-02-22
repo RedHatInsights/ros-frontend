@@ -33,7 +33,7 @@ export const sysResponseTestData = [
         instance_type: 't2.micro',  /* eslint-disable-line camelcase */
         idling_time: '19.70',  /* eslint-disable-line camelcase */
         os: 'RHEL 8.4',
-        report_date: '2022-03-30 00:01:37+00:00'  /* eslint-disable-line camelcase */
+        report_date: '2022-03-30T00:01:37+00:00'  /* eslint-disable-line camelcase */
     }
 ];
 
