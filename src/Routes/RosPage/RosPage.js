@@ -435,7 +435,7 @@ class RosPage extends React.Component {
                                             variant='none'
                                             className="pf-c-dropdown__menu-item"
                                             onClick={() => this.setExportSystemsPDF(true)}>
-                                            Export as PDF
+                                            Export to PDF
                                         </Button>
                                     </li>
                                 ],
