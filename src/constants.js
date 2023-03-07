@@ -35,7 +35,7 @@ export const GETTING_STARTED_URL =  'https://access.redhat.com/documentation/en-
 
 // Custom Filters
 export const CUSTOM_FILTERS = {
-     state: {
+    state: {
         label: 'State',
         type: 'checkbox',
         filterValues: {
