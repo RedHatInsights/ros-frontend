@@ -77,90 +77,90 @@ export const WITH_WAITING_FOR_DATA_PARAM = 'with_waiting_for_data';
 // Systems table columns
 
 export const SYSTEM_TABLE_COLUMNS = [
-  {
-    key: 'display_name',
-    title: 'Name',
-    modalTitle: 'Name',
-    renderFunc: (data, id, item) => systemName(data, id, item),
-    isChecked: true,
-    isDisabled: true,
-    isShownByDefault: true,
-  },
-  {
-    key: 'os',
-    title: (
-      <Tooltip content={<span>Operating system</span>}>
-        <span>OS</span>
-      </Tooltip>
-    ),
-    modalTitle: 'Operating system',
-    dataLabel: 'Operating system',
-    renderFunc: (data) => displayOS(data),
-    isChecked: true,
-    isDisabled: false,
-    isShownByDefault: true,
-  },
-  {
-    key: 'performance_utilization.cpu',
-    title: 'CPU utilization',
-    modalTitle: 'CPU utilization',
-    renderFunc: (data, id, item) => scoreProgress(data, id, item),
-    isChecked: true,
-    isDisabled: false,
-    isShownByDefault: true,
-  },
-  {
-    key: 'performance_utilization.memory',
-    title: 'Memory utilization',
-    modalTitle: 'Memory utilization',
-    renderFunc: (data, id, item) => scoreProgress(data, id, item),
-    isChecked: true,
-    isDisabled: false,
-    isShownByDefault: true,
-  },
-  {
-    key: 'performance_utilization.max_io',
-    title: (
-      <Tooltip content={<span>IOPS</span>}>
-        <span>I/O utilization</span>
-      </Tooltip>
-    ),
-    modalTitle: 'I/O utilization',
-    dataLabel: 'I/O utilization',
-    renderFunc: (data, id, item) => diskUsageData(data, id, item),
-    isChecked: true,
-    isDisabled: false,
-    isShownByDefault: true,
-  },
-  {
-    key: 'number_of_suggestions',
-    title: 'Suggestions',
-    modalTitle: 'Suggestions',
-    renderFunc: (data, id, item) => recommendations(data, id, item),
-    isChecked: true,
-    isDisabled: false,
-    isShownByDefault: true,
-  },
-  {
-    key: 'state',
-    title: 'State',
-    modalTitle: 'State',
-    renderFunc: (data) => displayState(data),
-    isChecked: true,
-    isDisabled: false,
-    isShownByDefault: true,
-  },
-  {
-    key: 'report_date',
-    title: 'Last reported',
-    modalTitle: 'Last reported',
-    renderFunc: (data) => displayLastReported(data),
-    isChecked: true,
-    isDisabled: false,
-    isShownByDefault: true,
-    transforms: [nowrap],
-    cellTransforms: [nowrap],
-  },
+    {
+        key: 'display_name',
+        title: 'Name',
+        modalTitle: 'Name',
+        renderFunc: (data, id, item) => systemName(data, id, item),
+        isChecked: true,
+        isDisabled: true,
+        isShownByDefault: true
+    },
+    {
+        key: 'os',
+        title: (
+            <Tooltip content={<span>Operating system</span>}>
+                <span>OS</span>
+            </Tooltip>
+        ),
+        modalTitle: 'Operating system',
+        dataLabel: 'Operating system',
+        renderFunc: (data) => displayOS(data),
+        isChecked: true,
+        isDisabled: false,
+        isShownByDefault: true
+    },
+    {
+        key: 'performance_utilization.cpu',
+        title: 'CPU utilization',
+        modalTitle: 'CPU utilization',
+        renderFunc: (data, id, item) => scoreProgress(data, id, item),
+        isChecked: true,
+        isDisabled: false,
+        isShownByDefault: true
+    },
+    {
+        key: 'performance_utilization.memory',
+        title: 'Memory utilization',
+        modalTitle: 'Memory utilization',
+        renderFunc: (data, id, item) => scoreProgress(data, id, item),
+        isChecked: true,
+        isDisabled: false,
+        isShownByDefault: true
+    },
+    {
+        key: 'performance_utilization.max_io',
+        title: (
+            <Tooltip content={<span>IOPS</span>}>
+                <span>I/O utilization</span>
+            </Tooltip>
+        ),
+        modalTitle: 'I/O utilization',
+        dataLabel: 'I/O utilization',
+        renderFunc: (data, id, item) => diskUsageData(data, id, item),
+        isChecked: true,
+        isDisabled: false,
+        isShownByDefault: true
+    },
+    {
+        key: 'number_of_suggestions',
+        title: 'Suggestions',
+        modalTitle: 'Suggestions',
+        renderFunc: (data, id, item) => recommendations(data, id, item),
+        isChecked: true,
+        isDisabled: false,
+        isShownByDefault: true
+    },
+    {
+        key: 'state',
+        title: 'State',
+        modalTitle: 'State',
+        renderFunc: (data) => displayState(data),
+        isChecked: true,
+        isDisabled: false,
+        isShownByDefault: true
+    },
+    {
+        key: 'report_date',
+        title: 'Last reported',
+        modalTitle: 'Last reported',
+        renderFunc: (data) => displayLastReported(data),
+        isChecked: true,
+        isDisabled: false,
+        isShownByDefault: true,
+        transforms: [nowrap],
+        cellTransforms: [nowrap]
+    }
 ];
 
 // Historical Chart
