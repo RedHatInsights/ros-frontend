@@ -2,10 +2,10 @@ import React from 'react';
 import { nowrap } from '@patternfly/react-table';
 import { Tooltip } from '@patternfly/react-core';
 import {
-  displayState,
-  recommendations,
-  scoreProgress,
-  systemName,
+    displayState,
+    recommendations,
+    scoreProgress,
+    systemName
 } from './store/entitiesReducer';
 import {
   diskUsageData,
