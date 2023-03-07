@@ -36,38 +36,38 @@ export const GETTING_STARTED_URL =
 
 // Custom Filters
 export const CUSTOM_FILTERS = {
-  state: {
-    label: 'State',
-    type: 'checkbox',
-    filterValues: {
-      items: [
-        {
-          label: 'Idling',
-          value: 'Idling',
-        },
-        {
-          label: 'Optimized',
-          value: 'Optimized',
-        },
-        {
-          label: 'Oversized',
-          value: 'Oversized',
-        },
-        {
-          label: 'Under pressure',
-          value: 'Under pressure',
-        },
-        {
-          label: 'Undersized',
-          value: 'Undersized',
-        },
-        {
-          label: 'Waiting for data',
-          value: 'Waiting for data',
-        },
-      ],
-    },
-  },
+     state: {
+        label: 'State',
+        type: 'checkbox',
+        filterValues: {
+            items: [
+                {
+                    label: 'Idling',
+                    value: 'Idling'
+                },
+                {
+                    label: 'Optimized',
+                    value: 'Optimized'
+                },
+                {
+                    label: 'Oversized',
+                    value: 'Oversized'
+                },
+                {
+                    label: 'Under pressure',
+                    value: 'Under pressure'
+                },
+                {
+                    label: 'Undersized',
+                    value: 'Undersized'
+                },
+                {
+                    label: 'Waiting for data',
+                    value: 'Waiting for data'
+                }
+            ]
+        }
+    }
 };
 
 // Query params for state filters
