@@ -8,9 +8,9 @@ import {
     systemName
 } from './store/entitiesReducer';
 import {
-  diskUsageData,
-  displayLastReported,
-  displayOS,
+    diskUsageData,
+    displayLastReported,
+    displayOS
 } from './Components/RosTable/RenderColumn';
 
 // API
