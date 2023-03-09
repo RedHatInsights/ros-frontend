@@ -2,7 +2,9 @@ import React, { useState, useEffect }  from 'react';
 import {
     Chart,
     ChartAxis,
+    ChartCursorTooltip,
     ChartGroup,
+    ChartLabel,
     ChartLine,
     ChartScatter,
     ChartThemeColor,
@@ -88,6 +90,15 @@ export const HistoricalDataChart = ({ inventoryId }) => {
         </FlexItem>;
     };
 
+    const getTooltipLabels = (datum) => {
+        const xDate = new Date(datum.x);
+        const isToday = new Date().toDateString() === xDate.toDateString();
+        let xDateString = isToday ? 'Today' : `${xDate.getDate()} ${MONTHS[xDate.getMonth()]}`;
+        xDateString = datum.name.includes('CPU') ? `${xDateString}\n   \n` : '';
+        return datum.childName.includes('scatter-')
+                && datum.y !== null ? `${xDateString}${datum.name}: ${datum.y}%` : null;
+    };
+
     const displayChart = () => {
         return  chartData.length === 0 ?
             <FlexItem alignSelf={{ default: 'alignSelfBaseline' }}>
@@ -122,8 +133,17 @@ export const HistoricalDataChart = ({ inventoryId }) => {
                         scale={{ x: 'time', y: 'linear' }}
                         containerComponent={
                             <VictoryZoomVoronoiContainer
-                                labels={({ datum }) => {
-                                    return datum.childName.includes('scatter-') && datum.y !== null ? `${datum.name}: ${datum.y}%` : null;}
+                                labels={({ datum }) => getTooltipLabels(datum)}
+                                labelComponent={
+                                    <ChartCursorTooltip
+                                        labelComponent={<ChartLabel
+                                            style={[
+                                                { fill: 'white', fontSize: 16,  fontWeight: 700 },
+                                                { fill: 'white' },
+                                                { fill: 'white' },
+                                                { fill: 'white' }
+                                            ]}/>}
+                                    />
                                 }
                                 constrainToVisibleArea
                                 voronoiDimension="x"
