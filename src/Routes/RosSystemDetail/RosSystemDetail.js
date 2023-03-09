@@ -2,10 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withRouter, Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { Grid, GridItem, Breadcrumb, BreadcrumbItem } from '@patternfly/react-core';
+import { Grid, GridItem, Breadcrumb, BreadcrumbItem, Spinner } from '@patternfly/react-core';
 import { Main } from '@redhat-cloud-services/frontend-components/Main';
 import { PageHeader } from '@redhat-cloud-services/frontend-components/PageHeader';
-import { InventoryDetailHead, AppInfo, DetailWrapper } from '@redhat-cloud-services/frontend-components/Inventory';
+import { InventoryDetailHead, DetailWrapper } from '@redhat-cloud-services/frontend-components/Inventory';
 import { register } from '../../store';
 import { loadSystemInfo } from '../../store/actions';
 import { entityDetailReducer } from '../../store/entityDetailReducer';
@@ -27,6 +27,7 @@ import {
     DescriptionListDescription
 } from '@patternfly/react-core';
 import { HistoricalDataChart } from '../../Components/HistoricalDataChart/HistoricalDataChart';
+import SystemDetailWrapper from '../../Components/SystemDetail/SystemDetail';
 
 class RosSystemDetail extends React.Component {
     constructor(props) {
@@ -100,6 +101,7 @@ class RosSystemDetail extends React.Component {
                         value.permissions.systemsRead === false
                             ? <NotAuthorized serviceName='Resource Optimization'/>
                             : <DetailWrapper
+                                inventoryId={this.state.inventoryId}
                                 onLoad={({ mergeWithDetail, INVENTORY_ACTION_TYPES }) => {
                                     register(mergeWithDetail(
                                         entityDetailReducer(INVENTORY_ACTION_TYPES)
@@ -134,7 +136,7 @@ class RosSystemDetail extends React.Component {
                                 <Main>
                                     <Grid gutter="md">
                                         <GridItem span={12}>
-                                            <AppInfo showTags fallback="" />
+                                            { entity ? <SystemDetailWrapper showTags fallback=""/> : <Spinner/>}
                                         </GridItem>
                                     </Grid>
                                 </Main>
