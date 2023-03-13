@@ -1,6 +1,4 @@
 import React, { Fragment, useState } from 'react';
-import { DownloadButton } from '@redhat-cloud-services/frontend-components-pdf-generator';
-import ExportIcon from '@patternfly/react-icons/dist/js/icons/export-icon';
 import './ExecutiveePDFReport.scss';
 import { fetchExecutiveReport } from '../../Utilities/api';
 import { useDispatch } from 'react-redux';
@@ -8,68 +6,57 @@ import {
     addNotification,
     clearNotifications
 } from '@redhat-cloud-services/frontend-components-notifications/redux';
-import { ExecutiveFirstPage } from './Common/ExecutiveFirstPage';
-import { ExecutiveSecondPage } from './Common/ExecutiveSecondPage';
-import { ExecutiveThirdPage } from './Common/ExecutiveThirdPage';
 import propTypes from 'prop-types';
 import { REPORT_NOTIFICATIONS } from './Constants';
+import { DownloadButton } from './Common/DownloadButton';
 
 export const DownloadExecutivePDFReport = ({ isDisabled }) => {
     const [loading, setLoading] = useState(false);
     const dispatch = useDispatch();
     const { start, success, failure } = REPORT_NOTIFICATIONS;
 
-    const generateExecutivePDFReport =  async () =>{
-        try {
-            setLoading(true);
-            dispatch(addNotification(start));
+    const generateExecutivePDFReport = () =>{
+        const fileName = `Resource-Optimization-Executive-Report--${new Date().toISOString().replace(/[T:]/g, '-').split('.')[0]}-utc.pdf`;
 
-            const executiveReportResponse = await fetchExecutiveReport();
+        setLoading(true);
+        dispatch(addNotification(start));
+
+        fetch('/api/crc-pdf-generator/v1/generate', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+
+            body: JSON.stringify({
+                service: 'ros',
+                template: 'executiveReport'
+            })
+        })
+        .then((response) => response.blob())
+        .then((blob) => {
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = fileName;
+            document.body.appendChild(a);
+            a.click();
+            a.remove();
 
             dispatch(clearNotifications());
             dispatch(addNotification(success));
             setLoading(false);
-
-            return [
-                <ExecutiveFirstPage key='executive-first-page' data={executiveReportResponse} />,
-                <ExecutiveSecondPage key='executive-second-page' data={executiveReportResponse} />,
-                <ExecutiveThirdPage key='executive-third-page' />
-            ];
-
-        }
-        catch (error) {
-            dispatch(clearNotifications());
-            dispatch(addNotification(failure));
-        }
+        });
 
     };
 
     return (
         <Fragment>
             <DownloadButton
-                label={
-                    loading
-                        ? 'Loading...'
-                        : 'Download executive report'
-                }
-                reportName={'Resource optimization service report'}
-                type=""
-                fileName={`Resource-Optimization-Executive-Report--${new Date().toISOString().replace(/[T:]/g, '-').split('.')[0]}-utc.pdf`}
-                size="A4"
-                allPagesHaveTitle={false}
-                asyncFunction={() => generateExecutivePDFReport()}
+                buttonName="Download Executive Report"
+                onDownloadClick={() => generateExecutivePDFReport() }
                 buttonProps={{
-                    variant: 'link',
-                    component: 'a',
-                    icon: <ExportIcon className="iconOverride" />,
-                    className: 'downloadButtonOverride',
-                    isAriaDisabled: isDisabled,
-                    ...(loading ? { isDisabled: true } : null)
+                    className: 'downloadButtonOverride'
                 }}
-                ErrorComponent= {(error) => <div>
-                    <h2> Error while loading executive report </h2>
-                    {error?.message && <p>{error.message}</p>}
-                </div>}
             />
         </Fragment>
     );
