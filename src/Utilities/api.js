@@ -142,14 +142,20 @@ export const fetchSystemHistory = (inventoryId, limit) => {
 export const fetchExecutiveReport = async () => {
     await window.insights.chrome.auth.getUser();
 
-    const url = new URL(`${ROS_API_ROOT}${EXECUTIVE_REPORT_API}`,  window.location.origin);
+    const url = new URL(EXECUTIVE_REPORT_API,  window.location.origin);
 
-    return fetch(url).then((res) => {
-        if (!res.ok) {
-            throw Error(res.statusText);
-        }
+    return fetch(url, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
 
-        return res;
-    }).then(res =>  res.json());
+        body: JSON.stringify({
+            service: 'ros',
+            template: 'executiveReport'
+        })
+    })
+    .then(handleErrors)
+    .then((response) => response.blob());
 
 };

@@ -8,33 +8,23 @@ import {
 } from '@redhat-cloud-services/frontend-components-notifications/redux';
 import propTypes from 'prop-types';
 import { REPORT_NOTIFICATIONS } from './Constants';
-import { DownloadButton } from './Common/DownloadButton';
+import { Button } from '@patternfly/react-core';
+import { ExportIcon } from '@patternfly/react-icons';
 
 export const DownloadExecutivePDFReport = ({ isDisabled }) => {
     const [loading, setLoading] = useState(false);
     const dispatch = useDispatch();
     const { start, success, failure } = REPORT_NOTIFICATIONS;
 
-    const generateExecutivePDFReport = () =>{
+    const generateExecutivePDFReport = async () =>{
         const fileName = `Resource-Optimization-Executive-Report--${new Date().toISOString().replace(/[T:]/g, '-').split('.')[0]}-utc.pdf`;
 
-        setLoading(true);
-        dispatch(addNotification(start));
+        try {
+            setLoading(true);
+            dispatch(addNotification(start));
 
-        fetch('/api/crc-pdf-generator/v1/generate', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-
-            body: JSON.stringify({
-                service: 'ros',
-                template: 'executiveReport'
-            })
-        })
-        .then((response) => response.blob())
-        .then((blob) => {
-            const url = window.URL.createObjectURL(blob);
+            const executiveReportBlob = await fetchExecutiveReport();
+            const url = window.URL.createObjectURL(executiveReportBlob);
             const a = document.createElement('a');
             a.href = url;
             a.download = fileName;
@@ -45,19 +35,30 @@ export const DownloadExecutivePDFReport = ({ isDisabled }) => {
             dispatch(clearNotifications());
             dispatch(addNotification(success));
             setLoading(false);
-        });
+
+        }
+        catch (error) {
+            dispatch(clearNotifications());
+            dispatch(addNotification(failure));
+            setLoading(false);
+        }
 
     };
 
     return (
         <Fragment>
-            <DownloadButton
-                buttonName="Download Executive Report"
-                onDownloadClick={() => generateExecutivePDFReport() }
-                buttonProps={{
-                    className: 'downloadButtonOverride'
-                }}
-            />
+            <Button
+                variant="link"
+                icon={<ExportIcon />}
+                iconPosition="left"
+                onClick={() => generateExecutivePDFReport()}
+                isDisabled={loading || isDisabled}
+                className='downloadButtonOverride'>
+                {  loading
+                    ? 'Loading...'
+                    : 'Download executive report'
+                }
+            </Button>
         </Fragment>
     );
 };

@@ -1,10 +1,11 @@
-.iconOverride {
-    color: var('--pf-global--link--Color');
-    margin-right: 5px;
-}
-
 .downloadButtonOverride {
     float: right;
+    color: var('--pf-global--link--Color');
+    
+    .pf-c-button__icon.pf-m-start {
+        margin-right: var(--pf-global--spacer--sm);
+    }
+
     @media only screen and (max-width: 585px) {
         float: none;
         padding-left: 0px;
