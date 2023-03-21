@@ -1,5 +1,5 @@
 import { SortByDirection } from '@patternfly/react-table';
-import { ROS_API_ROOT, SYSTEMS_API_ROOT, IS_CONFIGURED_API, EXECUTIVE_REPORT_API } from '../constants';
+import { ROS_API_ROOT, SYSTEMS_API_ROOT, IS_CONFIGURED_API, CRC_PDF_GENERATE_API } from '../constants';
 
 export function handleErrors(response) {
     if (!response.ok) {
@@ -142,7 +142,7 @@ export const fetchSystemHistory = (inventoryId, limit) => {
 export const fetchExecutiveReport = async () => {
     await window.insights.chrome.auth.getUser();
 
-    const url = new URL(EXECUTIVE_REPORT_API,  window.location.origin);
+    const url = new URL(CRC_PDF_GENERATE_API,  window.location.origin);
 
     return fetch(url, {
         method: 'POST',
