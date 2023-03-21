@@ -1,5 +1,5 @@
 import { generateFilterText, formatData, responseToCSVData, responseToJSONData } from './Util';
-import { executiveReponseTestData, sysResponseTestData } from './UtilTestData';
+import { sysResponseTestData } from './UtilTestData';
 
 describe('Util generateFilterText method tests', () => {
     it('should generate filter text for name filter', () => {

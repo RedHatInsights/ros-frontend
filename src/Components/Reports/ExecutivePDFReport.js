@@ -7,7 +7,7 @@ import {
     clearNotifications
 } from '@redhat-cloud-services/frontend-components-notifications/redux';
 import propTypes from 'prop-types';
-import { REPORT_NOTIFICATIONS } from './Constants';
+import { EXECUTIVE_REPORT_FILE_NAME, REPORT_NOTIFICATIONS } from './Constants';
 import { Button } from '@patternfly/react-core';
 import { ExportIcon } from '@patternfly/react-icons';
 
@@ -17,7 +17,8 @@ export const DownloadExecutivePDFReport = ({ isDisabled }) => {
     const { start, success, failure } = REPORT_NOTIFICATIONS;
 
     const generateExecutivePDFReport = async () =>{
-        const fileName = `Resource-Optimization-Executive-Report--${new Date().toISOString().replace(/[T:]/g, '-').split('.')[0]}-utc.pdf`;
+        const currentDate = `${new Date().toISOString().replace(/[T:]/g, '-').split('.')[0]}-utc.pdf`;
+        const fileName = `${EXECUTIVE_REPORT_FILE_NAME}${currentDate}`;
 
         try {
             setLoading(true);
