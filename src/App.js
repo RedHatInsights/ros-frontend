@@ -50,7 +50,6 @@ class App extends Component {
         });
 
         const chrome = this.props.chrome;
-        chrome?.init();
         chrome?.identifyApp('ros');
         this.unregister = chrome.on('APP_NAVIGATION', (event) => {
             if (event.navId === 'ros') {

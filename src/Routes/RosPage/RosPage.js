@@ -136,9 +136,6 @@ class RosPage extends React.Component {
     }
 
     async fetchSystems(fetchParams) {
-        const chrome = this.props.chrome;
-        await chrome?.auth.getUser();
-
         let params = {
             limit: fetchParams.perPage,
             offset: (fetchParams.page - 1) * fetchParams.perPage,
