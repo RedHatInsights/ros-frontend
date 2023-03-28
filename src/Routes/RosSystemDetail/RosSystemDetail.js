@@ -180,7 +180,7 @@ const RosSystemDetailWithChrome = props => {
     return (
         <RosSystemDetail { ...props } chrome={ chrome } />
     );
-}
+};
 
 export default withRouter(
     connect(

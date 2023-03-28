@@ -528,13 +528,12 @@ RosPage.propTypes = {
     chrome: PropTypes.object
 };
 
-
 const RosPageWithChrome =  props => {
     const chrome = useChrome();
 
     return (
         <RosPage {...props} chrome={ chrome } />
-    )
-}
+    );
+};
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(RosPageWithChrome));

@@ -15,7 +15,7 @@ export const isROSConfigured = () => {
         window.location.origin
     );
     let response = fetch(url).then(handleErrors)
-        .then(res =>  res.json()).then(result => result);
+    .then(res =>  res.json()).then(result => result);
 
     return response;
 };
@@ -26,7 +26,7 @@ export const fetchSystemDetail = inventoryId => {
         window.location.origin
     );
     let response = fetch(url).then(handleErrors)
-        .then(res =>  res.json()).then(result => result);
+    .then(res =>  res.json()).then(result => result);
 
     return response;
 };
@@ -46,15 +46,15 @@ export const fetchSystemRecommendations = (inventoryId, options = {}) => {
     );
     url.search = new URLSearchParams(params).toString();
     let response = fetch(url).then((resp) => {
-            if (!resp.ok && resp.status === 404) {
-                return { hasError: true };
-            } else if (!resp.ok) {
-                throw Error(resp.statusText);
-            }
+        if (!resp.ok && resp.status === 404) {
+            return { hasError: true };
+        } else if (!resp.ok) {
+            throw Error(resp.statusText);
+        }
 
-            return resp.json();
-        })
-        .then(result => result);
+        return resp.json();
+    })
+    .then(result => result);
 
     return response;
 };
@@ -116,7 +116,7 @@ export const fetchSystemHistory = (inventoryId, limit) => {
     url.search = query.toString();
 
     let response = fetch(url).then(handleErrors)
-        .then(res =>  res.json()).then(result => result);
+    .then(res =>  res.json()).then(result => result);
 
     return response;
 };

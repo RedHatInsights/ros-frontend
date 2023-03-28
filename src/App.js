@@ -52,7 +52,7 @@ class App extends Component {
         const chrome = this.props.chrome;
         chrome?.init();
         chrome?.identifyApp('ros');
-        this.unregister = chrome?.on('APP_NAVIGATION', (event) => {
+        this.unregister = chrome.on('APP_NAVIGATION', (event) => {
             if (event.navId === 'ros') {
                 this.props.history.push(`/${location.search}${location.hash}`);
             } else {
@@ -60,7 +60,7 @@ class App extends Component {
             }
         });
         (async () => {
-            const rosPermissions = await chrome?.getUserPermissions('ros', true);
+            const rosPermissions = await chrome.getUserPermissions('ros', true);
             this.handlePermissionsUpdate(
                 rosPermissions.some(({ permission }) => this.hasPermission(permission, ['ros:*:*', 'ros:*:read']))
             );
@@ -106,7 +106,6 @@ const AppWithChrome = props => {
         <App {...props} chrome={ chrome } />
     );
 };
-
 
 /**
  * withRouter: https://reacttraining.com/react-router/web/api/withRouter
