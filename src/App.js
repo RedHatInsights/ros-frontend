@@ -8,6 +8,7 @@ import NotificationsPortal from '@redhat-cloud-services/frontend-components-noti
 import { notificationsReducer } from '@redhat-cloud-services/frontend-components-notifications/redux';
 import { systemRecsReducer, systemDetailReducer, isConfiguredReducer, systemColumnsReducer } from './store/reducers';
 import { register } from './store';
+import { useChrome } from '@redhat-cloud-services/frontend-components/useChrome';
 
 export const PermissionContext = createContext();
 
@@ -47,9 +48,11 @@ class App extends Component {
             isConfiguredReducer,
             systemColumnsReducer
         });
-        insights.chrome.init();
-        insights.chrome.identifyApp('ros');
-        this.unregister = insights.chrome.on('APP_NAVIGATION', (event) => {
+
+        const chrome = this.props.chrome;
+        chrome?.init();
+        chrome?.identifyApp('ros');
+        this.unregister = chrome?.on('APP_NAVIGATION', (event) => {
             if (event.navId === 'ros') {
                 this.props.history.push(`/${location.search}${location.hash}`);
             } else {
@@ -57,7 +60,7 @@ class App extends Component {
             }
         });
         (async () => {
-            const rosPermissions = await insights.chrome.getUserPermissions('ros', true);
+            const rosPermissions = await chrome?.getUserPermissions('ros', true);
             this.handlePermissionsUpdate(
                 rosPermissions.some(({ permission }) => this.hasPermission(permission, ['ros:*:*', 'ros:*:read']))
             );
@@ -92,12 +95,22 @@ class App extends Component {
 }
 
 App.propTypes = {
-    history: PropTypes.object
+    history: PropTypes.object,
+    chrome: PropTypes.object
 };
+
+const AppWithChrome = props => {
+    const chrome = useChrome();
+
+    return (
+        <App {...props} chrome={ chrome } />
+    );
+};
+
 
 /**
  * withRouter: https://reacttraining.com/react-router/web/api/withRouter
  * connect: https://github.com/reactjs/react-redux/blob/master/docs/api.md
  *          https://reactjs.org/docs/higher-order-components.html
  */
-export default withRouter (connect()(App));
+export default withRouter (connect()(AppWithChrome));

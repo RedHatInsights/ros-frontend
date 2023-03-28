@@ -14,12 +14,8 @@ export const isROSConfigured = () => {
         ROS_API_ROOT + IS_CONFIGURED_API,
         window.location.origin
     );
-    let response = window.insights.chrome.auth
-    .getUser()
-    .then(() =>
-        fetch(url).then(handleErrors)
-        .then(res =>  res.json()).then(result => result)
-    );
+    let response = fetch(url).then(handleErrors)
+        .then(res =>  res.json()).then(result => result);
 
     return response;
 };
@@ -29,12 +25,8 @@ export const fetchSystemDetail = inventoryId => {
         ROS_API_ROOT + SYSTEMS_API_ROOT + `/${inventoryId}`,
         window.location.origin
     );
-    let response = window.insights.chrome.auth
-    .getUser()
-    .then(() =>
-        fetch(url).then(handleErrors)
-        .then(res =>  res.json()).then(result => result)
-    );
+    let response = fetch(url).then(handleErrors)
+        .then(res =>  res.json()).then(result => result);
 
     return response;
 };
@@ -53,10 +45,7 @@ export const fetchSystemRecommendations = (inventoryId, options = {}) => {
         window.location.origin
     );
     url.search = new URLSearchParams(params).toString();
-    let response = window.insights.chrome.auth
-    .getUser()
-    .then(() =>
-        fetch(url).then((resp) => {
+    let response = fetch(url).then((resp) => {
             if (!resp.ok && resp.status === 404) {
                 return { hasError: true };
             } else if (!resp.ok) {
@@ -65,15 +54,12 @@ export const fetchSystemRecommendations = (inventoryId, options = {}) => {
 
             return resp.json();
         })
-        .then(result => result)
-    );
+        .then(result => result);
 
     return response;
 };
 
 export const fetchSystems = async (fetchParams) => {
-    await window.insights.chrome.auth.getUser();
-
     const { perPage, orderBy, orderHow  } = fetchParams || {};
 
     const sortingHeader = {
@@ -129,19 +115,13 @@ export const fetchSystemHistory = (inventoryId, limit) => {
     let query = new URLSearchParams(params);
     url.search = query.toString();
 
-    let response = window.insights.chrome.auth
-    .getUser()
-    .then(() =>
-        fetch(url).then(handleErrors)
-        .then(res =>  res.json()).then(result => result)
-    );
+    let response = fetch(url).then(handleErrors)
+        .then(res =>  res.json()).then(result => result);
 
     return response;
 };
 
 export const fetchExecutiveReport = async () => {
-    await window.insights.chrome.auth.getUser();
-
     const url = new URL(CRC_PDF_GENERATE_API,  window.location.origin);
 
     return fetch(url, {
