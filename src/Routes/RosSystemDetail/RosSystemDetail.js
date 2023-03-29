@@ -28,6 +28,7 @@ import {
 } from '@patternfly/react-core';
 import { HistoricalDataChart } from '../../Components/HistoricalDataChart/HistoricalDataChart';
 import SystemDetailWrapper from '../../Components/SystemDetail/SystemDetail';
+import { useChrome } from '@redhat-cloud-services/frontend-components/useChrome';
 
 class RosSystemDetail extends React.Component {
     constructor(props) {
@@ -38,8 +39,9 @@ class RosSystemDetail extends React.Component {
     }
 
     async componentDidMount() {
-        insights.chrome?.hideGlobalFilter?.(true);
-        insights.chrome.appAction('system-detail');
+        const chrome = this.props.chrome;
+        chrome?.hideGlobalFilter?.(true);
+        chrome.appAction('system-detail');
         await this.props.loadSystemInfo(this.state.inventoryId);
         document.title = this.props.rosSystemInfo.display_name;
     }
@@ -153,7 +155,8 @@ RosSystemDetail.propTypes = {
     entity: PropTypes.object,
     loading: PropTypes.bool,
     rosSystemInfo: PropTypes.object,
-    loadSystemInfo: PropTypes.func
+    loadSystemInfo: PropTypes.func,
+    chrome: PropTypes.object
 };
 
 const mapStateToProps = (state, props) => {
@@ -171,8 +174,16 @@ function mapDispatchToProps(dispatch) {
     };
 }
 
+const RosSystemDetailWithChrome = props => {
+    const chrome = useChrome();
+
+    return (
+        <RosSystemDetail { ...props } chrome={ chrome } />
+    );
+};
+
 export default withRouter(
     connect(
         mapStateToProps,
-        mapDispatchToProps)(RosSystemDetail)
+        mapDispatchToProps)(RosSystemDetailWithChrome)
 );
