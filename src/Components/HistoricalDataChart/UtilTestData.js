@@ -9,7 +9,7 @@ export const testHistoryResponseData_7 = [
             xvda: 0.314
         },
         max_io: 0.314,
-        report_date: '2022-04-24 19:22:08.632151+00:00'
+        report_date: '2022-04-24T19:22:08.632151+00:00'
     },
     {
         cpu: 90,
@@ -18,7 +18,7 @@ export const testHistoryResponseData_7 = [
             xvda: 0.314
         },
         max_io: 0.314,
-        report_date: '2022-04-23 19:22:08.760526+00:00'
+        report_date: '2022-04-23T19:22:08.760526+00:00'
     },
     {
         cpu: 10,
@@ -27,7 +27,7 @@ export const testHistoryResponseData_7 = [
             xvda: 0.314
         },
         max_io: 0.314,
-        report_date: '2022-04-22 19:23:47.360751+00:00'
+        report_date: '2022-04-22T19:23:47.360751+00:00'
     },
     {
         cpu: 90,
@@ -36,7 +36,7 @@ export const testHistoryResponseData_7 = [
             xvda: 0.314
         },
         max_io: 0.314,
-        report_date: '2022-04-04 19:22:08.887880+00:00'
+        report_date: '2022-04-04T19:22:08.887880+00:00'
     },
     {
         cpu: 10,
@@ -45,7 +45,7 @@ export const testHistoryResponseData_7 = [
             xvda: 0.314
         },
         max_io: 0.314,
-        report_date: '2022-03-17 19:22:08.494760+00:00'
+        report_date: '2022-03-17T19:22:08.494760+00:00'
     },
     {
         cpu: 10,
@@ -54,7 +54,7 @@ export const testHistoryResponseData_7 = [
             xvda: 0.314
         },
         max_io: 0.314,
-        report_date: '2022-03-16 19:27:57.187123+00:00'
+        report_date: '2022-03-16T19:27:57.187123+00:00'
     },
     {
         cpu: 10,
@@ -63,7 +63,7 @@ export const testHistoryResponseData_7 = [
             xvda: 0.314
         },
         max_io: 0.314,
-        report_date: '2022-03-15 19:31:11.300610+00:00'
+        report_date: '2022-03-15T19:31:11.300610+00:00'
     }
 ];
 
@@ -101,7 +101,7 @@ export const testHistoryResponseData_7_same_day = [
             xvda: 0.314
         },
         max_io: 0.314,
-        report_date: '2022-04-24 19:22:08.632151+00:00'
+        report_date: '2022-04-24T19:22:08.632151+00:00'
     },
     {
         cpu: 90,
@@ -119,7 +119,7 @@ export const testHistoryResponseData_7_same_day = [
             xvda: 0.314
         },
         max_io: 0.314,
-        report_date: '2022-04-22 19:23:47.360751+00:00'
+        report_date: '2022-04-22T19:23:47.360751+00:00'
     },
     {
         cpu: 90,
@@ -128,7 +128,7 @@ export const testHistoryResponseData_7_same_day = [
             xvda: 0.314
         },
         max_io: 0.314,
-        report_date: '2022-04-04 19:22:08.887880+00:00'
+        report_date: '2022-04-04T19:22:08.887880+00:00'
     },
     {
         cpu: 10,
@@ -137,7 +137,7 @@ export const testHistoryResponseData_7_same_day = [
             xvda: 0.314
         },
         max_io: 0.314,
-        report_date: '2022-03-17 19:22:08.494760+00:00'
+        report_date: '2022-03-17T19:22:08.494760+00:00'
     },
     {
         cpu: 10,
@@ -146,7 +146,7 @@ export const testHistoryResponseData_7_same_day = [
             xvda: 0.314
         },
         max_io: 0.314,
-        report_date: '2022-03-16 19:27:57.187123+00:00'
+        report_date: '2022-03-16T19:27:57.187123+00:00'
     },
     {
         cpu: 10,
@@ -155,7 +155,7 @@ export const testHistoryResponseData_7_same_day = [
             xvda: 0.314
         },
         max_io: 0.314,
-        report_date: '2022-03-15 19:31:11.300610+00:00'
+        report_date: '2022-03-15T19:31:11.300610+00:00'
     }
 ];
 
@@ -193,7 +193,7 @@ export const testHistoryResponseData_45 = [
             xvda: 0.314
         },
         max_io: 0.314,
-        report_date: '2022-04-24 19:22:08.632151+00:00'
+        report_date: '2022-04-24T19:22:08.632151+00:00'
     },
     {
         cpu: 90,
@@ -202,7 +202,7 @@ export const testHistoryResponseData_45 = [
             xvda: 0.314
         },
         max_io: 0.314,
-        report_date: '2022-04-23 19:22:08.760526+00:00'
+        report_date: '2022-04-23T19:22:08.760526+00:00'
     },
     {
         cpu: 10,
@@ -211,7 +211,7 @@ export const testHistoryResponseData_45 = [
             xvda: 0.314
         },
         max_io: 0.314,
-        report_date: '2022-04-22 19:23:47.360751+00:00'
+        report_date: '2022-04-22T19:23:47.360751+00:00'
     },
     {
         cpu: 90,
@@ -220,7 +220,7 @@ export const testHistoryResponseData_45 = [
             xvda: 0.314
         },
         max_io: 0.314,
-        report_date: '2022-04-04 19:22:08.887880+00:00'
+        report_date: '2022-04-04T19:22:08.887880+00:00'
     },
     {
         cpu: 10,
@@ -229,7 +229,7 @@ export const testHistoryResponseData_45 = [
             xvda: 0.314
         },
         max_io: 0.314,
-        report_date: '2022-03-17 19:22:08.494760+00:00'
+        report_date: '2022-03-17T19:22:08.494760+00:00'
     },
     {
         cpu: 10,
@@ -238,7 +238,7 @@ export const testHistoryResponseData_45 = [
             xvda: 0.314
         },
         max_io: 0.314,
-        report_date: '2022-03-16 19:27:57.187123+00:00'
+        report_date: '2022-03-16T19:27:57.187123+00:00'
     },
     {
         cpu: 10,
@@ -247,7 +247,7 @@ export const testHistoryResponseData_45 = [
             xvda: 0.314
         },
         max_io: 0.314,
-        report_date: '2022-03-15 19:31:11.300610+00:00'
+        report_date: '2022-03-15T19:31:11.300610+00:00'
     },
     {
         cpu: 10,
@@ -256,7 +256,7 @@ export const testHistoryResponseData_45 = [
             xvda: 0.314
         },
         max_io: 0.314,
-        report_date: '2022-03-11 19:22:09.024703+00:00'
+        report_date: '2022-03-11T19:22:09.024703+00:00'
     }
 ];
 

@@ -33,60 +33,7 @@ export const sysResponseTestData = [
         instance_type: 't2.micro',  /* eslint-disable-line camelcase */
         idling_time: '19.70',  /* eslint-disable-line camelcase */
         os: 'RHEL 8.4',
-        report_date: '2022-03-30 00:01:37+00:00'  /* eslint-disable-line camelcase */
+        report_date: '2022-03-30T00:01:37+00:00'  /* eslint-disable-line camelcase */
     }
 ];
-
-export const executiveReponseTestData = {
-    systems_per_state: {
-        under_pressure: {
-            count: 0,
-            percentage: 5.57
-        },
-        undersized: {
-            count: 1,
-            percentage: 7.68
-        },
-        oversized: {
-            count: 7,
-            percentage: 8.91
-        },
-        waiting_for_data: {
-            count: 8,
-            percentage: 5.57
-        },
-        idling: {
-            count: 8,
-            percentage: 5.57
-        }
-    },
-    conditions: {
-        cpu: {
-            count: 23,
-            percentage: 20.88,
-            undersized: null,
-            oversized: 0,
-            under_pressure: 10
-        },
-        io: {
-            count: 23,
-            percentage: 20.88,
-            undersized: -1,
-            oversized: -1,
-            under_pressure: 10
-        },
-        memory: {
-            count: 23,
-            percentage: 20.88,
-            undersized: 10,
-            oversized: null,
-            under_pressure: 10
-        }
-    },
-    meta: {
-        total_count: 55,
-        non_optimized_count: 23,
-        conditions_count: 69
-    }
-};
 
