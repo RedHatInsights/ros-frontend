@@ -27,6 +27,7 @@ import {
     clearNotifications
 } from '@redhat-cloud-services/frontend-components-notifications/redux';
 import { DownloadExecutivePDFReport } from '../../Components/Reports/ExecutivePDFReport';
+import { useChrome } from '@redhat-cloud-services/frontend-components/useChrome';
 
 /**
  * A smart component that handles all the api calls and data needed by the dumb components.
@@ -71,8 +72,9 @@ class RosPage extends React.Component {
 
     async componentDidMount() {
         document.title = 'Resource Optimization - Red Hat Insights';
-        insights.chrome?.hideGlobalFilter?.(true);
-        insights.chrome.appAction('ros-systems');
+        const chrome = this.props.chrome;
+        chrome?.hideGlobalFilter?.(true);
+        chrome?.appAction('ros-systems');
         await this.props.isROSConfigured();
         this.processQueryParams();
         this.processOsVersion();
@@ -134,8 +136,6 @@ class RosPage extends React.Component {
     }
 
     async fetchSystems(fetchParams) {
-        await window.insights.chrome.auth.getUser();
-
         let params = {
             limit: fetchParams.perPage,
             offset: (fetchParams.page - 1) * fetchParams.perPage,
@@ -521,7 +521,16 @@ RosPage.propTypes = {
     columns: PropTypes.array,
     changeSystemColumns: PropTypes.func,
     addNotification: PropTypes.func,
-    clearNotifications: PropTypes.func
+    clearNotifications: PropTypes.func,
+    chrome: PropTypes.object
 };
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(RosPage));
+const RosPageWithChrome =  props => {
+    const chrome = useChrome();
+
+    return (
+        <RosPage {...props} chrome={ chrome } />
+    );
+};
+
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(RosPageWithChrome));
