@@ -71,7 +71,7 @@ class RosPage extends React.Component {
     }
 
     async componentDidMount() {
-        document.title = 'Resource Optimization - Red Hat Insights';
+        document.title = 'Resource Optimization | Red Hat Insights';
         const chrome = this.props.chrome;
         chrome?.hideGlobalFilter?.(true);
         chrome?.appAction('ros-systems');
