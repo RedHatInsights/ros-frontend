@@ -103,7 +103,9 @@ class RosPage extends React.Component {
         osObject.type = 'checkbox';
         osObject.filterValues = {};
         this.fetchSystems({
-            perPage: -1
+            perPage: -1,
+            orderBy: 'os',
+            orderHow: SortByDirection.desc
         }).then((response) => {
             osObject.filterValues.items = Array.from(new Set((response.data).reduce((filtered, system) => {
                 if (system.os) {
