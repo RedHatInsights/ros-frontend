@@ -28,6 +28,7 @@ import {
 } from '@redhat-cloud-services/frontend-components-notifications/redux';
 import { DownloadExecutivePDFReport } from '../../Components/Reports/ExecutivePDFReport';
 import { useChrome } from '@redhat-cloud-services/frontend-components/useChrome';
+import { conditionalFilterType } from '@redhat-cloud-services/frontend-components';
 
 /**
  * A smart component that handles all the api calls and data needed by the dumb components.
@@ -114,6 +115,11 @@ class RosPage extends React.Component {
             }, []))).map(os => {
                 return { label: os, value: os.split(' ')[1] };
             });
+
+            if (osObject.filterValues.items.length === 0) {
+                osObject.filterValues.items = [{ value: '', label: 'No versions available' }];
+                osObject.type = conditionalFilterType.group;
+            }
 
             this.setState({
                 OSFObject: osObject
