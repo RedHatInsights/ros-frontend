@@ -140,7 +140,9 @@ class RosPage extends React.Component {
     async fetchSystems(fetchParams) {
         let params = {
             limit: fetchParams.perPage,
-            offset: (fetchParams.page - 1) * fetchParams.perPage,
+            ...fetchParams?.page && {
+                offset: (fetchParams.page - 1) * fetchParams.perPage
+            },
             order_by: fetchParams.orderBy || this.state.orderBy, /* eslint-disable-line camelcase */
             order_how: fetchParams.orderHow || this.state.orderDirection, /* eslint-disable-line camelcase */
             ...fetchParams?.filters?.hostnameOrId && {
