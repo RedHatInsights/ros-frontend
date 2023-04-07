@@ -103,7 +103,9 @@ class RosPage extends React.Component {
         osObject.type = 'checkbox';
         osObject.filterValues = {};
         this.fetchSystems({
-            perPage: -1
+            perPage: -1,
+            orderBy: 'os',
+            orderHow: SortByDirection.desc
         }).then((response) => {
             osObject.filterValues.items = Array.from(new Set((response.data).reduce((filtered, system) => {
                 if (system.os) {
@@ -138,7 +140,9 @@ class RosPage extends React.Component {
     async fetchSystems(fetchParams) {
         let params = {
             limit: fetchParams.perPage,
-            offset: (fetchParams.page - 1) * fetchParams.perPage,
+            ...fetchParams?.page && {
+                offset: (fetchParams.page - 1) * fetchParams.perPage
+            },
             order_by: fetchParams.orderBy || this.state.orderBy, /* eslint-disable-line camelcase */
             order_how: fetchParams.orderHow || this.state.orderDirection, /* eslint-disable-line camelcase */
             ...fetchParams?.filters?.hostnameOrId && {
