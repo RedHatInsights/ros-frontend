@@ -101,7 +101,7 @@ class RosPage extends React.Component {
     processOsVersion() {
         let osObject = {};
         osObject.label = 'Operating system';
-        osObject.type = 'checkbox';
+        osObject.type = conditionalFilterType.checkbox;
         osObject.filterValues = {};
         this.fetchSystems({
             perPage: -1
@@ -117,7 +117,7 @@ class RosPage extends React.Component {
             });
 
             if (osObject.filterValues.items.length === 0) {
-                osObject.filterValues.items = [{ value: '', label: 'No versions available' }];
+                osObject.filterValues.items = [{ label: 'No versions available' }];
                 osObject.type = conditionalFilterType.group;
             }
 
