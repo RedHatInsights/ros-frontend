@@ -7,7 +7,7 @@ import { EmptyStateDisplay } from '../EmptyStateDisplay/EmptyStateDisplay';
 import { CheckCircleIcon, BullseyeIcon, WrenchIcon, LightbulbIcon, ExternalLinkAltIcon } from '@patternfly/react-icons';
 import { TextContent, Text, TextVariants } from '@patternfly/react-core';
 import './RecommendationsTable.scss';
-import { ENABLI_PSI_URL } from '../../constants';
+import { ENABLE_PSI_URL } from '../../constants';
 
 const renderExpandedView = (row, psiEnabled) => {
     const { resolution, reason, detected_issues: detectedIssues, current_instance: currentInstance, suggested_instances: suggestedInstances } = row;
@@ -63,7 +63,7 @@ const renderExpandedView = (row, psiEnabled) => {
             </TableComposable>
             }
             {
-                psiEnabled === 'Under pressure' &&
+                !psiEnabled &&
                 <>
                     <hr/>
                     <Text component={TextVariants.p}>
@@ -71,7 +71,7 @@ const renderExpandedView = (row, psiEnabled) => {
                             <strong className="strong-tag-style">Related Knowledgebase Article</strong>
                         </Text>
                         {/* eslint-disable-next-line max-len */}
-                        <a href={ENABLI_PSI_URL} target='_blank' rel="noreferrer">This suggestion could be improved by enabling PSI <ExternalLinkAltIcon/></a>
+                        <a href={ENABLE_PSI_URL} target='_blank' rel="noreferrer">This suggestion could be improved by enabling PSI <ExternalLinkAltIcon/></a>
                     </Text>
                 </>
             }
@@ -155,7 +155,7 @@ class RecommendationsTable extends React.Component {
 
 RecommendationsTable.propTypes = {
     recommendations: propTypes.array,
-    psiEnabled: propTypes.string
+    psiEnabled: propTypes.bool
 };
 
 export default RecommendationsTable;
