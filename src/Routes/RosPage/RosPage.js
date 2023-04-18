@@ -28,6 +28,7 @@ import {
 } from '@redhat-cloud-services/frontend-components-notifications/redux';
 import { DownloadExecutivePDFReport } from '../../Components/Reports/ExecutivePDFReport';
 import { useChrome } from '@redhat-cloud-services/frontend-components/useChrome';
+import { conditionalFilterType } from '@redhat-cloud-services/frontend-components';
 
 /**
  * A smart component that handles all the api calls and data needed by the dumb components.
@@ -71,7 +72,7 @@ class RosPage extends React.Component {
     }
 
     async componentDidMount() {
-        document.title = 'Resource Optimization - Red Hat Insights';
+        document.title = 'Resource Optimization | Red Hat Insights';
         const chrome = this.props.chrome;
         chrome?.hideGlobalFilter?.(true);
         chrome?.appAction('ros-systems');
@@ -100,10 +101,12 @@ class RosPage extends React.Component {
     processOsVersion() {
         let osObject = {};
         osObject.label = 'Operating system';
-        osObject.type = 'checkbox';
+        osObject.type = conditionalFilterType.checkbox;
         osObject.filterValues = {};
         this.fetchSystems({
-            perPage: -1
+            perPage: -1,
+            orderBy: 'os',
+            orderHow: SortByDirection.desc
         }).then((response) => {
             osObject.filterValues.items = Array.from(new Set((response.data).reduce((filtered, system) => {
                 if (system.os) {
@@ -114,6 +117,11 @@ class RosPage extends React.Component {
             }, []))).map(os => {
                 return { label: os, value: os.split(' ')[1] };
             });
+
+            if (osObject.filterValues.items.length === 0) {
+                osObject.filterValues.items = [{ label: 'No versions available' }];
+                osObject.type = conditionalFilterType.group;
+            }
 
             this.setState({
                 OSFObject: osObject
@@ -138,7 +146,9 @@ class RosPage extends React.Component {
     async fetchSystems(fetchParams) {
         let params = {
             limit: fetchParams.perPage,
-            offset: (fetchParams.page - 1) * fetchParams.perPage,
+            ...fetchParams?.page && {
+                offset: (fetchParams.page - 1) * fetchParams.perPage
+            },
             order_by: fetchParams.orderBy || this.state.orderBy, /* eslint-disable-line camelcase */
             order_how: fetchParams.orderHow || this.state.orderDirection, /* eslint-disable-line camelcase */
             ...fetchParams?.filters?.hostnameOrId && {
