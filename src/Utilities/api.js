@@ -139,3 +139,26 @@ export const fetchExecutiveReport = async () => {
     .then((response) => response.blob());
 
 };
+
+export const fetchSystemsReport = async (fetchSystemParams) => {
+    const url = new URL(CRC_PDF_GENERATE_API,  window.location.origin);
+
+    return fetch(url, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+
+        body: JSON.stringify({
+            service: 'ros',
+            template: 'systemsReport',
+            display_name: fetchSystemParams?.filters.hostnameOrId,
+            state: fetchSystemParams?.stateFilter,
+            os: fetchSystemParams?.osFilter
+
+        })
+    })
+    .then(handleErrors)
+    .then((response) => response.blob());
+
+};
