@@ -20,8 +20,7 @@ import { PermissionContext } from '../../App';
 
 import { NotAuthorized } from '@redhat-cloud-services/frontend-components/NotAuthorized';
 import { ManageColumnsModal } from '../../Components/Modals/ManageColumnsModal';
-import { DownloadSystemsPDFReport } from '../../Components/Reports/SystemsPDFReport';
-import { downloadReport } from '../../Components/Reports/DownloadReport';
+import { downloadSystemsReport } from '../../Components/Reports/DownloadSystemsReport';
 import {
     addNotification,
     clearNotifications
@@ -286,21 +285,6 @@ class RosPage extends React.Component {
         return columns.filter(column => column.isChecked);
     }
 
-    exportSystemsPDF() {
-        const {stateFilterValue, nameFilterValue, osFilterValue, orderBy, orderHow} = this.state;
-
-        const filters={
-            stateFilter: stateFilterValue,
-            hostnameOrId: nameFilterValue,
-            osFilter: osFilterValue
-        }
-
-        const { addNotification, clearNotifications } = this.props;
-
-        DownloadSystemsPDFReport(filters, orderBy, orderHow,  notification => addNotification(notification),
-        () => clearNotifications())
-    }
-
     onExportOptionSelect(fileType) {
         const { stateFilterValue, nameFilterValue, osFilterValue, orderBy, orderDirection } = this.state;
         const filters = {
@@ -311,7 +295,7 @@ class RosPage extends React.Component {
 
         const { addNotification, clearNotifications } = this.props;
 
-        downloadReport(fileType, filters, orderBy, orderDirection,
+        downloadSystemsReport(fileType, filters, orderBy, orderDirection,
             notification => addNotification(notification),
             () => clearNotifications());
     }
@@ -319,7 +303,7 @@ class RosPage extends React.Component {
     renderConfigStepsOrTable() {
         const { state: SFObject } = CUSTOM_FILTERS;
         const activeColumns = this.getActiveColumns();
-        const { stateFilterValue, nameFilterValue, osFilterValue,
+        const { stateFilterValue, osFilterValue,
             orderBy, orderDirection, disableExport, isColumnModalOpen, OSFObject } = this.state;
         return (
             this.props.showConfigSteps
@@ -459,7 +443,7 @@ class RosPage extends React.Component {
                                                     key='pdf-download-button'
                                                     variant='none'
                                                     className="pf-c-dropdown__menu-item"
-                                                    onClick={() => this.exportSystemsPDF()}>
+                                                    onClick={() => this.onExportOptionSelect('pdf')}>
                                                     Export to PDF
                                                 </Button>
                                             </li>
@@ -508,7 +492,7 @@ function mapDispatchToProps(dispatch) {
         isROSConfigured: () => dispatch(loadIsConfiguredInfo()),
         changeSystemColumns: (payload) => dispatch(changeSystemColumns(payload)),
         addNotification: (payload) => dispatch(addNotification(payload)),
-        clearNotifications: () => dispatch(clearNotifications()),
+        clearNotifications: () => dispatch(clearNotifications())
     };
 }
 

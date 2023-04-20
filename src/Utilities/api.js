@@ -140,7 +140,7 @@ export const fetchExecutiveReport = async () => {
 
 };
 
-export const fetchSystemsReport = async (fetchSystemParams) => {
+export const fetchSystemsPDFReport = async (fetchSystemParams) => {
     const url = new URL(CRC_PDF_GENERATE_API,  window.location.origin);
 
     return fetch(url, {
@@ -152,7 +152,7 @@ export const fetchSystemsReport = async (fetchSystemParams) => {
         body: JSON.stringify({
             service: 'ros',
             template: 'systemsReport',
-            display_name: fetchSystemParams?.filters.hostnameOrId,
+            display_name: fetchSystemParams?.filters.hostnameOrId, /* eslint-disable-line camelcase */
             state: fetchSystemParams?.stateFilter,
             os: fetchSystemParams?.osFilter
 

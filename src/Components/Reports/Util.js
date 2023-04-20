@@ -1,14 +1,14 @@
 import { get } from 'lodash';
-import { pdfRowKeys, percentageKeys, reportRowKeys, SYSTEMS_REPORT_FILE_NAME } from './Constants';
+import { percentageKeys, reportRowKeys, SYSTEMS_REPORT_FILE_NAME } from './Constants';
 import { dateStringByType } from '@redhat-cloud-services/frontend-components/DateFormat/helper';
 
 export const formatData = (data, type) => {
 
     const systemsRowsData = [];
-    const rowKeys = type === 'json' ?  reportRowKeys : pdfRowKeys;
+    const rowKeys = reportRowKeys;
 
     data.map((systemItem) => {
-        let rowData = type === 'json' ? {} : [];
+        let rowData =  {};
 
         rowKeys.map((rowKey) =>{
             let rowValue =  get(systemItem, rowKey, '');
@@ -18,8 +18,6 @@ export const formatData = (data, type) => {
 
             if (type === 'json') {
                 rowData[rowKey] = rowValue;
-            } else if (type === 'pdf') {
-                rowData.push(rowValue);
             }
         });
 
