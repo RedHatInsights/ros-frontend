@@ -71,7 +71,9 @@ const renderExpandedView = (row, psiEnabled) => {
                             <strong className="strong-tag-style">Related Knowledgebase Article</strong>
                         </Text>
                         {/* eslint-disable-next-line max-len */}
-                        <a href={ENABLE_PSI_URL} target='_blank' rel="noreferrer">This suggestion could be improved by enabling PSI <ExternalLinkAltIcon/></a>
+                        <Text component={TextVariants.a} target='_blank' href={ENABLE_PSI_URL}>
+                            This suggestion could be improved by enabling PSI <ExternalLinkAltIcon/>
+                        </Text>
                     </Text>
                 </>
             }
