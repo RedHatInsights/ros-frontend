@@ -5,6 +5,7 @@ import { DateFormat, dateStringByType } from '@redhat-cloud-services/frontend-co
 import { ExclamationTriangleIcon } from '@patternfly/react-icons';
 import './RenderColumn.scss';
 import moment from 'moment';
+import { TableComposable, Thead, Tr, Th, Td, Tbody } from '@patternfly/react-table';
 
 export const diskUsageData = (data, id, item) => {
     const { state, performance_utilization: performanceUtilization } = item;
@@ -14,28 +15,35 @@ export const diskUsageData = (data, id, item) => {
         state === NO_DATA_STATE ?
             <span>{ NO_DATA_VALUE }</span> :
             <Tooltip position="right" content={
-                <div>
-                    <table>
-                        <tr>
-                            <th>Device name</th>
-                            <th>Value</th>
-                        </tr>
-                        <tr>
-                            <td colSpan="100%" className="seperator"></td>
-                        </tr>
+                <TableComposable
+                    arial-label="disk usage"
+                    variant="compactBorderless"
+                    borders={false}
+                >
+                    <Thead>
+                        <Tr>
+                            <Th modifier="nowrap" textCenter style={{
+                                color: 'white', backgroundColor: 'black', padding: '0px'
+                            }}>Device Name</Th>
+                            <Th textCenter style={{
+                                color: 'white', backgroundColor: 'black', padding: '0px'
+                            }}>Value</Th>
+                        </Tr>
+                    </Thead>
+                    <Tbody>
                         {
                             Object.keys(iopsAll).map((deviceName, index) =>{
                                 return (
-                                    <tr key={index}>
-                                        <td>{deviceName}</td>
-                                        <td>{iopsAll[deviceName]}</td>
-                                        <td>IOPS</td>
-                                    </tr>
+                                    <Tr key={index}>
+                                        <Td style={{ color: 'white', backgroundColor: 'black', padding: '0px' }}>{deviceName}</Td>
+                                        <Td modifier="nowrap" style={{ color: 'white', backgroundColor: 'black', padding: '0px'
+                                        }}>{iopsAll[deviceName]} IOPS</Td>
+                                    </Tr>
                                 );
                             })
                         }
-                    </table>
-                </div>
+                    </Tbody>
+                </TableComposable>
             }>
                 <span>{data}</span>
             </Tooltip>
