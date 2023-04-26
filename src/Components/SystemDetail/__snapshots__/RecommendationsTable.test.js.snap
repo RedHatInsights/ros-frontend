@@ -264,7 +264,7 @@ exports[`RecommendationsTable component matches snapshot when psi is disabled 1`
                 data-ouia-component-type="PF4/Text"
                 data-ouia-safe={true}
                 data-pf-content={true}
-                href="https://access.redhat.com/documentation/en-us/red_hat_insights/2023/html-single/assessing_and_monitoring_rhel_resource_optimization_with_insights_for_red_hat_enterprise_linux/index#proc-ros-psi-enable_ros-install"
+                href="https://access.redhat.com/documentation/en-us/red_hat_insights/2023/html-single/assessing_and_monitoring_rhel_resource_optimization_with_insights_for_red_hat_enterprise_linux/index#proc-ros-psi-enable__assembly-ros-install"
                 target="_blank"
               >
                 This suggestion could be improved by enabling PSI 
