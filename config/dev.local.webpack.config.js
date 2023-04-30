@@ -5,7 +5,7 @@ const { config: webpackConfig, plugins } = config({
     rootFolder: resolve(__dirname, '../'),
     debug: true,
     https: true,
-    appUrl: process.env.BETA ? '/beta/insights/ros' : '/insights/ros',
+    appUrl: process.env.BETA ? ['/preview/insights/ros', '/beta/insights/ros'] : '/insights/ros',
     env: 'stage-stable',
     deployment: process.env.BETA ? 'beta/apps' : 'apps',
     useProxy: true,

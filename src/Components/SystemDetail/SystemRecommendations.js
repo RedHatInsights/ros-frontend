@@ -167,7 +167,7 @@ class SystemRecommendations extends React.Component {
                                         }
                                     }}
                                     />
-                                    { (!this.props.loading) ? (<RecommendationsTable recommendations = { recsData }/>) : null }
+                                    { (!this.props.loading) ? (<RecommendationsTable recommendations = { recsData } {...this.props} />) : null }
                                     <TableToolbar>
                                         <Pagination
                                             itemCount={ totalRecs ? totalRecs : 0 }
