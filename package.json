@@ -65,6 +65,7 @@
     "@redhat-cloud-services/frontend-components-notifications": "3.2.5",
     "@redhat-cloud-services/frontend-components-pdf-generator": "^2.6.12",
     "@redhat-cloud-services/frontend-components-utilities": "^3.5.0",
+    "axios": "^1.4.0",
     "babel-plugin-transform-imports": "^2.0.0",
     "classnames": "2.2.6",
     "moment": "^2.29.4",
