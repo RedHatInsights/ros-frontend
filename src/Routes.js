@@ -14,7 +14,7 @@ export const Routes = () => (
             <Route exact path='/' component={RosPage} />
             <Route path='/:inventoryId' component={RosSystemDetail} />
             <Route>
-                <Redirect to='/ros' />
+                <Redirect path="*" to='/' />
             </Route>
         </Switch>
     </Suspense>
