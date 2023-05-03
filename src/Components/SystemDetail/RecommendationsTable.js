@@ -4,11 +4,12 @@ import propTypes from 'prop-types';
 import { flatMap } from 'lodash';
 import { EmptyTable } from '@redhat-cloud-services/frontend-components/EmptyTable';
 import { EmptyStateDisplay } from '../EmptyStateDisplay/EmptyStateDisplay';
-import { CheckCircleIcon, BullseyeIcon, WrenchIcon } from '@patternfly/react-icons';
+import { CheckCircleIcon, BullseyeIcon, WrenchIcon, LightbulbIcon, ExternalLinkAltIcon } from '@patternfly/react-icons';
 import { TextContent, Text, TextVariants } from '@patternfly/react-core';
 import './RecommendationsTable.scss';
+import { ENABLE_PSI_URL } from '../../constants';
 
-const renderExpandedView = (row) => {
+const renderExpandedView = (row, psiEnabled) => {
     const { resolution, reason, detected_issues: detectedIssues, current_instance: currentInstance, suggested_instances: suggestedInstances } = row;
 
     return (
@@ -59,7 +60,23 @@ const renderExpandedView = (row) => {
                             {suggestedInstances}</Td>
                     </Tr>
                 </Tbody>
-            </TableComposable> }
+            </TableComposable>
+            }
+            {
+                !psiEnabled &&
+                <>
+                    <hr/>
+                    <Text component={TextVariants.p}>
+                        <Text className="margin-text-bottom"><LightbulbIcon/>
+                            <strong className="strong-tag-style">Related Knowledgebase Article</strong>
+                        </Text>
+                        {/* eslint-disable-next-line max-len */}
+                        <Text component={TextVariants.a} target='_blank' href={ENABLE_PSI_URL}>
+                            This suggestion could be improved by enabling PSI <ExternalLinkAltIcon/>
+                        </Text>
+                    </Text>
+                </>
+            }
         </TextContent>
     );
 };
@@ -88,6 +105,7 @@ class RecommendationsTable extends React.Component {
 
     createRows() {
         const rowsData = this.props.recommendations;
+        const psiEnabled = this.props.psiEnabled;
         if (rowsData && rowsData.length !== 0) {
             return flatMap(rowsData, (row, index) => {
                 return [
@@ -97,7 +115,7 @@ class RecommendationsTable extends React.Component {
                         cells: [{ title: row.description }]
                     },
                     {
-                        cells: [{ title: renderExpandedView(row) }],
+                        cells: [{ title: renderExpandedView(row, psiEnabled) }],
                         parent: index * 2
                     }
                 ];
@@ -138,7 +156,8 @@ class RecommendationsTable extends React.Component {
 }
 
 RecommendationsTable.propTypes = {
-    recommendations: propTypes.array
+    recommendations: propTypes.array,
+    psiEnabled: propTypes.bool
 };
 
 export default RecommendationsTable;
