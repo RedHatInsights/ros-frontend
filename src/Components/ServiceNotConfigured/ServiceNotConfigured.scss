@@ -1,9 +1,0 @@
-.empty-state-not-configured {
-  --pf-c-empty-state--PaddingTop: var(--pf-global--spacer--2xl);
-  .pf-c-form-control[readonly] {
-    background-color: var(--pf-global--BackgroundColor--100);
-  }
-  .pf-c-empty-state__body {
-    color: var(--pf-global--Color--300);
-  }
-}
