@@ -315,180 +315,183 @@ class RosPage extends React.Component {
             orderBy, orderDirection, disableExport, isColumnModalOpen, OSFObject } = this.state;
         return (
             this.props.showConfigSteps
-                ?   <ServiceNotConfigured/>
-                :   <Card className='pf-t-light  pf-m-opaque-100'>
-                    <CardBody>
-                        <ManageColumnsModal
-                            isModalOpen={isColumnModalOpen}
-                            setModalOpen={this.setColumnModalOpen}
-                            modalColumns={this.props.columns}
-                            saveColumns={(columns) => this.props.changeSystemColumns({ columns })}
-                        />
-                        <InventoryTable
-                            disableDefaultColumns
-                            ref={this.inventory}
-                            hasCheckbox={ false }
-                            tableProps={{
-                                canSelectAll: false,
-                                className: 'ros-systems-table'
-                            }}
-                            variant="compact"
-                            hideFilters={{ all: true, name: false }}
-                            autoRefresh= {true}
-                            customFilters={{
-                                stateFilter: stateFilterValue,
-                                osFilter: osFilterValue
-                            }}
-                            columns={activeColumns}
-                            getEntities={async (_items, config) => {
-                                this.setState(() => ({
-                                    orderBy: config.orderBy,
-                                    orderDirection: config.orderDirection,
-                                    nameFilterValue: config.filters?.hostnameOrId
-                                }));
-                                const results = await this.fetchSystems(
-                                    {
-                                        page: config.page, perPage: config.per_page,
-                                        orderBy: this.sortingHeader[config.orderBy],
-                                        orderHow: config.orderDirection,
-                                        filters: config.filters,
-                                        stateFilter: config.stateFilter,
-                                        osFilter: config.osFilter
-                                    }
-                                );
+                ? <ServiceNotConfigured />
+                : <React.Fragment>
+                    <PageHeader className='ros-page-header'>
+                        <PageHeaderTitle title='Resource Optimization'/>
+                        <DownloadExecutivePDFReport isDisabled={this.state.disableExport} />
+                    </PageHeader>
 
-                                const invIds = (results.data || []).map(({ inventory_id: inventoryId }) => inventoryId);
-                                const invSystems = await this.fetchInventoryDetails(invIds, {
-                                    ...config,
-                                    orderBy: undefined,
-                                    orderDirection: undefined,
-                                    page: 1,
-                                    hasItems: true
-                                });
+                    <Main>
+                        <Card className='pf-t-light  pf-m-opaque-100'>
+                            <CardBody>
+                                <ManageColumnsModal
+                                    isModalOpen={isColumnModalOpen}
+                                    setModalOpen={this.setColumnModalOpen}
+                                    modalColumns={this.props.columns}
+                                    saveColumns={(columns) => this.props.changeSystemColumns({ columns })}
+                                />
+                                <InventoryTable
+                                    disableDefaultColumns
+                                    ref={this.inventory}
+                                    hasCheckbox={ false }
+                                    tableProps={{
+                                        canSelectAll: false,
+                                        className: 'ros-systems-table'
+                                    }}
+                                    variant="compact"
+                                    hideFilters={{ all: true, name: false }}
+                                    autoRefresh= {true}
+                                    customFilters={{
+                                        stateFilter: stateFilterValue,
+                                        osFilter: osFilterValue
+                                    }}
+                                    columns={activeColumns}
+                                    getEntities={async (_items, config) => {
+                                        this.setState(() => ({
+                                            orderBy: config.orderBy,
+                                            orderDirection: config.orderDirection,
+                                            nameFilterValue: config.filters?.hostnameOrId
+                                        }));
+                                        const results = await this.fetchSystems(
+                                            {
+                                                page: config.page, perPage: config.per_page,
+                                                orderBy: this.sortingHeader[config.orderBy],
+                                                orderHow: config.orderDirection,
+                                                filters: config.filters,
+                                                stateFilter: config.stateFilter,
+                                                osFilter: config.osFilter
+                                            }
+                                        );
 
-                                const disableExport = results?.meta?.count === 0;
-                                this.setState(() => ({
-                                    disableExport
-                                }));
-
-                                return {
-                                    results: results.data.map((system) => {
-                                        const invRec = invSystems.find(({ id }) => id === system.inventory_id);
-                                        return ({
-                                            ...invRec,
-                                            ...(invRec ? { isDeleted: false } : { id: system.inventory_id, isDeleted: true }),
-                                            ...system
+                                        const invIds = (results.data || []).map(({ inventory_id: inventoryId }) => inventoryId);
+                                        const invSystems = await this.fetchInventoryDetails(invIds, {
+                                            ...config,
+                                            orderBy: undefined,
+                                            orderDirection: undefined,
+                                            page: 1,
+                                            hasItems: true
                                         });
-                                    }),
-                                    total: results.meta.count,
-                                    page: config.page,
-                                    per_page: config.per_page /* eslint-disable-line camelcase */
-                                };
-                            }}
-                            onLoad={({ mergeWithEntities, INVENTORY_ACTION_TYPES, api }) => {
-                                this.setState({
-                                    getEntities: api?.getEntities
-                                });
-                                register({
-                                    ...mergeWithEntities(
-                                        entitiesReducer(
-                                            INVENTORY_ACTION_TYPES, SYSTEM_TABLE_COLUMNS
-                                        )
-                                    )
-                                });
-                                this.props.setSort(orderBy, orderDirection, 'CHANGE_SORT');
-                            }}
-                            expandable='true'
-                            filterConfig={{
-                                items: [
-                                    {
-                                        label: SFObject.label,
-                                        type: SFObject.type,
-                                        value: `checkbox-state`,
-                                        filterValues: {
-                                            items: SFObject.filterValues.items,
-                                            onChange: (_e, values) => this.updateStateFilter(values),
-                                            value: stateFilterValue
-                                        }
-                                    },
-                                    {
-                                        label: OSFObject.label,
-                                        type: OSFObject.type,
-                                        value: `checkbox-os`,
-                                        filterValues: {
-                                            items: OSFObject.filterValues?.items,
-                                            onChange: (_e, values) => this.updateOSFilter(values),
-                                            value: osFilterValue
-                                        }
-                                    }
-                                ]
-                            }}
-                            activeFiltersConfig={{
-                                filters: this.getActiveFilterConfig(),
-                                onDelete: this.onDeleteFilters
-                            }}
-                            actionsConfig={{
-                                actions: [
-                                    '',
-                                    {
-                                        label: 'Manage columns',
-                                        onClick: () => this.setColumnModalOpen(true)
-                                    }
-                                ]
-                            }}
-                            exportConfig={{
-                                isDisabled: disableExport,
-                                extraItems: [
-                                    <li key='pdf-button-item' role='menuitem'>
-                                        <Button
-                                            key='pdf-download-button'
-                                            variant='none'
-                                            className="pf-c-dropdown__menu-item"
-                                            onClick={() => this.setExportSystemsPDF(true)}>
-                                            Export to PDF
-                                        </Button>
-                                    </li>
-                                ],
-                                ouiaId: 'export',
-                                onSelect: (_event, fileType) => this.onExportOptionSelect(fileType)
-                            }}
-                            onExpandClick={(_e, _i, isOpen, { id }) => this.props.expandRow(id, isOpen, 'EXPAND_ROW')}
-                        >
-                        </InventoryTable>
-                        {exportSystemsPDF &&
-                            <DownloadSystemsPDFReport
-                                showButton={false}
-                                onSuccess={() => this.setExportSystemsPDF(false)}
-                                filters={{
-                                    stateFilter: stateFilterValue,
-                                    hostnameOrId: nameFilterValue,
-                                    osFilter: osFilterValue
-                                }}
-                                orderBy={orderBy}
-                                orderHow={orderDirection}
-                            />
-                        }
-                    </CardBody>
-                </Card>
+
+                                        const disableExport = results?.meta?.count === 0;
+                                        this.setState(() => ({
+                                            disableExport
+                                        }));
+
+                                        return {
+                                            results: results.data.map((system) => {
+                                                const invRec = invSystems.find(({ id }) => id === system.inventory_id);
+                                                return ({
+                                                    ...invRec,
+                                                    ...(invRec ? { isDeleted: false } : { id: system.inventory_id, isDeleted: true }),
+                                                    ...system
+                                                });
+                                            }),
+                                            total: results.meta.count,
+                                            page: config.page,
+                                            per_page: config.per_page /* eslint-disable-line camelcase */
+                                        };
+                                    }}
+                                    onLoad={({ mergeWithEntities, INVENTORY_ACTION_TYPES, api }) => {
+                                        this.setState({
+                                            getEntities: api?.getEntities
+                                        });
+                                        register({
+                                            ...mergeWithEntities(
+                                                entitiesReducer(
+                                                    INVENTORY_ACTION_TYPES, SYSTEM_TABLE_COLUMNS
+                                                )
+                                            )
+                                        });
+                                        this.props.setSort(orderBy, orderDirection, 'CHANGE_SORT');
+                                    }}
+                                    expandable='true'
+                                    filterConfig={{
+                                        items: [
+                                            {
+                                                label: SFObject.label,
+                                                type: SFObject.type,
+                                                value: `checkbox-state`,
+                                                filterValues: {
+                                                    items: SFObject.filterValues.items,
+                                                    onChange: (_e, values) => this.updateStateFilter(values),
+                                                    value: stateFilterValue
+                                                }
+                                            },
+                                            {
+                                                label: OSFObject.label,
+                                                type: OSFObject.type,
+                                                value: `checkbox-os`,
+                                                filterValues: {
+                                                    items: OSFObject.filterValues?.items,
+                                                    onChange: (_e, values) => this.updateOSFilter(values),
+                                                    value: osFilterValue
+                                                }
+                                            }
+                                        ]
+                                    }}
+                                    activeFiltersConfig={{
+                                        filters: this.getActiveFilterConfig(),
+                                        onDelete: this.onDeleteFilters
+                                    }}
+                                    actionsConfig={{
+                                        actions: [
+                                            '',
+                                            {
+                                                label: 'Manage columns',
+                                                onClick: () => this.setColumnModalOpen(true)
+                                            }
+                                        ]
+                                    }}
+                                    exportConfig={{
+                                        isDisabled: disableExport,
+                                        extraItems: [
+                                            <li key='pdf-button-item' role='menuitem'>
+                                                <Button
+                                                    key='pdf-download-button'
+                                                    variant='none'
+                                                    className="pf-c-dropdown__menu-item"
+                                                    onClick={() => this.setExportSystemsPDF(true)}>
+                                                Export to PDF
+                                                </Button>
+                                            </li>
+                                        ],
+                                        ouiaId: 'export',
+                                        onSelect: (_event, fileType) => this.onExportOptionSelect(fileType)
+                                    }}
+                                    onExpandClick={(_e, _i, isOpen, { id }) => this.props.expandRow(id, isOpen, 'EXPAND_ROW')}
+                                >
+                                </InventoryTable>
+                                {exportSystemsPDF &&
+                                <DownloadSystemsPDFReport
+                                    showButton={false}
+                                    onSuccess={() => this.setExportSystemsPDF(false)}
+                                    filters={{
+                                        stateFilter: stateFilterValue,
+                                        hostnameOrId: nameFilterValue,
+                                        osFilter: osFilterValue
+                                    }}
+                                    orderBy={orderBy}
+                                    orderHow={orderDirection}
+                                />
+                                }
+                            </CardBody>
+                        </Card>
+                    </Main>
+                </React.Fragment>
         );
     }
 
     render() {
         return (
             <React.Fragment>
-                <PageHeader className='ros-page-header'>
-                    <PageHeaderTitle title='Resource Optimization'/>
-                    <DownloadExecutivePDFReport isDisabled={this.state.disableExport} />
-                </PageHeader>
-                <Main>
-                    <PermissionContext.Consumer>
-                        { value =>
-                            value.permissions.systemsRead === false
-                                ? <NotAuthorized serviceName='Resource Optimization' />
-                                : this.renderConfigStepsOrTable()
-                        }
-                    </PermissionContext.Consumer>
-                </Main>
+                <PermissionContext.Consumer>
+                    { value =>
+                        value.permissions.systemsRead === false
+                            ? <NotAuthorized serviceName='Resource Optimization' />
+                            : this.renderConfigStepsOrTable()
+                    }
+                </PermissionContext.Consumer>
             </React.Fragment>
         );
     };
