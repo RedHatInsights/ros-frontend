@@ -8,6 +8,7 @@ export const ServiceNotConfigured = () => (
         <Spinner />
     </Bullseye>}>
         <AsynComponent
+            appId="ros_zero_state"
             appName="dashboard"
             module="./AppZeroState"
             scope="dashboard"
