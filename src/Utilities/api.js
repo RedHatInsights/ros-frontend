@@ -152,10 +152,11 @@ export const fetchSystemsPDFReport = async (fetchSystemParams) => {
         body: JSON.stringify({
             service: 'ros',
             template: 'systemsReport',
-            display_name: fetchSystemParams?.filters.hostnameOrId, /* eslint-disable-line camelcase */
-            state: fetchSystemParams?.stateFilter,
-            os: fetchSystemParams?.osFilter
-
+            params: {
+                display_name: fetchSystemParams?.filters.hostnameOrId, /* eslint-disable-line camelcase */
+                state: fetchSystemParams?.stateFilter,
+                os: fetchSystemParams?.osFilter
+            }
         })
     })
     .then(handleErrors)
