@@ -11,10 +11,8 @@ updates:
       # Check for updates managed by npm once a week on Sunday
       interval: "weekly"
       day: "sunday"
-    reviewers:
-    - "kgaikwad"
-    - "preetiw"
-    - "r14chandra"
+    assignees:
+      - "preetiw"
     allow:
     # Allow direct updates for all packages
       - dependency-type: "direct"
