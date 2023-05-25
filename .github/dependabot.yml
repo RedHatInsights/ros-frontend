@@ -10,3 +10,9 @@ updates:
     schedule:
       # Check for updates managed by npm once a week on Sunday
       interval: "weekly"
+      day: "sunday"
+    assignees:
+      - "preetiw"
+    allow:
+    # Allow direct updates for all packages
+      - dependency-type: "direct"
