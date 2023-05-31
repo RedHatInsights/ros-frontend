@@ -561,13 +561,75 @@ exports[`RecommendationsTable component matches snapshot where there is no sugge
     </tr>
   </thead>
   <tbody
-    className=""
+    className="pf-m-expanded"
     role="rowgroup"
   >
     <tr
       aria-label=""
       className=""
       data-ouia-component-id="OUIA-Generated-TableRow-8"
+      data-ouia-component-type="PF4/TableRow"
+      data-ouia-safe={true}
+      hidden={false}
+      onClick={[Function]}
+      onKeyDown={[Function]}
+    >
+      <td
+        className="pf-c-table__toggle"
+        data-key={0}
+        data-label={null}
+        onMouseEnter={[Function]}
+      >
+        <button
+          aria-disabled={false}
+          aria-expanded={true}
+          aria-label="Details"
+          aria-labelledby="simple-node0 expandable-toggle0"
+          className="pf-c-button pf-m-plain pf-m-expanded"
+          data-ouia-component-id="OUIA-Generated-Button-plain-3"
+          data-ouia-component-type="PF4/Button"
+          data-ouia-safe={true}
+          disabled={false}
+          id="expandable-toggle0"
+          onClick={[Function]}
+          role={null}
+          type="button"
+        >
+          <div
+            className="pf-c-table__toggle-icon"
+          >
+            <svg
+              aria-hidden={true}
+              aria-labelledby={null}
+              fill="currentColor"
+              height="1em"
+              role="img"
+              style={
+                Object {
+                  "verticalAlign": "-0.125em",
+                }
+              }
+              viewBox="0 0 320 512"
+              width="1em"
+            >
+              <path
+                d="M143 352.3L7 216.3c-9.4-9.4-9.4-24.6 0-33.9l22.6-22.6c9.4-9.4 24.6-9.4 33.9 0l96.4 96.4 96.4-96.4c9.4-9.4 24.6-9.4 33.9 0l22.6 22.6c9.4 9.4 9.4 24.6 0 33.9l-136 136c-9.2 9.4-24.4 9.4-33.8 0z"
+              />
+            </svg>
+          </div>
+        </button>
+      </td>
+      <td
+        className=""
+        data-key={1}
+        data-label="Name"
+        onMouseEnter={[Function]}
+      />
+    </tr>
+    <tr
+      aria-label=""
+      className="pf-c-table__expandable-row pf-m-expanded"
+      data-ouia-component-id="OUIA-Generated-TableRow-9"
       data-ouia-component-type="PF4/TableRow"
       data-ouia-safe={true}
       hidden={false}
@@ -582,54 +644,166 @@ exports[`RecommendationsTable component matches snapshot where there is no sugge
       />
       <td
         className=""
-        colSpan={7}
+        colSpan={1}
         data-key={1}
-        data-label="Name"
+        data-label={null}
+        id="expanded-content1-1"
         onMouseEnter={[Function]}
       >
         <div
-          className="ins-c-table__empty recs-table-empty"
+          className="pf-c-table__expandable-row-content"
         >
-           
           <div
-            className="pf-c-empty-state pf-m-lg"
+            className="pf-c-content"
           >
-            <div
-              className="pf-c-empty-state__content"
+            <p
+              className=""
+              data-ouia-component-id="OUIA-Generated-Text-12"
+              data-ouia-component-type="PF4/Text"
+              data-ouia-safe={true}
+              data-pf-content={true}
             >
-              <svg
-                aria-hidden="true"
-                aria-labelledby={null}
-                className="pf-c-empty-state__icon"
-                fill={null}
-                height="1em"
-                role="img"
-                style={
-                  Object {
-                    "verticalAlign": "-0.125em",
-                  }
-                }
-                viewBox="0 0 512 512"
-                width="1em"
-              >
-                <path
-                  d="M504 256c0 136.967-111.033 248-248 248S8 392.967 8 256 119.033 8 256 8s248 111.033 248 248zM227.314 387.314l184-184c6.248-6.248 6.248-16.379 0-22.627l-22.627-22.627c-6.248-6.249-16.379-6.249-22.628 0L216 308.118l-70.059-70.059c-6.248-6.248-16.379-6.248-22.628 0l-22.627 22.627c-6.248 6.248-6.248 16.379 0 22.627l104 104c6.249 6.249 16.379 6.249 22.628.001z"
-                />
-              </svg>
-              <h1
-                className="pf-c-title pf-m-lg"
-                data-ouia-component-id="OUIA-Generated-Title-1"
-                data-ouia-component-type="PF4/Title"
+              <p
+                className="margin-text-bottom"
+                data-ouia-component-id="OUIA-Generated-Text-13"
+                data-ouia-component-type="PF4/Text"
                 data-ouia-safe={true}
+                data-pf-content={true}
               >
-                No suggestions
-              </h1>
-              <div
-                className="pf-c-empty-state__body"
+                <svg
+                  aria-hidden={true}
+                  aria-labelledby={null}
+                  fill="currentColor"
+                  height="1em"
+                  role="img"
+                  style={
+                    Object {
+                      "verticalAlign": "-0.125em",
+                    }
+                  }
+                  viewBox="0 0 496 512"
+                  width="1em"
+                >
+                  <path
+                    d="M248 8C111.03 8 0 119.03 0 256s111.03 248 248 248 248-111.03 248-248S384.97 8 248 8zm0 432c-101.69 0-184-82.29-184-184 0-101.69 82.29-184 184-184 101.69 0 184 82.29 184 184 0 101.69-82.29 184-184 184zm0-312c-70.69 0-128 57.31-128 128s57.31 128 128 128 128-57.31 128-128-57.31-128-128-128zm0 192c-35.29 0-64-28.71-64-64s28.71-64 64-64 64 28.71 64 64-28.71 64-64 64z"
+                  />
+                </svg>
+                <strong
+                  className="strong-tag-style"
+                >
+                  Detected issues
+                </strong>
+              </p>
+            </p>
+            <hr />
+            <p
+              className=""
+              data-ouia-component-id="OUIA-Generated-Text-14"
+              data-ouia-component-type="PF4/Text"
+              data-ouia-safe={true}
+              data-pf-content={true}
+            >
+              <p
+                className="margin-text-bottom"
+                data-ouia-component-id="OUIA-Generated-Text-15"
+                data-ouia-component-type="PF4/Text"
+                data-ouia-safe={true}
+                data-pf-content={true}
               >
-                There are no suggestions for this system.
-              </div>
-            </div>
+                <svg
+                  aria-hidden={true}
+                  aria-labelledby={null}
+                  fill="currentColor"
+                  height="1em"
+                  role="img"
+                  style={
+                    Object {
+                      "verticalAlign": "-0.125em",
+                    }
+                  }
+                  viewBox="0 0 512 512"
+                  width="1em"
+                >
+                  <path
+                    d="M507.73 109.1c-2.24-9.03-13.54-12.09-20.12-5.51l-74.36 74.36-67.88-11.31-11.31-67.88 74.36-74.36c6.62-6.62 3.43-17.9-5.66-20.16-47.38-11.74-99.55.91-136.58 37.93-39.64 39.64-50.55 97.1-34.05 147.2L18.74 402.76c-24.99 24.99-24.99 65.51 0 90.5 24.99 24.99 65.51 24.99 90.5 0l213.21-213.21c50.12 16.71 107.47 5.68 147.37-34.22 37.07-37.07 49.7-89.32 37.91-136.73zM64 472c-13.25 0-24-10.75-24-24 0-13.26 10.75-24 24-24s24 10.74 24 24c0 13.25-10.75 24-24 24z"
+                  />
+                </svg>
+                <strong
+                  className="strong-tag-style"
+                >
+                  Suggestion
+                </strong>
+              </p>
+            </p>
+            <hr />
+            <p
+              className=""
+              data-ouia-component-id="OUIA-Generated-Text-16"
+              data-ouia-component-type="PF4/Text"
+              data-ouia-safe={true}
+              data-pf-content={true}
+            >
+              <p
+                className="margin-text-bottom"
+                data-ouia-component-id="OUIA-Generated-Text-17"
+                data-ouia-component-type="PF4/Text"
+                data-ouia-safe={true}
+                data-pf-content={true}
+              >
+                <svg
+                  aria-hidden={true}
+                  aria-labelledby={null}
+                  fill="currentColor"
+                  height="1em"
+                  role="img"
+                  style={
+                    Object {
+                      "verticalAlign": "-0.125em",
+                    }
+                  }
+                  viewBox="0 0 352 512"
+                  width="1em"
+                >
+                  <path
+                    d="M96.06 454.35c.01 6.29 1.87 12.45 5.36 17.69l17.09 25.69a31.99 31.99 0 0 0 26.64 14.28h61.71a31.99 31.99 0 0 0 26.64-14.28l17.09-25.69a31.989 31.989 0 0 0 5.36-17.69l.04-38.35H96.01l.05 38.35zM0 176c0 44.37 16.45 84.85 43.56 115.78 16.52 18.85 42.36 58.23 52.21 91.45.04.26.07.52.11.78h160.24c.04-.26.07-.51.11-.78 9.85-33.22 35.69-72.6 52.21-91.45C335.55 260.85 352 220.37 352 176 352 78.61 272.91-.3 175.45 0 73.44.31 0 82.97 0 176zm176-80c-44.11 0-80 35.89-80 80 0 8.84-7.16 16-16 16s-16-7.16-16-16c0-61.76 50.24-112 112-112 8.84 0 16 7.16 16 16s-7.16 16-16 16z"
+                  />
+                </svg>
+                <strong
+                  className="strong-tag-style"
+                >
+                  Related Knowledgebase Article
+                </strong>
+              </p>
+              <a
+                className=""
+                data-ouia-component-id="OUIA-Generated-Text-18"
+                data-ouia-component-type="PF4/Text"
+                data-ouia-safe={true}
+                data-pf-content={true}
+                href="https://access.redhat.com/documentation/en-us/red_hat_insights/2023/html-single/assessing_and_monitoring_rhel_resource_optimization_with_insights_for_red_hat_enterprise_linux/index#proc-ros-psi-enable__assembly-ros-install"
+                target="_blank"
+              >
+                This suggestion could be improved by enabling PSI 
+                <svg
+                  aria-hidden={true}
+                  aria-labelledby={null}
+                  fill="currentColor"
+                  height="1em"
+                  role="img"
+                  style={
+                    Object {
+                      "verticalAlign": "-0.125em",
+                    }
+                  }
+                  viewBox="0 0 512 512"
+                  width="1em"
+                >
+                  <path
+                    d="M432,320H400a16,16,0,0,0-16,16V448H64V128H208a16,16,0,0,0,16-16V80a16,16,0,0,0-16-16H48A48,48,0,0,0,0,112V464a48,48,0,0,0,48,48H400a48,48,0,0,0,48-48V336A16,16,0,0,0,432,320ZM488,0h-128c-21.37,0-32.05,25.91-17,41l35.73,35.73L135,320.37a24,24,0,0,0,0,34L157.67,377a24,24,0,0,0,34,0L435.28,133.32,471,169c15,15,41,4.5,41-17V24A24,24,0,0,0,488,0Z"
+                  />
+                </svg>
+              </a>
+            </p>
           </div>
         </div>
       </td>
