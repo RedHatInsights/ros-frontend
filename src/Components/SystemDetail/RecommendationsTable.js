@@ -9,8 +9,9 @@ import { TextContent, Text, TextVariants } from '@patternfly/react-core';
 import './RecommendationsTable.scss';
 import { ENABLE_PSI_URL } from '../../constants';
 
-const renderExpandedView = (row, psiEnabled) => {
-    const { resolution, reason, detected_issues: detectedIssues, current_instance: currentInstance, suggested_instances: suggestedInstances } = row;
+const renderExpandedView = (row) => {
+    const { resolution, reason, detected_issues: detectedIssues, current_instance: currentInstance, suggested_instances: suggestedInstances,
+        psi_enabled: psiEnabled } = row;
 
     return (
         <TextContent>
@@ -105,7 +106,6 @@ class RecommendationsTable extends React.Component {
 
     createRows() {
         const rowsData = this.props.recommendations;
-        const psiEnabled = this.props.psiEnabled;
         if (rowsData && rowsData.length !== 0) {
             return flatMap(rowsData, (row, index) => {
                 return [
@@ -115,7 +115,7 @@ class RecommendationsTable extends React.Component {
                         cells: [{ title: row.description }]
                     },
                     {
-                        cells: [{ title: renderExpandedView(row, psiEnabled) }],
+                        cells: [{ title: renderExpandedView(row) }],
                         parent: index * 2
                     }
                 ];
@@ -156,8 +156,7 @@ class RecommendationsTable extends React.Component {
 }
 
 RecommendationsTable.propTypes = {
-    recommendations: propTypes.array,
-    psiEnabled: propTypes.bool
+    recommendations: propTypes.array
 };
 
 export default RecommendationsTable;

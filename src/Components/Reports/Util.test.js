@@ -78,44 +78,78 @@ describe('Util generateFilterText method tests', () => {
 });
 
 describe('Util formatData method tests', () => {
-    it('should generate array of data in the format required to generate PDF', () => {
-        const expectedSystemsRowsData = [
-            ['ip-172-31-28-69.ec2.internal', 'RHEL 8.4', '90%', '97%', '0.314', '1', 'Undersized', '29 Mar 2022 00:00 UTC'],
-            ['ros-system.internal', 'RHEL 8.4', '90%', '97%', '0.314', '1', 'Undersized', '30 Mar 2022 00:01 UTC']
-        ];
 
-        const actualSystemsRowsData = formatData(sysResponseTestData, 'pdf');
-
-        expect(actualSystemsRowsData).toEqual(expectedSystemsRowsData);
-
-    });
-
-    it('should generate array of data (with 0%) in the format required to generate PDF', () => {
-        const expectedSystemsRowsData = [
-            ['ip-172-31-28-69.ec2.internal', 'RHEL 8.4', '0%', '0%', '0.314', '1', 'Undersized', '29 Mar 2022 00:00 UTC'],
-            ['ros-system.internal', 'RHEL 8.4', '90%', '97%', '0.314', '1', 'Undersized', '30 Mar 2022 00:01 UTC']
-        ];
+    it('should format data (with 0%)', () => {
+        // eslint-disable-next-line max-len
+        const expectedSystemsRowsData = [{
+            display_name: 'ip-172-31-28-69.ec2.internal', /* eslint-disable-line camelcase */
+            os: 'RHEL 8.4',
+            'performance_utilization.cpu': '0%',
+            'performance_utilization.memory': '0%',
+            'performance_utilization.max_io': '0.314',
+            number_of_suggestions: '1', /* eslint-disable-line camelcase */
+            state: 'Undersized', cloud_provider: 'aws', /* eslint-disable-line camelcase */
+            instance_type: 't2.micro', /* eslint-disable-line camelcase */
+            idling_time: '19.70%', /* eslint-disable-line camelcase */
+            report_date: '29 Mar 2022 00:00 UTC' /* eslint-disable-line camelcase */
+        },
+        {
+            display_name: 'ros-system.internal', /* eslint-disable-line camelcase */
+            os: 'RHEL 8.4',
+            'performance_utilization.cpu': '90%',
+            'performance_utilization.memory': '97%',
+            'performance_utilization.max_io': '0.314',
+            number_of_suggestions: '1', /* eslint-disable-line camelcase */
+            state: 'Undersized',
+            cloud_provider: 'aws', /* eslint-disable-line camelcase */
+            instance_type: 't2.micro', /* eslint-disable-line camelcase */
+            idling_time: '19.70%', /* eslint-disable-line camelcase */
+            report_date: '30 Mar 2022 00:01 UTC' /* eslint-disable-line camelcase */
+        }];
 
         sysResponseTestData[0].performance_utilization.cpu = 0;
         sysResponseTestData[0].performance_utilization.memory = 0;
 
-        const actualSystemsRowsData = formatData(sysResponseTestData, 'pdf');
+        const actualSystemsRowsData = formatData(sysResponseTestData, 'json');
 
         expect(actualSystemsRowsData).toEqual(expectedSystemsRowsData);
 
     });
 
-    it('should generate array of data (handling null values) in the format required to generate PDF', () => {
-        const expectedSystemsRowsData = [
-            ['ip-172-31-28-69.ec2.internal', 'RHEL 8.4', 'N/A', 'N/A', '0.314', 'N/A', 'Undersized', '29 Mar 2022 00:00 UTC'],
-            ['ros-system.internal', 'RHEL 8.4', '90%', '97%', '0.314', '1', 'Undersized', '30 Mar 2022 00:01 UTC']
-        ];
+    it('should format data (handling null values)', () => {
+        // eslint-disable-next-line max-len
+        const expectedSystemsRowsData = [{
+            display_name: 'ip-172-31-28-69.ec2.internal', /* eslint-disable-line camelcase */
+            os: 'RHEL 8.4',
+            'performance_utilization.cpu': 'N/A',
+            'performance_utilization.memory': 'N/A',
+            'performance_utilization.max_io': '0.314',
+            number_of_suggestions: 'N/A', /* eslint-disable-line camelcase */
+            state: 'Undersized',
+            cloud_provider: 'aws', /* eslint-disable-line camelcase */
+            instance_type: 't2.micro', /* eslint-disable-line camelcase */
+            idling_time: '19.70%', /* eslint-disable-line camelcase */
+            report_date: '29 Mar 2022 00:00 UTC' /* eslint-disable-line camelcase */
+        },
+        {
+            display_name: 'ros-system.internal', /* eslint-disable-line camelcase */
+            os: 'RHEL 8.4',
+            'performance_utilization.cpu': '90%',
+            'performance_utilization.memory': '97%',
+            'performance_utilization.max_io': '0.314',
+            number_of_suggestions: '1', /* eslint-disable-line camelcase */
+            state: 'Undersized',
+            cloud_provider: 'aws', /* eslint-disable-line camelcase */
+            instance_type: 't2.micro', /* eslint-disable-line camelcase */
+            idling_time: '19.70%', /* eslint-disable-line camelcase */
+            report_date: '30 Mar 2022 00:01 UTC' /* eslint-disable-line camelcase */
+        }];
 
         sysResponseTestData[0].number_of_suggestions = null;  /* eslint-disable-line camelcase */
         sysResponseTestData[0].performance_utilization.cpu = null;
         sysResponseTestData[0].performance_utilization.memory = null;
 
-        const actualSystemsRowsData = formatData(sysResponseTestData, 'pdf');
+        const actualSystemsRowsData = formatData(sysResponseTestData, 'json');
 
         expect(actualSystemsRowsData).toEqual(expectedSystemsRowsData);
 

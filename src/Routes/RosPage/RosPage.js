@@ -20,8 +20,7 @@ import { PermissionContext } from '../../App';
 
 import { NotAuthorized } from '@redhat-cloud-services/frontend-components/NotAuthorized';
 import { ManageColumnsModal } from '../../Components/Modals/ManageColumnsModal';
-import { DownloadSystemsPDFReport } from '../../Components/Reports/SystemsPDFReport';
-import { downloadReport } from '../../Components/Reports/DownloadReport';
+import { downloadSystemsReport } from '../../Components/Reports/DownloadSystemsReport';
 import {
     addNotification,
     clearNotifications
@@ -49,7 +48,6 @@ class RosPage extends React.Component {
             orderDirection: SortByDirection.desc,
             stateFilterValue: [],
             isColumnModalOpen: false,
-            exportSystemsPDF: false,
             nameFilterValue: '',
             disableExport: true,
             osFilterValue: [],
@@ -287,12 +285,6 @@ class RosPage extends React.Component {
         return columns.filter(column => column.isChecked);
     }
 
-    setExportSystemsPDF(exportSystemsPDF) {
-        this.setState({
-            exportSystemsPDF
-        });
-    }
-
     onExportOptionSelect(fileType) {
         const { stateFilterValue, nameFilterValue, osFilterValue, orderBy, orderDirection } = this.state;
         const filters = {
@@ -303,7 +295,7 @@ class RosPage extends React.Component {
 
         const { addNotification, clearNotifications } = this.props;
 
-        downloadReport(fileType, filters, orderBy, orderDirection,
+        downloadSystemsReport(fileType, filters, orderBy, orderDirection,
             notification => addNotification(notification),
             () => clearNotifications());
     }
@@ -311,7 +303,7 @@ class RosPage extends React.Component {
     renderConfigStepsOrTable() {
         const { state: SFObject } = CUSTOM_FILTERS;
         const activeColumns = this.getActiveColumns();
-        const { exportSystemsPDF, stateFilterValue, nameFilterValue, osFilterValue,
+        const { stateFilterValue, osFilterValue,
             orderBy, orderDirection, disableExport, isColumnModalOpen, OSFObject } = this.state;
         return (
             this.props.showConfigSteps
@@ -451,8 +443,8 @@ class RosPage extends React.Component {
                                                     key='pdf-download-button'
                                                     variant='none'
                                                     className="pf-c-dropdown__menu-item"
-                                                    onClick={() => this.setExportSystemsPDF(true)}>
-                                                Export to PDF
+                                                    onClick={() => this.onExportOptionSelect('pdf')}>
+                                                    Export to PDF
                                                 </Button>
                                             </li>
                                         ],
@@ -462,19 +454,6 @@ class RosPage extends React.Component {
                                     onExpandClick={(_e, _i, isOpen, { id }) => this.props.expandRow(id, isOpen, 'EXPAND_ROW')}
                                 >
                                 </InventoryTable>
-                                {exportSystemsPDF &&
-                                <DownloadSystemsPDFReport
-                                    showButton={false}
-                                    onSuccess={() => this.setExportSystemsPDF(false)}
-                                    filters={{
-                                        stateFilter: stateFilterValue,
-                                        hostnameOrId: nameFilterValue,
-                                        osFilter: osFilterValue
-                                    }}
-                                    orderBy={orderBy}
-                                    orderHow={orderDirection}
-                                />
-                                }
                             </CardBody>
                         </Card>
                     </Main>

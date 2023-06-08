@@ -8,14 +8,15 @@ describe('RecommendationsTable component', () => {
 
     it ('matches snapshot when psi is disabled', ()=>{
         const propValues = {
+            /* eslint-disable camelcase */
             recommendations: [{
-                ruleId: 'cloud_instance_ros_evaluation|CONSUMPTION_MODEL',
+                rule_id: 'cloud_instance_ros_evaluation|CONSUMPTION_MODEL',
                 description: 'This is test rule description.',
                 reason: 'This may be caused due to inappropriate consumption model.',
                 resolution: 'Please verify this instance.',
-                condition: ''
-            }],
-            psiEnabled: false
+                condition: '',
+                psi_enabled: false
+            }]
         };
 
         const component = renderer.create(<RecommendationsTable { ...propValues }/>);
@@ -24,14 +25,15 @@ describe('RecommendationsTable component', () => {
 
     it ('matches snapshot when psi is enabled', ()=>{
         const propValues = {
+            /* eslint-disable camelcase */
             recommendations: [{
-                ruleId: 'cloud_instance_ros_evaluation|CONSUMPTION_MODEL',
+                rule_id: 'cloud_instance_ros_evaluation|CONSUMPTION_MODEL',
                 description: 'This is test rule description.',
                 reason: 'This may be caused due to inappropriate consumption model.',
                 resolution: 'Please verify this instance.',
-                condition: ''
-            }],
-            psiEnabled: true
+                condition: '',
+                psi_enabled: true
+            }]
         };
 
         const component = renderer.create(<RecommendationsTable { ...propValues }/>);
@@ -40,8 +42,10 @@ describe('RecommendationsTable component', () => {
 
     it ('matches snapshot where there is no suggestions', ()=>{
         const propValues = {
-            recommendations: [],
-            psiEnabled: false
+            /* eslint-disable camelcase */
+            recommendations: [{
+                psi_enabled: false
+            }]
         };
 
         const component = renderer.create(<RecommendationsTable { ...propValues }/>);

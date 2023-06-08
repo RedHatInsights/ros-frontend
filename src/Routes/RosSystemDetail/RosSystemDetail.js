@@ -138,8 +138,7 @@ class RosSystemDetail extends React.Component {
                                 <Main>
                                     <Grid gutter="md">
                                         <GridItem span={12}>
-                                            { entity ? <SystemDetailWrapper showTags fallback="" psiEnabled=
-                                                {this.props.rosSystemInfo.psi_enabled}/> : <Spinner/>}
+                                            { entity ? <SystemDetailWrapper showTags fallback="" /> : <Spinner/>}
                                         </GridItem>
                                     </Grid>
                                 </Main>
