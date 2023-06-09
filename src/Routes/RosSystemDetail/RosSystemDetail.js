@@ -46,9 +46,10 @@ class RosSystemDetail extends React.Component {
     }
 
     componentDidUpdate() {
+        const chrome = this.props.chrome;
         const displayName = this.props.rosSystemInfo.display_name;
         if (displayName && displayName !== document.title) {
-            document.title = displayName;
+            chrome?.updateDocumentTitle(displayName);
         }
     }
 
@@ -105,8 +106,8 @@ class RosSystemDetail extends React.Component {
         return (
             <React.Fragment>
                 <PermissionContext.Consumer>
-                    { value =>
-                        value.permissions.systemsRead === false
+                    { hasPermissions =>
+                        hasPermissions === false
                             ? <NotAuthorized serviceName='Resource Optimization'/>
                             : <DetailWrapper
                                 inventoryId={this.state.inventoryId}

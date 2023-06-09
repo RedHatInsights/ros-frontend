@@ -70,7 +70,6 @@ class RosPage extends React.Component {
     }
 
     async componentDidMount() {
-        document.title = 'Resource Optimization | Red Hat Insights';
         const chrome = this.props.chrome;
         chrome?.hideGlobalFilter?.(true);
         chrome?.appAction('ros-systems');
@@ -465,8 +464,8 @@ class RosPage extends React.Component {
         return (
             <React.Fragment>
                 <PermissionContext.Consumer>
-                    { value =>
-                        value.permissions.systemsRead === false
+                    { hasPermissions =>
+                        hasPermissions === false
                             ? <NotAuthorized serviceName='Resource Optimization' />
                             : this.renderConfigStepsOrTable()
                     }
