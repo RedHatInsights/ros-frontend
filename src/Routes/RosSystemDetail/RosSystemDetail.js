@@ -38,12 +38,18 @@ class RosSystemDetail extends React.Component {
         };
     }
 
-    async componentDidMount() {
+    componentDidMount() {
         const chrome = this.props.chrome;
         chrome?.hideGlobalFilter?.(true);
         chrome.appAction('system-detail');
-        await this.props.loadSystemInfo(this.state.inventoryId);
-        document.title = this.props.rosSystemInfo.display_name;
+        this.props.loadSystemInfo(this.state.inventoryId);
+    }
+
+    componentDidUpdate() {
+        const displayName = this.props.rosSystemInfo.display_name;
+        if (displayName && displayName !== document.title) {
+            document.title = displayName;
+        }
     }
 
     renderChildrenNode() {
