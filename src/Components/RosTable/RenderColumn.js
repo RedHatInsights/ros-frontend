@@ -7,6 +7,12 @@ import './RenderColumn.scss';
 import moment from 'moment';
 import { TableComposable, Thead, Tr, Th, Td, Tbody } from '@patternfly/react-table';
 
+const diskUsageStyle = {
+    color: 'white',
+    backgroundColor: 'black',
+    padding: '0px'
+};
+
 export const diskUsageData = (data, id, item) => {
     const { state, performance_utilization: performanceUtilization } = item;
     const { io_all: iopsAll } = performanceUtilization;
@@ -22,12 +28,8 @@ export const diskUsageData = (data, id, item) => {
                 >
                     <Thead>
                         <Tr>
-                            <Th modifier="nowrap" textCenter style={{
-                                color: 'white', backgroundColor: 'black', padding: '0px'
-                            }}>Device Name</Th>
-                            <Th textCenter style={{
-                                color: 'white', backgroundColor: 'black', padding: '0px'
-                            }}>Value</Th>
+                            <Th modifier="nowrap" textCenter style={diskUsageStyle}>Device Name</Th>
+                            <Th textCenter style={diskUsageStyle}>Value</Th>
                         </Tr>
                     </Thead>
                     <Tbody>
@@ -35,9 +37,8 @@ export const diskUsageData = (data, id, item) => {
                             Object.keys(iopsAll).map((deviceName, index) =>{
                                 return (
                                     <Tr key={index}>
-                                        <Td style={{ color: 'white', backgroundColor: 'black', padding: '0px' }}>{deviceName}</Td>
-                                        <Td modifier="nowrap" style={{ color: 'white', backgroundColor: 'black', padding: '0px'
-                                        }}>{iopsAll[deviceName]} IOPS</Td>
+                                        <Td style={diskUsageStyle}>{deviceName}</Td>
+                                        <Td modifier="nowrap" style={diskUsageStyle}>{iopsAll[deviceName]} IOPS</Td>
                                     </Tr>
                                 );
                             })
