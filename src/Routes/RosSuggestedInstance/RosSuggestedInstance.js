@@ -3,12 +3,50 @@ import { PermissionContext } from '../../App';
 import { useChrome } from '@redhat-cloud-services/frontend-components/useChrome';
 import { NotAuthorized } from '@redhat-cloud-services/frontend-components/NotAuthorized';
 import {
-    EmptyStateBody,
-    EmptyState,
-    EmptyStateVariant,
-    Title
+    Spinner,
+    Bullseye
 } from '@patternfly/react-core';
 import { SERVICE_NAME } from '../../constants';
+import {
+    PageHeader,
+    PageHeaderTitle
+} from '@redhat-cloud-services/frontend-components/PageHeader';
+import { useSelector, useDispatch } from 'react-redux';
+import { ServiceNotConfigured } from '../../Components/ServiceNotConfigured/ServiceNotConfigured';
+import { loadIsConfiguredInfo } from '../../store/actions';
+import NoEntitiesFound from '../../Components/NoEntitiesFound/NoEntitiesFound';
+
+const SuggestedInstance = () => {
+    const dispatch = useDispatch();
+    const { showConfigSteps, systemCount } = useSelector((state) => state.isConfiguredReducer);
+    const hasSuggestedInstances = false;
+    useEffect(() => {
+        dispatch(loadIsConfiguredInfo());
+    }, []);
+
+    return (
+        showConfigSteps
+            ? <ServiceNotConfigured />
+            : (
+                <>
+                    <PageHeader>
+                        <PageHeaderTitle title='Suggested Instance Types'/>
+                    </PageHeader>
+                    {
+                        hasSuggestedInstances   //TODO: remove or update this check when working on RHIROS-1163
+                            ? <div>Suggested instance table</div>
+                            : systemCount !== 0
+                                ? <NoEntitiesFound />
+                                : (
+                                    <Bullseye>
+                                        <Spinner />
+                                    </Bullseye>
+                                )
+                    }
+                </>
+            )
+    );
+};
 
 export default function RosSuggestedInstance() {
     const hasPermissions = useContext(PermissionContext).permissions.hasRead;
@@ -21,19 +59,8 @@ export default function RosSuggestedInstance() {
 
     return (
         hasPermissions
-            ? <NoEntities />
+            ? <SuggestedInstance />
             : <NotAuthorized serviceName={SERVICE_NAME} />
     );
 }
 
-// TODO: remove or update this component when working on RHIROS-1166
-const NoEntities = () => (
-    <EmptyState variant={EmptyStateVariant.full}>
-        <Title headingLevel="h5" size="lg">
-          Suggested Instance Types Table
-        </Title>
-        <EmptyStateBody>
-            No records found
-        </EmptyStateBody>
-    </EmptyState>
-);
