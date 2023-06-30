@@ -5,6 +5,7 @@ import { Bullseye, Spinner } from '@patternfly/react-core';
 
 const RosPage = lazy(() => import(/* webpackChunkName: "RosPage" */ './Routes/RosPage/RosPage'));
 const RosSystemDetail = lazy(() => import(/* webpackChunkName: "RosSystemDetail" */ './Routes/RosSystemDetail/RosSystemDetail'));
+const RosSuggestedInstance = lazy(() => import(/* webpackChunkName: "RosSuggestedInstance" */ './Routes/RosSuggestedInstance/RosSuggestedInstance'));
 
 export const Routes = () => (
     <Suspense fallback={<Bullseye>
@@ -12,6 +13,7 @@ export const Routes = () => (
     </Bullseye>}>
         <Switch>
             <Route exact path='/' component={RosPage} />
+            <Route path='/suggested-instance-types' component={RosSuggestedInstance}/>
             <Route path='/:inventoryId' component={RosSystemDetail} />
             <Redirect path="*" to='/' />
         </Switch>
