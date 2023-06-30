@@ -29,6 +29,7 @@ import {
 import { HistoricalDataChart } from '../../Components/HistoricalDataChart/HistoricalDataChart';
 import SystemDetailWrapper from '../../Components/SystemDetail/SystemDetail';
 import { useChrome } from '@redhat-cloud-services/frontend-components/useChrome';
+import { SERVICE_NAME } from '../../constants';
 
 class RosSystemDetail extends React.Component {
     constructor(props) {
@@ -106,9 +107,9 @@ class RosSystemDetail extends React.Component {
         return (
             <React.Fragment>
                 <PermissionContext.Consumer>
-                    { hasPermissions =>
-                        hasPermissions === false
-                            ? <NotAuthorized serviceName='Resource Optimization'/>
+                    { value =>
+                        value.permissions.hasRead === false
+                            ? <NotAuthorized serviceName={SERVICE_NAME} />
                             : <DetailWrapper
                                 inventoryId={this.state.inventoryId}
                                 onLoad={({ mergeWithDetail, INVENTORY_ACTION_TYPES }) => {

@@ -8,9 +8,10 @@ import {
     EmptyStateVariant,
     Title
 } from '@patternfly/react-core';
+import { SERVICE_NAME } from '../../constants';
 
 export default function RosSuggestedInstance() {
-    const hasPermissions = useContext(PermissionContext);
+    const hasPermissions = useContext(PermissionContext).permissions.hasRead;
     const { hideGlobalFilter, updateDocumentTitle } = useChrome();
 
     useEffect(() => {
@@ -21,7 +22,7 @@ export default function RosSuggestedInstance() {
     return (
         hasPermissions
             ? <NoEntities />
-            : <NotAuthorized serviceName='Resource Optimization'/>
+            : <NotAuthorized serviceName={SERVICE_NAME} />
     );
 }
 

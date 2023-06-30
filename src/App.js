@@ -79,7 +79,12 @@ class App extends Component {
             arePermissionsLoaded } = this.state;
         return (
             arePermissionsLoaded
-                ? <PermissionContext.Provider value={ hasReadPermissions }>
+                ? <PermissionContext.Provider
+                    value={{
+                        permissions: {
+                            hasRead: hasReadPermissions
+                        }
+                    }}>
                     <NotificationsPortal />
                     <Routes />
                 </PermissionContext.Provider>

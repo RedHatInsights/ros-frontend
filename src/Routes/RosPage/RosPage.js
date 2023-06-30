@@ -14,7 +14,9 @@ import { changeSystemColumns, loadIsConfiguredInfo } from '../../store/actions';
 import {
     CUSTOM_FILTERS, ROS_API_ROOT,
     SYSTEMS_API_ROOT, SYSTEM_TABLE_COLUMNS,
-    WITH_SUGGESTIONS_PARAM, WITH_WAITING_FOR_DATA_PARAM } from '../../constants';
+    WITH_SUGGESTIONS_PARAM, WITH_WAITING_FOR_DATA_PARAM,
+    SERVICE_NAME
+} from '../../constants';
 import { ServiceNotConfigured } from '../../Components/ServiceNotConfigured/ServiceNotConfigured';
 import { PermissionContext } from '../../App';
 
@@ -464,9 +466,9 @@ class RosPage extends React.Component {
         return (
             <React.Fragment>
                 <PermissionContext.Consumer>
-                    { hasPermissions =>
-                        hasPermissions === false
-                            ? <NotAuthorized serviceName='Resource Optimization' />
+                    { value =>
+                        value.permissions.hasRead === false
+                            ? <NotAuthorized serviceName={SERVICE_NAME} />
                             : this.renderConfigStepsOrTable()
                     }
                 </PermissionContext.Consumer>
