@@ -13,6 +13,10 @@ import {
     displayOS
 } from './Components/RosTable/RenderColumn';
 
+// Pagination
+export const PER_PAGE = 10;
+export const PAGE = 1;
+
 // API
 export const ROS_API_ROOT = '/api/ros/v1';
 export const IS_CONFIGURED_API = '/is_configured';

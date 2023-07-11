@@ -11,6 +11,8 @@ import './ros-page.scss';
 import { entitiesReducer } from '../../store/entitiesReducer';
 import { changeSystemColumns, loadIsConfiguredInfo } from '../../store/actions';
 import {
+    PAGE,
+    PER_PAGE,
     CUSTOM_FILTERS, ROS_API_ROOT,
     SYSTEMS_API_ROOT, SYSTEM_TABLE_COLUMNS,
     WITH_SUGGESTIONS_PARAM, WITH_WAITING_FOR_DATA_PARAM,
@@ -48,7 +50,7 @@ class RosPage extends React.Component {
         super(props);
 
         this.state = {
-            perPage: 10,
+            perPage: PER_PAGE,
             orderBy: 'report_date',
             orderDirection: SortByDirection.desc,
             stateFilterValue: [],
@@ -422,7 +424,7 @@ class RosPage extends React.Component {
                                             ...config,
                                             orderBy: undefined,
                                             orderDirection: undefined,
-                                            page: 1,
+                                            page: PAGE,
                                             hasItems: true
                                         });
 

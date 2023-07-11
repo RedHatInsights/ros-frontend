@@ -15,11 +15,13 @@ import { useSelector, useDispatch } from 'react-redux';
 import { ServiceNotConfigured } from '../../Components/ServiceNotConfigured/ServiceNotConfigured';
 import { loadIsConfiguredInfo } from '../../store/actions';
 import NoEntitiesFound from '../../Components/NoEntitiesFound/NoEntitiesFound';
+import SuggestedInstanceTypesTable from  '../../Components/InstanceTypes/SuggestedInstanceTypesTable';
 
 const SuggestedInstance = () => {
     const dispatch = useDispatch();
     const { showConfigSteps, systemCount } = useSelector((state) => state.isConfiguredReducer);
-    const hasSuggestedInstances = false;
+    const hasSuggestedInstances = true;
+
     useEffect(() => {
         dispatch(loadIsConfiguredInfo());
     }, []);
@@ -33,8 +35,8 @@ const SuggestedInstance = () => {
                         <PageHeaderTitle title='Suggested Instance Types'/>
                     </PageHeader>
                     {
-                        hasSuggestedInstances   //TODO: remove or update this check when working on RHIROS-1163
-                            ? <div>Suggested instance table</div>
+                        hasSuggestedInstances   //TODO: remove or update this check while working on RHIROS-1222
+                            ? <SuggestedInstanceTypesTable />
                             : systemCount !== 0
                                 ? <NoEntitiesFound />
                                 : (
@@ -48,7 +50,7 @@ const SuggestedInstance = () => {
     );
 };
 
-export default function RosSuggestedInstance() {
+export default function RosSuggestedInstanceTypes() {
     const hasPermissions = useContext(PermissionContext).permissions.hasRead;
     const { hideGlobalFilter, updateDocumentTitle } = useChrome();
 
