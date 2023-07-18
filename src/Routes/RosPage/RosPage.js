@@ -311,7 +311,7 @@ class RosPage extends React.Component {
                 ? <ServiceNotConfigured />
                 : <React.Fragment>
                     <PageHeader className='ros-page-header'>
-                        <PageHeaderTitle title='Resource Optimization'/>
+                        <PageHeaderTitle title='Resource Optimization Page'/>
                         <DownloadExecutivePDFReport isDisabled={this.state.disableExport} />
                     </PageHeader>
 
