@@ -95,8 +95,7 @@ export const SYSTEM_TABLE_COLUMNS = [
         isChecked: true,
         isDisabled: false,
         isShownByDefault: true,
-        onSort: () => undefined,
-        sortBy: {}
+        props: { isStatic: true }
     },
     {
         key: 'os',
