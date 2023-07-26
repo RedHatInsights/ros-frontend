@@ -15,6 +15,7 @@ export const downloadSystemsReport = async (format, filters, orderBy, orderHow,
         filters,
         stateFilter: filters.stateFilter,
         osFilter: filters.osFilter,
+        groupFilter: filters.groupFilter,
         orderBy,
         orderHow
     };
