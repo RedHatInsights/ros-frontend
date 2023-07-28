@@ -80,3 +80,12 @@ export const displayLastReported = (data) => {
             : <DateFormat date={ data } />
     );
 };
+
+export const displayGroup = (data) => {
+    return (
+        data.length === 0 ?
+            <span>{ NO_DATA_VALUE }</span> :
+            <span>{ data[0].name }</span>
+
+    );
+};
