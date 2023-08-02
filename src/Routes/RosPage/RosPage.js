@@ -53,7 +53,9 @@ class RosPage extends React.Component {
             nameFilterValue: '',
             disableExport: true,
             osFilterValue: [],
-            OSFObject: {}
+            OSFObject: {},
+            groupObject: {},
+            groupFilterValue: []
         };
 
         this.sortingHeader = {
@@ -78,7 +80,7 @@ class RosPage extends React.Component {
         chrome?.appAction('ros-systems');
         await this.props.isROSConfigured();
         this.processQueryParams();
-        this.processOsVersion();
+        this.processFilterValues();
     }
 
     processQueryParams() {
@@ -98,11 +100,18 @@ class RosPage extends React.Component {
         }
     }
 
-    processOsVersion() {
+    processFilterValues() {
         let osObject = {};
         osObject.label = 'Operating system';
         osObject.type = conditionalFilterType.checkbox;
         osObject.filterValues = {};
+
+        let groupObject = {};
+        groupObject.label = 'Group';
+        groupObject.type = conditionalFilterType.checkbox;
+        groupObject.filterValues = {};
+
+        // API call to systems endpoint
         this.fetchSystems({
             perPage: -1,
             orderBy: 'os',
@@ -118,13 +127,29 @@ class RosPage extends React.Component {
                 return { label: os, value: os.split(' ')[1] };
             });
 
+            groupObject.filterValues.items = Array.from(new Set((response.data).reduce((filtered, system) => {
+                if (system.groups.length > 0) {
+                    filtered.push(system.groups[0].name);
+                }
+
+                return filtered;
+            }, []))).map(groupName => {
+                return { label: groupName, value: groupName };
+            });
+
             if (osObject.filterValues.items.length === 0) {
                 osObject.filterValues.items = [{ label: 'No versions available' }];
                 osObject.type = conditionalFilterType.group;
             }
 
+            if (groupObject.filterValues.items.length === 0) {
+                groupObject.filterValues.items = [{ label: 'No groups available' }];
+                groupObject.type = conditionalFilterType.group;
+            }
+
             this.setState({
-                OSFObject: osObject
+                OSFObject: osObject,
+                groupObject
             });
         });
     }
@@ -164,6 +189,10 @@ class RosPage extends React.Component {
         fetchParams?.osFilter?.forEach((osFilterValue) => {
             query.append('os', osFilterValue);
         });
+        fetchParams?.groupFilter?.forEach((groupFilterValue) => {
+            query.append('group_name', groupFilterValue);
+        });
+
         url.search = query.toString();
         return fetch(url).then((res) => {
             if (!res.ok) {
@@ -221,6 +250,12 @@ class RosPage extends React.Component {
         });
     }
 
+    updateGroupFilter = (value) => {
+        this.setState({
+            groupFilterValue: value
+        });
+    }
+
     onDeleteFilters = (e, filtersArr) => {
         const deletedStateFilters = filtersArr.filter((filterObject) => {
             return filterObject.category === 'State';
@@ -228,6 +263,10 @@ class RosPage extends React.Component {
 
         const deletedOSFilters = filtersArr.filter((filterObject) => {
             return filterObject.category === 'Operating System';
+        });
+
+        const deleteGroupFilters = filtersArr.filter((filterObject) => {
+            return filterObject.category === 'Group';
         });
 
         if (deletedStateFilters.length > 0) {
@@ -252,11 +291,23 @@ class RosPage extends React.Component {
                 osFilterValue: activeOSFilters
             });
         }
+
+        if (deleteGroupFilters.length > 0) {
+            const resetFiltersList = deleteGroupFilters[0]?.chips.map((chip) =>{
+                return chip?.name;
+            });
+            const activeGroupFilters = this.state.groupFilterValue.filter(filterName => !resetFiltersList.includes(filterName));
+
+            this.setState ({
+                groupFilterValue: activeGroupFilters
+            });
+        }
     }
 
     getActiveFilterConfig = () => {
         const activeStateFilters = this.state.stateFilterValue.map((value)=> ({ name: value }));
         const activeOSFilters = this.state.osFilterValue.map((value)=> ({ name: value }));
+        const activeGroupFilters = this.state.groupFilterValue.map((value)=> ({ name: value }));
 
         const activeFilters = [];
         if (activeStateFilters.length > 0) {
@@ -270,6 +321,13 @@ class RosPage extends React.Component {
             activeFilters.push({
                 category: 'Operating System',
                 chips: activeOSFilters
+            });
+        }
+
+        if (activeGroupFilters.length > 0) {
+            activeFilters.push({
+                category: 'Group',
+                chips: activeGroupFilters
             });
         }
 
@@ -288,11 +346,12 @@ class RosPage extends React.Component {
     }
 
     onExportOptionSelect(fileType) {
-        const { stateFilterValue, nameFilterValue, osFilterValue, orderBy, orderDirection } = this.state;
+        const { stateFilterValue, nameFilterValue, osFilterValue, groupFilterValue, orderBy, orderDirection } = this.state;
         const filters = {
             stateFilter: stateFilterValue,
             hostnameOrId: nameFilterValue,
-            osFilter: osFilterValue
+            osFilter: osFilterValue,
+            groupFilter: groupFilterValue
         };
 
         const { addNotification, clearNotifications } = this.props;
@@ -306,7 +365,8 @@ class RosPage extends React.Component {
         const { state: SFObject } = CUSTOM_FILTERS;
         const activeColumns = this.getActiveColumns();
         const { stateFilterValue, osFilterValue,
-            orderBy, orderDirection, disableExport, isColumnModalOpen, OSFObject } = this.state;
+            orderBy, orderDirection, disableExport, isColumnModalOpen,
+            OSFObject, groupObject, groupFilterValue } = this.state;
         return (
             this.props.showConfigSteps
                 ? <ServiceNotConfigured />
@@ -338,7 +398,8 @@ class RosPage extends React.Component {
                                     autoRefresh= {true}
                                     customFilters={{
                                         stateFilter: stateFilterValue,
-                                        osFilter: osFilterValue
+                                        osFilter: osFilterValue,
+                                        groupFilter: groupFilterValue
                                     }}
                                     columns={activeColumns}
                                     getEntities={async (_items, config) => {
@@ -354,7 +415,8 @@ class RosPage extends React.Component {
                                                 orderHow: config.orderDirection,
                                                 filters: config.filters,
                                                 stateFilter: config.stateFilter,
-                                                osFilter: config.osFilter
+                                                osFilter: config.osFilter,
+                                                groupFilter: config.groupFilter
                                             }
                                         );
 
@@ -420,6 +482,16 @@ class RosPage extends React.Component {
                                                     items: OSFObject.filterValues?.items,
                                                     onChange: (_e, values) => this.updateOSFilter(values),
                                                     value: osFilterValue
+                                                }
+                                            },
+                                            {
+                                                label: groupObject.label,
+                                                type: groupObject.type,
+                                                value: `checkbox-group`,
+                                                filterValues: {
+                                                    items: groupObject.filterValues?.items,
+                                                    onChange: (_e, values) => this.updateGroupFilter(values),
+                                                    value: groupFilterValue
                                                 }
                                             }
                                         ]

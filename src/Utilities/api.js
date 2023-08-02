@@ -93,6 +93,9 @@ export const fetchSystems = async (fetchParams) => {
     fetchParams?.osFilter?.forEach((osFilterValue) => {
         query.append('os', osFilterValue);
     });
+    fetchParams?.groupFilter?.forEach((groupFilterValue) => {
+        query.append('group_name', groupFilterValue);
+    });
     url.search = query.toString();
     return fetch(url).then((res) => {
         if (!res.ok) {
