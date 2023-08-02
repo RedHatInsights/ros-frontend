@@ -265,6 +265,10 @@ class RosPage extends React.Component {
             return filterObject.category === 'Operating System';
         });
 
+        const deleteGroupFilters = filtersArr.filter((filterObject) => {
+            return filterObject.category === 'Group';
+        });
+
         if (deletedStateFilters.length > 0) {
             this.clearStateQueryParams();
             const resetFiltersList = deletedStateFilters[0]?.chips.map((chip) =>{
@@ -287,11 +291,23 @@ class RosPage extends React.Component {
                 osFilterValue: activeOSFilters
             });
         }
+
+        if (deleteGroupFilters.length > 0) {
+            const resetFiltersList = deleteGroupFilters[0]?.chips.map((chip) =>{
+                return chip?.name;
+            });
+            const activeGroupFilters = this.state.groupFilterValue.filter(filterName => !resetFiltersList.includes(filterName));
+
+            this.setState ({
+                groupFilterValue: activeGroupFilters
+            });
+        }
     }
 
     getActiveFilterConfig = () => {
         const activeStateFilters = this.state.stateFilterValue.map((value)=> ({ name: value }));
         const activeOSFilters = this.state.osFilterValue.map((value)=> ({ name: value }));
+        const activeGroupFilters = this.state.groupFilterValue.map((value)=> ({ name: value }));
 
         const activeFilters = [];
         if (activeStateFilters.length > 0) {
@@ -305,6 +321,13 @@ class RosPage extends React.Component {
             activeFilters.push({
                 category: 'Operating System',
                 chips: activeOSFilters
+            });
+        }
+
+        if (activeGroupFilters.length > 0) {
+            activeFilters.push({
+                category: 'Group',
+                chips: activeGroupFilters
             });
         }
 
