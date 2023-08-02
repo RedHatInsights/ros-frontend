@@ -6,7 +6,6 @@ import { ExclamationTriangleIcon } from '@patternfly/react-icons';
 import './RenderColumn.scss';
 import moment from 'moment';
 import { TableComposable, Thead, Tr, Th, Td, Tbody } from '@patternfly/react-table';
-import { Link } from 'react-router-dom';
 
 const diskUsageStyle = {
     color: 'white',
