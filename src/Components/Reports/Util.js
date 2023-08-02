@@ -36,7 +36,6 @@ export const formatData = (data, type) => {
 };
 
 export const responseToJSONData = (data) => {
-    console.log('Data:', data);
     const systemsRowsData = formatData(data, 'json');
     return JSON.stringify(systemsRowsData);
 };
