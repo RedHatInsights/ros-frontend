@@ -30,6 +30,8 @@ import {
 import { DownloadExecutivePDFReport } from '../../Components/Reports/ExecutivePDFReport';
 import { useChrome } from '@redhat-cloud-services/frontend-components/useChrome';
 import { conditionalFilterType } from '@redhat-cloud-services/frontend-components';
+import useFeatureFlag from './useFeatureFlag';
+import { displayGroup } from '../../Components/RosTable/RenderColumn';
 
 /**
  * A smart component that handles all the api calls and data needed by the dumb components.
@@ -81,6 +83,19 @@ class RosPage extends React.Component {
         await this.props.isROSConfigured();
         this.processQueryParams();
         this.processFilterValues();
+        if (this.props.groupsEnabled) {
+            SYSTEM_TABLE_COLUMNS.splice(1, 0,  {
+                key: 'groups',
+                title: 'Group',
+                modalTitle: 'Group',
+                dataLabel: 'Group',
+                renderFunc: (data) => displayGroup(data),
+                isChecked: true,
+                isDisabled: false,
+                isShownByDefault: true,
+                props: { isStatic: true }
+            });
+        }
     }
 
     processQueryParams() {
@@ -367,6 +382,45 @@ class RosPage extends React.Component {
         const { stateFilterValue, osFilterValue,
             orderBy, orderDirection, disableExport, isColumnModalOpen,
             OSFObject, groupObject, groupFilterValue } = this.state;
+
+        const customFilterConfig = {
+            items: [
+                {
+                    label: SFObject.label,
+                    type: SFObject.type,
+                    value: `checkbox-state`,
+                    filterValues: {
+                        items: SFObject.filterValues.items,
+                        onChange: (_e, values) => this.updateStateFilter(values),
+                        value: stateFilterValue
+                    }
+                },
+                {
+                    label: OSFObject.label,
+                    type: OSFObject.type,
+                    value: `checkbox-os`,
+                    filterValues: {
+                        items: OSFObject.filterValues?.items,
+                        onChange: (_e, values) => this.updateOSFilter(values),
+                        value: osFilterValue
+                    }
+                }
+            ]
+        };
+
+        if (this.props.groupsEnabled) {
+            customFilterConfig.items.push({
+                label: groupObject.label,
+                type: groupObject.type,
+                value: `checkbox-group`,
+                filterValues: {
+                    items: groupObject.filterValues?.items,
+                    onChange: (_e, values) => this.updateGroupFilter(values),
+                    value: groupFilterValue
+                }
+            });
+        }
+
         return (
             this.props.showConfigSteps
                 ? <ServiceNotConfigured />
@@ -462,40 +516,7 @@ class RosPage extends React.Component {
                                         this.props.setSort(orderBy, orderDirection, 'CHANGE_SORT');
                                     }}
                                     expandable='true'
-                                    filterConfig={{
-                                        items: [
-                                            {
-                                                label: SFObject.label,
-                                                type: SFObject.type,
-                                                value: `checkbox-state`,
-                                                filterValues: {
-                                                    items: SFObject.filterValues.items,
-                                                    onChange: (_e, values) => this.updateStateFilter(values),
-                                                    value: stateFilterValue
-                                                }
-                                            },
-                                            {
-                                                label: OSFObject.label,
-                                                type: OSFObject.type,
-                                                value: `checkbox-os`,
-                                                filterValues: {
-                                                    items: OSFObject.filterValues?.items,
-                                                    onChange: (_e, values) => this.updateOSFilter(values),
-                                                    value: osFilterValue
-                                                }
-                                            },
-                                            {
-                                                label: groupObject.label,
-                                                type: groupObject.type,
-                                                value: `checkbox-group`,
-                                                filterValues: {
-                                                    items: groupObject.filterValues?.items,
-                                                    onChange: (_e, values) => this.updateGroupFilter(values),
-                                                    value: groupFilterValue
-                                                }
-                                            }
-                                        ]
-                                    }}
+                                    filterConfig={customFilterConfig}
                                     activeFiltersConfig={{
                                         filters: this.getActiveFilterConfig(),
                                         onDelete: this.onDeleteFilters
@@ -588,14 +609,16 @@ RosPage.propTypes = {
     changeSystemColumns: PropTypes.func,
     addNotification: PropTypes.func,
     clearNotifications: PropTypes.func,
-    chrome: PropTypes.object
+    chrome: PropTypes.object,
+    groupsEnabled: PropTypes.bool
 };
 
 const RosPageWithChrome =  props => {
     const chrome = useChrome();
+    const groupsEnabled = useFeatureFlag('hbi.ui.inventory-groups');
 
     return (
-        <RosPage {...props} chrome={ chrome } />
+        <RosPage {...props} chrome={ chrome } groupsEnabled={groupsEnabled} />
     );
 };
 
