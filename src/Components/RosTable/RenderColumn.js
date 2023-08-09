@@ -85,8 +85,6 @@ export const displayGroup = (data) => {
     return (
         data.length === 0 ?
             <span>{ NO_DATA_VALUE }</span> :
-            <a href={`./insights/inventory/groups/${data[0].id}`}>
-                <span>{ data[0].name }</span>
-            </a>
+            <span>{ data[0].name }</span>
     );
 };
