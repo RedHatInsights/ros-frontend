@@ -62,7 +62,7 @@ class RosPage extends React.Component {
 
         this.sortingHeader = {
             display_name: 'display_name', /* eslint-disable-line camelcase */
-            groups: 'groups',
+            group_name: 'group_name', /* eslint-disable-line camelcase */
             os: 'os',
             'performance_utilization.cpu': 'cpu',
             'performance_utilization.memory': 'memory',
