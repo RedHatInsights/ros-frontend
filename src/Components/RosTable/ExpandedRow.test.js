@@ -4,6 +4,12 @@ import { ExpandedRow } from './ExpandedRow';
 import renderer from 'react-test-renderer';
 import { DescriptionListGroup } from '@patternfly/react-core';
 
+jest.mock('@redhat-cloud-services/frontend-components/useChrome', () => ({
+    __esModule: true,
+    default: () => {},
+    useChrome: () => {}
+}));
+
 describe('ExpandedRow component', () => {
     afterEach(cleanup);
 
