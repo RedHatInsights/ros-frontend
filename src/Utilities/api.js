@@ -159,7 +159,7 @@ export const fetchSystemsPDFReport = async (fetchSystemParams) => {
                 display_name: fetchSystemParams?.filters.hostnameOrId, /* eslint-disable-line camelcase */
                 state: fetchSystemParams?.stateFilter,
                 os: fetchSystemParams?.osFilter,
-                group_name: fetchSystemParams?.groupFilter
+                group_name: fetchSystemParams?.groupFilter /* eslint-disable-line camelcase */
             }
         })
     })
