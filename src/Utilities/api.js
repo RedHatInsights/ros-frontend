@@ -158,7 +158,8 @@ export const fetchSystemsPDFReport = async (fetchSystemParams) => {
             params: {
                 display_name: fetchSystemParams?.filters.hostnameOrId, /* eslint-disable-line camelcase */
                 state: fetchSystemParams?.stateFilter,
-                os: fetchSystemParams?.osFilter
+                os: fetchSystemParams?.osFilter,
+                group_name: fetchSystemParams?.groupFilter
             }
         })
     })
