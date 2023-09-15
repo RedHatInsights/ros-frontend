@@ -1,7 +1,5 @@
 import PropTypes from 'prop-types';
 import React, { createContext, Component } from 'react';
-import { withRouter } from 'react-router-dom';
-import { connect } from 'react-redux';
 import { ROSRoutes } from './Routes';
 import './App.scss';
 import NotificationsPortal from '@redhat-cloud-services/frontend-components-notifications/NotificationPortal';
@@ -93,9 +91,4 @@ const AppWithChrome = props => {
     );
 };
 
-/**
- * withRouter: https://reacttraining.com/react-router/web/api/withRouter
- * connect: https://github.com/reactjs/react-redux/blob/master/docs/api.md
- *          https://reactjs.org/docs/higher-order-components.html
- */
-export default withRouter (connect()(AppWithChrome));
+export default AppWithChrome;

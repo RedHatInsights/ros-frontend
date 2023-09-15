@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { withRouter } from 'react-router-dom';
 import { PageHeader, PageHeaderTitle } from '@redhat-cloud-services/frontend-components/PageHeader';
 import { Main } from '@redhat-cloud-services/frontend-components/Main';
 import { Button, Card, CardBody } from '@patternfly/react-core';
@@ -581,4 +580,4 @@ const RosPageWithChrome =  props => {
     );
 };
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(RosPageWithChrome));
+export default connect(mapStateToProps, mapDispatchToProps)(RosPageWithChrome);

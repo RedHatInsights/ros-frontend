@@ -191,8 +191,6 @@ const RosSystemDetailWithChrome = props => {
     );
 };
 
-export default withRouter(
-    connect(
-        mapStateToProps,
-        mapDispatchToProps)(RosSystemDetailWithChrome)
-);
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps)(RosSystemDetailWithChrome);
