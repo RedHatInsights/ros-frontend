@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { withRouter, Link } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { Grid, GridItem, Breadcrumb, BreadcrumbItem, Spinner } from '@patternfly/react-core';
 import { Main } from '@redhat-cloud-services/frontend-components/Main';
@@ -29,13 +29,14 @@ import {
 import { HistoricalDataChart } from '../../Components/HistoricalDataChart/HistoricalDataChart';
 import SystemDetailWrapper from '../../Components/SystemDetail/SystemDetail';
 import { useChrome } from '@redhat-cloud-services/frontend-components/useChrome';
+import { InsightsLink } from '@redhat-cloud-services/frontend-components/InsightsLink';
 import { SERVICE_NAME } from '../../constants';
 
 class RosSystemDetail extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            inventoryId: this.props.match.params.inventoryId
+            inventoryId: this.props.params.inventoryId
         };
     }
 
@@ -64,7 +65,7 @@ class RosSystemDetail extends React.Component {
                 rating,
                 state
             } = this.props.rosSystemInfo;
-            const { inventoryId } = this.props.match.params;
+            const { inventoryId } = this.props.params;
             return (
 
                 <Flex alignItems={{ default: 'alignItemsCenter' }}>
@@ -122,7 +123,7 @@ class RosSystemDetail extends React.Component {
                                 <PageHeader>
                                     <Breadcrumb ouiaId="system-detail">
                                         <BreadcrumbItem>
-                                            <Link to='/'>Resource Optimization</Link>
+                                            <InsightsLink to='/'>Resource Optimization</InsightsLink>
                                         </BreadcrumbItem>
                                         <BreadcrumbItem isActive>
                                             <div className="ins-c-inventory__detail--breadcrumb-name">
@@ -159,7 +160,7 @@ class RosSystemDetail extends React.Component {
 };
 
 RosSystemDetail.propTypes = {
-    match: PropTypes.any,
+    params: PropTypes.object,
     entity: PropTypes.object,
     loading: PropTypes.bool,
     rosSystemInfo: PropTypes.object,
@@ -184,9 +185,9 @@ function mapDispatchToProps(dispatch) {
 
 const RosSystemDetailWithChrome = props => {
     const chrome = useChrome();
-
+    const params = useParams();
     return (
-        <RosSystemDetail { ...props } chrome={ chrome } />
+        <RosSystemDetail { ...props } chrome={ chrome } params={ params } />
     );
 };
 
