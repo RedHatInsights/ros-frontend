@@ -53,6 +53,7 @@ class RosPage extends React.Component {
             stateFilterValue: [],
             isColumnModalOpen: false,
             nameFilterValue: '',
+            groupFilterValue: [],
             disableExport: true,
             osFilterValue: [],
             OSFObject: {}
@@ -309,11 +310,12 @@ class RosPage extends React.Component {
     }
 
     onExportOptionSelect(fileType) {
-        const { stateFilterValue, nameFilterValue, osFilterValue, orderBy, orderDirection } = this.state;
+        const { stateFilterValue, nameFilterValue, osFilterValue, groupFilterValue, orderBy, orderDirection } = this.state;
         const filters = {
             stateFilter: stateFilterValue,
             hostnameOrId: nameFilterValue,
-            osFilter: osFilterValue
+            osFilter: osFilterValue,
+            groupFilter: groupFilterValue
         };
 
         const { addNotification, clearNotifications } = this.props;
@@ -393,7 +395,9 @@ class RosPage extends React.Component {
                                         this.setState(() => ({
                                             orderBy: config.orderBy,
                                             orderDirection: config.orderDirection,
-                                            nameFilterValue: config.filters?.hostnameOrId
+                                            nameFilterValue: config.filters?.hostnameOrId,
+                                            groupFilterValue: config?.filters?.hostGroupFilter // the group filter is set by Inventory
+
                                         }));
                                         const results = await this.fetchSystems(
                                             {
