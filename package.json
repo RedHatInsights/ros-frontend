@@ -52,13 +52,13 @@
     "/node_modules/(?!@redhat-cloud-services)"
   ],
   "dependencies": {
-    "@babel/runtime": "7.10.0",
     "@patternfly/patternfly": "4.171.1",
     "@patternfly/react-charts": "^6.55.16",
     "@patternfly/react-core": "^4.239.0",
     "@patternfly/react-icons": "^4.43.15",
     "@patternfly/react-styles": "4.42.15",
     "@patternfly/react-table": "^4.108.0",
+    "@react-pdf/renderer": "^2.1.1",
     "@redhat-cloud-services/frontend-components": "3.11.10",
     "@redhat-cloud-services/frontend-components-config": "^4.7.3",
     "@redhat-cloud-services/frontend-components-notifications": "3.2.5",
@@ -84,6 +84,7 @@
     "@babel/preset-env": "7.10.0",
     "@babel/preset-flow": "7.9.0",
     "@babel/preset-react": "7.10.0",
+    "@babel/runtime": "^7.22.15",
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^11.2.6",
     "@wojtekmaj/enzyme-adapter-react-17": "0.8.0",
