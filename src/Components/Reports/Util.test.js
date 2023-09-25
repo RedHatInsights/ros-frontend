@@ -125,7 +125,7 @@ describe('Util formatData method tests', () => {
 describe('Util responseToCSVData test', () => {
     it('should format the data into CSV format', () => {
         // eslint-disable-next-line max-len
-        const expectedSystemsRowsData = `display_name,os,performance_utilization.cpu,performance_utilization.memory,performance_utilization.max_io,number_of_suggestions,state,cloud_provider,instance_type,idling_time,report_date\r\nip-172-31-28-69.ec2.internal,RHEL 8.4,90%,97%,0.314,1,Undersized,aws,t2.micro,19.70%,29 Mar 2022 00:00 UTC\r\nros-system.internal,RHEL 8.4,90%,97%,0.314,1,Undersized,aws,t2.micro,19.70%,30 Mar 2022 00:01 UTC`;
+        const expectedSystemsRowsData = `display_name,os,performance_utilization.cpu,performance_utilization.memory,performance_utilization.max_io,number_of_suggestions,state,cloud_provider,instance_type,idling_time,report_date,groups\r\nip-172-31-28-69.ec2.internal,RHEL 8.4,90%,97%,0.314,1,Undersized,aws,t2.micro,19.70%,29 Mar 2022 00:00 UTC,ros-for-OCP\r\nros-system.internal,RHEL 8.4,90%,97%,0.314,1,Undersized,aws,t2.micro,19.70%,30 Mar 2022 00:01 UTC,N/A`;
 
         sysResponseTestData[0].number_of_suggestions = 1;  /* eslint-disable-line camelcase */
         sysResponseTestData[0].performance_utilization.cpu = 90;
@@ -140,7 +140,7 @@ describe('Util responseToCSVData test', () => {
 describe('Util responseToJSONData test', () => {
     it('should format the data into JSON string format ', () => {
         // eslint-disable-next-line max-len
-        const expectedSystemsRowsData = '[{"display_name":"ip-172-31-28-69.ec2.internal","os":"RHEL 8.4","performance_utilization.cpu":"90%","performance_utilization.memory":"97%","performance_utilization.max_io":"0.314","number_of_suggestions":"1","state":"Undersized","cloud_provider":"aws","instance_type":"t2.micro","idling_time":"19.70%","report_date":"29 Mar 2022 00:00 UTC"}]';
+        const expectedSystemsRowsData = '[{"display_name":"ip-172-31-28-69.ec2.internal","os":"RHEL 8.4","performance_utilization.cpu":"90%","performance_utilization.memory":"97%","performance_utilization.max_io":"0.314","number_of_suggestions":"1","state":"Undersized","cloud_provider":"aws","instance_type":"t2.micro","idling_time":"19.70%","report_date":"29 Mar 2022 00:00 UTC","groups":"ros-for-OCP"}]';
 
         sysResponseTestData[0].number_of_suggestions = 1;  /* eslint-disable-line camelcase */
         sysResponseTestData[0].performance_utilization.cpu = 90;

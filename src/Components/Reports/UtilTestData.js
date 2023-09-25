@@ -16,7 +16,13 @@ export const sysResponseTestData = [
         instance_type: 't2.micro',  /* eslint-disable-line camelcase */
         idling_time: '19.70',  /* eslint-disable-line camelcase */
         os: 'RHEL 8.4',
-        report_date: '2022-03-29'  /* eslint-disable-line camelcase */
+        report_date: '2022-03-29',  /* eslint-disable-line camelcase */
+        groups: [
+            {
+                id: '6d3314dc-fa62-4753-bbc9-c04f3b2f706b',
+                name: 'ros-for-OCP'
+            }
+        ]
     },
     {
         fqdn: 'ip-172-31-28-69.ec2.internal',
@@ -33,7 +39,8 @@ export const sysResponseTestData = [
         instance_type: 't2.micro',  /* eslint-disable-line camelcase */
         idling_time: '19.70',  /* eslint-disable-line camelcase */
         os: 'RHEL 8.4',
-        report_date: '2022-03-30T00:01:37+00:00'  /* eslint-disable-line camelcase */
+        report_date: '2022-03-30T00:01:37+00:00',  /* eslint-disable-line camelcase */
+        groups: []
     }
 ];
 

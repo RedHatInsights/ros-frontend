@@ -16,7 +16,7 @@ COMMON_BUILDER=https://raw.githubusercontent.com/RedHatInsights/insights-fronten
 # Options that must be configured by app owner
 # --------------------------------------------
 IQE_PLUGINS="ros"
-IQE_MARKER_EXPRESSION="ros_smoke"
+IQE_MARKER_EXPRESSION="ros_ui_smoke "
 IQE_FILTER_EXPRESSION=""
 
 set -exv

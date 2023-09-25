@@ -14,7 +14,9 @@ import { changeSystemColumns, loadIsConfiguredInfo } from '../../store/actions';
 import {
     CUSTOM_FILTERS, ROS_API_ROOT,
     SYSTEMS_API_ROOT, SYSTEM_TABLE_COLUMNS,
-    WITH_SUGGESTIONS_PARAM, WITH_WAITING_FOR_DATA_PARAM } from '../../constants';
+    WITH_SUGGESTIONS_PARAM, WITH_WAITING_FOR_DATA_PARAM,
+    SERVICE_NAME
+} from '../../constants';
 import { ServiceNotConfigured } from '../../Components/ServiceNotConfigured/ServiceNotConfigured';
 import { PermissionContext } from '../../App';
 
@@ -29,6 +31,8 @@ import {
 import { DownloadExecutivePDFReport } from '../../Components/Reports/ExecutivePDFReport';
 import { useChrome } from '@redhat-cloud-services/frontend-components/useChrome';
 import { conditionalFilterType } from '@redhat-cloud-services/frontend-components';
+import useFeatureFlag from './useFeatureFlag';
+import { displayGroup } from '../../Components/RosTable/RenderColumn';
 
 /**
  * A smart component that handles all the api calls and data needed by the dumb components.
@@ -58,6 +62,7 @@ class RosPage extends React.Component {
 
         this.sortingHeader = {
             display_name: 'display_name', /* eslint-disable-line camelcase */
+            group_name: 'group_name', /* eslint-disable-line camelcase */
             os: 'os',
             'performance_utilization.cpu': 'cpu',
             'performance_utilization.memory': 'memory',
@@ -72,13 +77,25 @@ class RosPage extends React.Component {
     }
 
     async componentDidMount() {
-        document.title = 'Resource Optimization | Red Hat Insights';
         const chrome = this.props.chrome;
         chrome?.hideGlobalFilter?.(true);
         chrome?.appAction('ros-systems');
         await this.props.isROSConfigured();
         this.processQueryParams();
-        this.processOsVersion();
+        this.processFilterValues();
+        if (this.props.groupsEnabled) {
+            SYSTEM_TABLE_COLUMNS.splice(1, 0,  {
+                key: 'groups',
+                title: 'Group',
+                modalTitle: 'Group',
+                dataLabel: 'Group',
+                renderFunc: (data) => displayGroup(data),
+                isChecked: true,
+                isDisabled: false,
+                isShownByDefault: true,
+                props: { isStatic: true }
+            });
+        }
     }
 
     processQueryParams() {
@@ -98,11 +115,13 @@ class RosPage extends React.Component {
         }
     }
 
-    processOsVersion() {
+    processFilterValues() {
         let osObject = {};
         osObject.label = 'Operating system';
         osObject.type = conditionalFilterType.checkbox;
         osObject.filterValues = {};
+
+        // API call to systems endpoint
         this.fetchSystems({
             perPage: -1,
             orderBy: 'os',
@@ -164,6 +183,10 @@ class RosPage extends React.Component {
         fetchParams?.osFilter?.forEach((osFilterValue) => {
             query.append('os', osFilterValue);
         });
+        fetchParams?.groupFilter?.forEach((groupFilterValue) => {
+            query.append('group_name', groupFilterValue);
+        });
+
         url.search = query.toString();
         return fetch(url).then((res) => {
             if (!res.ok) {
@@ -312,7 +335,34 @@ class RosPage extends React.Component {
         const { state: SFObject } = CUSTOM_FILTERS;
         const activeColumns = this.getActiveColumns();
         const { exportSystemsPDF, stateFilterValue, nameFilterValue, osFilterValue,
-            orderBy, orderDirection, disableExport, isColumnModalOpen, OSFObject } = this.state;
+            orderBy, orderDirection, disableExport, isColumnModalOpen,
+            OSFObject } = this.state;
+
+        const customFilterConfig = {
+            items: [
+                {
+                    label: SFObject.label,
+                    type: SFObject.type,
+                    value: `checkbox-state`,
+                    filterValues: {
+                        items: SFObject.filterValues.items,
+                        onChange: (_e, values) => this.updateStateFilter(values),
+                        value: stateFilterValue
+                    }
+                },
+                {
+                    label: OSFObject.label,
+                    type: OSFObject.type,
+                    value: `checkbox-os`,
+                    filterValues: {
+                        items: OSFObject.filterValues?.items,
+                        onChange: (_e, values) => this.updateOSFilter(values),
+                        value: osFilterValue
+                    }
+                }
+            ]
+        };
+
         return (
             this.props.showConfigSteps
                 ? <ServiceNotConfigured />
@@ -340,7 +390,7 @@ class RosPage extends React.Component {
                                         className: 'ros-systems-table'
                                     }}
                                     variant="compact"
-                                    hideFilters={{ all: true, name: false }}
+                                    hideFilters={{ all: true, name: false, hostGroupFilter: false }}
                                     autoRefresh= {true}
                                     customFilters={{
                                         stateFilter: stateFilterValue,
@@ -360,7 +410,8 @@ class RosPage extends React.Component {
                                                 orderHow: config.orderDirection,
                                                 filters: config.filters,
                                                 stateFilter: config.stateFilter,
-                                                osFilter: config.osFilter
+                                                osFilter: config.osFilter,
+                                                groupFilter: config?.filters?.hostGroupFilter // the group filter is set by Inventory
                                             }
                                         );
 
@@ -406,30 +457,7 @@ class RosPage extends React.Component {
                                         this.props.setSort(orderBy, orderDirection, 'CHANGE_SORT');
                                     }}
                                     expandable='true'
-                                    filterConfig={{
-                                        items: [
-                                            {
-                                                label: SFObject.label,
-                                                type: SFObject.type,
-                                                value: `checkbox-state`,
-                                                filterValues: {
-                                                    items: SFObject.filterValues.items,
-                                                    onChange: (_e, values) => this.updateStateFilter(values),
-                                                    value: stateFilterValue
-                                                }
-                                            },
-                                            {
-                                                label: OSFObject.label,
-                                                type: OSFObject.type,
-                                                value: `checkbox-os`,
-                                                filterValues: {
-                                                    items: OSFObject.filterValues?.items,
-                                                    onChange: (_e, values) => this.updateOSFilter(values),
-                                                    value: osFilterValue
-                                                }
-                                            }
-                                        ]
-                                    }}
+                                    filterConfig={customFilterConfig}
                                     activeFiltersConfig={{
                                         filters: this.getActiveFilterConfig(),
                                         onDelete: this.onDeleteFilters
@@ -487,8 +515,8 @@ class RosPage extends React.Component {
             <React.Fragment>
                 <PermissionContext.Consumer>
                     { value =>
-                        value.permissions.systemsRead === false
-                            ? <NotAuthorized serviceName='Resource Optimization' />
+                        value.permissions.hasRead === false
+                            ? <NotAuthorized serviceName={SERVICE_NAME} />
                             : this.renderConfigStepsOrTable()
                     }
                 </PermissionContext.Consumer>
@@ -535,14 +563,16 @@ RosPage.propTypes = {
     changeSystemColumns: PropTypes.func,
     addNotification: PropTypes.func,
     clearNotifications: PropTypes.func,
-    chrome: PropTypes.object
+    chrome: PropTypes.object,
+    groupsEnabled: PropTypes.bool
 };
 
 const RosPageWithChrome =  props => {
     const chrome = useChrome();
+    const groupsEnabled = useFeatureFlag('hbi.ui.inventory-groups');
 
     return (
-        <RosPage {...props} chrome={ chrome } />
+        <RosPage {...props} chrome={ chrome } groupsEnabled={groupsEnabled} />
     );
 };
 

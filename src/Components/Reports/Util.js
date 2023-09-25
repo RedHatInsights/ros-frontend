@@ -11,10 +11,17 @@ export const formatData = (data, type) => {
         let rowData = type === 'json' ? {} : [];
 
         rowKeys.map((rowKey) =>{
-            let rowValue =  get(systemItem, rowKey, '');
-            rowValue = (rowValue === null || rowValue === -1) ?  'N/A' : rowValue.toString();
-            rowValue = (rowValue !== 'N/A' && percentageKeys.includes(rowKey)) ? `${rowValue}%` : rowValue;
-            rowValue = (rowKey === 'report_date') ? dateStringByType('exact')(new Date(rowValue)) : rowValue;
+            let rowValue;
+            if (rowKey === 'groups') {
+                rowValue =  get(systemItem, rowKey, []);
+                rowValue = rowValue.length === 0  ? 'N/A' : rowValue[0].name;
+
+            } else {
+                rowValue =   get(systemItem, rowKey, '');
+                rowValue = (rowValue === null || rowValue === -1) ?  'N/A' : rowValue.toString();
+                rowValue = (rowValue !== 'N/A' && percentageKeys.includes(rowKey)) ? `${rowValue}%` : rowValue;
+                rowValue = (rowKey === 'report_date') ? dateStringByType('exact')(new Date(rowValue)) : rowValue;
+            }
 
             if (type === 'json') {
                 rowData[rowKey] = rowValue;
