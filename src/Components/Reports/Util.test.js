@@ -80,8 +80,8 @@ describe('Util generateFilterText method tests', () => {
 describe('Util formatData method tests', () => {
     it('should generate array of data in the format required to generate PDF', () => {
         const expectedSystemsRowsData = [
-            ['ip-172-31-28-69.ec2.internal', 'RHEL 8.4', '90%', '97%', '0.314', '1', 'Undersized', '29 Mar 2022 00:00 UTC'],
-            ['ros-system.internal', 'RHEL 8.4', '90%', '97%', '0.314', '1', 'Undersized', '30 Mar 2022 00:01 UTC']
+            ['ip-172-31-28-69.ec2.internal', 'ros-for-OCP', 'RHEL 8.4', '90%', '97%', '0.314', '1', 'Undersized', '29 Mar 2022 00:00 UTC'],
+            ['ros-system.internal', 'N/A', 'RHEL 8.4', '90%', '97%', '0.314', '1', 'Undersized', '30 Mar 2022 00:01 UTC']
         ];
 
         const actualSystemsRowsData = formatData(sysResponseTestData, 'pdf');
@@ -92,8 +92,8 @@ describe('Util formatData method tests', () => {
 
     it('should generate array of data (with 0%) in the format required to generate PDF', () => {
         const expectedSystemsRowsData = [
-            ['ip-172-31-28-69.ec2.internal', 'RHEL 8.4', '0%', '0%', '0.314', '1', 'Undersized', '29 Mar 2022 00:00 UTC'],
-            ['ros-system.internal', 'RHEL 8.4', '90%', '97%', '0.314', '1', 'Undersized', '30 Mar 2022 00:01 UTC']
+            ['ip-172-31-28-69.ec2.internal', 'ros-for-OCP', 'RHEL 8.4', '0%', '0%', '0.314', '1', 'Undersized', '29 Mar 2022 00:00 UTC'],
+            ['ros-system.internal', 'N/A', 'RHEL 8.4', '90%', '97%', '0.314', '1', 'Undersized', '30 Mar 2022 00:01 UTC']
         ];
 
         sysResponseTestData[0].performance_utilization.cpu = 0;
@@ -107,8 +107,8 @@ describe('Util formatData method tests', () => {
 
     it('should generate array of data (handling null values) in the format required to generate PDF', () => {
         const expectedSystemsRowsData = [
-            ['ip-172-31-28-69.ec2.internal', 'RHEL 8.4', 'N/A', 'N/A', '0.314', 'N/A', 'Undersized', '29 Mar 2022 00:00 UTC'],
-            ['ros-system.internal', 'RHEL 8.4', '90%', '97%', '0.314', '1', 'Undersized', '30 Mar 2022 00:01 UTC']
+            ['ip-172-31-28-69.ec2.internal', 'ros-for-OCP', 'RHEL 8.4', 'N/A', 'N/A', '0.314', 'N/A', 'Undersized', '29 Mar 2022 00:00 UTC'],
+            ['ros-system.internal', 'N/A', 'RHEL 8.4', '90%', '97%', '0.314', '1', 'Undersized', '30 Mar 2022 00:01 UTC']
         ];
 
         sysResponseTestData[0].number_of_suggestions = null;  /* eslint-disable-line camelcase */

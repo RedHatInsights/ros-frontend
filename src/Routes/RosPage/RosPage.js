@@ -55,6 +55,7 @@ class RosPage extends React.Component {
             isColumnModalOpen: false,
             exportSystemsPDF: false,
             nameFilterValue: '',
+            groupFilterValue: [],
             disableExport: true,
             osFilterValue: [],
             OSFObject: {}
@@ -334,7 +335,7 @@ class RosPage extends React.Component {
     renderConfigStepsOrTable() {
         const { state: SFObject } = CUSTOM_FILTERS;
         const activeColumns = this.getActiveColumns();
-        const { exportSystemsPDF, stateFilterValue, nameFilterValue, osFilterValue,
+        const { exportSystemsPDF, stateFilterValue, nameFilterValue, osFilterValue, groupFilterValue,
             orderBy, orderDirection, disableExport, isColumnModalOpen,
             OSFObject } = this.state;
 
@@ -401,7 +402,8 @@ class RosPage extends React.Component {
                                         this.setState(() => ({
                                             orderBy: config.orderBy,
                                             orderDirection: config.orderDirection,
-                                            nameFilterValue: config.filters?.hostnameOrId
+                                            nameFilterValue: config.filters?.hostnameOrId,
+                                            groupFilterValue: config?.filters?.hostGroupFilter // the group filter is set by Inventory
                                         }));
                                         const results = await this.fetchSystems(
                                             {
@@ -497,7 +499,8 @@ class RosPage extends React.Component {
                                     filters={{
                                         stateFilter: stateFilterValue,
                                         hostnameOrId: nameFilterValue,
-                                        osFilter: osFilterValue
+                                        osFilter: osFilterValue,
+                                        groupFilter: groupFilterValue
                                     }}
                                     orderBy={orderBy}
                                     orderHow={orderDirection}

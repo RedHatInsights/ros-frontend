@@ -122,6 +122,19 @@ Name: iqe
                 ]
               }
             >
+              Group
+            </TEXT>
+            <TEXT
+              style={
+                Array [
+                  Object {
+                    "flex": 1,
+                    "fontSize": 8,
+                    "textAlign": "left",
+                  },
+                ]
+              }
+            >
               OS
             </TEXT>
             <TEXT
@@ -712,6 +725,19 @@ Name: iqe
               }
             >
               Name
+            </TEXT>
+            <TEXT
+              style={
+                Array [
+                  Object {
+                    "flex": 1,
+                    "fontSize": 8,
+                    "textAlign": "left",
+                  },
+                ]
+              }
+            >
+              Group
             </TEXT>
             <TEXT
               style={
