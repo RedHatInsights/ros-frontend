@@ -4,7 +4,8 @@ const initialState = {
     loaded: false,
     serverError: {},
     serverCode: '',
-    showConfigSteps: false
+    showConfigSteps: false,
+    systemCount: 0
 };
 
 export default applyReducerHash({
@@ -14,7 +15,8 @@ export default applyReducerHash({
             ...state,
             loaded: false,
             showConfigSteps: action.payload.success ? false : true,
-            serverCode: action.payload.code
+            serverCode: action.payload.code,
+            systemCount: action.payload.count
         };
     },
     LOAD_IS_CONFIGURED_INFO_REJECTED: (state, action) => ({

@@ -38,7 +38,8 @@
     "moduleNameMapper": {
       "\\.(css|scss)$": "identity-obj-proxy",
       "PFReactCore": "@patternfly/react-core",
-      "PFReactTable": "@patternfly/react-table"
+      "PFReactTable": "@patternfly/react-table",
+      "^@redhat-cloud-services/frontend-components-pdf-generator$": "<rootDir>/node_modules/@redhat-cloud-services/frontend-components-pdf-generator/dist/esm/index.js"
     },
     "roots": [
       "<rootDir>/src/"
@@ -58,10 +59,13 @@
     "@patternfly/react-icons": "^4.43.15",
     "@patternfly/react-styles": "4.42.15",
     "@patternfly/react-table": "^4.108.0",
+    "@react-pdf/renderer": "^2.1.1",
     "@redhat-cloud-services/frontend-components": "3.8.12",
     "@redhat-cloud-services/frontend-components-config": "^4.7.3",
     "@redhat-cloud-services/frontend-components-notifications": "3.2.5",
+    "@redhat-cloud-services/frontend-components-pdf-generator": "^2.6.12",
     "@redhat-cloud-services/frontend-components-utilities": "^3.5.0",
+    "@unleash/proxy-client-react": "^3.6.0",
     "babel-plugin-transform-imports": "^2.0.0",
     "classnames": "2.2.6",
     "moment": "^2.29.4",

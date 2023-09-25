@@ -93,6 +93,9 @@ export const fetchSystems = async (fetchParams) => {
     fetchParams?.osFilter?.forEach((osFilterValue) => {
         query.append('os', osFilterValue);
     });
+    fetchParams?.groupFilter?.forEach((groupFilterValue) => {
+        query.append('group_name', groupFilterValue);
+    });
     url.search = query.toString();
     return fetch(url).then((res) => {
         if (!res.ok) {
@@ -133,30 +136,6 @@ export const fetchExecutiveReport = async () => {
         body: JSON.stringify({
             service: 'ros',
             template: 'executiveReport'
-        })
-    })
-    .then(handleErrors)
-    .then((response) => response.blob());
-
-};
-
-export const fetchSystemsPDFReport = async (fetchSystemParams) => {
-    const url = new URL(CRC_PDF_GENERATE_API,  window.location.origin);
-
-    return fetch(url, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-
-        body: JSON.stringify({
-            service: 'ros',
-            template: 'systemsReport',
-            params: {
-                display_name: fetchSystemParams?.filters.hostnameOrId, /* eslint-disable-line camelcase */
-                state: fetchSystemParams?.stateFilter,
-                os: fetchSystemParams?.osFilter
-            }
         })
     })
     .then(handleErrors)

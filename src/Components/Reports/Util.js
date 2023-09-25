@@ -1,23 +1,32 @@
 import { get } from 'lodash';
-import { percentageKeys, reportRowKeys, SYSTEMS_REPORT_FILE_NAME } from './Constants';
+import { pdfRowKeys, percentageKeys, reportRowKeys, SYSTEMS_REPORT_FILE_NAME } from './Constants';
 import { dateStringByType } from '@redhat-cloud-services/frontend-components/DateFormat/helper';
 
 export const formatData = (data, type) => {
 
     const systemsRowsData = [];
-    const rowKeys = reportRowKeys;
+    const rowKeys = type === 'json' ?  reportRowKeys : pdfRowKeys;
 
     data.map((systemItem) => {
-        let rowData =  {};
+        let rowData = type === 'json' ? {} : [];
 
         rowKeys.map((rowKey) =>{
-            let rowValue =  get(systemItem, rowKey, '');
-            rowValue = (rowValue === null || rowValue === -1) ?  'N/A' : rowValue.toString();
-            rowValue = (rowValue !== 'N/A' && percentageKeys.includes(rowKey)) ? `${rowValue}%` : rowValue;
-            rowValue = (rowKey === 'report_date') ? dateStringByType('exact')(new Date(rowValue)) : rowValue;
+            let rowValue;
+            if (rowKey === 'groups') {
+                rowValue =  get(systemItem, rowKey, []);
+                rowValue = rowValue.length === 0  ? 'N/A' : rowValue[0].name;
+
+            } else {
+                rowValue =   get(systemItem, rowKey, '');
+                rowValue = (rowValue === null || rowValue === -1) ?  'N/A' : rowValue.toString();
+                rowValue = (rowValue !== 'N/A' && percentageKeys.includes(rowKey)) ? `${rowValue}%` : rowValue;
+                rowValue = (rowKey === 'report_date') ? dateStringByType('exact')(new Date(rowValue)) : rowValue;
+            }
 
             if (type === 'json') {
                 rowData[rowKey] = rowValue;
+            } else if (type === 'pdf') {
+                rowData.push(rowValue);
             }
         });
 

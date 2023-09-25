@@ -50,7 +50,7 @@ class App extends Component {
         });
 
         const chrome = this.props.chrome;
-        chrome?.identifyApp('ros');
+        chrome?.updateDocumentTitle('Resource Optimization | Red Hat Insights');
         this.unregister = chrome.on('APP_NAVIGATION', (event) => {
             if (event.navId === 'ros') {
                 this.props.history.push(`/${location.search}${location.hash}`);
@@ -80,13 +80,13 @@ class App extends Component {
         return (
             arePermissionsLoaded
                 ? <PermissionContext.Provider
-                    value={ {
+                    value={{
                         permissions: {
-                            systemsRead: hasReadPermissions
+                            hasRead: hasReadPermissions
                         }
-                    } }>
+                    }}>
                     <NotificationsPortal />
-                    <Routes childProps={ this.props } />
+                    <Routes />
                 </PermissionContext.Provider>
                 : null
         );
