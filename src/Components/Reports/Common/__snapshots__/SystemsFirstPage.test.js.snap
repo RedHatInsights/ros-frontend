@@ -102,7 +102,7 @@ Name: iqe
                     "flex": 2.5,
                     "fontSize": 8,
                     "paddingBottom": 2,
-                    "paddingRight": 2,
+                    "paddingRight": 4,
                     "paddingTop": 2,
                     "textAlign": "left",
                   },
@@ -110,6 +110,19 @@ Name: iqe
               }
             >
               Name
+            </TEXT>
+            <TEXT
+              style={
+                Array [
+                  Object {
+                    "flex": 1,
+                    "fontSize": 8,
+                    "textAlign": "left",
+                  },
+                ]
+              }
+            >
+              Group
             </TEXT>
             <TEXT
               style={
@@ -196,7 +209,7 @@ Name: iqe
                     "flex": 1.2,
                     "fontSize": 8,
                     "paddingBottom": 2,
-                    "paddingRight": 2,
+                    "paddingLeft": 2,
                     "paddingTop": 2,
                     "textAlign": "left",
                   },
@@ -237,7 +250,7 @@ Name: iqe
                       "flex": 2.5,
                       "fontSize": 8,
                       "paddingBottom": 2,
-                      "paddingRight": 2,
+                      "paddingRight": 4,
                       "paddingTop": 2,
                       "textAlign": "left",
                     },
@@ -253,7 +266,23 @@ Name: iqe
                       "flex": 1,
                       "fontSize": 8,
                       "paddingBottom": 2,
-                      "paddingRight": 2,
+                      "paddingLeft": 2,
+                      "paddingTop": 2,
+                      "textAlign": "left",
+                    },
+                  ]
+                }
+              >
+                N/A
+              </TEXT>
+              <TEXT
+                style={
+                  Array [
+                    Object {
+                      "flex": 1,
+                      "fontSize": 8,
+                      "paddingBottom": 2,
+                      "paddingLeft": 2,
                       "paddingTop": 2,
                       "textAlign": "left",
                     },
@@ -269,7 +298,7 @@ Name: iqe
                       "flex": 1,
                       "fontSize": 8,
                       "paddingBottom": 2,
-                      "paddingRight": 2,
+                      "paddingLeft": 2,
                       "paddingTop": 2,
                       "textAlign": "left",
                     },
@@ -285,7 +314,7 @@ Name: iqe
                       "flex": 1,
                       "fontSize": 8,
                       "paddingBottom": 2,
-                      "paddingRight": 2,
+                      "paddingLeft": 2,
                       "paddingTop": 2,
                       "textAlign": "left",
                     },
@@ -301,7 +330,7 @@ Name: iqe
                       "flex": 1,
                       "fontSize": 8,
                       "paddingBottom": 2,
-                      "paddingRight": 2,
+                      "paddingLeft": 2,
                       "paddingTop": 2,
                       "textAlign": "left",
                     },
@@ -317,7 +346,7 @@ Name: iqe
                       "flex": 1,
                       "fontSize": 8,
                       "paddingBottom": 2,
-                      "paddingRight": 2,
+                      "paddingLeft": 2,
                       "paddingTop": 2,
                       "textAlign": "left",
                     },
@@ -333,7 +362,7 @@ Name: iqe
                       "flex": 1,
                       "fontSize": 8,
                       "paddingBottom": 2,
-                      "paddingRight": 2,
+                      "paddingLeft": 2,
                       "paddingTop": 2,
                       "textAlign": "left",
                     },
@@ -363,7 +392,7 @@ Name: iqe
                       "flex": 2.5,
                       "fontSize": 8,
                       "paddingBottom": 2,
-                      "paddingRight": 2,
+                      "paddingRight": 4,
                       "paddingTop": 2,
                       "textAlign": "left",
                     },
@@ -379,7 +408,23 @@ Name: iqe
                       "flex": 1,
                       "fontSize": 8,
                       "paddingBottom": 2,
-                      "paddingRight": 2,
+                      "paddingLeft": 2,
+                      "paddingTop": 2,
+                      "textAlign": "left",
+                    },
+                  ]
+                }
+              >
+                team-ros
+              </TEXT>
+              <TEXT
+                style={
+                  Array [
+                    Object {
+                      "flex": 1,
+                      "fontSize": 8,
+                      "paddingBottom": 2,
+                      "paddingLeft": 2,
                       "paddingTop": 2,
                       "textAlign": "left",
                     },
@@ -395,7 +440,7 @@ Name: iqe
                       "flex": 1,
                       "fontSize": 8,
                       "paddingBottom": 2,
-                      "paddingRight": 2,
+                      "paddingLeft": 2,
                       "paddingTop": 2,
                       "textAlign": "left",
                     },
@@ -411,7 +456,7 @@ Name: iqe
                       "flex": 1,
                       "fontSize": 8,
                       "paddingBottom": 2,
-                      "paddingRight": 2,
+                      "paddingLeft": 2,
                       "paddingTop": 2,
                       "textAlign": "left",
                     },
@@ -427,7 +472,7 @@ Name: iqe
                       "flex": 1,
                       "fontSize": 8,
                       "paddingBottom": 2,
-                      "paddingRight": 2,
+                      "paddingLeft": 2,
                       "paddingTop": 2,
                       "textAlign": "left",
                     },
@@ -443,7 +488,7 @@ Name: iqe
                       "flex": 1,
                       "fontSize": 8,
                       "paddingBottom": 2,
-                      "paddingRight": 2,
+                      "paddingLeft": 2,
                       "paddingTop": 2,
                       "textAlign": "left",
                     },
@@ -459,7 +504,7 @@ Name: iqe
                       "flex": 1,
                       "fontSize": 8,
                       "paddingBottom": 2,
-                      "paddingRight": 2,
+                      "paddingLeft": 2,
                       "paddingTop": 2,
                       "textAlign": "left",
                     },
@@ -488,7 +533,7 @@ Name: iqe
                       "flex": 2.5,
                       "fontSize": 8,
                       "paddingBottom": 2,
-                      "paddingRight": 2,
+                      "paddingRight": 4,
                       "paddingTop": 2,
                       "textAlign": "left",
                     },
@@ -504,7 +549,23 @@ Name: iqe
                       "flex": 1,
                       "fontSize": 8,
                       "paddingBottom": 2,
-                      "paddingRight": 2,
+                      "paddingLeft": 2,
+                      "paddingTop": 2,
+                      "textAlign": "left",
+                    },
+                  ]
+                }
+              >
+                N/A
+              </TEXT>
+              <TEXT
+                style={
+                  Array [
+                    Object {
+                      "flex": 1,
+                      "fontSize": 8,
+                      "paddingBottom": 2,
+                      "paddingLeft": 2,
                       "paddingTop": 2,
                       "textAlign": "left",
                     },
@@ -520,7 +581,7 @@ Name: iqe
                       "flex": 1,
                       "fontSize": 8,
                       "paddingBottom": 2,
-                      "paddingRight": 2,
+                      "paddingLeft": 2,
                       "paddingTop": 2,
                       "textAlign": "left",
                     },
@@ -536,7 +597,7 @@ Name: iqe
                       "flex": 1,
                       "fontSize": 8,
                       "paddingBottom": 2,
-                      "paddingRight": 2,
+                      "paddingLeft": 2,
                       "paddingTop": 2,
                       "textAlign": "left",
                     },
@@ -552,7 +613,7 @@ Name: iqe
                       "flex": 1,
                       "fontSize": 8,
                       "paddingBottom": 2,
-                      "paddingRight": 2,
+                      "paddingLeft": 2,
                       "paddingTop": 2,
                       "textAlign": "left",
                     },
@@ -568,7 +629,7 @@ Name: iqe
                       "flex": 1,
                       "fontSize": 8,
                       "paddingBottom": 2,
-                      "paddingRight": 2,
+                      "paddingLeft": 2,
                       "paddingTop": 2,
                       "textAlign": "left",
                     },
@@ -584,7 +645,7 @@ Name: iqe
                       "flex": 1,
                       "fontSize": 8,
                       "paddingBottom": 2,
-                      "paddingRight": 2,
+                      "paddingLeft": 2,
                       "paddingTop": 2,
                       "textAlign": "left",
                     },
@@ -643,6 +704,7 @@ Array [
           This report identified 1 RHEL system. Filters applied
 State: Undersized
 Name: iqe
+Groups:team-ros
         </TEXT>
       </VIEW>
     </VIEW>
@@ -704,7 +766,7 @@ Name: iqe
                     "flex": 2.5,
                     "fontSize": 8,
                     "paddingBottom": 2,
-                    "paddingRight": 2,
+                    "paddingRight": 4,
                     "paddingTop": 2,
                     "textAlign": "left",
                   },
@@ -712,6 +774,19 @@ Name: iqe
               }
             >
               Name
+            </TEXT>
+            <TEXT
+              style={
+                Array [
+                  Object {
+                    "flex": 1,
+                    "fontSize": 8,
+                    "textAlign": "left",
+                  },
+                ]
+              }
+            >
+              Group
             </TEXT>
             <TEXT
               style={
@@ -798,7 +873,7 @@ Name: iqe
                     "flex": 1.2,
                     "fontSize": 8,
                     "paddingBottom": 2,
-                    "paddingRight": 2,
+                    "paddingLeft": 2,
                     "paddingTop": 2,
                     "textAlign": "left",
                   },
@@ -839,7 +914,7 @@ Name: iqe
                       "flex": 2.5,
                       "fontSize": 8,
                       "paddingBottom": 2,
-                      "paddingRight": 2,
+                      "paddingRight": 4,
                       "paddingTop": 2,
                       "textAlign": "left",
                     },
@@ -855,7 +930,23 @@ Name: iqe
                       "flex": 1,
                       "fontSize": 8,
                       "paddingBottom": 2,
-                      "paddingRight": 2,
+                      "paddingLeft": 2,
+                      "paddingTop": 2,
+                      "textAlign": "left",
+                    },
+                  ]
+                }
+              >
+                team-ros
+              </TEXT>
+              <TEXT
+                style={
+                  Array [
+                    Object {
+                      "flex": 1,
+                      "fontSize": 8,
+                      "paddingBottom": 2,
+                      "paddingLeft": 2,
                       "paddingTop": 2,
                       "textAlign": "left",
                     },
@@ -871,7 +962,7 @@ Name: iqe
                       "flex": 1,
                       "fontSize": 8,
                       "paddingBottom": 2,
-                      "paddingRight": 2,
+                      "paddingLeft": 2,
                       "paddingTop": 2,
                       "textAlign": "left",
                     },
@@ -887,7 +978,7 @@ Name: iqe
                       "flex": 1,
                       "fontSize": 8,
                       "paddingBottom": 2,
-                      "paddingRight": 2,
+                      "paddingLeft": 2,
                       "paddingTop": 2,
                       "textAlign": "left",
                     },
@@ -903,7 +994,7 @@ Name: iqe
                       "flex": 1,
                       "fontSize": 8,
                       "paddingBottom": 2,
-                      "paddingRight": 2,
+                      "paddingLeft": 2,
                       "paddingTop": 2,
                       "textAlign": "left",
                     },
@@ -919,7 +1010,7 @@ Name: iqe
                       "flex": 1,
                       "fontSize": 8,
                       "paddingBottom": 2,
-                      "paddingRight": 2,
+                      "paddingLeft": 2,
                       "paddingTop": 2,
                       "textAlign": "left",
                     },
@@ -935,7 +1026,7 @@ Name: iqe
                       "flex": 1,
                       "fontSize": 8,
                       "paddingBottom": 2,
-                      "paddingRight": 2,
+                      "paddingLeft": 2,
                       "paddingTop": 2,
                       "textAlign": "left",
                     },
