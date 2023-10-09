@@ -7,7 +7,7 @@ export default StyleSheet.create({
         fontSize: 8,
         paddingBottom: 2,
         paddingTop: 2,
-        paddingRight: 2,
+        paddingLeft: 2,
         flex: 1
     },
     headerCell: {
@@ -21,7 +21,7 @@ export default StyleSheet.create({
         flex: 2.5,
         paddingBottom: 2,
         paddingTop: 2,
-        paddingRight: 2
+        paddingRight: 4
     },
     lastReportedCell: {
         textAlign: 'left',
@@ -29,7 +29,7 @@ export default StyleSheet.create({
         flex: 1.2,
         paddingBottom: 2,
         paddingTop: 2,
-        paddingRight: 2
+        paddingLeft: 2
     },
     headerStyle: {
         display: 'flex',

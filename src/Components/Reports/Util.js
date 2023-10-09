@@ -59,12 +59,14 @@ export const generateFilterText = (filters) => {
     const hasStateFilter = filters?.stateFilter?.length > 0;
     const hasNameFilter =  filters?.hostnameOrId?.length > 0;
     const hasOsFilter =  filters?.osFilter?.length > 0;
+    const hasgroupFilter = filters?.groupFilter?.length > 0;
 
-    if (hasStateFilter || hasNameFilter || hasOsFilter) {
+    if (hasStateFilter || hasNameFilter || hasOsFilter || hasgroupFilter) {
         filterText = `${filterSeparatorOnLine}Filters applied${filterSeparatorOnLine}`;
         filterText = hasNameFilter ? filterText.concat(`Name: ${filters.hostnameOrId}${filterSeparatorOnLine}`) : filterText;
         filterText = hasStateFilter ? filterText.concat(`State: ${filters.stateFilter.toString()}${filterSeparatorOnLine}`) : filterText;
         filterText = hasOsFilter ? filterText.concat(`Operating System: ${filters.osFilter.sort().toString()}${filterSeparatorOnLine}`) : filterText;
+        filterText = hasgroupFilter ? filterText.concat(`Groups: ${filters.groupFilter.toString()}`) : filterText;
     }
 
     return filterText;

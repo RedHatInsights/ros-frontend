@@ -30,6 +30,7 @@ export const DownloadSystemsPDFReport = ({ filters, orderBy, orderHow, ...props 
             filters,
             stateFilter: filters.stateFilter,
             osFilter: filters.osFilter,
+            groupFilter: filters.groupFilter,
             orderBy,
             orderHow
         };
