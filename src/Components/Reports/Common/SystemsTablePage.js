@@ -6,7 +6,7 @@ import styles from './styles';
 
 const columnBuilder = ({ value, style, key }) => <Text key={key} style={style}>{value}</Text>;
 
-const headerContent = ['Name', 'OS', 'CPU utilization', 'Memory utilization', 'I/O utilization', 'Suggestions', 'State', 'Last reported'];
+const headerContent = ['Name', 'Group', 'OS', 'CPU utilization', 'Memory utilization', 'I/O utilization', 'Suggestions', 'State', 'Last reported'];
 
 const buildSystemsHeader = () => {
     const formattedHeader = headerContent.map((item, index) => {

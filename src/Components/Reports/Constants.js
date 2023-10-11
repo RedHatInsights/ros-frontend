@@ -4,8 +4,8 @@ export const SYSTEMS_PDF_REPORT_TITLE = 'Insights Resource Optimization Systems 
 export const SYSTEMS_REPORT_FILE_NAME = 'resource_optimization--';
 export const EXECUTIVE_REPORT_FILE_NAME = 'Resource-Optimization-Executive-Report--';
 
-export const pdfRowKeys = ['display_name', 'os', 'performance_utilization.cpu', 'performance_utilization.memory', 'performance_utilization.max_io',
-    'number_of_suggestions', 'state', 'report_date'];
+export const pdfRowKeys = ['display_name', 'groups', 'os', 'performance_utilization.cpu', 'performance_utilization.memory',
+    'performance_utilization.max_io', 'number_of_suggestions', 'state', 'report_date'];
 
 export const reportRowKeys = ['display_name', 'os', 'performance_utilization.cpu', 'performance_utilization.memory', 'performance_utilization.max_io',
     'number_of_suggestions', 'state', 'cloud_provider', 'instance_type', 'idling_time', 'report_date', 'groups'];
