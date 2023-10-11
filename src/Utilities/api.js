@@ -1,5 +1,5 @@
 import { SortByDirection } from '@patternfly/react-table';
-import { ROS_API_ROOT, SYSTEMS_API_ROOT, IS_CONFIGURED_API, CRC_PDF_GENERATE_API } from '../constants';
+import { ROS_API_ROOT, SYSTEMS_API_ROOT, IS_CONFIGURED_API, CRC_PDF_GENERATE_API, SUGGESTED_INSTANCE_TYPES_API } from '../constants';
 
 export function handleErrors(response) {
     if (!response.ok) {
@@ -141,4 +141,18 @@ export const fetchExecutiveReport = async () => {
     .then(handleErrors)
     .then((response) => response.blob());
 
+};
+
+export const fetchSuggestedInstanceTypes = async (params) => {
+    let url = new URL(
+        ROS_API_ROOT + SUGGESTED_INSTANCE_TYPES_API,
+        window.location.origin
+    );
+
+    let query = new URLSearchParams(params);
+    url.search = query.toString();
+
+    let response = fetch(url).then(handleErrors)
+    .then(res =>  res.json()).then(result => result);
+    return response;
 };

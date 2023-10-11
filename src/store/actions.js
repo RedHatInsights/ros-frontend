@@ -1,4 +1,4 @@
-import { fetchSystemDetail, fetchSystemRecommendations, isROSConfigured } from '../Utilities/api';
+import { fetchSystemDetail, fetchSystemRecommendations, isROSConfigured, fetchSuggestedInstanceTypes } from '../Utilities/api';
 
 export const loadSystemInfo = inventoryId => ({
     type: 'LOAD_ROS_SYSTEM_INFO',
@@ -18,4 +18,9 @@ export const loadIsConfiguredInfo = () => ({
 export const changeSystemColumns = (payload) =>({
     type: 'CHANGE_SYSTEM_COLUMNS',
     payload
+});
+
+export const loadSuggestedInstanceTypes = (params) =>({
+    type: 'LOAD_ROS_SYSTEMS',
+    payload: fetchSuggestedInstanceTypes(params)
 });

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
     TableVariant,
     TableComposable,
@@ -6,40 +6,33 @@ import {
 } from '@patternfly/react-table';
 import {
     Card,
+    Spinner,
+    Bullseye,
     CardBody,
     Pagination,
     PaginationVariant
 } from '@patternfly/react-core';
 import { PrimaryToolbar } from '@redhat-cloud-services/frontend-components/PrimaryToolbar';
 import { PAGE, PER_PAGE } from '../../constants';
-
-const SUGG_INSTANCE_TYPES_TABLE_COLUMNS = [
-    'Suggested instance type',
-    'Provider',
-    'Description',
-    'Systems'
-];
-const SUGG_INSTANCE_TYPES_DATA = [
-    { instanceType: 't3.micro', provider: 'AWS', description: 'Lorem ipsum dolor sit, amet consectetur adipisicing.', count: 1 },
-    { instanceType: 't3.small', provider: 'AWS', description: 'Lorem ipsum dolor sit, amet consectetur adipisicing.', count: 1 },
-    { instanceType: 't2.small', provider: 'AWS', description: 'Lorem ipsum dolor sit, amet consectetur adipisicing.', count: 2 },
-    { instanceType: 't2.micro', provider: 'AWS', description: 'Lorem ipsum dolor sit, amet consectetur adipisicing.', count: 1 },
-    { instanceType: 't2.large', provider: 'AWS', description: 'Lorem ipsum dolor sit, amet consectetur adipisicing.', count: 4 },
-    { instanceType: 'm2.2xlarge', provider: 'AWS', description: 'Lorem ipsum dolor sit, amet consectetur adipisicing.', count: 1 },
-    { instanceType: 'm3.2xsmall', provider: 'AWS', description: 'Lorem ipsum dolor sit, amet consectetur adipisicing.', count: 6 },
-    { instanceType: 'm3.2xlarge', provider: 'AWS', description: 'Lorem ipsum dolor sit, amet consectetur adipisicing.', count: 1 }
-];
+import { useSelector, useDispatch } from 'react-redux';
+import { loadSuggestedInstanceTypes } from '../../store/actions';
+import { SUGG_INSTANCE_TYPES_TABLE_COLUMNS } from '../../constants';
 
 export default function SuggestedInstanceTypesTable() {
-
+    const dispatch = useDispatch();
     const [page, setPage] = useState(PAGE);
     const [perPage, setPerPage] = useState(PER_PAGE);
+    const { loading, instances, count } = useSelector((state) => state.suggestedInstanceTypesReducer);
 
     const onSetPage = (event, page) => setPage(page);
     const onPerPageSelect = (event, perPage) => {
         setPerPage(perPage);
         setPage(PAGE);
     };
+
+    useEffect(() =>{
+        dispatch(loadSuggestedInstanceTypes({ page, perPage }));
+    }, [page, perPage]);
 
     return (
         <>
@@ -48,14 +41,14 @@ export default function SuggestedInstanceTypesTable() {
                     <CardBody>
                         <PrimaryToolbar
                             pagination={{
-                                itemCount: 50,
+                                itemCount: count,
                                 page,
                                 perPage,
                                 onSetPage,
                                 onPerPageSelect
                             }}
                         />
-                        <TableComposable
+                        {!loading ? <TableComposable
                             aria-label='suggested instance types table'
                             variant={TableVariant.compact}
 
@@ -71,21 +64,25 @@ export default function SuggestedInstanceTypesTable() {
                             </Thead>
                             <Tbody>
                                 {
-                                    SUGG_INSTANCE_TYPES_DATA.map(instance => {
+                                    instances.map(instance => {
                                         return (
-                                            <Tr key={instance.instanceType}>
-                                                <Td dataLabel={SUGG_INSTANCE_TYPES_TABLE_COLUMNS[0]}>{instance.instanceType}</Td>
-                                                <Td dataLabel={SUGG_INSTANCE_TYPES_TABLE_COLUMNS[1]}>{instance.provider}</Td>
-                                                <Td dataLabel={SUGG_INSTANCE_TYPES_TABLE_COLUMNS[2]}>{instance.description}</Td>
-                                                <Td dataLabel={SUGG_INSTANCE_TYPES_TABLE_COLUMNS[3]}>{instance.count}</Td>
+                                            <Tr key={instance.instance_type}>
+                                                <Td>{instance.instance_type}</Td>
+                                                <Td>{instance.cloud_provider}</Td>
+                                                <Td>{instance.description}</Td>
+                                                <Td>{instance.system_count}</Td>
                                             </Tr>
                                         );
                                     })
                                 }
                             </Tbody>
-                        </TableComposable>
+                        </TableComposable> : (
+                            <Bullseye>
+                                <Spinner/>
+                            </Bullseye>
+                        )}
                         <Pagination
-                            itemCount={50}
+                            itemCount={count}
                             page={page}
                             perPage={perPage}
                             onSetPage={onSetPage}

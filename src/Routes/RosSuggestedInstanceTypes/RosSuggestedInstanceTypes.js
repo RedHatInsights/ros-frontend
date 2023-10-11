@@ -19,8 +19,8 @@ import SuggestedInstanceTypesTable from  '../../Components/InstanceTypes/Suggest
 
 const SuggestedInstance = () => {
     const dispatch = useDispatch();
-    const { showConfigSteps, systemCount } = useSelector((state) => state.isConfiguredReducer);
-    const hasSuggestedInstances = true;
+    const { loading, showConfigSteps, systemWithSuggestions } = useSelector((state) => state.isConfiguredReducer);
+    const hasSuggestedInstances = systemWithSuggestions !== 0;
 
     useEffect(() => {
         dispatch(loadIsConfiguredInfo());
@@ -35,15 +35,17 @@ const SuggestedInstance = () => {
                         <PageHeaderTitle title='Suggested Instance Types'/>
                     </PageHeader>
                     {
-                        hasSuggestedInstances   //TODO: remove or update this check while working on RHIROS-1222
-                            ? <SuggestedInstanceTypesTable />
-                            : systemCount !== 0
-                                ? <NoEntitiesFound />
-                                : (
-                                    <Bullseye>
-                                        <Spinner />
-                                    </Bullseye>
-                                )
+                        !loading ?
+                            (
+                                hasSuggestedInstances
+                                    ? <SuggestedInstanceTypesTable />
+                                    : <NoEntitiesFound />
+                            ) : (
+                                <Bullseye>
+                                    <Spinner />
+                                </Bullseye>
+                            )
+
                     }
                 </>
             )
