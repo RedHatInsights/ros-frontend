@@ -1,8 +1,6 @@
 import PropTypes from 'prop-types';
 import React, { createContext, Component } from 'react';
-import { withRouter } from 'react-router-dom';
-import { connect } from 'react-redux';
-import { Routes } from './Routes';
+import { ROSRoutes } from './Routes';
 import './App.scss';
 import NotificationsPortal from '@redhat-cloud-services/frontend-components-notifications/NotificationPortal';
 import { notificationsReducer } from '@redhat-cloud-services/frontend-components-notifications/redux';
@@ -51,13 +49,7 @@ class App extends Component {
 
         const chrome = this.props.chrome;
         chrome?.updateDocumentTitle('Resource Optimization | Red Hat Insights');
-        this.unregister = chrome.on('APP_NAVIGATION', (event) => {
-            if (event.navId === 'ros') {
-                this.props.history.push(`/${location.search}${location.hash}`);
-            } else {
-                this.props.history.push(`/${event.navId}${location.search}${location.hash}`);
-            }
-        });
+
         (async () => {
             const rosPermissions = await chrome.getUserPermissions('ros', true);
             this.handlePermissionsUpdate(
@@ -65,12 +57,6 @@ class App extends Component {
             );
         })();
 
-    }
-
-    componentWillUnmount () {
-        if (typeof this.unregister === 'function') {
-            this.unregister();
-        }
     }
 
     render () {
@@ -86,7 +72,7 @@ class App extends Component {
                         }
                     }}>
                     <NotificationsPortal />
-                    <Routes />
+                    <ROSRoutes />
                 </PermissionContext.Provider>
                 : null
         );
@@ -94,7 +80,6 @@ class App extends Component {
 }
 
 App.propTypes = {
-    history: PropTypes.object,
     chrome: PropTypes.object
 };
 
@@ -106,9 +91,4 @@ const AppWithChrome = props => {
     );
 };
 
-/**
- * withRouter: https://reacttraining.com/react-router/web/api/withRouter
- * connect: https://github.com/reactjs/react-redux/blob/master/docs/api.md
- *          https://reactjs.org/docs/higher-order-components.html
- */
-export default withRouter (connect()(AppWithChrome));
+export default AppWithChrome;

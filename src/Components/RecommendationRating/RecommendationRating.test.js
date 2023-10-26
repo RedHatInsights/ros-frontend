@@ -5,6 +5,12 @@ import RecommendationRating from './RecommendationRating';
 import renderer from 'react-test-renderer';
 import '@testing-library/jest-dom/extend-expect';
 
+jest.mock('@redhat-cloud-services/frontend-components/useChrome', () => ({
+    __esModule: true,
+    default: () => {},
+    useChrome: () => {}
+}));
+
 describe('RecommendationRating', () => {
     afterEach(cleanup);
 

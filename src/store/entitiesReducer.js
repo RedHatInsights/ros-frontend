@@ -1,5 +1,5 @@
 import { applyReducerHash } from '@redhat-cloud-services/frontend-components-utilities/ReducerRegistry';
-import { Link } from 'react-router-dom';
+import { InsightsLink } from '@redhat-cloud-services/frontend-components/InsightsLink';
 import React from 'react';
 import { Tooltip } from '@patternfly/react-core';
 import { ExpandedRow } from '../Components/RosTable/ExpandedRow';
@@ -19,9 +19,9 @@ export const systemName = (displayName, id, { inventory_id: inventoryId, isDelet
                     <span>{ displayName }</span>
                 ) :
                 (
-                    <Link to={{ pathname: `/${inventoryId}` }} className={ `pf-link system-link link-${inventoryId}` }>
+                    <InsightsLink to={{ pathname: `/${inventoryId}` }} className={ `pf-link system-link link-${inventoryId}` }>
                         { displayName }
-                    </Link>
+                    </InsightsLink>
                 )
 
     );
@@ -48,10 +48,10 @@ export const recommendations = (data, id, { inventory_id: inventoryId, isDeleted
                     <span>{ NO_DATA_VALUE }</span>
                 )
                 : (
-                    <Link to={{ pathname: `/${inventoryId}` }}
+                    <InsightsLink to={{ pathname: `/${inventoryId}` }}
                         className={ `pf-link link-${inventoryId}` }>
                         { data }
-                    </Link>
+                    </InsightsLink>
                 )
     );
 };

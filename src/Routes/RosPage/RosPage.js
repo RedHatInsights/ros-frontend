@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { withRouter } from 'react-router-dom';
 import { PageHeader, PageHeaderTitle } from '@redhat-cloud-services/frontend-components/PageHeader';
 import { Main } from '@redhat-cloud-services/frontend-components/Main';
 import { Button, Card, CardBody } from '@patternfly/react-core';
@@ -33,6 +32,7 @@ import { useChrome } from '@redhat-cloud-services/frontend-components/useChrome'
 import { conditionalFilterType } from '@redhat-cloud-services/frontend-components';
 import useFeatureFlag from './useFeatureFlag';
 import { displayGroup } from '../../Components/RosTable/RenderColumn';
+import { useLocation } from 'react-router-dom';
 
 /**
  * A smart component that handles all the api calls and data needed by the dumb components.
@@ -572,11 +572,12 @@ RosPage.propTypes = {
 
 const RosPageWithChrome =  props => {
     const chrome = useChrome();
+    const location = useLocation();
     const groupsEnabled = useFeatureFlag('hbi.ui.inventory-groups');
 
     return (
-        <RosPage {...props} chrome={ chrome } groupsEnabled={groupsEnabled} />
+        <RosPage {...props} chrome={ chrome } groupsEnabled={ groupsEnabled } location={ location }/>
     );
 };
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(RosPageWithChrome));
+export default connect(mapStateToProps, mapDispatchToProps)(RosPageWithChrome);

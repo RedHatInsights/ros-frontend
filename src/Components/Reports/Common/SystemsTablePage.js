@@ -1,6 +1,7 @@
 import React, { Fragment } from 'react';
 import propTypes from 'prop-types';
 import { Section, Column, Table } from '@redhat-cloud-services/frontend-components-pdf-generator';
+import 'fast-text-encoding';
 import { Text } from '@react-pdf/renderer';
 import styles from './styles';
 

@@ -33,7 +33,7 @@
     ],
     "coverageDirectory": "./coverage/",
     "transformIgnorePatterns": [
-      "<rootDir>/node_modules/(?!(@patternfly/react-core/|@patternfly/react-tokens/|@patternfly/react-icons/|@redhat-cloud-services)).*$"
+      "<rootDir>/node_modules/(?!(@patternfly/react-core/|@patternfly/react-icons/|@redhat-cloud-services|@openshift|lodash-es|@patternfly/react-table|@patternfly/react-tokens|p-all)).*$"
     ],
     "moduleNameMapper": {
       "\\.(css|scss)$": "identity-obj-proxy",
@@ -52,7 +52,6 @@
     "/node_modules/(?!@redhat-cloud-services)"
   ],
   "dependencies": {
-    "@babel/runtime": "7.10.0",
     "@patternfly/patternfly": "4.171.1",
     "@patternfly/react-charts": "^6.55.16",
     "@patternfly/react-core": "^4.239.0",
@@ -60,19 +59,20 @@
     "@patternfly/react-styles": "4.42.15",
     "@patternfly/react-table": "^4.108.0",
     "@react-pdf/renderer": "^2.1.1",
-    "@redhat-cloud-services/frontend-components": "3.8.12",
+    "@redhat-cloud-services/frontend-components": "3.11.10",
     "@redhat-cloud-services/frontend-components-config": "^4.7.3",
     "@redhat-cloud-services/frontend-components-notifications": "3.2.5",
     "@redhat-cloud-services/frontend-components-pdf-generator": "^2.6.12",
-    "@redhat-cloud-services/frontend-components-utilities": "^3.5.0",
+    "@redhat-cloud-services/frontend-components-utilities": "^3.7.6",
     "@unleash/proxy-client-react": "^3.6.0",
     "babel-plugin-transform-imports": "^2.0.0",
     "classnames": "2.2.6",
+    "fast-text-encoding": "^1.0.6",
     "moment": "^2.29.4",
-    "react": "^17.0.0",
+    "react": "^17.0.2",
     "react-dom": "^17.0.0",
     "react-redux": "^7.2.0",
-    "react-router-dom": "5.2.0",
+    "react-router-dom": "^6.8.1",
     "redux": "^4.0.5",
     "redux-logger": "3.0.6",
     "redux-promise-middleware": "6.1.2"
@@ -85,8 +85,10 @@
     "@babel/preset-env": "7.10.0",
     "@babel/preset-flow": "7.9.0",
     "@babel/preset-react": "7.10.0",
+    "@babel/runtime": "^7.22.15",
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^11.2.6",
+    "@wojtekmaj/enzyme-adapter-react-17": "0.8.0",
     "babel-core": "7.0.0-bridge.0",
     "babel-eslint": "10.1.0",
     "babel-jest": "26.0.1",
@@ -95,7 +97,6 @@
     "cross-fetch": "3.1.5",
     "css-loader": "3.5.3",
     "enzyme": "3.11.0",
-    "enzyme-adapter-react-16": "1.15.2",
     "enzyme-to-json": "3.5.0",
     "eslint": "7.1.0",
     "eslint-config-prettier": "6.11.0",
