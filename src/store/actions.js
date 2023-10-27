@@ -21,6 +21,6 @@ export const changeSystemColumns = (payload) =>({
 });
 
 export const loadSuggestedInstanceTypes = (params) =>({
-    type: 'LOAD_ROS_SYSTEMS',
+    type: 'LOAD_SUGGESTED_INSTANCE_TYPES',
     payload: fetchSuggestedInstanceTypes(params)
 });

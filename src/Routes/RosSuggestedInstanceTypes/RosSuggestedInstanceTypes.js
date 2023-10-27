@@ -2,6 +2,7 @@ import React, { useContext, useEffect } from 'react';
 import { PermissionContext } from '../../App';
 import { useChrome } from '@redhat-cloud-services/frontend-components/useChrome';
 import { NotAuthorized } from '@redhat-cloud-services/frontend-components/NotAuthorized';
+import ErrorState from '@redhat-cloud-services/frontend-components/ErrorState';
 import {
     Spinner,
     Bullseye
@@ -19,7 +20,7 @@ import SuggestedInstanceTypesTable from  '../../Components/InstanceTypes/Suggest
 
 const SuggestedInstance = () => {
     const dispatch = useDispatch();
-    const { loading, showConfigSteps, systemWithSuggestions } = useSelector((state) => state.isConfiguredReducer);
+    const { loading, showConfigSteps, systemWithSuggestions, serverError } = useSelector((state) => state.isConfiguredReducer);
     const hasSuggestedInstances = systemWithSuggestions !== 0;
 
     useEffect(() => {
@@ -35,16 +36,18 @@ const SuggestedInstance = () => {
                         <PageHeaderTitle title='Suggested Instance Types'/>
                     </PageHeader>
                     {
-                        !loading ?
-                            (
-                                hasSuggestedInstances
-                                    ? <SuggestedInstanceTypesTable />
-                                    : <NoEntitiesFound />
-                            ) : (
-                                <Bullseye>
-                                    <Spinner />
-                                </Bullseye>
-                            )
+                        serverError ?
+                            <ErrorState/> :
+                            !loading ?
+                                (
+                                    hasSuggestedInstances
+                                        ? <SuggestedInstanceTypesTable />
+                                        : <NoEntitiesFound />
+                                ) : (
+                                    <Bullseye>
+                                        <Spinner />
+                                    </Bullseye>
+                                )
 
                     }
                 </>
