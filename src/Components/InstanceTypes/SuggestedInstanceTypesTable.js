@@ -49,7 +49,7 @@ export default function SuggestedInstanceTypesTable() {
                                 onPerPageSelect
                             }}
                         />
-                        { serverError ? <ErrorState/> :
+                        { serverError.message ? <ErrorState/> :
                             !loading ? <TableComposable
                                 aria-label='suggested instance types table'
                                 variant={TableVariant.compact}

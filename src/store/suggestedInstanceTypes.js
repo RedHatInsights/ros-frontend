@@ -2,7 +2,7 @@ import { applyReducerHash } from '@redhat-cloud-services/frontend-components-uti
 
 const initialState = {
     loading: false,
-    serverError: '',
+    serverError: {},
     instances: [],
     count: 0
 };

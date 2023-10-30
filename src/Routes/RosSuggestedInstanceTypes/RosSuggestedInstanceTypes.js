@@ -36,7 +36,7 @@ const SuggestedInstance = () => {
                         <PageHeaderTitle title='Suggested Instance Types'/>
                     </PageHeader>
                     {
-                        serverError ?
+                        serverError.message ?
                             <ErrorState/> :
                             !loading ?
                                 (
