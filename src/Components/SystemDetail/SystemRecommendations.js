@@ -14,6 +14,8 @@ import {
     Pagination
 } from '@patternfly/react-core';
 import debounce from 'lodash/debounce';
+import { PER_PAGE, PAGE } from '../../constants';
+
 const RecommendationsTable = React.lazy(() => import('./RecommendationsTable'));
 /**
  * This is a dumb component that only recieves properties from a smart component.
@@ -61,8 +63,8 @@ class SystemRecommendations extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            page: 1,
-            perPage: 10,
+            page: PAGE,
+            perPage: PER_PAGE,
             inventoryId: props.inventoryId,
             activeFilters: defaultFilters
         };
@@ -95,11 +97,11 @@ class SystemRecommendations extends React.Component {
         this.setState({
             activeFilters: filters,
             descriptionFilter: filters?.name?.value,
-            page: 1
+            page: PAGE
         });
         this.debouncedThrottleHandleChange({
             description: filters?.name?.value,
-            page: 1
+            page: PAGE
         });
     }
 
@@ -128,7 +130,7 @@ class SystemRecommendations extends React.Component {
                                         perPage,
                                         itemCount: (totalRecs ? totalRecs : 0),
                                         onSetPage: (_e, page) => this.updatePagination({ page, perPage: this.state.perPage }),
-                                        onPerPageSelect: (_e, perPage) => this.updatePagination({ page: 1, perPage }),
+                                        onPerPageSelect: (_e, perPage) => this.updatePagination({ page: PAGE, perPage }),
                                         isCompact: true,
                                         widgetId: 'ros-pagination-top'
                                     }}
@@ -176,7 +178,7 @@ class SystemRecommendations extends React.Component {
                                             perPage={ perPage }
                                             variant='bottom'
                                             onSetPage={(_e, page) => this.updatePagination({ page, perPage: this.state.perPage })}
-                                            onPerPageSelect={(_e, perPage) => this.updatePagination({ page: 1, perPage })}
+                                            onPerPageSelect={(_e, perPage) => this.updatePagination({ page: PAGE, perPage })}
                                         />
                                     </TableToolbar>
                                 </CardBody>

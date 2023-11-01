@@ -2,6 +2,7 @@ import React, { useContext, useEffect } from 'react';
 import { PermissionContext } from '../../App';
 import { useChrome } from '@redhat-cloud-services/frontend-components/useChrome';
 import { NotAuthorized } from '@redhat-cloud-services/frontend-components/NotAuthorized';
+import ErrorState from '@redhat-cloud-services/frontend-components/ErrorState';
 import {
     Spinner,
     Bullseye
@@ -15,11 +16,13 @@ import { useSelector, useDispatch } from 'react-redux';
 import { ServiceNotConfigured } from '../../Components/ServiceNotConfigured/ServiceNotConfigured';
 import { loadIsConfiguredInfo } from '../../store/actions';
 import NoEntitiesFound from '../../Components/NoEntitiesFound/NoEntitiesFound';
+import SuggestedInstanceTypesTable from  '../../Components/InstanceTypes/SuggestedInstanceTypesTable';
 
 const SuggestedInstance = () => {
     const dispatch = useDispatch();
-    const { showConfigSteps, systemCount } = useSelector((state) => state.isConfiguredReducer);
-    const hasSuggestedInstances = false;
+    const { loading, showConfigSteps, systemWithSuggestions, serverError } = useSelector((state) => state.isConfiguredReducer);
+    const hasSuggestedInstances = systemWithSuggestions !== 0;
+
     useEffect(() => {
         dispatch(loadIsConfiguredInfo());
     }, []);
@@ -33,22 +36,26 @@ const SuggestedInstance = () => {
                         <PageHeaderTitle title='Suggested Instance Types'/>
                     </PageHeader>
                     {
-                        hasSuggestedInstances   //TODO: remove or update this check when working on RHIROS-1163
-                            ? <div>Suggested instance table</div>
-                            : systemCount !== 0
-                                ? <NoEntitiesFound />
-                                : (
+                        serverError.message ?
+                            <ErrorState/> :
+                            !loading ?
+                                (
+                                    hasSuggestedInstances
+                                        ? <SuggestedInstanceTypesTable />
+                                        : <NoEntitiesFound />
+                                ) : (
                                     <Bullseye>
                                         <Spinner />
                                     </Bullseye>
                                 )
+
                     }
                 </>
             )
     );
 };
 
-export default function RosSuggestedInstance() {
+export default function RosSuggestedInstanceTypes() {
     const hasPermissions = useContext(PermissionContext).permissions.hasRead;
     const { hideGlobalFilter, updateDocumentTitle } = useChrome();
 

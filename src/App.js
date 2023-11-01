@@ -4,7 +4,7 @@ import { ROSRoutes } from './Routes';
 import './App.scss';
 import NotificationsPortal from '@redhat-cloud-services/frontend-components-notifications/NotificationPortal';
 import { notificationsReducer } from '@redhat-cloud-services/frontend-components-notifications/redux';
-import { systemRecsReducer, systemDetailReducer, isConfiguredReducer, systemColumnsReducer } from './store/reducers';
+import { systemRecsReducer, systemDetailReducer, isConfiguredReducer, systemColumnsReducer, suggestedInstanceTypesReducer } from './store/reducers';
 import { register } from './store';
 import { useChrome } from '@redhat-cloud-services/frontend-components/useChrome';
 
@@ -44,7 +44,8 @@ class App extends Component {
             systemDetailReducer,
             systemRecsReducer,
             isConfiguredReducer,
-            systemColumnsReducer
+            systemColumnsReducer,
+            suggestedInstanceTypesReducer
         });
 
         const chrome = this.props.chrome;

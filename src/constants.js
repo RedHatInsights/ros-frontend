@@ -13,12 +13,17 @@ import {
     displayOS
 } from './Components/RosTable/RenderColumn';
 
+// Pagination
+export const PER_PAGE = 10;
+export const PAGE = 1;
+
 // API
 export const ROS_API_ROOT = '/api/ros/v1';
 export const IS_CONFIGURED_API = '/is_configured';
 export const SYSTEMS_API_ROOT = '/systems';
 export const RECOMMENDATION_RATING_API = '/rating';
 export const CRC_PDF_GENERATE_API = '/api/crc-pdf-generator/v1/generate';
+export const SUGGESTED_INSTANCE_TYPES_API = '/suggested_instance_types';
 
 // Feedback
 export const NEGATIVE_FEEDBACK = -1;
@@ -81,7 +86,6 @@ export const WITH_SUGGESTIONS_PARAM = 'with_suggestions';
 export const WITH_WAITING_FOR_DATA_PARAM = 'with_waiting_for_data';
 
 // Systems table columns
-
 export const SYSTEM_TABLE_COLUMNS = [
     {
         key: 'display_name',
@@ -183,6 +187,14 @@ export const MONTHS = [
     'Oct',
     'Nov',
     'Dec'
+];
+
+// Suggested Instance Types table columns
+export const SUGG_INSTANCE_TYPES_TABLE_COLUMNS = [
+    'Suggested instance type',
+    'Provider',
+    'Description',
+    'Systems'
 ];
 
 export const DATE_RANGE_7_DAYS = 7;
