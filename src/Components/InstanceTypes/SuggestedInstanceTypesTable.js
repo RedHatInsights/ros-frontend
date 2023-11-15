@@ -26,6 +26,7 @@ export default function SuggestedInstanceTypesTable() {
     const [activeSortIndex, setActiveSortIndex] = useState(3);
     const [activeSortColumnKey, setActiveSortColumnKey] = useState('system_count');
     const [activeSortDirection, setActiveSortDirection] = useState(SortByDirection.desc);
+    const [instanceTypeName, setInstanceTypeName] = useState('');
     const { loading, instances, count, serverError } = useSelector((state) => state.suggestedInstanceTypesReducer);
 
     const onSetPage = (event, page) => setPage(page);
@@ -36,13 +37,14 @@ export default function SuggestedInstanceTypesTable() {
 
     useEffect(() =>{
         dispatch(loadSuggestedInstanceTypes({
-            page, perPage, activeSortDirection, activeSortColumnKey
+            page, perPage, activeSortDirection, activeSortColumnKey, instanceTypeName
         }));
     }, [
         page,
         perPage,
         activeSortDirection,
-        activeSortColumnKey
+        activeSortColumnKey,
+        instanceTypeName
     ]);
 
     const getSortParams = (columnIndex, key) => ({
@@ -58,6 +60,12 @@ export default function SuggestedInstanceTypesTable() {
         columnIndex
     });
 
+    const activeFilters = () => {
+        return instanceTypeName.length
+            ? [{ category: 'Instance Types', chips: [{ name: instanceTypeName }] }]
+            : [];
+    };
+
     return (
         <>
             <section className='pf-l-page__main-section pf-c-page__main-section'>
@@ -70,6 +78,21 @@ export default function SuggestedInstanceTypesTable() {
                                 perPage,
                                 onSetPage,
                                 onPerPageSelect
+                            }}
+                            filterConfig={{
+                                items: [{
+                                    label: 'instance types',
+                                    type: 'text',
+                                    filterValues: {
+                                        onChange: (e, value) => setInstanceTypeName(value),
+                                        value: instanceTypeName
+                                    }
+                                }]
+                            }}
+                            activeFiltersConfig={{
+                                deleteTitle: 'Reset filters',
+                                filters: activeFilters(),
+                                onDelete: () => setInstanceTypeName('')
                             }}
                         />
                         { serverError.message ? <ErrorState/> :
