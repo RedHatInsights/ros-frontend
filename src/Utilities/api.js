@@ -144,12 +144,7 @@ export const fetchExecutiveReport = async () => {
 };
 
 export const fetchSuggestedInstanceTypes = async (fetchParams) => {
-    const { page, perPage, activeSortIndex, activeSortDirection } = fetchParams || {};
-    let orderBy = 'system_count';
-
-    if (activeSortIndex === 0) {
-        orderBy = 'instance_type';
-    }
+    const { page, perPage, activeSortColumnKey, activeSortDirection } = fetchParams || {};
 
     let url = new URL(
         ROS_API_ROOT + SUGGESTED_INSTANCE_TYPES_API,
@@ -159,7 +154,7 @@ export const fetchSuggestedInstanceTypes = async (fetchParams) => {
     let params = {
         page,
         per_page: perPage, /* eslint-disable-line camelcase */
-        order_by: orderBy, /* eslint-disable-line camelcase */
+        order_by: activeSortColumnKey, /* eslint-disable-line camelcase */
         order_how: activeSortDirection /* eslint-disable-line camelcase */
     };
 

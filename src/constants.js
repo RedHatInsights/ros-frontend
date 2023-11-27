@@ -191,10 +191,26 @@ export const MONTHS = [
 
 // Suggested Instance Types table columns
 export const SUGG_INSTANCE_TYPES_TABLE_COLUMNS = [
-    'Suggested instance type',
-    'Provider',
-    'Description',
-    'Systems'
+    {
+        key: 'instance_type',
+        title: 'Suggested instance type',
+        isSortable: true
+    },
+    {
+        key: 'provider',
+        title: 'Provider',
+        isSortable: false
+    },
+    {
+        key: 'description',
+        title: 'Description',
+        isSortable: false
+    },
+    {
+        key: 'system_count',
+        title: 'Systems',
+        isSortable: true
+    }
 ];
 
 export const DATE_RANGE_7_DAYS = 7;

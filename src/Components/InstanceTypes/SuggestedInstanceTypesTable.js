@@ -24,6 +24,7 @@ export default function SuggestedInstanceTypesTable() {
     const [page, setPage] = useState(PAGE);
     const [perPage, setPerPage] = useState(PER_PAGE);
     const [activeSortIndex, setActiveSortIndex] = useState(3);
+    const [activeSortColumnKey, setActiveSortColumnKey] = useState('system_count');
     const [activeSortDirection, setActiveSortDirection] = useState(SortByDirection.desc);
     const { loading, instances, count, serverError } = useSelector((state) => state.suggestedInstanceTypesReducer);
 
@@ -35,16 +36,16 @@ export default function SuggestedInstanceTypesTable() {
 
     useEffect(() =>{
         dispatch(loadSuggestedInstanceTypes({
-            page, perPage, activeSortDirection, activeSortIndex
+            page, perPage, activeSortDirection, activeSortColumnKey
         }));
     }, [
         page,
         perPage,
         activeSortDirection,
-        activeSortIndex
+        activeSortColumnKey
     ]);
 
-    const getSortParams = (columnIndex) => ({
+    const getSortParams = (columnIndex, key) => ({
         sortBy: {
             index: activeSortIndex,
             direction: activeSortDirection
@@ -52,6 +53,7 @@ export default function SuggestedInstanceTypesTable() {
         onSort: (event, index, direction) => {
             setActiveSortIndex(index);
             setActiveSortDirection(direction);
+            setActiveSortColumnKey(key);
         },
         columnIndex
     });
@@ -78,13 +80,13 @@ export default function SuggestedInstanceTypesTable() {
                                 <Thead noWrap>
                                     <Tr>
                                         {
-                                            SUGG_INSTANCE_TYPES_TABLE_COLUMNS.map((column, index) => {
-                                                if (index === 1 || index === 2) {
-                                                    return <Th key={column}>{column}</Th>;
+                                            SUGG_INSTANCE_TYPES_TABLE_COLUMNS.map((columnDetails, index) => {
+                                                if (!columnDetails.isSortable) {
+                                                    return <Th key={columnDetails.key}>{columnDetails.title}</Th>;
                                                 }
 
-                                                return <Th key={column} sort={getSortParams(index)}>
-                                                    {column}</Th>;
+                                                return <Th key={columnDetails.key} sort={getSortParams(index, columnDetails.key)}>
+                                                    {columnDetails.title}</Th>;
                                             })
                                         }
                                     </Tr>
