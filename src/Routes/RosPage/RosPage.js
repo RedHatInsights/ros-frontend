@@ -32,7 +32,6 @@ import {
 import { DownloadExecutivePDFReport } from '../../Components/Reports/ExecutivePDFReport';
 import { useChrome } from '@redhat-cloud-services/frontend-components/useChrome';
 import { conditionalFilterType } from '@redhat-cloud-services/frontend-components';
-import useFeatureFlag from './useFeatureFlag';
 import { displayGroup } from '../../Components/RosTable/RenderColumn';
 import { useLocation } from 'react-router-dom';
 
@@ -86,19 +85,19 @@ class RosPage extends React.Component {
         await this.props.isROSConfigured();
         this.processQueryParams();
         this.processFilterValues();
-        if (this.props.groupsEnabled) {
-            SYSTEM_TABLE_COLUMNS.splice(1, 0,  {
-                key: 'groups',
-                title: 'Group',
-                modalTitle: 'Group',
-                dataLabel: 'Group',
-                renderFunc: (data) => displayGroup(data),
-                isChecked: true,
-                isDisabled: false,
-                isShownByDefault: true,
-                props: { isStatic: true }
-            });
-        }
+
+        SYSTEM_TABLE_COLUMNS.splice(1, 0,  {
+            key: 'groups',
+            title: 'Group',
+            modalTitle: 'Group',
+            dataLabel: 'Group',
+            renderFunc: (data) => displayGroup(data),
+            isChecked: true,
+            isDisabled: false,
+            isShownByDefault: true,
+            props: { isStatic: true }
+        });
+
     }
 
     processQueryParams() {
@@ -568,17 +567,15 @@ RosPage.propTypes = {
     changeSystemColumns: PropTypes.func,
     addNotification: PropTypes.func,
     clearNotifications: PropTypes.func,
-    chrome: PropTypes.object,
-    groupsEnabled: PropTypes.bool
+    chrome: PropTypes.object
 };
 
 const RosPageWithChrome =  props => {
     const chrome = useChrome();
     const location = useLocation();
-    const groupsEnabled = useFeatureFlag('hbi.ui.inventory-groups');
 
     return (
-        <RosPage {...props} chrome={ chrome } groupsEnabled={ groupsEnabled } location={ location }/>
+        <RosPage {...props} chrome={ chrome } location={ location }/>
     );
 };
 
