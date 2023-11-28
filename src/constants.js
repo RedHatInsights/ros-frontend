@@ -9,6 +9,7 @@ import {
 } from './store/entitiesReducer';
 import {
     diskUsageData,
+    displayGroup,
     displayLastReported,
     displayOS
 } from './Components/RosTable/RenderColumn';
@@ -94,6 +95,16 @@ export const SYSTEM_TABLE_COLUMNS = [
         renderFunc: (data, id, item) => systemName(data, id, item),
         isChecked: true,
         isDisabled: true,
+        isShownByDefault: true
+    },
+    {
+        key: 'groups',
+        title: 'Group',
+        modalTitle: 'Group',
+        dataLabel: 'Group',
+        renderFunc: (data) => displayGroup(data),
+        isChecked: true,
+        isDisabled: false,
         isShownByDefault: true
     },
     {
