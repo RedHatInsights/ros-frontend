@@ -14,7 +14,7 @@ export const formatData = (data, type) => {
             let rowValue;
             if (rowKey === 'groups') {
                 rowValue =  get(systemItem, rowKey, []);
-                rowValue = rowValue.length === 0  ? 'N/A' : rowValue[0].name;
+                rowValue = rowValue.length === 0  ? 'No group' : rowValue[0].name;
 
             } else {
                 rowValue =   get(systemItem, rowKey, '');
