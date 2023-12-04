@@ -81,7 +81,7 @@ describe('Util formatData method tests', () => {
     it('should generate array of data in the format required to generate PDF', () => {
         const expectedSystemsRowsData = [
             ['ip-172-31-28-69.ec2.internal', 'ros-for-OCP', 'RHEL 8.4', '90%', '97%', '0.314', '1', 'Undersized', '29 Mar 2022 00:00 UTC'],
-            ['ros-system.internal', 'N/A', 'RHEL 8.4', '90%', '97%', '0.314', '1', 'Undersized', '30 Mar 2022 00:01 UTC']
+            ['ros-system.internal', 'No group', 'RHEL 8.4', '90%', '97%', '0.314', '1', 'Undersized', '30 Mar 2022 00:01 UTC']
         ];
 
         const actualSystemsRowsData = formatData(sysResponseTestData, 'pdf');
@@ -93,7 +93,7 @@ describe('Util formatData method tests', () => {
     it('should generate array of data (with 0%) in the format required to generate PDF', () => {
         const expectedSystemsRowsData = [
             ['ip-172-31-28-69.ec2.internal', 'ros-for-OCP', 'RHEL 8.4', '0%', '0%', '0.314', '1', 'Undersized', '29 Mar 2022 00:00 UTC'],
-            ['ros-system.internal', 'N/A', 'RHEL 8.4', '90%', '97%', '0.314', '1', 'Undersized', '30 Mar 2022 00:01 UTC']
+            ['ros-system.internal', 'No group', 'RHEL 8.4', '90%', '97%', '0.314', '1', 'Undersized', '30 Mar 2022 00:01 UTC']
         ];
 
         sysResponseTestData[0].performance_utilization.cpu = 0;
@@ -108,7 +108,7 @@ describe('Util formatData method tests', () => {
     it('should generate array of data (handling null values) in the format required to generate PDF', () => {
         const expectedSystemsRowsData = [
             ['ip-172-31-28-69.ec2.internal', 'ros-for-OCP', 'RHEL 8.4', 'N/A', 'N/A', '0.314', 'N/A', 'Undersized', '29 Mar 2022 00:00 UTC'],
-            ['ros-system.internal', 'N/A', 'RHEL 8.4', '90%', '97%', '0.314', '1', 'Undersized', '30 Mar 2022 00:01 UTC']
+            ['ros-system.internal', 'No group', 'RHEL 8.4', '90%', '97%', '0.314', '1', 'Undersized', '30 Mar 2022 00:01 UTC']
         ];
 
         sysResponseTestData[0].number_of_suggestions = null;  /* eslint-disable-line camelcase */
@@ -125,7 +125,7 @@ describe('Util formatData method tests', () => {
 describe('Util responseToCSVData test', () => {
     it('should format the data into CSV format', () => {
         // eslint-disable-next-line max-len
-        const expectedSystemsRowsData = `display_name,os,performance_utilization.cpu,performance_utilization.memory,performance_utilization.max_io,number_of_suggestions,state,cloud_provider,instance_type,idling_time,report_date,groups\r\nip-172-31-28-69.ec2.internal,RHEL 8.4,90%,97%,0.314,1,Undersized,aws,t2.micro,19.70%,29 Mar 2022 00:00 UTC,ros-for-OCP\r\nros-system.internal,RHEL 8.4,90%,97%,0.314,1,Undersized,aws,t2.micro,19.70%,30 Mar 2022 00:01 UTC,N/A`;
+        const expectedSystemsRowsData = `display_name,os,performance_utilization.cpu,performance_utilization.memory,performance_utilization.max_io,number_of_suggestions,state,cloud_provider,instance_type,idling_time,report_date,groups\r\nip-172-31-28-69.ec2.internal,RHEL 8.4,90%,97%,0.314,1,Undersized,aws,t2.micro,19.70%,29 Mar 2022 00:00 UTC,ros-for-OCP\r\nros-system.internal,RHEL 8.4,90%,97%,0.314,1,Undersized,aws,t2.micro,19.70%,30 Mar 2022 00:01 UTC,No group`;
 
         sysResponseTestData[0].number_of_suggestions = 1;  /* eslint-disable-line camelcase */
         sysResponseTestData[0].performance_utilization.cpu = 90;
