@@ -143,11 +143,20 @@ export const fetchExecutiveReport = async () => {
 
 };
 
-export const fetchSuggestedInstanceTypes = async (params) => {
+export const fetchSuggestedInstanceTypes = async (fetchParams) => {
+    const { page, perPage, activeSortColumnKey, activeSortDirection } = fetchParams || {};
+
     let url = new URL(
         ROS_API_ROOT + SUGGESTED_INSTANCE_TYPES_API,
         window.location.origin
     );
+
+    let params = {
+        page,
+        per_page: perPage, /* eslint-disable-line camelcase */
+        order_by: activeSortColumnKey, /* eslint-disable-line camelcase */
+        order_how: activeSortDirection /* eslint-disable-line camelcase */
+    };
 
     let query = new URLSearchParams(params);
     url.search = query.toString();

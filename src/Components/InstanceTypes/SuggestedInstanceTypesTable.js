@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import {
     TableVariant,
     TableComposable,
-    Thead, Tr, Th, Tbody, Td
+    Thead, Tr, Th, Tbody, Td, SortByDirection
 } from '@patternfly/react-table';
 import {
     Card,
@@ -23,6 +23,9 @@ export default function SuggestedInstanceTypesTable() {
     const dispatch = useDispatch();
     const [page, setPage] = useState(PAGE);
     const [perPage, setPerPage] = useState(PER_PAGE);
+    const [activeSortIndex, setActiveSortIndex] = useState(3);
+    const [activeSortColumnKey, setActiveSortColumnKey] = useState('system_count');
+    const [activeSortDirection, setActiveSortDirection] = useState(SortByDirection.desc);
     const { loading, instances, count, serverError } = useSelector((state) => state.suggestedInstanceTypesReducer);
 
     const onSetPage = (event, page) => setPage(page);
@@ -32,8 +35,28 @@ export default function SuggestedInstanceTypesTable() {
     };
 
     useEffect(() =>{
-        dispatch(loadSuggestedInstanceTypes({ page, perPage }));
-    }, [page, perPage]);
+        dispatch(loadSuggestedInstanceTypes({
+            page, perPage, activeSortDirection, activeSortColumnKey
+        }));
+    }, [
+        page,
+        perPage,
+        activeSortDirection,
+        activeSortColumnKey
+    ]);
+
+    const getSortParams = (columnIndex, key) => ({
+        sortBy: {
+            index: activeSortIndex,
+            direction: activeSortDirection
+        },
+        onSort: (event, index, direction) => {
+            setActiveSortIndex(index);
+            setActiveSortDirection(direction);
+            setActiveSortColumnKey(key);
+        },
+        columnIndex
+    });
 
     return (
         <>
@@ -57,8 +80,13 @@ export default function SuggestedInstanceTypesTable() {
                                 <Thead noWrap>
                                     <Tr>
                                         {
-                                            SUGG_INSTANCE_TYPES_TABLE_COLUMNS.map(column => {
-                                                return <Th key={column}>{column}</Th>;
+                                            SUGG_INSTANCE_TYPES_TABLE_COLUMNS.map((columnDetails, index) => {
+                                                if (!columnDetails.isSortable) {
+                                                    return <Th key={columnDetails.key}>{columnDetails.title}</Th>;
+                                                }
+
+                                                return <Th key={columnDetails.key} sort={getSortParams(index, columnDetails.key)}>
+                                                    {columnDetails.title}</Th>;
                                             })
                                         }
                                     </Tr>
