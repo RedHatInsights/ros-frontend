@@ -64,6 +64,7 @@ export const fetchSystems = async (fetchParams) => {
 
     const sortingHeader = {
         display_name: 'display_name', /* eslint-disable-line camelcase */
+        groups: 'group_name', /* eslint-disable-line camelcase */
         os: 'os',
         'performance_utilization.cpu': 'cpu',
         'performance_utilization.memory': 'memory',

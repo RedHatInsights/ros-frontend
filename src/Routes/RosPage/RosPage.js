@@ -32,7 +32,6 @@ import {
 import { DownloadExecutivePDFReport } from '../../Components/Reports/ExecutivePDFReport';
 import { useChrome } from '@redhat-cloud-services/frontend-components/useChrome';
 import { conditionalFilterType } from '@redhat-cloud-services/frontend-components';
-import { displayGroup } from '../../Components/RosTable/RenderColumn';
 import { useLocation } from 'react-router-dom';
 
 /**
@@ -64,7 +63,7 @@ class RosPage extends React.Component {
 
         this.sortingHeader = {
             display_name: 'display_name', /* eslint-disable-line camelcase */
-            group_name: 'group_name', /* eslint-disable-line camelcase */
+            groups: 'group_name', /* eslint-disable-line camelcase */
             os: 'os',
             'performance_utilization.cpu': 'cpu',
             'performance_utilization.memory': 'memory',
@@ -85,19 +84,6 @@ class RosPage extends React.Component {
         await this.props.isROSConfigured();
         this.processQueryParams();
         this.processFilterValues();
-
-        SYSTEM_TABLE_COLUMNS.splice(1, 0,  {
-            key: 'groups',
-            title: 'Group',
-            modalTitle: 'Group',
-            dataLabel: 'Group',
-            renderFunc: (data) => displayGroup(data),
-            isChecked: true,
-            isDisabled: false,
-            isShownByDefault: true,
-            props: { isStatic: true }
-        });
-
     }
 
     processQueryParams() {
