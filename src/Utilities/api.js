@@ -1,5 +1,5 @@
 import { SortByDirection } from '@patternfly/react-table';
-import { ROS_API_ROOT, SYSTEMS_API_ROOT, IS_CONFIGURED_API, CRC_PDF_GENERATE_API } from '../constants';
+import { ROS_API_ROOT, SYSTEMS_API_ROOT, IS_CONFIGURED_API, CRC_PDF_GENERATE_API, SUGGESTED_INSTANCE_TYPES_API } from '../constants';
 
 export function handleErrors(response) {
     if (!response.ok) {
@@ -64,6 +64,7 @@ export const fetchSystems = async (fetchParams) => {
 
     const sortingHeader = {
         display_name: 'display_name', /* eslint-disable-line camelcase */
+        groups: 'group_name', /* eslint-disable-line camelcase */
         os: 'os',
         'performance_utilization.cpu': 'cpu',
         'performance_utilization.memory': 'memory',
@@ -141,4 +142,27 @@ export const fetchExecutiveReport = async () => {
     .then(handleErrors)
     .then((response) => response.blob());
 
+};
+
+export const fetchSuggestedInstanceTypes = async (fetchParams) => {
+    const { page, perPage, activeSortColumnKey, activeSortDirection } = fetchParams || {};
+
+    let url = new URL(
+        ROS_API_ROOT + SUGGESTED_INSTANCE_TYPES_API,
+        window.location.origin
+    );
+
+    let params = {
+        page,
+        per_page: perPage, /* eslint-disable-line camelcase */
+        order_by: activeSortColumnKey, /* eslint-disable-line camelcase */
+        order_how: activeSortDirection /* eslint-disable-line camelcase */
+    };
+
+    let query = new URLSearchParams(params);
+    url.search = query.toString();
+
+    let response = fetch(url).then(handleErrors)
+    .then(res =>  res.json()).then(result => result);
+    return response;
 };

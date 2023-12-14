@@ -1,6 +1,6 @@
 # Resource Optimization Service (Frontend)
 
-Resource Optimization is a service that can help you optimize your public cloud workloads on Red Hat Enterprise Linux (RHEL). Read more about it [here](https://www.redhat.com/en/blog/optimize-public-cloud-workloads-rhel-red-hat-insights-resource-optimization)
+Resource Optimization is a service that can help you optimize your public cloud workloads on Red Hat Enterprise Linux (RHEL). Read more about it [here](https://access.redhat.com/documentation/en-us/red_hat_insights/2023/html/assessing_and_monitoring_rhel_resource_optimization_with_insights_for_red_hat_enterprise_linux/index)
 
 ## Prerequisites
 
@@ -15,59 +15,29 @@ Resource Optimization is a service that can help you optimize your public cloud 
 1. Clone below repositories:
 
 ```
-git clone https://github.com/RedHatInsights/insights-chrome.git
-git clone https://github.com/RedHatInsights/insights-proxy.git
 git clone https://github.com/RedHatInsights/ros-frontend.git
+git clone https://github.com/RedHatInsights/insights-chrome.git
 git clone https://github.com/RedHatInsights/ros-backend.git
 ```
 
-Note that below file paths are based on assumption that all repositories are cloned in same folder.
 
-
-2. Make sure you meet the prerequisites mentioned in both frontend and backend repositories.
-
-3. To run the whole dev setup, you will need to run commands in multiple terminal tabs.
-
-[TAB 1] Insights Proxy TAB -
-Follow steps from [here](https://github.com/RedHatInsights/insights-frontend-storybook/blob/master/src/docs/welcome/quickStart/DOC.md#proxy)
-i.e
+2. Make sure you meet the prerequisites mentioned in both frontend and backend repositories.Also Setup the initial /etc/hosts entries -
 
 ```
-cd ../insights-proxy
-npm install
-sudo bash scripts/patch-etc-hosts.sh
-bash scripts/update.sh
+Edit /etc/hosts
+
+Add below content:
+127.0.0.1 stage.foo.redhat.com
+127.0.0.1 prod.foo.redhat.com
 ```
 
-[TAB 2] Insights Chrome TAB -
-Wait for insights-proxy to finish update script then follow steps from [here](https://github.com/RedHatInsights/insights-frontend-storybook/blob/master/src/docs/welcome/quickStart/DOC.md#chrome)
-i.e
 
-```
-cd ../insights-chrome
-npm install
-npm run build
-```
 
-Open new tab [TAB 3]: ie. for ros-frontend (In case of local ros-backend server)
+### With deployed backend (Stage+Prod)
+3. To run the dev setup, go to directory where you have cloned ros-frontend repo
 
-Make sure current directory is `ros-frontend`. Open the project in any editor. Add below route change in the file `ros-frontend/profiles/local-frontend.js` after `routes[`/apps/${APP_ID}`]`
 
-```
-routes['/api/ros/v0']                = { host: 'http://localhost:8000' };
-routes['/api/inventory/v1']          = { host: 'http://localhost:8001' };
-```
-
-Go to [TAB 1] :
-Make sure current directory is `insights-proxy`
-Run command -
-
-```
-SPANDX_CONFIG=../ros-frontend/profiles/local-frontend.js sh scripts/run.sh
-```
-
-[TAB 3] ROS Frontend TAB -
-Wait till the above steps finish their execution.
+[With Stage Backend] ROS Frontend TAB
 
 ```
 cd ../ros-frontend
@@ -75,9 +45,53 @@ npm install
 npm run start
 ```
 
-4. Follow the steps mentioned under the [ros-backend](https://github.com/RedHatInsights/ros-backend) repository for setting up local backend server.
+This will run the ros-frontend pointing to backend deployed to the Stage envrionment. Once it is running go to browser and access it using `https://stage.foo.redhat.com:1337/insights/ros` link.
 
-5. Once both frontend & backend setup is up and running, go to browser and access it using `https://{ci/qa}.foo.redhat.com:1337/insights/ros` link.
+[With Production Backend] ROS Frontend TAB
+
+```
+cd ../ros-frontend
+npm install
+npm run start:prod
+```
+
+This will run the ros-frontend pointing to backend deployed to the Production envrionment. Once it is running go to browser and access it using `https://prod.foo.redhat.com:1337/insights/ros` link.
+
+
+### With local backend
+
+
+3. Follow the steps mentioned under the [ros-backend](https://github.com/RedHatInsights/ros-backend) repository for setting up local backend server.
+
+4. [With local Backend] ROS Frontend TAB
+
+```
+cd ../ros-frontend
+npm install
+npm run local
+```
+
+This will run the ros-frontend pointing to local backend. Once it is running go to browser and access it using `https://stage.foo.redhat.com:1337/insights/ros` link.
+
+
+please check `package.json` for other available scripts
+
+
+### For insights-chrome -(Optional - only do it in case you want to use local chrome for debugging or any other purpose)
+
+follow steps from here - https://github.com/RedHatInsights/insights-frontend-storybook/blob/master/src/docs/welcome/quickStart/DOC.md#chrome
+
+
+```
+[Tab 1]
+cd ../insights-chrome
+npm install
+npm run build
+
+[Tab 2]
+cd ../ros-frontend
+update `start` script in the package.json file and pass local chrome path by adding `INSIGHTS_CHROME` variable in the `start` script
+```
 
 
 ## Running the Tests
@@ -110,7 +124,7 @@ npm run lint:js:fix
 
 ## Deployment
 
-Please refer this [link](https://clouddot.pages.redhat.com/docs/dev/getting-started/deploying-frontend.html)
+Please refer this [link](https://consoledot.pages.redhat.com/docs/dev/developer-references/design/frontend.html)
 
 
 ## Documentation
@@ -122,24 +136,10 @@ Please refer this [link](https://clouddot.pages.redhat.com/docs/dev/getting-star
 
 ### Major Dependencies used in the Project
 
-- [Insights-Proxy](#insights-proxy)
-- [Spandx](#spandx)
 - [Insights-Chrome](#insights-chrome)
 - [Patternfly](#patternfly)
 - [Frontend-Components](#frontend-components)
 
-### Insights-Proxy
-
-[insights-proxy](https://github.com/RedHatInsights/insights-proxy) - Proxy for the insights frontend container
-
-
-### Spandx
-
-[spandx](https://github.com/redhataccess/spandx) is an HTTP switchboard. It can be used to weave together pieces of a large, complex website by choosing which resources should come from the local system and which should come from a remote environment.
-
-For example, spandx can be pointed to production, but route `/static/js` to a local directory, which allows testing local JS against the production environment. Code in production, it's fun!
-
-More technically, spandx is a flexible, configuration-based reverse proxy for local development.
 
 ### Insights-Chrome
 

@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { withRouter } from 'react-router-dom';
 import { PageHeader, PageHeaderTitle } from '@redhat-cloud-services/frontend-components/PageHeader';
 import { Main } from '@redhat-cloud-services/frontend-components/Main';
 import { Button, Card, CardBody } from '@patternfly/react-core';
@@ -12,6 +11,8 @@ import './ros-page.scss';
 import { entitiesReducer } from '../../store/entitiesReducer';
 import { changeSystemColumns, loadIsConfiguredInfo } from '../../store/actions';
 import {
+    PAGE,
+    PER_PAGE,
     CUSTOM_FILTERS, ROS_API_ROOT,
     SYSTEMS_API_ROOT, SYSTEM_TABLE_COLUMNS,
     WITH_SUGGESTIONS_PARAM, WITH_WAITING_FOR_DATA_PARAM,
@@ -31,8 +32,7 @@ import {
 import { DownloadExecutivePDFReport } from '../../Components/Reports/ExecutivePDFReport';
 import { useChrome } from '@redhat-cloud-services/frontend-components/useChrome';
 import { conditionalFilterType } from '@redhat-cloud-services/frontend-components';
-import useFeatureFlag from './useFeatureFlag';
-import { displayGroup } from '../../Components/RosTable/RenderColumn';
+import { useLocation } from 'react-router-dom';
 
 /**
  * A smart component that handles all the api calls and data needed by the dumb components.
@@ -48,7 +48,7 @@ class RosPage extends React.Component {
         super(props);
 
         this.state = {
-            perPage: 10,
+            perPage: PER_PAGE,
             orderBy: 'report_date',
             orderDirection: SortByDirection.desc,
             stateFilterValue: [],
@@ -63,7 +63,7 @@ class RosPage extends React.Component {
 
         this.sortingHeader = {
             display_name: 'display_name', /* eslint-disable-line camelcase */
-            group_name: 'group_name', /* eslint-disable-line camelcase */
+            groups: 'group_name', /* eslint-disable-line camelcase */
             os: 'os',
             'performance_utilization.cpu': 'cpu',
             'performance_utilization.memory': 'memory',
@@ -84,19 +84,6 @@ class RosPage extends React.Component {
         await this.props.isROSConfigured();
         this.processQueryParams();
         this.processFilterValues();
-        if (this.props.groupsEnabled) {
-            SYSTEM_TABLE_COLUMNS.splice(1, 0,  {
-                key: 'groups',
-                title: 'Group',
-                modalTitle: 'Group',
-                dataLabel: 'Group',
-                renderFunc: (data) => displayGroup(data),
-                isChecked: true,
-                isDisabled: false,
-                isShownByDefault: true,
-                props: { isStatic: true }
-            });
-        }
     }
 
     processQueryParams() {
@@ -422,7 +409,7 @@ class RosPage extends React.Component {
                                             ...config,
                                             orderBy: undefined,
                                             orderDirection: undefined,
-                                            page: 1,
+                                            page: PAGE,
                                             hasItems: true
                                         });
 
@@ -566,17 +553,16 @@ RosPage.propTypes = {
     changeSystemColumns: PropTypes.func,
     addNotification: PropTypes.func,
     clearNotifications: PropTypes.func,
-    chrome: PropTypes.object,
-    groupsEnabled: PropTypes.bool
+    chrome: PropTypes.object
 };
 
 const RosPageWithChrome =  props => {
     const chrome = useChrome();
-    const groupsEnabled = useFeatureFlag('hbi.ui.inventory-groups');
+    const location = useLocation();
 
     return (
-        <RosPage {...props} chrome={ chrome } groupsEnabled={groupsEnabled} />
+        <RosPage {...props} chrome={ chrome } location={ location }/>
     );
 };
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(RosPageWithChrome));
+export default connect(mapStateToProps, mapDispatchToProps)(RosPageWithChrome);

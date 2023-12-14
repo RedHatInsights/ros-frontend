@@ -84,7 +84,7 @@ export const displayLastReported = (data) => {
 export const displayGroup = (data) => {
     return (
         data.length === 0 ?
-            <span>{ NO_DATA_VALUE }</span> :
+            <span className="pf-v5-u-disabled-color-200">No group</span> :
             <span>{ data[0].name }</span>
     );
 };

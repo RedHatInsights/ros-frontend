@@ -23,7 +23,10 @@ plugins.push(
         exposes: {
             './RootApp': resolve(__dirname, '../src/AppEntry'),
             './SystemDetail': resolve(__dirname, '../src/Components/SystemDetail/SystemDetail')
-        }
+        },
+        shared: [{
+            'react-router-dom': { singleton: true, requiredVersion: '*' }
+        }]
     })
 );
 

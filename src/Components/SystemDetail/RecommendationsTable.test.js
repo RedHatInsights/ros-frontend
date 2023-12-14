@@ -3,6 +3,12 @@ import { cleanup } from '@testing-library/react';
 import RecommendationsTable from './RecommendationsTable';
 import renderer from 'react-test-renderer';
 
+jest.mock('@redhat-cloud-services/frontend-components/useChrome', () => ({
+    __esModule: true,
+    default: () => {},
+    useChrome: () => {}
+}));
+
 describe('RecommendationsTable component', () => {
     afterEach(cleanup);
 
