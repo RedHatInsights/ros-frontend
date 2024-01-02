@@ -156,7 +156,10 @@ export const fetchSuggestedInstanceTypes = async (fetchParams) => {
         page,
         per_page: perPage, /* eslint-disable-line camelcase */
         order_by: activeSortColumnKey, /* eslint-disable-line camelcase */
-        order_how: activeSortDirection /* eslint-disable-line camelcase */
+        order_how: activeSortDirection, /* eslint-disable-line camelcase */
+        ...fetchParams?.instanceTypeName  && {
+            instance_type: fetchParams.instanceTypeName /* eslint-disable-line camelcase */
+        }
     };
 
     let query = new URLSearchParams(params);
