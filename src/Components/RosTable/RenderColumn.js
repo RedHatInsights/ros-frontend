@@ -1,11 +1,14 @@
-import { Icon, Tooltip } from '@patternfly/react-core';
 import React from 'react';
-import { NO_DATA_STATE, NO_DATA_VALUE } from '../../constants';
-import { DateFormat, dateStringByType } from '@redhat-cloud-services/frontend-components/DateFormat';
-import { ExclamationTriangleIcon } from '@patternfly/react-icons';
-import './RenderColumn.scss';
 import moment from 'moment';
+import './RenderColumn.scss';
+import { SystemState } from './SystemState';
+import { Icon, Tooltip } from '@patternfly/react-core';
+import { ProgressScoreBar } from './ProgressScoreBar';
+import { NO_DATA_STATE, NO_DATA_VALUE } from '../../constants';
+import { ExclamationTriangleIcon } from '@patternfly/react-icons';
 import { Table /* data-codemods */, Thead, Tr, Th, Td, Tbody } from '@patternfly/react-table';
+import { InsightsLink } from '@redhat-cloud-services/frontend-components/InsightsLink';
+import { DateFormat, dateStringByType } from '@redhat-cloud-services/frontend-components/DateFormat';
 
 const diskUsageStyle = {
     color: 'white',
@@ -88,5 +91,54 @@ export const displayGroup = (data) => {
         data.length === 0 ?
             <span className="pf-v5-u-disabled-color-200">No group</span> :
             <span>{ data[0].name }</span>
+    );
+};
+
+export const systemName = (displayName, id, { inventory_id: inventoryId, isDeleted, state }) => {
+    return (
+        isDeleted ? (
+            <Tooltip content={<div>{displayName} has been deleted from inventory</div>}>
+                <span tabIndex="0">{ displayName }</span>
+            </Tooltip>
+        ) :
+            state === NO_DATA_STATE ?
+                (
+                    <span>{ displayName }</span>
+                ) :
+                (
+                    <InsightsLink to={{ pathname: `/${inventoryId}` }} className={ `pf-link system-link link-${inventoryId}` }>
+                        { displayName }
+                    </InsightsLink>
+                )
+
+    );
+};
+
+export const displayState = (data) => {
+    return (<SystemState stateValue={ data }/>);
+};
+
+export const scoreProgress = (data, id, { state }) => {
+    return (
+        state === NO_DATA_STATE ?
+            <span>{ NO_DATA_VALUE }</span> :
+            <ProgressScoreBar measureLocation='outside'
+                utilizedValue={data} />
+    );
+};
+
+export const recommendations = (data, id, { inventory_id: inventoryId, isDeleted, state }) => {
+    return (
+        isDeleted ? <span>{ state === NO_DATA_STATE ? NO_DATA_VALUE : data }</span>
+            : state === NO_DATA_STATE ?
+                (
+                    <span>{ NO_DATA_VALUE }</span>
+                )
+                : (
+                    <InsightsLink to={{ pathname: `/${inventoryId}` }}
+                        className={ `pf-link link-${inventoryId}` }>
+                        { data }
+                    </InsightsLink>
+                )
     );
 };
