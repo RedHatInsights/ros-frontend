@@ -58,7 +58,7 @@
     "@patternfly/react-icons": "^4.43.15",
     "@patternfly/react-styles": "4.42.15",
     "@patternfly/react-table": "^4.108.0",
-    "@react-pdf/renderer": "^2.1.1",
+    "@react-pdf/renderer": "^3.3.8",
     "@redhat-cloud-services/frontend-components": "3.11.10",
     "@redhat-cloud-services/frontend-components-config": "^4.7.3",
     "@redhat-cloud-services/frontend-components-notifications": "3.2.5",
