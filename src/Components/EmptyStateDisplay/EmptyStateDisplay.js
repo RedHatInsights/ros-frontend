@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { EmptyState, EmptyStateBody, EmptyStateIcon, EmptyStateVariant, EmptyStateHeader, EmptyStateFooter,  } from '@patternfly/react-core';
+import { EmptyState, EmptyStateBody, EmptyStateIcon, EmptyStateVariant, EmptyStateHeader, EmptyStateFooter  } from '@patternfly/react-core';
 
 export const EmptyStateDisplay = ({ button, color, error, icon, isSmall, text, title }) => (
     <EmptyState variant={ isSmall ? EmptyStateVariant.sm : EmptyStateVariant.lg }>
@@ -15,8 +15,8 @@ export const EmptyStateDisplay = ({ button, color, error, icon, isSmall, text, t
             { text?.join('\n') }
             { error }
         </EmptyStateBody><EmptyStateFooter>
-        { button }
-    </EmptyStateFooter></EmptyState>
+            { button }
+        </EmptyStateFooter></EmptyState>
 );
 
 EmptyStateDisplay.propTypes = {

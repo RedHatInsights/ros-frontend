@@ -11,19 +11,19 @@ import {
     createContainer
 } from '@patternfly/react-charts';
 import {
-	Bullseye,
-	EmptyState,
-	EmptyStateBody,
-	EmptyStateVariant,
-	Spinner,
-	Tooltip,
-	Flex,
-	FlexItem, EmptyStateHeader, Icon
+    Bullseye,
+    EmptyState,
+    EmptyStateBody,
+    EmptyStateVariant,
+    Spinner,
+    Tooltip,
+    Flex,
+    FlexItem, EmptyStateHeader, Icon
 } from '@patternfly/react-core';
 import {
-	Dropdown,
-	DropdownItem,
-	DropdownToggle
+    Dropdown,
+    DropdownItem,
+    DropdownToggle
 } from '@patternfly/react-core/deprecated';
 import CaretDownIcon from '@patternfly/react-icons/dist/js/icons/caret-down-icon';
 import { OutlinedQuestionCircleIcon } from '@patternfly/react-icons';

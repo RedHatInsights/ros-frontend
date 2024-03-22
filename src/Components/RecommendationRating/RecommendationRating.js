@@ -49,9 +49,9 @@ const RecommendationRating = ({ system }) => {
             ouiaId="thumbsUp">
             {rating === POSITIVE_FEEDBACK ? <ThumbsUpIcon className='like' size='sm' /> :
                 <Icon size='sm'>
-                     <OutlinedThumbsUpIcon />
+                    <OutlinedThumbsUpIcon />
                 </Icon>
-               }
+            }
         </Button>
         <Button
             variant="plain"

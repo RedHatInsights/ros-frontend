@@ -1,16 +1,15 @@
 import React from 'react';
 import {
-	expandable,
-	Table /* data-codemods */,
-	Thead,
-	Tr,
-	Th,
-	Td,
-	Tbody
-} from '@patternfly/react-table/deprecated';
+    expandable,
+    /* data-codemods */
+    Tr,
+    Th,
+    Td
+} from '@patternfly/react-table';
 import {
-	TableHeader,
-	TableBody
+    Table,
+    TableHeader,
+    TableBody
 } from '@patternfly/react-table/deprecated';
 import propTypes from 'prop-types';
 import { flatMap } from 'lodash';
@@ -37,17 +36,17 @@ const renderExpandedView = (row) => {
                 borders={false}
                 className="table-border-top detected-issues-table"
             >
-                <Thead>
+                <TableHeader>
                     <Tr>
                         <Th>Identified issues by ROS</Th>
                     </Tr>
-                </Thead>
-                <Tbody>
+                </TableHeader>
+                <TableBody>
                     <Tr>
                         <Td dataLabel="Identified issues by ROS" className="newline tab">
                             {detectedIssues}</Td>
                     </Tr>
-                </Tbody>
+                </TableBody>
             </Table> }
             <hr/>
             <Text component={TextVariants.p}>
@@ -60,19 +59,19 @@ const renderExpandedView = (row) => {
                 borders={false}
                 className="table-border-top suggestions-table"
             >
-                <Thead>
+                <TableHeader>
                     <Tr>
                         <Th>Instance</Th>
                         <Th>Suggested instances that fit the load better</Th>
                     </Tr>
-                </Thead>
-                <Tbody>
+                </TableHeader>
+                <TableBody>
                     <Tr>
                         <Td dataLabel="Instance">{currentInstance}</Td>
                         <Td dataLabel="Suggested instances that fit the load better" className="newline">
                             {suggestedInstances}</Td>
                     </Tr>
-                </Tbody>
+                </TableBody>
             </Table>
             }
             {
