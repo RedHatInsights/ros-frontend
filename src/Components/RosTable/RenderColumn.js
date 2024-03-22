@@ -1,11 +1,11 @@
-import { Tooltip } from '@patternfly/react-core';
+import { Icon, Tooltip } from '@patternfly/react-core';
 import React from 'react';
 import { NO_DATA_STATE, NO_DATA_VALUE } from '../../constants';
 import { DateFormat, dateStringByType } from '@redhat-cloud-services/frontend-components/DateFormat';
 import { ExclamationTriangleIcon } from '@patternfly/react-icons';
 import './RenderColumn.scss';
 import moment from 'moment';
-import { TableComposable, Thead, Tr, Th, Td, Tbody } from '@patternfly/react-table';
+import { Table /* data-codemods */, Thead, Tr, Th, Td, Tbody } from '@patternfly/react-table';
 
 const diskUsageStyle = {
     color: 'white',
@@ -21,7 +21,7 @@ export const diskUsageData = (data, id, item) => {
         state === NO_DATA_STATE ?
             <span>{ NO_DATA_VALUE }</span> :
             <Tooltip position="right" content={
-                <TableComposable
+                <Table
                     arial-label="disk usage"
                     variant="compactBorderless"
                     borders={false}
@@ -44,7 +44,7 @@ export const diskUsageData = (data, id, item) => {
                             })
                         }
                     </Tbody>
-                </TableComposable>
+                </Table>
             }>
                 <span>{data}</span>
             </Tooltip>
@@ -74,7 +74,9 @@ export const displayLastReported = (data) => {
         isStale ?
             <Tooltip content={<div>{ staleTooltipText }</div>}>
                 <span className='staleText'>
-                    <ExclamationTriangleIcon color='var(--pf-global--warning-color--100)' size='sm'/> {relativeDate}
+                    <Icon color='var(--pf-v5-global--warning-color--100)' size='sm'>
+                        <ExclamationTriangleIcon />
+                    </Icon> {relativeDate}
                 </span>
             </Tooltip>
             : <DateFormat date={ data } />

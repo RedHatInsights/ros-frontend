@@ -1,5 +1,17 @@
 import React from 'react';
-import { Table, TableHeader, TableBody, expandable, TableComposable, Thead, Tr, Th, Td, Tbody } from '@patternfly/react-table';
+import {
+	expandable,
+	Table /* data-codemods */,
+	Thead,
+	Tr,
+	Th,
+	Td,
+	Tbody
+} from '@patternfly/react-table/deprecated';
+import {
+	TableHeader,
+	TableBody
+} from '@patternfly/react-table/deprecated';
 import propTypes from 'prop-types';
 import { flatMap } from 'lodash';
 import { EmptyTable } from '@redhat-cloud-services/frontend-components/EmptyTable';
@@ -19,7 +31,7 @@ const renderExpandedView = (row) => {
                 <Text className="margin-text-bottom"><BullseyeIcon/><strong className="strong-tag-style">Detected issues</strong></Text>
                 {reason}
             </Text>
-            { detectedIssues && <TableComposable
+            { detectedIssues && <Table
                 arial-label="Detected issues table"
                 variant="compact"
                 borders={false}
@@ -36,13 +48,13 @@ const renderExpandedView = (row) => {
                             {detectedIssues}</Td>
                     </Tr>
                 </Tbody>
-            </TableComposable> }
+            </Table> }
             <hr/>
             <Text component={TextVariants.p}>
                 <Text className="margin-text-bottom"><WrenchIcon/><strong className="strong-tag-style">Suggestion</strong></Text>
                 {resolution}
             </Text>
-            { currentInstance && suggestedInstances && <TableComposable
+            { currentInstance && suggestedInstances && <Table
                 arial-label="Suggestions table"
                 variant="compact"
                 borders={false}
@@ -61,7 +73,7 @@ const renderExpandedView = (row) => {
                             {suggestedInstances}</Td>
                     </Tr>
                 </Tbody>
-            </TableComposable>
+            </Table>
             }
             {
                 !psiEnabled &&

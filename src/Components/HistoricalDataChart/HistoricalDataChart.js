@@ -11,9 +11,20 @@ import {
     createContainer
 } from '@patternfly/react-charts';
 import {
-    Bullseye, Dropdown, DropdownItem, DropdownToggle,
-    EmptyState, EmptyStateBody, EmptyStateVariant, Spinner, Title, Tooltip, Flex, FlexItem
+	Bullseye,
+	EmptyState,
+	EmptyStateBody,
+	EmptyStateVariant,
+	Spinner,
+	Tooltip,
+	Flex,
+	FlexItem, EmptyStateHeader, Icon
 } from '@patternfly/react-core';
+import {
+	Dropdown,
+	DropdownItem,
+	DropdownToggle
+} from '@patternfly/react-core/deprecated';
 import CaretDownIcon from '@patternfly/react-icons/dist/js/icons/caret-down-icon';
 import { OutlinedQuestionCircleIcon } from '@patternfly/react-icons';
 import './HistoricalDataChart.scss';
@@ -79,10 +90,8 @@ export const HistoricalDataChart = ({ inventoryId }) => {
 
     const displayError = () => {
         return  <FlexItem alignSelf={{ default: 'alignSelfBaseline' }}>
-            <EmptyState variant={EmptyStateVariant.small}>
-                <Title headingLevel="h2" size="lg">
-                    Something went wrong
-                </Title>
+            <EmptyState variant={EmptyStateVariant.sm}>
+                <EmptyStateHeader titleText="Something went wrong" headingLevel="h2" />
                 <EmptyStateBody>
                     There was a problem while requesting historical data. Please try again later.
                 </EmptyStateBody>
@@ -110,14 +119,16 @@ export const HistoricalDataChart = ({ inventoryId }) => {
                 <FlexItem align={{ default: 'alignRight' }}>
                     <div className="chartDateFilter">
                         <Tooltip content={<div>Scroll and pan to zoom and move</div>}>
-                            <OutlinedQuestionCircleIcon size='sm' />
+                            <Icon size='sm'>
+                                <OutlinedQuestionCircleIcon />
+                            </Icon>
                         </Tooltip>
                         <Dropdown
                             className='dateDropdown'
                             toggle={
                                 <DropdownToggle
                                     id='chart-date-toggle'
-                                    onToggle={onToggle}
+                                    onToggle={(_event, isOpen) => onToggle(isOpen)}
                                     toggleIndicator={CaretDownIcon} >
                                     {`Last ${dateRange === DATE_RANGE_7_DAYS ? DATE_RANGE_7_DAYS : RANGE_DROPDOWN_45_DAYS} Days`}
                                 </DropdownToggle>

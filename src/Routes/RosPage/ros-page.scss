@@ -9,9 +9,9 @@
 
 .ros-systems-table {
 
-  .pf-c-content.expanded-row {
-    --pf-c-content--dl--RowGap: var(--pf-global--spacer--xs);
-    --pf-c-content--FontSize: var(--pf-global--FontSize--sm);
+  .pf-v5-c-content.expanded-row {
+    --pf-v5-c-content--dl--RowGap: var(--pf-v5-global--spacer--xs);
+    --pf-v5-c-content--FontSize: var(--pf-v5-global--FontSize--sm);
   }
 
   .pf-link {
@@ -20,57 +20,57 @@
     }
   }
 
-  .pf-c-progress {
+  .pf-v5-c-progress {
     grid-template-columns: auto;
 
-    .pf-c-progress__status {
+    .pf-v5-c-progress__status {
       text-align: left;
     }
   }
 }
 
 .progress-score-bar {
-  grid-gap: var(--pf-global--spacer--xs);
+  grid-gap: var(--pf-v5-global--spacer--xs);
 
-  span.pf-c-progress__status-icon {
+  span.pf-v5-c-progress__status-icon {
     display: none;
   }
 
-  .pf-c-progress__bar {
+  .pf-v5-c-progress__bar {
     &:before {
-      background: var(--pf-global--palette--black-400);
+      background: var(--pf-v5-global--palette--black-400);
     }
   }
 
-  .pf-c-progress__measure {
-    color: var(--pf-global--palette--black-600);
+  .pf-v5-c-progress__measure {
+    color: var(--pf-v5-global--palette--black-600);
   }
 }
 
 .blue-300{
-  .pf-c-progress__indicator {
-    background: var(--pf-global--palette--blue-300);
+  .pf-v5-c-progress__indicator {
+    background: var(--pf-v5-global--palette--blue-300);
   }
 }
 
 .ros-page-header {
   width: auto;
-  .pf-c-title {
+  .pf-v5-c-title {
       display:inline-block;
   }
-  .pf-c-button {
-      line-height: var(--pf-global--LineHeight--sm);
+  .pf-v5-c-button {
+      line-height: var(--pf-v5-global--LineHeight--sm);
   }
   .alertOverride {
-      font-size: var(--pf-global--FontSize--md);
-      margin-top: var(--pf-global--spacer--lg);
+      font-size: var(--pf-v5-global--FontSize--md);
+      margin-top: var(--pf-v5-global--spacer--lg);
   }
   @media only screen and (max-width: 585px) {
-      .pf-c-title {
+      .pf-v5-c-title {
           display: block;
       }
       .alertOverride {
-          margin-top: var(--pf-global--spacer--sm);
+          margin-top: var(--pf-v5-global--spacer--sm);
       }
   }
 }
