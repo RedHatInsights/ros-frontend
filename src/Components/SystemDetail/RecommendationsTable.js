@@ -1,5 +1,16 @@
 import React from 'react';
-import { Table, TableHeader, TableBody, expandable, TableComposable, Thead, Tr, Th, Td, Tbody } from '@patternfly/react-table';
+import {
+    expandable,
+    /* data-codemods */
+    Tr,
+    Th,
+    Td
+} from '@patternfly/react-table';
+import {
+    Table,
+    TableHeader,
+    TableBody
+} from '@patternfly/react-table/deprecated';
 import propTypes from 'prop-types';
 import { flatMap } from 'lodash';
 import { EmptyTable } from '@redhat-cloud-services/frontend-components/EmptyTable';
@@ -19,49 +30,49 @@ const renderExpandedView = (row) => {
                 <Text className="margin-text-bottom"><BullseyeIcon/><strong className="strong-tag-style">Detected issues</strong></Text>
                 {reason}
             </Text>
-            { detectedIssues && <TableComposable
+            { detectedIssues && <Table
                 arial-label="Detected issues table"
                 variant="compact"
                 borders={false}
                 className="table-border-top detected-issues-table"
             >
-                <Thead>
+                <TableHeader>
                     <Tr>
                         <Th>Identified issues by ROS</Th>
                     </Tr>
-                </Thead>
-                <Tbody>
+                </TableHeader>
+                <TableBody>
                     <Tr>
                         <Td dataLabel="Identified issues by ROS" className="newline tab">
                             {detectedIssues}</Td>
                     </Tr>
-                </Tbody>
-            </TableComposable> }
+                </TableBody>
+            </Table> }
             <hr/>
             <Text component={TextVariants.p}>
                 <Text className="margin-text-bottom"><WrenchIcon/><strong className="strong-tag-style">Suggestion</strong></Text>
                 {resolution}
             </Text>
-            { currentInstance && suggestedInstances && <TableComposable
+            { currentInstance && suggestedInstances && <Table
                 arial-label="Suggestions table"
                 variant="compact"
                 borders={false}
                 className="table-border-top suggestions-table"
             >
-                <Thead>
+                <TableHeader>
                     <Tr>
                         <Th>Instance</Th>
                         <Th>Suggested instances that fit the load better</Th>
                     </Tr>
-                </Thead>
-                <Tbody>
+                </TableHeader>
+                <TableBody>
                     <Tr>
                         <Td dataLabel="Instance">{currentInstance}</Td>
                         <Td dataLabel="Suggested instances that fit the load better" className="newline">
                             {suggestedInstances}</Td>
                     </Tr>
-                </Tbody>
-            </TableComposable>
+                </TableBody>
+            </Table>
             }
             {
                 !psiEnabled &&

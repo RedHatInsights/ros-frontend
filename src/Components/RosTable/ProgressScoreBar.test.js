@@ -13,7 +13,7 @@ describe('ProgressScoreBar component', () => {
                 eleId='345'
                 utilizedValue={40} />
         );
-        expect(container.getElementsByClassName('pf-c-progress').length).toBe(1);
+        expect(container.getElementsByClassName('pf-v5-c-progress').length).toBe(1);
         expect(container.firstChild).toHaveClass('blue-300');
         expect(container.firstChild.classList.contains('blue-300')).toBe(true);
     });

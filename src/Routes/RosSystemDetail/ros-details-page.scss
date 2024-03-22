@@ -1,9 +1,9 @@
 .ros-system-info {
-  .pf-c-description-list.expanded-row {
-    font-size: var(--pf-global--FontSize--md);
+  .pf-v5-c-description-list.expanded-row {
+    font-size: var(--pf-v5-global--FontSize--md);
 
     dt {
-      font-weight: var(--pf-global--FontWeight--normal);
+      font-weight: var(--pf-v5-global--FontWeight--normal);
       
       &:after {
         content: ":";
@@ -11,27 +11,27 @@
     }
     row-gap: 0;
   }
-  .pf-c-description-list__group {
+  .pf-v5-c-description-list__group {
     row-gap: 0;
 
-    .pf-c-description-list__term .pf-c-description-list__text {
-      font-size: var(--pf-global--FontSize--md);
+    .pf-v5-c-description-list__term .pf-v5-c-description-list__text {
+      font-size: var(--pf-v5-global--FontSize--md);
     }
   }
 }
 
-.ros-system-info > .pf-l-flex.pf-m-column {
-  margin-bottom: var(--pf-l-flex--spacer);
+.ros-system-info > .pf-v5-l-flex.pf-m-column {
+  margin-bottom: var(--pf-v5-l-flex--spacer);
 }
 
 .rosDetailsHead {
   .ins-entity-detail {
     .ins-entity-facts {
-      .pf-l-flex:last-child {
+      .pf-v5-l-flex:last-child {
         display: none !important;
       }
     }
-    .ins-c-inventory__detail--header .pf-l-split__item:last-child {
+    .ins-c-inventory__detail--header .pf-v5-l-split__item:last-child {
       div {
         margin-right:0px;
       }

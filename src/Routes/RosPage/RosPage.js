@@ -467,7 +467,7 @@ class RosPage extends React.Component {
                                                 <Button
                                                     key='pdf-download-button'
                                                     variant='none'
-                                                    className="pf-c-dropdown__menu-item"
+                                                    className="pf-v5-c-dropdown__menu-item"
                                                     onClick={() => this.setExportSystemsPDF(true)}>
                                                 Export to PDF
                                                 </Button>
