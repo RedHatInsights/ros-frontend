@@ -18,14 +18,10 @@ import {
     Spinner,
     Tooltip,
     Flex,
-    FlexItem, EmptyStateHeader, Icon
+    FlexItem, EmptyStateHeader, Icon,
+    Dropdown, DropdownItem, DropdownList,
+    MenuToggle
 } from '@patternfly/react-core';
-import {
-    Dropdown,
-    DropdownItem,
-    DropdownToggle
-} from '@patternfly/react-core/deprecated';
-import CaretDownIcon from '@patternfly/react-icons/dist/js/icons/caret-down-icon';
 import { OutlinedQuestionCircleIcon } from '@patternfly/react-icons';
 import './HistoricalDataChart.scss';
 import { fetchSystemHistory } from '../../Utilities/api';
@@ -79,13 +75,8 @@ export const HistoricalDataChart = ({ inventoryId }) => {
         };
     };
 
-    const dropdownItems = [
-        <DropdownItem key="action_7" component="button" onClick={() => updateChartRange(DATE_RANGE_7_DAYS)}>Last 7 Days</DropdownItem>,
-        <DropdownItem key="action_45" component="button" onClick={() => updateChartRange(DATE_RANGE_49_DAYS)}>Last 45 Days</DropdownItem>
-    ];
-
-    const onToggle = (isOpen) => {
-        setOpen(isOpen);
+    const onToggleClick = () => {
+        setOpen(!isOpen);
     };
 
     const displayError = () => {
@@ -119,23 +110,33 @@ export const HistoricalDataChart = ({ inventoryId }) => {
                 <FlexItem align={{ default: 'alignRight' }}>
                     <div className="chartDateFilter">
                         <Tooltip content={<div>Scroll and pan to zoom and move</div>}>
-                            <Icon size='md'>
+                            <Icon style={{ marginBottom: '16px', paddingRight: '8px' }} size='md'>
                                 <OutlinedQuestionCircleIcon />
                             </Icon>
                         </Tooltip>
+
                         <Dropdown
                             className='dateDropdown'
-                            toggle={
-                                <DropdownToggle
-                                    id='chart-date-toggle'
-                                    onToggle={(_event, isOpen) => onToggle(isOpen)}
-                                    toggleIndicator={CaretDownIcon} >
-                                    {`Last ${dateRange === DATE_RANGE_7_DAYS ? DATE_RANGE_7_DAYS : RANGE_DROPDOWN_45_DAYS} Days`}
-                                </DropdownToggle>
-                            }
                             isOpen={isOpen}
-                            dropdownItems={dropdownItems}
-                        />
+                            onSelect={(_event, isOpen) => setOpen(isOpen)}
+                            onOpenChange={isOpen => setOpen(isOpen)}
+                            toggle={toggleRef => <MenuToggle ref={toggleRef} onClick={onToggleClick} isExpanded={isOpen}>
+                                {`Last ${dateRange === DATE_RANGE_7_DAYS ? DATE_RANGE_7_DAYS : RANGE_DROPDOWN_45_DAYS} Days`}
+                            </MenuToggle>} ouiaId="BasicDropdown" shouldFocusToggleOnSelect>
+
+                            <DropdownList>
+                                <DropdownItem
+                                    key="action_7"
+                                    onClick={() => updateChartRange(DATE_RANGE_7_DAYS)}>
+                                        Last 7 Days
+                                </DropdownItem>
+                                <DropdownItem
+                                    key="action_45"
+                                    onClick={() => updateChartRange(DATE_RANGE_49_DAYS)}>
+                                        Last 45 Days
+                                </DropdownItem>
+                            </DropdownList>
+                        </Dropdown>
                     </div>
                 </FlexItem>
                 <FlexItem align={{ default: 'alignRight' }} className='historical-chart-panel'>
