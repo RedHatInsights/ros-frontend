@@ -119,7 +119,7 @@ export const HistoricalDataChart = ({ inventoryId }) => {
                 <FlexItem align={{ default: 'alignRight' }}>
                     <div className="chartDateFilter">
                         <Tooltip content={<div>Scroll and pan to zoom and move</div>}>
-                            <Icon size='sm'>
+                            <Icon size='md'>
                                 <OutlinedQuestionCircleIcon />
                             </Icon>
                         </Tooltip>

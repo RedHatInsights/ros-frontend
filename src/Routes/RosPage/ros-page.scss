@@ -7,6 +7,28 @@
   }
 }
 
+.progress-score-bar {
+  grid-gap: var(--pf-v5-global--spacer--xs);
+
+  span.pf-v5-c-progress__status-icon {
+    display: none;
+  }
+
+  .pf-v5-c-progress__bar {
+    &:before {
+      background: var(--pf-v5-global--palette--black-400);
+    }
+  }
+
+  .pf-v5-c-progress__measure {
+    color: var(--pf-v5-global--palette--black-600);
+  }
+
+  .pf-v5-c-progress__status {
+    justify-content: flex-start;
+  }
+}
+
 .ros-systems-table {
 
   .pf-v5-c-content.expanded-row {
@@ -29,23 +51,6 @@
   }
 }
 
-.progress-score-bar {
-  grid-gap: var(--pf-v5-global--spacer--xs);
-
-  span.pf-v5-c-progress__status-icon {
-    display: none;
-  }
-
-  .pf-v5-c-progress__bar {
-    &:before {
-      background: var(--pf-v5-global--palette--black-400);
-    }
-  }
-
-  .pf-v5-c-progress__measure {
-    color: var(--pf-v5-global--palette--black-600);
-  }
-}
 
 .blue-300{
   .pf-v5-c-progress__indicator {

@@ -1,7 +1,7 @@
 import { applyReducerHash } from '@redhat-cloud-services/frontend-components-utilities/ReducerRegistry';
 import { InsightsLink } from '@redhat-cloud-services/frontend-components/InsightsLink';
 import React from 'react';
-import { Tooltip } from '@patternfly/react-core';
+import { Tooltip, ProgressMeasureLocation } from '@patternfly/react-core';
 import { ExpandedRow } from '../Components/RosTable/ExpandedRow';
 import { ProgressScoreBar } from '../Components/RosTable/ProgressScoreBar';
 import { SystemState } from '../Components/RosTable/SystemState';
@@ -35,7 +35,7 @@ export const scoreProgress = (data, id, { state }) => {
     return (
         state === NO_DATA_STATE ?
             <span>{ NO_DATA_VALUE }</span> :
-            <ProgressScoreBar measureLocation='outside'
+            <ProgressScoreBar measureLocation={ProgressMeasureLocation.outside}
                 utilizedValue={data} />
     );
 };

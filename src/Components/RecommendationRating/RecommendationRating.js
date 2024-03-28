@@ -48,7 +48,7 @@ const RecommendationRating = ({ system }) => {
             onClick={() => updateRecommendationRating(POSITIVE_FEEDBACK)}
             ouiaId="thumbsUp">
             {rating === POSITIVE_FEEDBACK ? <ThumbsUpIcon className='like' size='sm' /> :
-                <Icon size='sm'>
+                <Icon size='md'>
                     <OutlinedThumbsUpIcon />
                 </Icon>
             }
