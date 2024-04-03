@@ -49,7 +49,7 @@ class RecommendationsTable extends React.Component {
                         <Td expand={{
                             rowIndex: index,
                             isExpanded: this.state.expanded,
-                            onToggle: () => this.onExpandToggle(),
+                            onToggle: this.onExpandToggle,
                             expandId: 'expandable-recommendation'
                         }} />
                         <Td dataLabel={'description'}>{description}</Td>
