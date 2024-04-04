@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { Button } from '@patternfly/react-core';
+import { Button, Icon } from '@patternfly/react-core';
 import { OutlinedThumbsUpIcon } from '@patternfly/react-icons';
 import { OutlinedThumbsDownIcon } from '@patternfly/react-icons';
 import { ThumbsUpIcon } from '@patternfly/react-icons';
@@ -48,7 +48,10 @@ const RecommendationRating = ({ system }) => {
             onClick={() => updateRecommendationRating(POSITIVE_FEEDBACK)}
             ouiaId="thumbsUp">
             {rating === POSITIVE_FEEDBACK ? <ThumbsUpIcon className='like' size='sm' /> :
-                <OutlinedThumbsUpIcon size='sm' />}
+                <Icon size='md'>
+                    <OutlinedThumbsUpIcon />
+                </Icon>
+            }
         </Button>
         <Button
             variant="plain"

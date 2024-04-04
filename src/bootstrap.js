@@ -1,8 +1,8 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import { createRoot } from 'react-dom/client';
 import RosApp from './AppEntry';
 
-ReactDOM.render(
-    <RosApp />,
-    document.getElementById('root')
-);
+const rootContainer = document.getElementById('root');
+const root = createRoot(rootContainer);
+root.render(<RosApp />);
+

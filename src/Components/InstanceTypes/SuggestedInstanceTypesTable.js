@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import {
     TableVariant,
-    TableComposable,
+    Table /* data-codemods */,
     Thead, Tr, Th, Tbody, Td, SortByDirection
 } from '@patternfly/react-table';
 import {
@@ -68,7 +68,7 @@ export default function SuggestedInstanceTypesTable() {
 
     return (
         <>
-            <section className='pf-l-page__main-section pf-c-page__main-section'>
+            <section className='pf-v5-l-page__main-section pf-v5-c-page__main-section'>
                 <Card>
                     <CardBody>
                         <PrimaryToolbar
@@ -96,7 +96,7 @@ export default function SuggestedInstanceTypesTable() {
                             }}
                         />
                         { serverError.message ? <ErrorState/> :
-                            !loading ? <TableComposable
+                            !loading ? <Table
                                 aria-label='suggested instance types table'
                                 variant={TableVariant.compact}
                             >
@@ -128,7 +128,7 @@ export default function SuggestedInstanceTypesTable() {
                                         })
                                     }
                                 </Tbody>
-                            </TableComposable> : (
+                            </Table> : (
                                 <Bullseye>
                                     <Spinner/>
                                 </Bullseye>
