@@ -1,60 +1,6 @@
-import { applyReducerHash } from '@redhat-cloud-services/frontend-components-utilities/ReducerRegistry';
-import { InsightsLink } from '@redhat-cloud-services/frontend-components/InsightsLink';
-import React from 'react';
-import { Tooltip, ProgressMeasureLocation } from '@patternfly/react-core';
 import { ExpandedRow } from '../Components/RosTable/ExpandedRow';
-import { ProgressScoreBar } from '../Components/RosTable/ProgressScoreBar';
-import { SystemState } from '../Components/RosTable/SystemState';
-import { NO_DATA_VALUE, NO_DATA_STATE } from '../constants';
-
-export const systemName = (displayName, id, { inventory_id: inventoryId, isDeleted, state }) => {
-    return (
-        isDeleted ? (
-            <Tooltip content={<div>{displayName} has been deleted from inventory</div>}>
-                <span tabIndex="0">{ displayName }</span>
-            </Tooltip>
-        ) :
-            state === NO_DATA_STATE ?
-                (
-                    <span>{ displayName }</span>
-                ) :
-                (
-                    <InsightsLink to={{ pathname: `/${inventoryId}` }} className={ `pf-link system-link link-${inventoryId}` }>
-                        { displayName }
-                    </InsightsLink>
-                )
-
-    );
-};
-
-export const displayState = (data) => {
-    return (<SystemState stateValue={ data }/>);
-};
-
-export const scoreProgress = (data, id, { state }) => {
-    return (
-        state === NO_DATA_STATE ?
-            <span>{ NO_DATA_VALUE }</span> :
-            <ProgressScoreBar measureLocation={ProgressMeasureLocation.outside}
-                utilizedValue={data} />
-    );
-};
-
-export const recommendations = (data, id, { inventory_id: inventoryId, isDeleted, state }) => {
-    return (
-        isDeleted ? <span>{ state === NO_DATA_STATE ? NO_DATA_VALUE : data }</span>
-            : state === NO_DATA_STATE ?
-                (
-                    <span>{ NO_DATA_VALUE }</span>
-                )
-                : (
-                    <InsightsLink to={{ pathname: `/${inventoryId}` }}
-                        className={ `pf-link link-${inventoryId}` }>
-                        { data }
-                    </InsightsLink>
-                )
-    );
-};
+import { applyReducerHash } from '@redhat-cloud-services/frontend-components-utilities/ReducerRegistry';
+import React from 'react';
 
 const addExpandedView = (rowData) => {
     const {

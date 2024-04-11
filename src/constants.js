@@ -5,9 +5,7 @@ import {
     displayState,
     recommendations,
     scoreProgress,
-    systemName
-} from './store/entitiesReducer';
-import {
+    systemName,
     diskUsageData,
     displayGroup,
     displayLastReported,
