@@ -47,7 +47,7 @@ const RecommendationRating = ({ system }) => {
             aria-label="thumbs-up"
             onClick={() => updateRecommendationRating(POSITIVE_FEEDBACK)}
             ouiaId="thumbsUp">
-            {rating === POSITIVE_FEEDBACK ? <ThumbsUpIcon className='like' size='sm' /> :
+            {rating === POSITIVE_FEEDBACK ? <ThumbsUpIcon data-testid='thumbs-up-positive' className='like' size='sm' /> :
                 <Icon size='md'>
                     <OutlinedThumbsUpIcon />
                 </Icon>
@@ -58,7 +58,7 @@ const RecommendationRating = ({ system }) => {
             aria-label="thumbs-down"
             onClick={() => updateRecommendationRating(NEGATIVE_FEEDBACK)}
             ouiaId="thumbsDown">
-            {rating === NEGATIVE_FEEDBACK ? <ThumbsDownIcon className='dislike' size='sm' /> :
+            {rating === NEGATIVE_FEEDBACK ? <ThumbsDownIcon data-testid='thumbs-down-negative' className='dislike' size='sm' /> :
                 <OutlinedThumbsDownIcon size='sm' />}
         </Button>
         {submitted && 'Thank you for your feedback!'}

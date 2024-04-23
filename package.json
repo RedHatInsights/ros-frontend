@@ -19,32 +19,42 @@
     "server:ctr": "node src/server/generateServerKey.js",
     "start": "HOT=true fec dev",
     "test": "TZ=UTC jest --verbose --no-cache",
-    "test:local": "TZ=UTC jest --verbose --no-cache --coverage --coverageReporters='text-summary'",
+    "test:local": "TZ=UTC jest --verbose --no-cache --coverage --coverageReporters='text-summary' --watch",
     "verify": "npm-run-all build lint test",
     "postinstall": "ts-patch install"
   },
   "jest": {
+    "testEnvironment": "jsdom",
+    "coverageDirectory": "./codecov-jest/",
     "collectCoverage": true,
     "collectCoverageFrom": [
       "src/**/*.js",
-      "!src/**/stories/*"
+      "!src/entry.js",
+      "!src/entry-dev.js"
     ],
-    "coverageDirectory": "./coverage/",
-    "transformIgnorePatterns": [
-      "<rootDir>/node_modules/(?!(@patternfly/react-core/|@patternfly/react-icons/|@redhat-cloud-services|@openshift|lodash-es|@patternfly/react-table|@patternfly/react-tokens|p-all)).*$"
-    ],
-    "moduleNameMapper": {
-      "\\.(css|scss)$": "identity-obj-proxy",
-      "PFReactCore": "@patternfly/react-core",
-      "PFReactTable": "@patternfly/react-table",
-      "^@redhat-cloud-services/frontend-components-pdf-generator$": "<rootDir>/node_modules/@redhat-cloud-services/frontend-components-pdf-generator/dist/esm/index.js"
+    "transform": {
+      "^.+\\.jsx?$": "babel-jest",
+      "^.+\\.mjs$": "babel-jest"
     },
-    "roots": [
-      "<rootDir>/src/"
+    "transformIgnorePatterns": [
+      "<rootDir>/node_modules/(?!(@patternfly/react-core/|@patternfly/react-icons/|@redhat-cloud-services|@openshift|lodash-es|@patternfly/react-table|@patternfly/react-tokens|@patternfly/react-styles/|p-all|uuid)).*$"
     ],
     "setupFiles": [
       "<rootDir>/config/setupTests.js"
-    ]
+    ],
+    "roots": [
+      "<rootDir>/src/"
+    ],
+    "testEnvironmentOptions": {
+      "url": "http://localhost:5000/"
+    },
+    "moduleNameMapper": {
+      "\\.(css|scss)$": "identity-obj-proxy",
+      "customReact": "react",
+      "PFReactCore": "@patternfly/react-core",
+      "PFReactTable": "@patternfly/react-table",
+      "reactRedux": "react-redux"
+    }
   },
   "transformIgnorePatterns": [
     "/node_modules/(?!@redhat-cloud-services)"
@@ -103,6 +113,7 @@
     "good-guy-http": "^1.13.0",
     "identity-obj-proxy": "3.0.0",
     "jest": "^29.7.0",
+    "jest-environment-jsdom": "^29.7.0",
     "npm-run-all": "4.1.5",
     "postcss": "^7.0.36",
     "prop-types": "15.7.2",
