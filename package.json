@@ -19,7 +19,7 @@
     "server:ctr": "node src/server/generateServerKey.js",
     "start": "HOT=true fec dev",
     "test": "TZ=UTC jest --verbose --no-cache",
-    "test:local": "TZ=UTC jest --verbose --no-cache --coverage --coverageReporters='text-summary' --watch",
+    "test:local": "TZ=UTC jest --verbose --no-cache --coverage --coverageDirectory='coverage' --watch",
     "verify": "npm-run-all build lint test",
     "postinstall": "ts-patch install"
   },

@@ -8,7 +8,8 @@ export const ProgressScoreBar = ({ utilizedValue, measureLocation, eleId }) =>  
             <Progress value={ utilizedValue }
                 className={ `progress-score-bar blue-300` }
                 measureLocation={ measureLocation }
-                {  ...(eleId ? { id: eleId } : null) } />
+                {  ...(eleId ? { id: eleId } : null) }
+                data-testid='progress-score-bar' />
         </React.Fragment>
     );
 };
