@@ -60,7 +60,7 @@ export default function RosSuggestedInstanceTypes() {
     const { hideGlobalFilter, updateDocumentTitle } = useChrome();
 
     useEffect(() => {
-        updateDocumentTitle('Suggested Instance Types - Resource Optimization | Red Hat Insights');
+        updateDocumentTitle('Suggested Instance Types - Resource Optimization - Business ');
         hideGlobalFilter();
     }, []);
 

@@ -51,7 +51,7 @@ class RosSystemDetail extends React.Component {
         const chrome = this.props.chrome;
         const displayName = this.props.rosSystemInfo.display_name;
         if (displayName && displayName !== document.title) {
-            chrome?.updateDocumentTitle(displayName);
+            chrome?.updateDocumentTitle(`${displayName} - Resource Optimization - Business`);
         }
     }
 
