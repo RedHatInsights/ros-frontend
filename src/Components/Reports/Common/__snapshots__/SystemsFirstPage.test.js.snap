@@ -1,0 +1,40 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Systems First Page Component should matches snapshot for systems first page and renders correctly 1`] = `
+<DocumentFragment>
+  <div>
+    <div>
+      This report identified 3 RHEL systems. Filters applied
+State: Undersized,Under pressure,Waiting for data
+Name: iqe
+    </div>
+  </div>
+  <div>
+    <div>
+      <div>
+        Table inside PDF
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`Systems First Page Component should matches snapshot for systems first page and renders correctly with 1 system 1`] = `
+<DocumentFragment>
+  <div>
+    <div>
+      This report identified 1 RHEL system. Filters applied
+State: Undersized
+Name: iqe
+Groups:team-ros
+    </div>
+  </div>
+  <div>
+    <div>
+      <div>
+        Table inside PDF
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;

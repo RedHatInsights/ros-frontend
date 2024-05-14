@@ -53,7 +53,8 @@
       "customReact": "react",
       "PFReactCore": "@patternfly/react-core",
       "PFReactTable": "@patternfly/react-table",
-      "reactRedux": "react-redux"
+      "reactRedux": "react-redux",
+      "^@redhat-cloud-services/frontend-components-pdf-generator$": "<rootDir>/node_modules/@redhat-cloud-services/frontend-components-pdf-generator/dist/esm/index.js"
     }
   },
   "transformIgnorePatterns": [
