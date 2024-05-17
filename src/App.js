@@ -49,7 +49,7 @@ class App extends Component {
         });
 
         const chrome = this.props.chrome;
-        chrome?.updateDocumentTitle('Resource Optimization | Red Hat Insights');
+        chrome?.updateDocumentTitle('Resource Optimization - Business');
 
         (async () => {
             const rosPermissions = await chrome.getUserPermissions('ros', true);
