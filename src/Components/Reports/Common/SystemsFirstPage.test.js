@@ -9,9 +9,9 @@ jest.mock('@redhat-cloud-services/frontend-components-pdf-generator', () => ({
     Table: jest.fn(() => <div>Table inside PDF</div>)
 }));
 
-describe('Systems First Page Component', () => {
+describe('SystemsFirstPage Component', () => {
 
-    it('should matches snapshot for systems first page and renders correctly', () => {
+    it('renders correctly with multiple systems with applied filters', () => {
 
         // render & query
         const firstPageProps = {
@@ -31,7 +31,7 @@ describe('Systems First Page Component', () => {
 
     });
 
-    it('should matches snapshot for systems first page and renders correctly with 1 system', () => {
+    it('renders correctly with a single system with applied filters', () => {
 
         // render & query
         const firstPageProps = {

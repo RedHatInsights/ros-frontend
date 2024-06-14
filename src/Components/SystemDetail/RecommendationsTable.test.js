@@ -1,7 +1,3 @@
-// import { test } from '@jest/globals';
-
-// test.todo('RecommendationsTable component tests');
-
 import { render } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import RecommendationsTable from './RecommendationsTable';

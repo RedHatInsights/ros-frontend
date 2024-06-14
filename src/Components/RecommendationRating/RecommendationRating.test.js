@@ -4,7 +4,7 @@ import RecommendationRating from './RecommendationRating';
 import '@testing-library/jest-dom';
 
 describe('RecommendationRating tests', () => {
-    it('expect to render when no feedback submitted', () => {
+    it('expect to render thumbs-up and thumbs-down buttons to be visible when no feedback submitted', () => {
         // render
         const propValues = {
             system: {
@@ -23,7 +23,7 @@ describe('RecommendationRating tests', () => {
         expect(thumbsDownButton).toBeVisible();
     });
 
-    it('expect to render with positive feedback', () => {
+    it('expect to render thumbs-up button with positive feedback', () => {
         // render
         const propValues = {
             system: {
@@ -42,7 +42,7 @@ describe('RecommendationRating tests', () => {
         expect(thumbsUpPositiveImg).toHaveClass('pf-v5-svg like');
     });
 
-    it('expect to render with negative feedback', () => {
+    it('expect to render thumbs-down button with negative feedback', () => {
         // render
         const propValues = {
             system: {

@@ -2,7 +2,7 @@ import { render } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { SystemsTablePage } from './SystemsTablePage';
 
-describe('Systems Table Page Component', () => {
+describe('SystemsTablePage Component', () => {
 
     it('should matches snapshot for systems table page and renders correctly', () => {
 
