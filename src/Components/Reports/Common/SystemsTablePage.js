@@ -9,7 +9,11 @@ const columnBuilder = ({ value, style, key }) => <Text key={key} style={style}>{
 
 const headerContent = ['Name', 'Group', 'OS', 'CPU utilization', 'Memory utilization', 'I/O utilization', 'Suggestions', 'State', 'Last reported'];
 
-const buildSystemsHeader = () => {
+const buildSystemsHeader = (isWorkSpaceEnabled = false) => {
+    if (isWorkSpaceEnabled) {
+        headerContent.splice(1, 1, 'Workspace');
+    }
+
     const formattedHeader = headerContent.map((item, index) => {
         let styleArr = item === 'Name' ? [styles.systemNameCell] : item === 'Last reported' ? [styles.lastReportedCell] : [styles.headerCell];
         return columnBuilder({ value: item, style: styleArr, key: `${index}-${item}` });
@@ -34,10 +38,10 @@ const buildSystemsRows = (rowsData) => {
     return systemsRows;
 };
 
-export const SystemsTablePage = ({ data, page }) => {
+export const SystemsTablePage = ({ data, page, isWorkSpaceEnabled = false }) => {
 
     // Table header
-    const systemsHeader = buildSystemsHeader();
+    const systemsHeader = buildSystemsHeader(isWorkSpaceEnabled);
 
     // Table Rows
     const systemsRows = buildSystemsRows(data);
@@ -60,7 +64,8 @@ export const SystemsTablePage = ({ data, page }) => {
 
 SystemsTablePage.propTypes = {
     data: propTypes.array,
-    page: propTypes.number
+    page: propTypes.number,
+    isWorkSpaceEnabled: propTypes.bool
 };
 
 columnBuilder.propTypes = {
