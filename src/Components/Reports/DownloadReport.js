@@ -3,7 +3,7 @@ import { REPORT_NOTIFICATIONS } from './Constants';
 import { fetchSystems } from '../../Utilities/api';
 import { getSystemsReportFileName, responseToCSVData, responseToJSONData } from './Util';
 
-export const downloadReport = async (format, filters, orderBy, orderHow, showNotification, clearNotification) => {
+export const downloadReport = async (format, filters, orderBy, orderHow, showNotification, clearNotification, isWorkSpaceEnabled) => {
 
     const fileName = getSystemsReportFileName();
     const { start, success, failure } = REPORT_NOTIFICATIONS;
@@ -21,7 +21,8 @@ export const downloadReport = async (format, filters, orderBy, orderHow, showNot
     try {
         const systemsResponse = await fetchSystems(fetchSystemParams);
 
-        const data = format === 'json' ? responseToJSONData(systemsResponse.data) : responseToCSVData(systemsResponse.data);
+        const data = format === 'json' ? responseToJSONData(systemsResponse.data, isWorkSpaceEnabled)
+            : responseToCSVData(systemsResponse.data, isWorkSpaceEnabled);
 
         downloadFile(data, fileName, format);
 

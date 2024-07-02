@@ -94,6 +94,14 @@ export const displayGroup = (data) => {
     );
 };
 
+export const displayWorkspace = (data) => {
+    return (
+        data.length === 0 ?
+            <span className="pf-v5-u-disabled-color-200">No Workspace</span> :
+            <span>{ data[0].name }</span>
+    );
+};
+
 export const systemName = (displayName, id, { inventory_id: inventoryId, isDeleted, state }) => {
     return (
         isDeleted ? (

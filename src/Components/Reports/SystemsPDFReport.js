@@ -12,7 +12,7 @@ import {
     clearNotifications
 } from '@redhat-cloud-services/frontend-components-notifications/redux';
 
-export const DownloadSystemsPDFReport = ({ filters, orderBy, orderHow, ...props }) => {
+export const DownloadSystemsPDFReport = ({ filters, orderBy, orderHow, isWorkSpaceEnabled, ...props }) => {
     const reportFileName = getSystemsReportFileName();
     const dispatch = useDispatch();
     const { start, success, failure } = REPORT_NOTIFICATIONS;
@@ -46,13 +46,14 @@ export const DownloadSystemsPDFReport = ({ filters, orderBy, orderHow, ...props 
             return [];
         }
 
-        const pdfData = formatData(systemsResponse.data, 'pdf');
+        const pdfData = formatData(systemsResponse.data, 'pdf', isWorkSpaceEnabled);
 
         // first page description and data props
         const firstPageProps = {
             data: pdfData.splice(0, firstPageCount),
             totalSystems: systemsResponse?.meta?.count,
-            filterText: generateFilterText(filters)
+            filterText: generateFilterText(filters, isWorkSpaceEnabled),
+            isWorkSpaceEnabled
         };
 
         const otherPages = [];
@@ -66,7 +67,8 @@ export const DownloadSystemsPDFReport = ({ filters, orderBy, orderHow, ...props 
 
         return [
             <SystemsFirstPage key='first-page' {...firstPageProps} />,
-            ...otherPages.map((systemsPage, index) => <SystemsTablePage key={index} data={systemsPage}  page={index + 1}/>)
+            ...otherPages.map((systemsPage, index) => <SystemsTablePage key={index} data={systemsPage}
+                page={index + 1} isWorkSpaceEnabled={isWorkSpaceEnabled}/>)
         ];
 
     };
@@ -91,6 +93,7 @@ export const DownloadSystemsPDFReport = ({ filters, orderBy, orderHow, ...props 
 DownloadSystemsPDFReport.propTypes = {
     filters: propTypes.object,
     orderBy: propTypes.string,
-    orderHow: propTypes.string
+    orderHow: propTypes.string,
+    isWorkSpaceEnabled: propTypes.bool
 
 };
