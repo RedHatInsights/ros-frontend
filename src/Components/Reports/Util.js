@@ -2,9 +2,15 @@ import { get } from 'lodash';
 import { pdfRowKeys, percentageKeys, reportRowKeys, SYSTEMS_REPORT_FILE_NAME } from './Constants';
 import { dateStringByType } from '@redhat-cloud-services/frontend-components/DateFormat/helper';
 
-export const formatData = (data, type) => {
+export const formatData = (data, type, isWorkSpaceEnabled = false) => {
 
     const systemsRowsData = [];
+    let NoGroupValue = 'No group';
+
+    if (isWorkSpaceEnabled) {
+        NoGroupValue = 'No workspace';
+    }
+
     const rowKeys = type === 'json' ?  reportRowKeys : pdfRowKeys;
 
     data.map((systemItem) => {
@@ -14,7 +20,7 @@ export const formatData = (data, type) => {
             let rowValue;
             if (rowKey === 'groups') {
                 rowValue =  get(systemItem, rowKey, []);
-                rowValue = rowValue.length === 0  ? 'No group' : rowValue[0].name;
+                rowValue = rowValue.length === 0  ? NoGroupValue : rowValue[0].name;
 
             } else {
                 rowValue =   get(systemItem, rowKey, '');
@@ -37,13 +43,13 @@ export const formatData = (data, type) => {
 
 };
 
-export const responseToJSONData = (data) => {
-    const systemsRowsData = formatData(data, 'json');
+export const responseToJSONData = (data, isWorkSpaceEnabled) => {
+    const systemsRowsData = formatData(data, 'json', isWorkSpaceEnabled);
     return JSON.stringify(systemsRowsData);
 };
 
-export const responseToCSVData = (data) => {
-    const items =  formatData(data, 'json');
+export const responseToCSVData = (data, isWorkSpaceEnabled) => {
+    const items =  formatData(data, 'json', isWorkSpaceEnabled);
     const header = Object.keys(items[0]);
     const csvData = [
         header.join(','), // header row first
@@ -53,8 +59,9 @@ export const responseToCSVData = (data) => {
     return csvData;
 };
 
-export const generateFilterText = (filters) => {
+export const generateFilterText = (filters, isWorkSpaceEnabled = false) => {
     let filterText  = '';
+    const groupOrWorkspace = isWorkSpaceEnabled ? 'Groups:' : 'Workspaces:';
     const filterSeparatorOnLine = '\n';
     const hasStateFilter = filters?.stateFilter?.length > 0;
     const hasNameFilter =  filters?.hostnameOrId?.length > 0;
@@ -66,7 +73,7 @@ export const generateFilterText = (filters) => {
         filterText = hasNameFilter ? filterText.concat(`Name: ${filters.hostnameOrId}${filterSeparatorOnLine}`) : filterText;
         filterText = hasStateFilter ? filterText.concat(`State: ${filters.stateFilter.toString()}${filterSeparatorOnLine}`) : filterText;
         filterText = hasOsFilter ? filterText.concat(`Operating System: ${filters.osFilter.sort().toString()}${filterSeparatorOnLine}`) : filterText;
-        filterText = hasgroupFilter ? filterText.concat(`Groups: ${filters.groupFilter.toString()}`) : filterText;
+        filterText = hasgroupFilter ? filterText.concat(`${groupOrWorkspace} ${filters.groupFilter.toString()}`) : filterText;
     }
 
     return filterText;

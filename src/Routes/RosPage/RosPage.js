@@ -33,6 +33,8 @@ import { DownloadExecutivePDFReport } from '../../Components/Reports/ExecutivePD
 import { useChrome } from '@redhat-cloud-services/frontend-components/useChrome';
 import { conditionalFilterType } from '@redhat-cloud-services/frontend-components';
 import { useLocation } from 'react-router-dom';
+import useFeatureFlag from './useFeatureFlag';
+import { displayWorkspace } from '../../Components/RosTable/RenderColumn';
 
 /**
  * A smart component that handles all the api calls and data needed by the dumb components.
@@ -84,6 +86,19 @@ class RosPage extends React.Component {
         await this.props.isROSConfigured();
         this.processQueryParams();
         this.processFilterValues();
+        if (this.props.isWorkSpaceEnabled) {
+            SYSTEM_TABLE_COLUMNS.splice(1, 1,  {
+                key: 'groups',
+                title: 'Workspace',
+                modalTitle: 'Workspace',
+                dataLabel: 'Workspace',
+                renderFunc: (data) => displayWorkspace(data),
+                isChecked: true,
+                isDisabled: false,
+                isShownByDefault: true,
+                props: { isStatic: true }
+            });
+        }
     }
 
     processQueryParams() {
@@ -316,7 +331,7 @@ class RosPage extends React.Component {
 
         downloadReport(fileType, filters, orderBy, orderDirection,
             notification => addNotification(notification),
-            () => clearNotifications());
+            () => clearNotifications(), this.props.isWorkSpaceEnabled);
     }
 
     renderConfigStepsOrTable() {
@@ -491,6 +506,7 @@ class RosPage extends React.Component {
                                     }}
                                     orderBy={orderBy}
                                     orderHow={orderDirection}
+                                    isWorkSpaceEnabled={this.props.isWorkSpaceEnabled}
                                 />
                                 }
                             </CardBody>
@@ -553,15 +569,17 @@ RosPage.propTypes = {
     changeSystemColumns: PropTypes.func,
     addNotification: PropTypes.func,
     clearNotifications: PropTypes.func,
-    chrome: PropTypes.object
+    chrome: PropTypes.object,
+    isWorkSpaceEnabled: PropTypes.bool
 };
 
 const RosPageWithChrome =  props => {
     const chrome = useChrome();
     const location = useLocation();
+    const isWorkSpaceEnabled = useFeatureFlag('platform.rbac.groups-to-workspaces-rename');
 
     return (
-        <RosPage {...props} chrome={ chrome } location={ location }/>
+        <RosPage {...props} chrome={ chrome } isWorkSpaceEnabled={isWorkSpaceEnabled} location={ location }/>
     );
 };
 
