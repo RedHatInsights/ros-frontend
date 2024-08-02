@@ -124,7 +124,7 @@ npm run lint:js:fix
 
 ## Deployment
 
-Please refer this [link](https://consoledot.pages.redhat.com/docs/dev/developer-references/design/frontend.html)
+Please refer this [link](https://docs.google.com/document/d/1PKGLs1zaBvSyOGHQqjVEfADRyCiBknzmGLJjZvNlw7s/edit?usp=sharing) (Needs VPN)
 
 
 ## Documentation
