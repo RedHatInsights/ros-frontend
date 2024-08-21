@@ -18,16 +18,16 @@ module.exports = {
         exposes: {
             './RootApp': path.resolve(__dirname, './src/AppEntry.js'),
             './SystemDetail': path.resolve(__dirname, './src/Components/SystemDetail/SystemDetail.js')
-        },       
-      exclude: ['react-router-dom'],
-      shared: [
-        {
-          'react-router-dom': {
-            singleton: true,
-            import: false,
-            version: '^6.8.1',
-          },
         },
-      ],
-    },
-  };
+        exclude: ['react-router-dom'],
+        shared: [
+            {
+                'react-router-dom': {
+                    singleton: true,
+                    import: false,
+                    version: '^6.8.1'
+                }
+            }
+        ]
+    }
+};
