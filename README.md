@@ -7,7 +7,7 @@ Resource Optimization is a service that can help you optimize your public cloud 
 ### Install
 
 - [Node](https://nodejs.org/en/download/)
-- [Docker](https://docs.docker.com/get-docker/)
+- [Docker](https://docs.docker.com/get-docker/) or [Podman](https://podman.io/)
 
 
 ## Setup Development Environment
@@ -21,7 +21,7 @@ git clone https://github.com/RedHatInsights/ros-backend.git
 ```
 
 
-2. Make sure you meet the prerequisites mentioned in both frontend and backend repositories.Also Setup the initial /etc/hosts entries -
+2. Make sure you meet the prerequisites mentioned in both frontend and backend repositories.Also Setup the initial /etc/hosts entries - (do this once)
 
 ```
 Edit /etc/hosts
@@ -31,13 +31,20 @@ Add below content:
 127.0.0.1 prod.foo.redhat.com
 ```
 
+OR
+
+run the script (with sudo)
+
+```
+npm run patch:hosts
+```
 
 
 ### With deployed backend (Stage+Prod)
 3. To run the dev setup, go to directory where you have cloned ros-frontend repo
 
 
-[With Stage Backend] ROS Frontend TAB
+[With Stage/Production Backend] ROS Frontend TAB
 
 ```
 cd ../ros-frontend
@@ -45,17 +52,16 @@ npm install
 npm run start
 ```
 
-This will run the ros-frontend pointing to backend deployed to the Stage envrionment. Once it is running go to browser and access it using `https://stage.foo.redhat.com:1337/insights/ros` link.
-
-[With Production Backend] ROS Frontend TAB
+Follow the prompts that follow and select the required envrionment: stage/prod
 
 ```
-cd ../ros-frontend
-npm install
-npm run start:prod
+Which platform environment you want to use? 
+> stage 
+  prod 
 ```
 
-This will run the ros-frontend pointing to backend deployed to the Production envrionment. Once it is running go to browser and access it using `https://prod.foo.redhat.com:1337/insights/ros` link.
+This will run the ros-frontend pointing to backend deployed to the selected envrionment. Once it is running go to browser and access it using `https://stage.foo.redhat.com:1337/insights/ros`(for Stage) OR `https://prod.foo.redhat.com:1337/insights/ros`(for Production) link.
+
 
 
 ### With local backend
@@ -75,23 +81,6 @@ This will run the ros-frontend pointing to local backend. Once it is running go 
 
 
 please check `package.json` for other available scripts
-
-
-### For insights-chrome -(Optional - only do it in case you want to use local chrome for debugging or any other purpose)
-
-follow steps from here - https://github.com/RedHatInsights/insights-frontend-storybook/blob/master/src/docs/welcome/quickStart/DOC.md#chrome
-
-
-```
-[Tab 1]
-cd ../insights-chrome
-npm install
-npm run build
-
-[Tab 2]
-cd ../ros-frontend
-update `start` script in the package.json file and pass local chrome path by adding `INSIGHTS_CHROME` variable in the `start` script
-```
 
 
 ## Running the Tests
