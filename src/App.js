@@ -60,6 +60,11 @@ class App extends Component {
 
     }
 
+    componentDidUpdate() {
+        const chrome = this.props.chrome;
+        chrome?.updateDocumentTitle('Resource Optimization | Red Hat Insights');
+    }
+
     render () {
         const {
             hasReadPermissions,
