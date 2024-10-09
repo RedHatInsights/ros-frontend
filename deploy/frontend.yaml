@@ -1,3 +1,4 @@
+---
 apiVersion: v1
 kind: Template
 metadata:
@@ -37,4 +38,4 @@ parameters:
   - name: IMAGE_TAG
     required: true
   - name: IMAGE
-    value: quay.io/cloudservices/ros-frontend
+    value: quay.io/redhat-services-prod/insights-management-tenant/insights-resource-optimization/ros-frontend
