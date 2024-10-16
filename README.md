@@ -12,12 +12,10 @@ Resource Optimization is a service that can help you optimize your public cloud 
 
 ## Setup Development Environment
 
-1. Clone below repositories:
+1. Clone below repository:
 
 ```
 git clone https://github.com/RedHatInsights/ros-frontend.git
-git clone https://github.com/RedHatInsights/insights-chrome.git
-git clone https://github.com/RedHatInsights/ros-backend.git
 ```
 
 
