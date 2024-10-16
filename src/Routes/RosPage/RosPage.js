@@ -83,6 +83,7 @@ class RosPage extends React.Component {
         const chrome = this.props.chrome;
         chrome?.hideGlobalFilter?.(true);
         chrome?.appAction('ros-systems');
+        chrome?.updateDocumentTitle('Resource Optimization - Business');
         await this.props.isROSConfigured();
         this.processQueryParams();
         this.processFilterValues();
