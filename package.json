@@ -69,7 +69,7 @@
     "@patternfly/react-table": "^5.2.4",
     "@react-pdf/renderer": "^3.1.14",
     "@redhat-cloud-services/frontend-components": "^4.2.14",
-    "@redhat-cloud-services/frontend-components-config": "^6.2.3",
+    "@redhat-cloud-services/frontend-components-config": "^6.3.1",
     "@redhat-cloud-services/frontend-components-notifications": "^4.1.0",
     "@redhat-cloud-services/frontend-components-pdf-generator": "^4.0.5",
     "@redhat-cloud-services/frontend-components-utilities": "^4.0.14",
