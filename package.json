@@ -84,7 +84,7 @@
     "react-router-dom": "^6.21.1",
     "redux": "^4.2.1",
     "redux-logger": "3.0.6",
-    "redux-promise-middleware": "6.1.2"
+    "redux-promise-middleware": "6.2.0"
   },
   "devDependencies": {
     "@babel/core": "7.10.0",
