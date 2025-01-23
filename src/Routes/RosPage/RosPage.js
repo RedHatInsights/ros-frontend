@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { PageHeader, PageHeaderTitle } from '@redhat-cloud-services/frontend-components/PageHeader';
 import { Main } from '@redhat-cloud-services/frontend-components/Main';
-import { Button, Card, CardBody } from '@patternfly/react-core';
+import { Button, Card, CardBody, Flex } from '@patternfly/react-core';
 import { SortByDirection } from '@patternfly/react-table';
 import { connect } from 'react-redux';
 import { InventoryTable } from '@redhat-cloud-services/frontend-components/Inventory';
@@ -35,6 +35,7 @@ import { conditionalFilterType } from '@redhat-cloud-services/frontend-component
 import { useLocation } from 'react-router-dom';
 import useFeatureFlag from './useFeatureFlag';
 import { displayWorkspace } from '../../Components/RosTable/RenderColumn';
+import { RosPopover } from '../../Components/RosPopover/RosPopover';
 
 /**
  * A smart component that handles all the api calls and data needed by the dumb components.
@@ -372,7 +373,14 @@ class RosPage extends React.Component {
                 ? <ServiceNotConfigured />
                 : <React.Fragment>
                     <PageHeader className='ros-page-header'>
-                        <PageHeaderTitle title='Resource Optimization'/>
+                        <PageHeaderTitle
+                            title={
+                                <Flex spaceItems={{ default: 'spaceItemsSm' }}>
+                                    <div>Resource Optimization</div>
+                                    <RosPopover />
+                                </Flex>
+                            }
+                        />
                         <DownloadExecutivePDFReport isDisabled={this.state.disableExport} />
                     </PageHeader>
 
