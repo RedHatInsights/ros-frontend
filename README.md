@@ -60,6 +60,8 @@ Which platform environment you want to use?
 
 This will run the ros-frontend pointing to backend deployed to the selected envrionment. Once it is running go to browser and access it using `https://stage.foo.redhat.com:1337/insights/ros`(for Stage) OR `https://prod.foo.redhat.com:1337/insights/ros`(for Production) link.
 
+Note: In case you see the error `You cannot visit stage.foo.redhat.com right now because the website uses HSTS....` while accessing the website in chrome then see the thisisunsafe section on: https://cybercafe.dev/thisisunsafe-bypassing-chrome-security-warnings/ and follow the same.
+
 
 
 ### With local backend
