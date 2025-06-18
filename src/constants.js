@@ -21,7 +21,6 @@ export const ROS_API_ROOT = '/api/ros/v1';
 export const IS_CONFIGURED_API = '/is_configured';
 export const SYSTEMS_API_ROOT = '/systems';
 export const RECOMMENDATION_RATING_API = '/rating';
-export const CRC_PDF_GENERATE_API = '/api/crc-pdf-generator/v1/generate';
 export const SUGGESTED_INSTANCE_TYPES_API = '/suggested_instance_types';
 
 // Feedback
