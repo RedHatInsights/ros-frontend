@@ -14,10 +14,16 @@ module.exports = {
      */
     plugins: [],
     hotReload: process.env.HOT === 'true',
+    routes: {
+        '/api/crc-pdf-generator': {
+            target: 'http://localhost:8000'
+        }
+    },
     moduleFederation: {
         exposes: {
             './RootApp': path.resolve(__dirname, './src/AppEntry.js'),
-            './SystemDetail': path.resolve(__dirname, './src/Components/SystemDetail/SystemDetail.js')
+            './SystemDetail': path.resolve(__dirname, './src/Components/SystemDetail/SystemDetail.js'),
+            './PDFTemplates/ExecutiveReport': path.resolve(__dirname, './src/PDFTemplates/ExecutiveReport/ExecutiveReport.tsx')
         },
         exclude: ['react-router-dom'],
         shared: [

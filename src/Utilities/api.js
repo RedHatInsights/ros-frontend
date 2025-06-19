@@ -1,5 +1,5 @@
 import { SortByDirection } from '@patternfly/react-table';
-import { ROS_API_ROOT, SYSTEMS_API_ROOT, IS_CONFIGURED_API, CRC_PDF_GENERATE_API, SUGGESTED_INSTANCE_TYPES_API } from '../constants';
+import { ROS_API_ROOT, SYSTEMS_API_ROOT, IS_CONFIGURED_API, SUGGESTED_INSTANCE_TYPES_API } from '../constants';
 
 export function handleErrors(response) {
     if (!response.ok) {
@@ -123,25 +123,6 @@ export const fetchSystemHistory = (inventoryId, limit) => {
     .then(res =>  res.json()).then(result => result);
 
     return response;
-};
-
-export const fetchExecutiveReport = async () => {
-    const url = new URL(CRC_PDF_GENERATE_API,  window.location.origin);
-
-    return fetch(url, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-
-        body: JSON.stringify({
-            service: 'ros',
-            template: 'executiveReport'
-        })
-    })
-    .then(handleErrors)
-    .then((response) => response.blob());
-
 };
 
 export const fetchSuggestedInstanceTypes = async (fetchParams) => {
