@@ -142,7 +142,7 @@ const DescriptionList = ({
 type CreateAxiosRequest<T = any> = (service: string, config: AxiosRequestConfig) => Promise<T>;
 
 export const fetchData: FetchData = async (createAsyncRequest: CreateAxiosRequest) => {
-    return createAsyncRequest('ros', {
+    return createAsyncRequest('ros-backend', {
         method: 'GET',
         url: '/api/ros/v1/executive_report'
     });
