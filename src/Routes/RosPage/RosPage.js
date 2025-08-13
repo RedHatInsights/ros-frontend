@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { PageHeader, PageHeaderTitle } from '@redhat-cloud-services/frontend-components/PageHeader';
 import { Main } from '@redhat-cloud-services/frontend-components/Main';
-import { Button, Card, CardBody, Flex } from '@patternfly/react-core';
+import { Card, CardBody, Flex } from '@patternfly/react-core';
 import { SortByDirection } from '@patternfly/react-table';
 import { connect } from 'react-redux';
 import { InventoryTable } from '@redhat-cloud-services/frontend-components/Inventory';
@@ -486,17 +486,6 @@ class RosPage extends React.Component {
                                     }}
                                     exportConfig={{
                                         isDisabled: disableExport,
-                                        extraItems: [
-                                            <li key='pdf-button-item' role='menuitem'>
-                                                <Button
-                                                    key='pdf-download-button'
-                                                    variant='none'
-                                                    className="pf-v5-c-dropdown pf-v5-c-dropdown__menu-item"
-                                                    onClick={() => this.setExportSystemsPDF(true)}>
-                                                Export to PDF
-                                                </Button>
-                                            </li>
-                                        ],
                                         ouiaId: 'export',
                                         onSelect: (_event, fileType) => this.onExportOptionSelect(fileType)
                                     }}
