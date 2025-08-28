@@ -61,6 +61,10 @@
   "transformIgnorePatterns": [
     "/node_modules/(?!@redhat-cloud-services)"
   ],
+  "@comment dependencies": [
+    "TODO comments for the `dependencies` section.",
+    "Remove javascript-clients-shared, rbac-client from direct dependencies on upgrading frontend-components-utilities to 7.0.0"
+  ],
   "dependencies": {
     "@patternfly/patternfly": "^5.2.1",
     "@patternfly/react-charts": "^7.4.3",
@@ -75,6 +79,8 @@
     "@redhat-cloud-services/frontend-components-notifications": "^4.1.0",
     "@redhat-cloud-services/frontend-components-pdf-generator": "^4.0.5",
     "@redhat-cloud-services/frontend-components-utilities": "^5.0.13",
+    "@redhat-cloud-services/javascript-clients-shared": "^2.0.0",
+    "@redhat-cloud-services/rbac-client": "^4.0.0",
     "@unleash/proxy-client-react": "^3.6.0",
     "babel-plugin-transform-imports": "^2.0.0",
     "classnames": "2.2.6",
