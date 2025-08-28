@@ -25,7 +25,7 @@ objects:
       module:
         manifestLocation: "/apps/ros/fed-mods.json"
         modules:
-          - id: "ros"
+          - id: ros
             module: "./RootApp"
             routes:
               - pathname: /insights/ros
