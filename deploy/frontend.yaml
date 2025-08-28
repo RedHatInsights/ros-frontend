@@ -11,6 +11,7 @@ objects:
     metadata:
       name: ros
     spec:
+      feoConfigEnabled: true # flags a frontend to be ready for FEO features
       envName: ${ENV_NAME}
       title: Resource Optimization
       deploymentRepo: https://github.com/RedHatInsights/ros-frontend
