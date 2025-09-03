@@ -22,6 +22,23 @@ objects:
           href: /insights/ros
           description: Optimize your public cloud-based Red Hat Enterprise Linux systems based on CPU, memory, and disk input/output performance.
           icon: InsightsIcon
+      searchEntries:
+        - id: "RHEL.ros"
+          title: "Resource Optimization - Business"
+          href: /insights/ros
+          description: "Optimize your public cloud-based Red Hat Enterprise Linux systems based on CPU, memory, and disk input/output performance."
+          alt_title:
+            - optimization
+            - optimisation
+            - optimize
+            - optimise
+            - usage
+            - utilization
+            - utilisation
+            - save
+            - savings
+            - resource optimization
+            - resource optimisation                
       envName: ${ENV_NAME}
       title: Resource Optimization
       deploymentRepo: https://github.com/RedHatInsights/ros-frontend
