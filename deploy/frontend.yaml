@@ -22,6 +22,14 @@ objects:
         paths:
           - /apps/ros
       image: ${IMAGE}:${IMAGE_TAG}
+      bundleSegments:
+        - segmentId: ros
+          bundleId: insights
+          position: 1500
+          navItems:
+            - id: ros
+              title: Resource Optimization
+              href: /insights/ros
       module:
         manifestLocation: "/apps/ros/fed-mods.json"
         modules:
