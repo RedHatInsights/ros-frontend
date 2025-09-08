@@ -50,13 +50,18 @@ objects:
           - /apps/ros
       image: ${IMAGE}:${IMAGE_TAG}
       bundleSegments:
-        - segmentId: ros
+        - segmentId: business
           bundleId: insights
-          position: 1500
+          position: 1800
           navItems:
-            - id: ros
-              title: Resource Optimization
-              href: /insights/ros
+            - id: business
+              title: Business
+              expandable: true
+              routes:
+                - id: ros
+                  title: Resource Optimization
+                  href: /insights/ros
+                  product: Red Hat Insights
       module:
         manifestLocation: "/apps/ros/fed-mods.json"
         modules:
