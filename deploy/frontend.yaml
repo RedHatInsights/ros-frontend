@@ -16,7 +16,7 @@ objects:
         - id: ros # there is no such id in chrome-service
           # place service tile into the subscriptions section 
           section: subscriptions
-          # place service tile into the rhel group within the automation section
+          # place service tile into the rhel group within the subscriptions & Spend section
           group: rhel
           title: Resource Optimization
           href: /insights/ros
