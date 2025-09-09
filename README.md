@@ -124,7 +124,7 @@ Start pdf-generator server
 
 [pdf-generator]$ API_HOST=https://console.stage.redhat.com ASSETS_HOST=https://stage.foo.redhat.com:1337 PROXY_AGENT=http://squid.corp.redhat.com:3128 npm run start:server
 
-//this is for stage envrionment, update the above URLS based on the envrionment you would like to target
+//this is for stage environment, update the above URLs based on the environment you would like to target
 ```
 
 4. run ros-rhel frontend 
