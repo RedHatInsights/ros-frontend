@@ -82,6 +82,59 @@ This will run the ros-frontend pointing to local backend. Once it is running go 
 
 please check `package.json` for other available scripts
 
+### With local pdf-generator backend
+
+We use [pdf-generator](https://github.com/RedHatInsights/pdf-generator) service to generate PDF reports such as Executive report. To test the changes with local running `pdf-generator` backend service, follow the below steps. [check the documentation](https://github.com/RedHatInsights/pdf-generator/blob/main/docs/local-development-setup.md) for more details.
+
+1. Clone below repositories:
+
+```
+git clone https://github.com/RedHatInsights/ros-frontend.git
+git clone https://github.com/RedHatInsights/pdf-generator.git 
+```
+
+
+2. Make sure you meet the prerequisites mentioned in both [ros-rhel frontend](https://github.com/RedHatInsights/ros-frontend?tab=readme-ov-file#prerequisites) and [pdf-generator backend](https://github.com/RedHatInsights/pdf-generator/blob/main/docs/local-development-setup.md#prerequisites) repositories.Also Setup the initial /etc/hosts entries - (do this once)
+
+```
+Edit /etc/hosts
+
+Add below content:
+127.0.0.1 stage.foo.redhat.com
+127.0.0.1 prod.foo.redhat.com
+```
+
+OR
+
+run the script (with sudo)
+
+```
+npm run patch:hosts
+```
+
+3. Run pdf-generator locally
+
+```
+Start the pdf-generator container
+[pdf-generator]$ podman-compose up
+```
+
+```
+Start pdf-generator server 
+
+[pdf-generator]$ API_HOST=https://console.stage.redhat.com ASSETS_HOST=https://stage.foo.redhat.com:1337 PROXY_AGENT=http://squid.corp.redhat.com:3128 npm run start:server
+
+//this is for stage envrionment, update the above URLS based on the envrionment you would like to target
+```
+
+4. run ros-rhel frontend 
+
+```
+cd ../ros-frontend
+npm install
+npm run start:local-pdf
+```
+
 
 ## Running the Tests
 
