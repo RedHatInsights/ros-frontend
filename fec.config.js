@@ -14,11 +14,11 @@ module.exports = {
      */
     plugins: [],
     hotReload: process.env.HOT === 'true',
-    routes: {
+    routes: process.env.LOCAL_PDF === 'true' ? {
         '/api/crc-pdf-generator': {
             target: 'http://localhost:8000'
         }
-    },
+    } : {},
     moduleFederation: {
         exposes: {
             './RootApp': path.resolve(__dirname, './src/AppEntry.js'),
