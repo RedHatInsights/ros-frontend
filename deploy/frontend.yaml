@@ -52,7 +52,7 @@ objects:
       bundleSegments:
         - segmentId: business
           bundleId: insights
-          position: 1800
+          position: 2200
           navItems:
             - id: business
               title: Business
