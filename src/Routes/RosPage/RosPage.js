@@ -33,7 +33,7 @@ import { DownloadExecutivePDFReport } from '../../Components/Reports/ExecutivePD
 import { useChrome } from '@redhat-cloud-services/frontend-components/useChrome';
 import { conditionalFilterType } from '@redhat-cloud-services/frontend-components';
 import { useLocation } from 'react-router-dom';
-import useFeatureFlag from './useFeatureFlag';
+import useFeatureFlag from '../../Utilities/useFeatureFlag';
 import { displayWorkspace } from '../../Components/RosTable/RenderColumn';
 import { RosPopover } from '../../Components/RosPopover/RosPopover';
 
