@@ -12,8 +12,11 @@ import {
     ExternalLinkAltIcon,
     OutlinedQuestionCircleIcon
 } from '@patternfly/react-icons';
+import useFeatureFlag from '../../Utilities/useFeatureFlag';
 
 export const RosPopover = () => {
+    const isLightspeedEnabled = useFeatureFlag('platform.lightspeed-rebrand');
+    const productNameText = isLightspeedEnabled ? 'Red Hat Lightspeed' : 'Insights';
     return (
         <Popover
             aria-label="Resource optimization popover"
@@ -34,7 +37,7 @@ export const RosPopover = () => {
                             target="_blank"
                             rel="noreferrer"
                         >
-                            Assessing and Monitoring RHEL Resource Optimization with Insights for Red Hat Enterprise Linux
+                            Assessing and Monitoring RHEL Resource Optimization with {productNameText} for Red Hat Enterprise Linux
                             <ExternalLinkAltIcon className="pf-v5-u-ml-xs" />
                         </Text>
                     </Flex>
