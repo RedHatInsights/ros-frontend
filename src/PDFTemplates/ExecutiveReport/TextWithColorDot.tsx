@@ -20,7 +20,7 @@ const TextWithColorDot = ({
                     backgroundColor: color
                 }}
             ></span>
-            <span className="pf-v5-u-font-size-xs">{children}</span>
+            <span className="pf-v6-u-font-size-xs">{children}</span>
         </div>
     );
 };
