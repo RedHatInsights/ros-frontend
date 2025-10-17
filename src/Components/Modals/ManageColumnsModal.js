@@ -8,12 +8,16 @@ import {
     DataListItem,
     DataListItemCells,
     DataListItemRow,
-    Modal,
     Split,
     SplitItem,
-    Text,
-    TextContent,
-    TextVariants
+    Content,
+    ContentVariants,
+    // Updated Modal as per V6 using https://www.patternfly.org/components/modal
+    Modal,
+    ModalBody,
+    ModalFooter,
+    ModalHeader,
+    ModalVariant
 } from '@patternfly/react-core';
 
 export const ManageColumnsModal = ({ modalColumns, isModalOpen, setModalOpen, saveColumns }) => {
@@ -54,58 +58,66 @@ export const ManageColumnsModal = ({ modalColumns, isModalOpen, setModalOpen, sa
             title='Manage columns'
             onClose={handleCancel}
             isOpen={isModalOpen}
-            variant='small'
-            description={
-                <TextContent>
-                    <Text component={TextVariants.p}>Selected categories will be displayed in the table</Text>
-                    <Split hasGutter>
-                        <SplitItem>
-                            <Button isInline onClick={handleSelectAll} variant="link">
-                                Select all
-                            </Button>
-                        </SplitItem>
-                        <SplitItem>
-                            <Button isInline onClick={handleResetToDefault} variant="link">
-                                Reset to default
-                            </Button>
-                        </SplitItem>
+            variant={ModalVariant.small}
+            aria-labelledby="select-columns-modal-title"
+            aria-describedby="modal-box-select-columns-form"
+        >
+            <ModalHeader
+                title="Manage columns"
+                descriptorId="modal-box-select-columns-form"
+                labelId="select-columns-modal-title"
+                description={
+                    <Content>
+                        <Content component={ContentVariants.p}>Selected categories will be displayed in the table</Content>
+                        <Split hasGutter>
+                            <SplitItem>
+                                <Button isInline onClick={handleSelectAll} variant="link">
+                                    Select all
+                                </Button>
+                            </SplitItem>
+                            <SplitItem>
+                                <Button isInline onClick={handleResetToDefault} variant="link">
+                                    Reset to default
+                                </Button>
+                            </SplitItem>
 
-                    </Split>
-                </TextContent>
-            }
-            actions={[
+                        </Split>
+                    </Content>
+                } />
+            <ModalBody>
+                <DataList aria-label="Column management table" id="column-management-table" isCompact>
+                    {
+                        currentColumns.map((column, index)=>
+                            <DataListItem key={column.key}>
+                                <DataListItemRow>
+                                    <DataListCheck
+                                        checked={column.isChecked}
+                                        id={`checkbox-${index}`}
+                                        onChange={() => onCheckChange(index)}
+                                        isDisabled={column.isDisabled}
+                                    />
+                                    <DataListItemCells
+                                        dataListCells={[
+                                            <DataListCell key={`column-table-item-${index}`}>
+                                                <label>
+                                                    {column.modalTitle}
+                                                </label>
+                                            </DataListCell>
+                                        ]}
+                                    />
+                                </DataListItemRow>
+                            </DataListItem>
+                        )}
+                </DataList>
+            </ModalBody>
+            <ModalFooter>
                 <Button key="save" variant="primary" onClick={handleSave}>
                     Save
                 </Button>,
                 <Button key="cancel" variant="secondary" onClick={handleCancel}>
                     Cancel
                 </Button>
-            ]}
-        >
-            <DataList aria-label="Column management table" id="column-management-table" isCompact>
-                {
-                    currentColumns.map((column, index)=>
-                        <DataListItem key={column.key}>
-                            <DataListItemRow>
-                                <DataListCheck
-                                    checked={column.isChecked}
-                                    id={`checkbox-${index}`}
-                                    onChange={() => onCheckChange(index)}
-                                    isDisabled={column.isDisabled}
-                                />
-                                <DataListItemCells
-                                    dataListCells={[
-                                        <DataListCell key={`column-table-item-${index}`}>
-                                            <label>
-                                                {column.modalTitle}
-                                            </label>
-                                        </DataListCell>
-                                    ]}
-                                />
-                            </DataListItemRow>
-                        </DataListItem>
-                    )}
-            </DataList>
+            </ModalFooter>
         </Modal>
     );
 
@@ -116,6 +128,5 @@ ManageColumnsModal.propTypes = {
     isModalOpen: propTypes.bool.isRequired,
     setModalOpen: propTypes.func.isRequired,
     saveColumns: propTypes.func.isRequired
-
 };
 

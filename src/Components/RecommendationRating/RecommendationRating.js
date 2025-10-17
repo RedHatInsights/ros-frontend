@@ -39,6 +39,9 @@ const RecommendationRating = ({ system }) => {
             console.error(error); // eslint-disable-line no-console
         }
     };
+    // 45: error  Icons must now be passed to the `icon` prop of Button instead of as children.
+    // If you are passing anything other than an icon as children, ignore this rule when running fixes
+    // @patternfly/pf-codemods/button-moveIcons-icon-prop
 
     return <span className='ratingSpanOverride'>
         Is this suggestion helpful?
@@ -46,21 +49,18 @@ const RecommendationRating = ({ system }) => {
             variant="plain"
             aria-label="thumbs-up"
             onClick={() => updateRecommendationRating(POSITIVE_FEEDBACK)}
-            ouiaId="thumbsUp">
-            {rating === POSITIVE_FEEDBACK ? <ThumbsUpIcon data-testid='thumbs-up-positive' className='like' size='sm' /> :
-                <Icon size='md'>
-                    <OutlinedThumbsUpIcon />
-                </Icon>
-            }
-        </Button>
+            ouiaId="thumbsUp"
+            icon={rating === POSITIVE_FEEDBACK ? <ThumbsUpIcon data-testid='thumbs-up-positive' className='like' size='sm' /> :
+                <OutlinedThumbsUpIcon size='md' />}
+        />
         <Button
             variant="plain"
             aria-label="thumbs-down"
             onClick={() => updateRecommendationRating(NEGATIVE_FEEDBACK)}
-            ouiaId="thumbsDown">
-            {rating === NEGATIVE_FEEDBACK ? <ThumbsDownIcon data-testid='thumbs-down-negative' className='dislike' size='sm' /> :
+            ouiaId="thumbsDown"
+            icon={rating === NEGATIVE_FEEDBACK ? <ThumbsDownIcon data-testid='thumbs-down-negative' className='dislike' size='sm' /> :
                 <OutlinedThumbsDownIcon size='sm' />}
-        </Button>
+        />
         {submitted && 'Thank you for your feedback!'}
     </span>;
 };

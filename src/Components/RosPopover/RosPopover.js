@@ -3,9 +3,8 @@ import {
     Button,
     Flex,
     Popover,
-    Text,
-    TextContent,
-    TextVariants,
+    Content,
+    ContentVariants,
     Title
 } from '@patternfly/react-core';
 import {
@@ -24,12 +23,12 @@ export const RosPopover = () => {
             position="right"
             maxWidth="650px"
             bodyContent={
-                <TextContent>
+                <Content>
                     <Flex direction={{ default: 'column' }}>
-                        <Text component={TextVariants.p}>
+                        <Content component={ContentVariants.p}>
                         The resource optimization service enables RHEL customers to assess and monitor their public cloud usage and optimization.
-                        </Text>
-                        <Text component={TextVariants.a}
+                        </Content>
+                        <Content component={ContentVariants.a}
                             href={
                                 // eslint-disable-next-line max-len
                                 'https://docs.redhat.com/en/documentation/red_hat_insights/1-latest/html/assessing_and_monitoring_rhel_resource_optimization_with_insights_for_red_hat_enterprise_linux/index'
@@ -39,19 +38,17 @@ export const RosPopover = () => {
                         >
                             Assessing and Monitoring RHEL Resource Optimization with {productNameText} for Red Hat Enterprise Linux
                             <ExternalLinkAltIcon className="pf-v5-u-ml-xs" />
-                        </Text>
+                        </Content>
                     </Flex>
-                </TextContent>
+                </Content>
             }
         >
-            <Button
+            <Button icon={<OutlinedQuestionCircleIcon />}
                 variant="plain"
                 aria-label="Open resource optimization popover"
                 style={{ padding: 0 }}
                 ouiaId="AboutRosPopover"
-            >
-                <OutlinedQuestionCircleIcon />
-            </Button>
+            />
         </Popover>
     );
 };

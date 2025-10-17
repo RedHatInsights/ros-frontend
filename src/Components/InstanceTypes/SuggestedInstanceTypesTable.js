@@ -9,7 +9,8 @@ import {
     Spinner,
     Bullseye,
     CardBody,
-    Pagination,
+    Pagination, // The markup for Pagination has changed.
+    // There is now a wrapper element rendered around the PaginationOptionsMenu toggle  @patternfly/pf-codemods/pagination-warn-markup-changed
     PaginationVariant
 } from '@patternfly/react-core';
 import { PrimaryToolbar } from '@redhat-cloud-services/frontend-components/PrimaryToolbar';
