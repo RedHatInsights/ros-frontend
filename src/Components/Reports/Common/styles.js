@@ -1,5 +1,4 @@
 import { StyleSheet } from '@react-pdf/renderer';
-import global_BorderColor_300 from '@patternfly/react-tokens/dist/js/global_BorderColor_300';  /* eslint-disable-line camelcase */
 
 export default StyleSheet.create({
     bodyCell: {
@@ -83,7 +82,12 @@ export default StyleSheet.create({
         flexDirection: 'row'
     },
     tableRowBackground: {
-        backgroundColor: global_BorderColor_300.value  /* eslint-disable-line camelcase */
+        /*variable --pf-global--BorderColor--300 value #f0f0f0
+          also --pf-global--BackgroundColor--200
+          import global_BackgroundColor_200 from '@patternfly/react-tokens/dist/js/global_BackgroundColor_200';
+          with v6 it is #F2F2F2 so adding directly color code
+        */
+        backgroundColor: '#F0F0F0'
     },
     instanceTableHeading: {
         fontSize: 10,
