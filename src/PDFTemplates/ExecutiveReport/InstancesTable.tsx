@@ -1,7 +1,6 @@
 /* eslint-disable camelcase */
 import React from 'react';
-import { Text } from '@patternfly/react-core';
-import global_BorderColor_300 from '@patternfly/react-tokens/dist/js/global_BorderColor_300';
+import { Content } from '@patternfly/react-core';
 
 export type InstanceHighlights = {
   type: string;
@@ -24,7 +23,7 @@ export const InstancesTable: React.FC<InstancesTableProps> = ({
 }) => {
     return (
         <div>
-            <Text
+            <Content
                 style={{
                     textAlign: 'left',
                     fontSize: 16,
@@ -33,13 +32,13 @@ export const InstancesTable: React.FC<InstancesTableProps> = ({
                 }}
             >
                 {heading}
-            </Text>
-            <Text style={{ fontSize: 14, textAlign: 'left', marginBottom: 4 }}>
+            </Content>
+            <Content style={{ fontSize: 14, textAlign: 'left', marginBottom: 4 }}>
                 {description}
-            </Text>
+            </Content>
 
             <div style={{ display: 'flex', flexDirection: 'row' }}>
-                <Text
+                <Content
                     style={{
                         width: 140,
                         fontSize: 14,
@@ -48,8 +47,8 @@ export const InstancesTable: React.FC<InstancesTableProps> = ({
                     }}
                 >
                   Instance type
-                </Text>
-                <Text
+                </Content>
+                <Content
                     style={{
                         width: 120,
                         fontSize: 14,
@@ -58,12 +57,12 @@ export const InstancesTable: React.FC<InstancesTableProps> = ({
                     }}
                 >
                   # of {id === 'historical_instance_types' ? 'times' : 'systems'}
-                </Text>
-                <Text
+                </Content>
+                <Content
                     style={{ flex: 1, fontSize: 14, color: '#6A6E73', paddingBottom: 4 }}
                 >
                   Description
-                </Text>
+                </Content>
             </div>
             {instanceDetails.length > 0 ? (
                 instanceDetails.map((instanceDetail, index) => (
@@ -75,21 +74,21 @@ export const InstancesTable: React.FC<InstancesTableProps> = ({
                             alignItems: 'center',
                             marginBottom: 4,
                             ...(index % 2 && {
-                                backgroundColor: global_BorderColor_300.value
+                                backgroundColor: '#F0F0F0'
                             })
                         }}
                     >
-                        <Text style={{ width: 140, fontSize: 14 }}>
+                        <Content style={{ width: 140, fontSize: 14 }}>
                             {instanceDetail.type}
-                        </Text>
-                        <Text style={{ width: 120, fontSize: 14 }}>
+                        </Content>
+                        <Content style={{ width: 120, fontSize: 14 }}>
                             {instanceDetail.count}
-                        </Text>
-                        <Text style={{ flex: 1, fontSize: 14 }}>{instanceDetail.desc}</Text>
+                        </Content>
+                        <Content style={{ flex: 1, fontSize: 14 }}>{instanceDetail.desc}</Content>
                     </div>
                 ))
             ) : (
-                <Text
+                <Content
                     style={{
                         fontSize: 14,
                         color: '#6A6E73',
@@ -98,7 +97,7 @@ export const InstancesTable: React.FC<InstancesTableProps> = ({
                     }}
                 >
                   No data available.
-                </Text>
+                </Content>
             )}
         </div>
     );
