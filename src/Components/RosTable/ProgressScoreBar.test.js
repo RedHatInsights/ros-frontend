@@ -15,7 +15,7 @@ describe('ProgressScoreBar component tests', () => {
 
         // assert
         expect(progressScoreBar).toBeVisible();
-        expect(progressScoreBar).toHaveClass('pf-v5-c-progress blue-300');
+        expect(progressScoreBar).toHaveClass('pf-v6-c-progress blue-300');
         expect(progressText40).toBeVisible();
 
     });
@@ -31,7 +31,7 @@ describe('ProgressScoreBar component tests', () => {
 
         // assert
         expect(progressScoreBar).toBeVisible();
-        expect(progressScoreBar).toHaveClass('pf-v5-c-progress blue-300');
+        expect(progressScoreBar).toHaveClass('pf-v6-c-progress blue-300');
         expect(progressText90).toBeVisible();
 
     });

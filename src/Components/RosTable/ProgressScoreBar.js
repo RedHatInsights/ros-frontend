@@ -5,7 +5,7 @@ import propTypes from 'prop-types';
 export const ProgressScoreBar = ({ utilizedValue, measureLocation, eleId }) =>  {
     return (
         <React.Fragment>
-            <Progress value={ utilizedValue }
+            <Progress aria-label="progress score bar" value={ utilizedValue }
                 className={ `progress-score-bar blue-300` }
                 measureLocation={ measureLocation }
                 {  ...(eleId ? { id: eleId } : null) }
