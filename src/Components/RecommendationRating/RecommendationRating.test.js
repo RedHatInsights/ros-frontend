@@ -39,7 +39,7 @@ describe('RecommendationRating tests', () => {
 
         // assert
         expect(thumbsUpButton).toBeVisible();
-        expect(thumbsUpPositiveImg).toHaveClass('pf-v5-svg like');
+        expect(thumbsUpPositiveImg).toHaveClass('pf-v6-svg like');
     });
 
     it('expect to render thumbs-down button with negative feedback', () => {
@@ -58,6 +58,6 @@ describe('RecommendationRating tests', () => {
 
         // assert
         expect(thumbsDownButton).toBeVisible();
-        expect(thumbsDownNegativeImg).toHaveClass('pf-v5-svg dislike');
+        expect(thumbsDownNegativeImg).toHaveClass('pf-v6-svg dislike');
     });
 });

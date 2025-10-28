@@ -1,9 +1,9 @@
 .ros-system-info {
-  .pf-v5-c-description-list.expanded-row {
-    font-size: var(--pf-v5-global--FontSize--md);
+  .pf-v6-c-description-list.expanded-row {
+    font-size: var(--pf-t--global--font--size--md);
 
     dt {
-      font-weight: var(--pf-v5-global--FontWeight--normal);
+      font-weight: var(--pf-t--global--font--weight--body--normal);
       
       &:after {
         content: ":";
@@ -11,23 +11,23 @@
     }
     row-gap: 0;
   }
-  .pf-v5-c-description-list__group {
+  .pf-v6-c-description-list__group {
     row-gap: 0;
 
-    .pf-v5-c-description-list__term .pf-v5-c-description-list__text {
-      font-size: var(--pf-v5-global--FontSize--md);
+    .pf-v6-c-description-list__term .pf-v6-c-description-list__text {
+      font-size: var(--pf-t--global--font--size--md);
     }
   }
 }
 
-.ros-system-info > .pf-v5-l-flex.pf-m-column {
-  margin-bottom: var(--pf-v5-l-flex--spacer);
+.ros-system-info > .pf-v6-l-flex.pf-m-column {
+  margin-bottom: var(--pf-v6-l-flex--spacer);
 }
 
 .rosDetailsHead {
   .ins-entity-detail {
     .ins-entity-facts {
-      .pf-v5-l-flex:last-child {
+      .pf-v6-l-flex:last-child {
         display: none !important;
       }
     }

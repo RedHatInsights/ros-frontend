@@ -13,7 +13,7 @@ export default function NoEntitiesFound() {
     return (
         <EmptyState variant={EmptyStateVariant.lg}
             titleText="No suggested instance types found"
-            icon={<CheckCircleIcon color='green'/>}
+            icon={() => <CheckCircleIcon color="var(--pf-v6-global--success-color--100)" />}
             headingLevel="h5"
         >
             <EmptyStateBody>
