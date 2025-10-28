@@ -51,7 +51,7 @@ export const DownloadExecutivePDFReport = ({ isDisabled }) => {
         <Fragment>
             <Button
                 variant="link"
-                icon={<ExportIcon />}
+                icon={ExportIcon}
                 iconPosition="left"
                 onClick={() => generateExecutivePDFReport()}
                 isDisabled={loading || isDisabled}

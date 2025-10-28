@@ -37,13 +37,13 @@ export const RosPopover = () => {
                             rel="noreferrer"
                         >
                             Assessing and Monitoring RHEL Resource Optimization with {productNameText} for Red Hat Enterprise Linux
-                            <ExternalLinkAltIcon className="pf-v5-u-ml-xs" />
+                            <ExternalLinkAltIcon className="pf-v6-u-ml-xs" />
                         </Content>
                     </Flex>
                 </Content>
             }
         >
-            <Button icon={<OutlinedQuestionCircleIcon />}
+            <Button icon={OutlinedQuestionCircleIcon}
                 variant="plain"
                 aria-label="Open resource optimization popover"
                 style={{ padding: 0 }}

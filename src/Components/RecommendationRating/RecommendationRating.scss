@@ -1,13 +1,13 @@
 .like {
-  color: var(--pf-v5-global--success-color--100);
+  color: var(--pf-t--global--color--status--success--default);
 }
 
 .dislike {
-  color: var(--pf-v5-global--primary-color--100);
+  color: var(--pf-t--global--color--brand--default);
 }
 
 .ratingSpanOverride{
-    font-size: var(--pf-v5-global--FontSize--md);
+    font-size: var(--pf-t--global--font--size--md);
     button {
         padding: 8px;
     }

@@ -11,7 +11,7 @@ const TextWithColorDot = ({
     return (
         <div style={{ display: 'flex', alignItems: 'center' }}>
             <span
-                className="pf-v5-u-mr-sm"
+                className="pf-v6-u-mr-sm"
                 style={{
                     display: 'block',
                     width: 12,

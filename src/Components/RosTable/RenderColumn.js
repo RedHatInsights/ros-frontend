@@ -89,7 +89,7 @@ export const displayLastReported = (data) => {
 export const displayGroup = (data) => {
     return (
         data.length === 0 ?
-            <span className="pf-v5-u-disabled-color-200">No group</span> :
+            <span className="pf-v6-u-text-color-disabled">No group</span> :
             <span>{ data[0].name }</span>
     );
 };
@@ -97,7 +97,7 @@ export const displayGroup = (data) => {
 export const displayWorkspace = (data) => {
     return (
         data.length === 0 ?
-            <span className="pf-v5-u-disabled-color-200">No Workspace</span> :
+            <span className="pf-v6-u-text-color-disabled">No Workspace</span> :
             <span>{ data[0].name }</span>
     );
 };
