@@ -3,62 +3,62 @@
 exports[`ExpandedRow component matches snapshot when all values are available 1`] = `
 <DocumentFragment>
   <dl
-    class="pf-v5-c-description-list pf-m-horizontal pf-m-compact expanded-row"
+    class="pf-v6-c-description-list pf-m-horizontal pf-m-compact expanded-row"
   >
     <div
-      class="pf-v5-c-description-list__group"
+      class="pf-v6-c-description-list__group"
       id="fd480a4c-952b-4675-ba02-3370bd08a5ee"
     >
       <dt
-        class="pf-v5-c-description-list__term"
+        class="pf-v6-c-description-list__term"
       >
         <span
-          class="pf-v5-c-description-list__text"
+          class="pf-v6-c-description-list__text"
         >
           Provider
         </span>
       </dt>
       <dd
-        class="pf-v5-c-description-list__description"
+        class="pf-v6-c-description-list__description"
       >
         <div
-          class="pf-v5-c-description-list__text"
+          class="pf-v6-c-description-list__text"
         >
           aws
         </div>
       </dd>
       <dt
-        class="pf-v5-c-description-list__term"
+        class="pf-v6-c-description-list__term"
       >
         <span
-          class="pf-v5-c-description-list__text"
+          class="pf-v6-c-description-list__text"
         >
           Instance type
         </span>
       </dt>
       <dd
-        class="pf-v5-c-description-list__description"
+        class="pf-v6-c-description-list__description"
       >
         <div
-          class="pf-v5-c-description-list__text"
+          class="pf-v6-c-description-list__text"
         >
           t2.micro
         </div>
       </dd>
       <dt
-        class="pf-v5-c-description-list__term"
+        class="pf-v6-c-description-list__term"
       >
         <span
-          class="pf-v5-c-description-list__text"
+          class="pf-v6-c-description-list__text"
         >
           Idling time
         </span>
       </dt>
       <dd
-        class="pf-v5-c-description-list__description"
+        class="pf-v6-c-description-list__description"
       >
         <div
-          class="pf-v5-c-description-list__text"
+          class="pf-v6-c-description-list__text"
         >
           1.03%
         </div>
@@ -71,62 +71,62 @@ exports[`ExpandedRow component matches snapshot when all values are available 1`
 exports[`ExpandedRow component matches snapshot when values are null 1`] = `
 <DocumentFragment>
   <dl
-    class="pf-v5-c-description-list pf-m-horizontal pf-m-compact expanded-row"
+    class="pf-v6-c-description-list pf-m-horizontal pf-m-compact expanded-row"
   >
     <div
-      class="pf-v5-c-description-list__group"
+      class="pf-v6-c-description-list__group"
       id="fd480a4c-952b-4675-ba02-3370bd08a5ee"
     >
       <dt
-        class="pf-v5-c-description-list__term"
+        class="pf-v6-c-description-list__term"
       >
         <span
-          class="pf-v5-c-description-list__text"
+          class="pf-v6-c-description-list__text"
         >
           Provider
         </span>
       </dt>
       <dd
-        class="pf-v5-c-description-list__description"
+        class="pf-v6-c-description-list__description"
       >
         <div
-          class="pf-v5-c-description-list__text"
+          class="pf-v6-c-description-list__text"
         >
           N/A
         </div>
       </dd>
       <dt
-        class="pf-v5-c-description-list__term"
+        class="pf-v6-c-description-list__term"
       >
         <span
-          class="pf-v5-c-description-list__text"
+          class="pf-v6-c-description-list__text"
         >
           Instance type
         </span>
       </dt>
       <dd
-        class="pf-v5-c-description-list__description"
+        class="pf-v6-c-description-list__description"
       >
         <div
-          class="pf-v5-c-description-list__text"
+          class="pf-v6-c-description-list__text"
         >
           N/A
         </div>
       </dd>
       <dt
-        class="pf-v5-c-description-list__term"
+        class="pf-v6-c-description-list__term"
       >
         <span
-          class="pf-v5-c-description-list__text"
+          class="pf-v6-c-description-list__text"
         >
           Idling time
         </span>
       </dt>
       <dd
-        class="pf-v5-c-description-list__description"
+        class="pf-v6-c-description-list__description"
       >
         <div
-          class="pf-v5-c-description-list__text"
+          class="pf-v6-c-description-list__text"
         >
           N/A
         </div>

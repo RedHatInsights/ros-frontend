@@ -35,16 +35,18 @@ class RecommendationsTable extends React.Component {
             psi_enabled: psiEnabled } = row;
 
         return (
-            <Table aria-label="Nested column headers with expandable rows table" variant="compact" className="ros-recommendations-table" >
+            <Table key={ `tb-${index}-recommendations-info` }
+                aria-label="Nested column headers with expandable rows table"
+                variant="compact" className="ros-recommendations-table" >
                 <Thead >
                     <Tr>
-                        <Th />
+                        <Th screenReaderText="Row expansion"/>
                         <Th>
                       Name
                         </Th>
                     </Tr>
                 </Thead>
-                <Tbody key={'Developer program 1'} isExpanded={this.state.expanded}>
+                <Tbody key={ `${index}-recommendations-info` } isExpanded={this.state.expanded}>
                     <Tr>
                         <Td expand={{
                             rowIndex: index,
@@ -59,8 +61,8 @@ class RecommendationsTable extends React.Component {
                         <Td colSpan={6}>
                             <ExpandableRowContent>
                                 <Content>
-                                    <Content component={ContentVariants.p}>
-                                        <Content className="margin-text-bottom">
+                                    <Content>
+                                        <Content component={ContentVariants.p} className="margin-text-bottom">
                                             <BullseyeIcon/><strong className="strong-tag-style">Detected issues</strong>
                                         </Content>
                                         {reason}
@@ -84,8 +86,8 @@ class RecommendationsTable extends React.Component {
                                         </Tbody>
                                     </Table> }
                                     <hr/>
-                                    <Content component={ContentVariants.p}>
-                                        <Content className="margin-text-bottom">
+                                    <Content>
+                                        <Content component={ContentVariants.p} className="margin-text-bottom">
                                             <WrenchIcon/><strong className="strong-tag-style">Suggestion</strong>
                                         </Content>
                                         {resolution}
@@ -115,8 +117,8 @@ class RecommendationsTable extends React.Component {
                                         !psiEnabled &&
                                         <>
                                             <hr/>
-                                            <Content component={ContentVariants.p}>
-                                                <Content className="margin-text-bottom"><LightbulbIcon/>
+                                            <Content>
+                                                <Content component={ContentVariants.p} className="margin-text-bottom"><LightbulbIcon/>
                                                     <strong className="strong-tag-style">Related Knowledgebase Article</strong>
                                                 </Content>
                                                 {/* eslint-disable-next-line max-len */}
