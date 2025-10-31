@@ -13,7 +13,7 @@ import { flatMap } from 'lodash';
 import { EmptyTable } from '@redhat-cloud-services/frontend-components/EmptyTable';
 import { EmptyStateDisplay } from '../EmptyStateDisplay/EmptyStateDisplay';
 import { CheckCircleIcon, BullseyeIcon, WrenchIcon, LightbulbIcon, ExternalLinkAltIcon } from '@patternfly/react-icons';
-import { TextContent, Text, TextVariants } from '@patternfly/react-core';
+import { Content, ContentVariants } from '@patternfly/react-core';
 import './RecommendationsTable.scss';
 import { ENABLE_PSI_URL } from '../../constants';
 
@@ -35,16 +35,18 @@ class RecommendationsTable extends React.Component {
             psi_enabled: psiEnabled } = row;
 
         return (
-            <Table aria-label="Nested column headers with expandable rows table" variant="compact" className="ros-recommendations-table" >
+            <Table key={ `tb-${index}-recommendations-info` }
+                aria-label="Nested column headers with expandable rows table"
+                variant="compact" className="ros-recommendations-table" >
                 <Thead >
                     <Tr>
-                        <Th />
+                        <Th screenReaderText="Row expansion"/>
                         <Th>
                       Name
                         </Th>
                     </Tr>
                 </Thead>
-                <Tbody key={'Developer program 1'} isExpanded={this.state.expanded}>
+                <Tbody key={ `${index}-recommendations-info` } isExpanded={this.state.expanded}>
                     <Tr>
                         <Td expand={{
                             rowIndex: index,
@@ -58,13 +60,13 @@ class RecommendationsTable extends React.Component {
                         <Td></Td>
                         <Td colSpan={6}>
                             <ExpandableRowContent>
-                                <TextContent>
-                                    <Text component={TextVariants.p}>
-                                        <Text className="margin-text-bottom">
+                                <Content>
+                                    <Content>
+                                        <Content component={ContentVariants.p} className="margin-text-bottom">
                                             <BullseyeIcon/><strong className="strong-tag-style">Detected issues</strong>
-                                        </Text>
+                                        </Content>
                                         {reason}
-                                    </Text>
+                                    </Content>
                                     { detectedIssues && <Table
                                         arial-label="Detected issues table"
                                         variant="compact"
@@ -84,12 +86,12 @@ class RecommendationsTable extends React.Component {
                                         </Tbody>
                                     </Table> }
                                     <hr/>
-                                    <Text component={TextVariants.p}>
-                                        <Text className="margin-text-bottom">
+                                    <Content>
+                                        <Content component={ContentVariants.p} className="margin-text-bottom">
                                             <WrenchIcon/><strong className="strong-tag-style">Suggestion</strong>
-                                        </Text>
+                                        </Content>
                                         {resolution}
-                                    </Text>
+                                    </Content>
                                     { currentInstance && suggestedInstances && <Table
                                         arial-label="Suggestions table"
                                         variant="compact"
@@ -115,18 +117,18 @@ class RecommendationsTable extends React.Component {
                                         !psiEnabled &&
                                         <>
                                             <hr/>
-                                            <Text component={TextVariants.p}>
-                                                <Text className="margin-text-bottom"><LightbulbIcon/>
+                                            <Content>
+                                                <Content component={ContentVariants.p} className="margin-text-bottom"><LightbulbIcon/>
                                                     <strong className="strong-tag-style">Related Knowledgebase Article</strong>
-                                                </Text>
+                                                </Content>
                                                 {/* eslint-disable-next-line max-len */}
-                                                <Text component={TextVariants.a} target='_blank' href={ENABLE_PSI_URL}>
+                                                <Content component={ContentVariants.a} target='_blank' href={ENABLE_PSI_URL}>
                                                     This suggestion could be improved by enabling PSI <ExternalLinkAltIcon/>
-                                                </Text>
-                                            </Text>
+                                                </Content>
+                                            </Content>
                                         </>
                                     }
-                                </TextContent>
+                                </Content>
                             </ExpandableRowContent>
                         </Td>
 

@@ -5,6 +5,10 @@ import { PrimaryToolbar } from '@redhat-cloud-services/frontend-components/Prima
 import { TableToolbar } from '@redhat-cloud-services/frontend-components/TableToolbar';
 import { ServiceNotConfigured } from '../ServiceNotConfigured/ServiceNotConfigured';
 import { loadSysRecs } from '../../store/actions';
+///home/kavita/projects_dir/cloud_services/ros-frontend/src/Components/SystemDetail/SystemRecommendations.js
+//  14:5  warning  The markup for Pagination has changed.
+//There is now a wrapper element rendered around the PaginationOptionsMenu toggle
+//  @patternfly/pf-codemods/pagination-warn-markup-changed
 import {
     Card,
     CardBody,

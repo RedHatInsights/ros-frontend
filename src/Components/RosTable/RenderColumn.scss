@@ -9,9 +9,9 @@ th, td {
 }
 
 .staleText {
-    color: var(--pf-v5-global--warning-color--100);
+    color: var(--pf-t--global--text--color--status--warning--default);
     font-size: 14px;
     line-height: 21px;
     text-align: left;
-    font-weight: var(--pf-v5-global--FontWeight--bold);
+    font-weight: var(--pf-t--global--font--weight--body--bold);
 }
