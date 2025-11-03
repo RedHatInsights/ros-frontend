@@ -1,0 +1,27 @@
+.rightsizing-icon, .oversized-icon {
+  .pf-v6-c-icon__content {
+    color: #f09800;
+  }
+}
+
+.waiting-for-data-icon {
+  .pf-v6-c-icon__content {
+    color: #2B9AF3;
+  }
+}
+
+.under-pressure-icon {
+  .pf-v6-c-icon__content {
+    color: #030303;
+  }
+}
+
+.crashloop-icon, .undersized-icon {
+  .pf-v6-c-icon__content {
+    color: red;
+  }
+}
+
+.optimized-icon {
+  color: green;
+}

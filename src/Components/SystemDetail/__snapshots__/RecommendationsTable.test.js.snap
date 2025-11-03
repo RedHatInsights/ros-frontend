@@ -35,7 +35,7 @@ exports[`RecommendationsTable component matches snapshot when psi is disabled 1`
           scope="col"
           tabindex="-1"
         >
-          Name
+           Name 
         </th>
       </tr>
     </thead>
@@ -44,7 +44,7 @@ exports[`RecommendationsTable component matches snapshot when psi is disabled 1`
       role="rowgroup"
     >
       <tr
-        class="pf-v6-c-table__tr"
+        class="pf-v6-c-table__tr pf-m-expanded"
         data-ouia-component-id="OUIA-Generated-TableRow-2"
         data-ouia-component-type="PF6/TableRow"
         data-ouia-safe="true"
@@ -107,7 +107,8 @@ exports[`RecommendationsTable component matches snapshot when psi is disabled 1`
         />
         <td
           class="pf-v6-c-table__td"
-          colspan="6"
+          colspan="1"
+          data-label="Name expended"
           tabindex="-1"
         >
           <div
@@ -121,7 +122,7 @@ exports[`RecommendationsTable component matches snapshot when psi is disabled 1`
               data-pf-content="true"
             >
               <div
-                class="pf-v6-c-content"
+                class="pf-v6-c-content suggestion-rec-content"
                 data-ouia-component-id="OUIA-Generated-Content-2"
                 data-ouia-component-type="PF6/Content"
                 data-ouia-safe="true"
@@ -153,19 +154,27 @@ exports[`RecommendationsTable component matches snapshot when psi is disabled 1`
                     Detected issues
                   </strong>
                 </p>
-                This may be caused due to inappropriate consumption model.
+                <p
+                  class="pf-v6-c-content--p margin-text-bottom"
+                  data-ouia-component-id="OUIA-Generated-Content-4"
+                  data-ouia-component-type="PF6/Content"
+                  data-ouia-safe="true"
+                  data-pf-content="true"
+                >
+                  This may be caused due to inappropriate consumption model.
+                </p>
               </div>
               <hr />
               <div
-                class="pf-v6-c-content"
-                data-ouia-component-id="OUIA-Generated-Content-4"
+                class="pf-v6-c-content suggestion-rec-content"
+                data-ouia-component-id="OUIA-Generated-Content-5"
                 data-ouia-component-type="PF6/Content"
                 data-ouia-safe="true"
                 data-pf-content="true"
               >
                 <p
                   class="pf-v6-c-content--p margin-text-bottom"
-                  data-ouia-component-id="OUIA-Generated-Content-5"
+                  data-ouia-component-id="OUIA-Generated-Content-6"
                   data-ouia-component-type="PF6/Content"
                   data-ouia-safe="true"
                   data-pf-content="true"
@@ -189,19 +198,27 @@ exports[`RecommendationsTable component matches snapshot when psi is disabled 1`
                     Suggestion
                   </strong>
                 </p>
-                Please verify this instance.
+                <p
+                  class="pf-v6-c-content--p margin-text-bottom"
+                  data-ouia-component-id="OUIA-Generated-Content-7"
+                  data-ouia-component-type="PF6/Content"
+                  data-ouia-safe="true"
+                  data-pf-content="true"
+                >
+                  Please verify this instance.
+                </p>
               </div>
               <hr />
               <div
                 class="pf-v6-c-content"
-                data-ouia-component-id="OUIA-Generated-Content-6"
+                data-ouia-component-id="OUIA-Generated-Content-8"
                 data-ouia-component-type="PF6/Content"
                 data-ouia-safe="true"
                 data-pf-content="true"
               >
                 <p
                   class="pf-v6-c-content--p margin-text-bottom"
-                  data-ouia-component-id="OUIA-Generated-Content-7"
+                  data-ouia-component-id="OUIA-Generated-Content-9"
                   data-ouia-component-type="PF6/Content"
                   data-ouia-safe="true"
                   data-pf-content="true"
@@ -227,7 +244,7 @@ exports[`RecommendationsTable component matches snapshot when psi is disabled 1`
                 </p>
                 <a
                   class="pf-v6-c-content--a"
-                  data-ouia-component-id="OUIA-Generated-Content-8"
+                  data-ouia-component-id="OUIA-Generated-Content-10"
                   data-ouia-component-type="PF6/Content"
                   data-ouia-safe="true"
                   data-pf-content="true"
@@ -294,7 +311,7 @@ exports[`RecommendationsTable component matches snapshot when psi is enabled 1`]
           scope="col"
           tabindex="-1"
         >
-          Name
+           Name 
         </th>
       </tr>
     </thead>
@@ -303,7 +320,7 @@ exports[`RecommendationsTable component matches snapshot when psi is enabled 1`]
       role="rowgroup"
     >
       <tr
-        class="pf-v6-c-table__tr"
+        class="pf-v6-c-table__tr pf-m-expanded"
         data-ouia-component-id="OUIA-Generated-TableRow-5"
         data-ouia-component-type="PF6/TableRow"
         data-ouia-safe="true"
@@ -366,7 +383,8 @@ exports[`RecommendationsTable component matches snapshot when psi is enabled 1`]
         />
         <td
           class="pf-v6-c-table__td"
-          colspan="6"
+          colspan="1"
+          data-label="Name expended"
           tabindex="-1"
         >
           <div
@@ -374,21 +392,21 @@ exports[`RecommendationsTable component matches snapshot when psi is enabled 1`]
           >
             <div
               class="pf-v6-c-content"
-              data-ouia-component-id="OUIA-Generated-Content-9"
+              data-ouia-component-id="OUIA-Generated-Content-11"
               data-ouia-component-type="PF6/Content"
               data-ouia-safe="true"
               data-pf-content="true"
             >
               <div
-                class="pf-v6-c-content"
-                data-ouia-component-id="OUIA-Generated-Content-10"
+                class="pf-v6-c-content suggestion-rec-content"
+                data-ouia-component-id="OUIA-Generated-Content-12"
                 data-ouia-component-type="PF6/Content"
                 data-ouia-safe="true"
                 data-pf-content="true"
               >
                 <p
                   class="pf-v6-c-content--p margin-text-bottom"
-                  data-ouia-component-id="OUIA-Generated-Content-11"
+                  data-ouia-component-id="OUIA-Generated-Content-13"
                   data-ouia-component-type="PF6/Content"
                   data-ouia-safe="true"
                   data-pf-content="true"
@@ -412,19 +430,27 @@ exports[`RecommendationsTable component matches snapshot when psi is enabled 1`]
                     Detected issues
                   </strong>
                 </p>
-                This may be caused due to inappropriate consumption model.
+                <p
+                  class="pf-v6-c-content--p margin-text-bottom"
+                  data-ouia-component-id="OUIA-Generated-Content-14"
+                  data-ouia-component-type="PF6/Content"
+                  data-ouia-safe="true"
+                  data-pf-content="true"
+                >
+                  This may be caused due to inappropriate consumption model.
+                </p>
               </div>
               <hr />
               <div
-                class="pf-v6-c-content"
-                data-ouia-component-id="OUIA-Generated-Content-12"
+                class="pf-v6-c-content suggestion-rec-content"
+                data-ouia-component-id="OUIA-Generated-Content-15"
                 data-ouia-component-type="PF6/Content"
                 data-ouia-safe="true"
                 data-pf-content="true"
               >
                 <p
                   class="pf-v6-c-content--p margin-text-bottom"
-                  data-ouia-component-id="OUIA-Generated-Content-13"
+                  data-ouia-component-id="OUIA-Generated-Content-16"
                   data-ouia-component-type="PF6/Content"
                   data-ouia-safe="true"
                   data-pf-content="true"
@@ -448,7 +474,15 @@ exports[`RecommendationsTable component matches snapshot when psi is enabled 1`]
                     Suggestion
                   </strong>
                 </p>
-                Please verify this instance.
+                <p
+                  class="pf-v6-c-content--p margin-text-bottom"
+                  data-ouia-component-id="OUIA-Generated-Content-17"
+                  data-ouia-component-type="PF6/Content"
+                  data-ouia-safe="true"
+                  data-pf-content="true"
+                >
+                  Please verify this instance.
+                </p>
               </div>
             </div>
           </div>
@@ -494,7 +528,7 @@ exports[`RecommendationsTable component matches snapshot where there is no sugge
           scope="col"
           tabindex="-1"
         >
-          Name
+           Name 
         </th>
       </tr>
     </thead>
@@ -503,7 +537,7 @@ exports[`RecommendationsTable component matches snapshot where there is no sugge
       role="rowgroup"
     >
       <tr
-        class="pf-v6-c-table__tr"
+        class="pf-v6-c-table__tr pf-m-expanded"
         data-ouia-component-id="OUIA-Generated-TableRow-8"
         data-ouia-component-type="PF6/TableRow"
         data-ouia-safe="true"
@@ -564,7 +598,8 @@ exports[`RecommendationsTable component matches snapshot where there is no sugge
         />
         <td
           class="pf-v6-c-table__td"
-          colspan="6"
+          colspan="1"
+          data-label="Name expended"
           tabindex="-1"
         >
           <div
@@ -572,21 +607,21 @@ exports[`RecommendationsTable component matches snapshot where there is no sugge
           >
             <div
               class="pf-v6-c-content"
-              data-ouia-component-id="OUIA-Generated-Content-14"
+              data-ouia-component-id="OUIA-Generated-Content-18"
               data-ouia-component-type="PF6/Content"
               data-ouia-safe="true"
               data-pf-content="true"
             >
               <div
-                class="pf-v6-c-content"
-                data-ouia-component-id="OUIA-Generated-Content-15"
+                class="pf-v6-c-content suggestion-rec-content"
+                data-ouia-component-id="OUIA-Generated-Content-19"
                 data-ouia-component-type="PF6/Content"
                 data-ouia-safe="true"
                 data-pf-content="true"
               >
                 <p
                   class="pf-v6-c-content--p margin-text-bottom"
-                  data-ouia-component-id="OUIA-Generated-Content-16"
+                  data-ouia-component-id="OUIA-Generated-Content-20"
                   data-ouia-component-type="PF6/Content"
                   data-ouia-safe="true"
                   data-pf-content="true"
@@ -610,18 +645,25 @@ exports[`RecommendationsTable component matches snapshot where there is no sugge
                     Detected issues
                   </strong>
                 </p>
+                <p
+                  class="pf-v6-c-content--p margin-text-bottom"
+                  data-ouia-component-id="OUIA-Generated-Content-21"
+                  data-ouia-component-type="PF6/Content"
+                  data-ouia-safe="true"
+                  data-pf-content="true"
+                />
               </div>
               <hr />
               <div
-                class="pf-v6-c-content"
-                data-ouia-component-id="OUIA-Generated-Content-17"
+                class="pf-v6-c-content suggestion-rec-content"
+                data-ouia-component-id="OUIA-Generated-Content-22"
                 data-ouia-component-type="PF6/Content"
                 data-ouia-safe="true"
                 data-pf-content="true"
               >
                 <p
                   class="pf-v6-c-content--p margin-text-bottom"
-                  data-ouia-component-id="OUIA-Generated-Content-18"
+                  data-ouia-component-id="OUIA-Generated-Content-23"
                   data-ouia-component-type="PF6/Content"
                   data-ouia-safe="true"
                   data-pf-content="true"
@@ -645,18 +687,25 @@ exports[`RecommendationsTable component matches snapshot where there is no sugge
                     Suggestion
                   </strong>
                 </p>
+                <p
+                  class="pf-v6-c-content--p margin-text-bottom"
+                  data-ouia-component-id="OUIA-Generated-Content-24"
+                  data-ouia-component-type="PF6/Content"
+                  data-ouia-safe="true"
+                  data-pf-content="true"
+                />
               </div>
               <hr />
               <div
                 class="pf-v6-c-content"
-                data-ouia-component-id="OUIA-Generated-Content-19"
+                data-ouia-component-id="OUIA-Generated-Content-25"
                 data-ouia-component-type="PF6/Content"
                 data-ouia-safe="true"
                 data-pf-content="true"
               >
                 <p
                   class="pf-v6-c-content--p margin-text-bottom"
-                  data-ouia-component-id="OUIA-Generated-Content-20"
+                  data-ouia-component-id="OUIA-Generated-Content-26"
                   data-ouia-component-type="PF6/Content"
                   data-ouia-safe="true"
                   data-pf-content="true"
@@ -682,7 +731,7 @@ exports[`RecommendationsTable component matches snapshot where there is no sugge
                 </p>
                 <a
                   class="pf-v6-c-content--a"
-                  data-ouia-component-id="OUIA-Generated-Content-21"
+                  data-ouia-component-id="OUIA-Generated-Content-27"
                   data-ouia-component-type="PF6/Content"
                   data-ouia-safe="true"
                   data-pf-content="true"

@@ -1,10 +1,7 @@
 .downloadButtonOverride {
     float: right;
     color: var(--pf-t--global--text--color--link--default);
-    
-    .pf-v6-c-button__icon.pf-m-start {
-        margin-right: var(--pf-t--global--spacer--sm);
-    }
+    background: transparent;
 
     @media only screen and (max-width: 585px) {
         float: none;

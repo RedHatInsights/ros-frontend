@@ -41,13 +41,11 @@ class RecommendationsTable extends React.Component {
                 <Thead >
                     <Tr>
                         <Th screenReaderText="Row expansion"/>
-                        <Th>
-                      Name
-                        </Th>
+                        <Th> Name </Th>
                     </Tr>
                 </Thead>
                 <Tbody key={ `${index}-recommendations-info` } isExpanded={this.state.expanded}>
-                    <Tr>
+                    <Tr isContentExpanded={this.state.expanded} >
                         <Td expand={{
                             rowIndex: index,
                             isExpanded: this.state.expanded,
@@ -58,14 +56,20 @@ class RecommendationsTable extends React.Component {
                     </Tr>
                     <Tr isExpanded={this.state.expanded}>
                         <Td></Td>
-                        <Td colSpan={6}>
+                        <Td
+                            noPadding={false}
+                            dataLabel={`Name expended`}
+                            colSpan={1}
+                        >
                             <ExpandableRowContent>
                                 <Content>
-                                    <Content>
+                                    <Content className='suggestion-rec-content'>
                                         <Content component={ContentVariants.p} className="margin-text-bottom">
                                             <BullseyeIcon/><strong className="strong-tag-style">Detected issues</strong>
                                         </Content>
-                                        {reason}
+                                        <Content component={ContentVariants.p} className="margin-text-bottom">
+                                            {reason}
+                                        </Content>
                                     </Content>
                                     { detectedIssues && <Table
                                         arial-label="Detected issues table"
@@ -86,11 +90,13 @@ class RecommendationsTable extends React.Component {
                                         </Tbody>
                                     </Table> }
                                     <hr/>
-                                    <Content>
+                                    <Content className='suggestion-rec-content'>
                                         <Content component={ContentVariants.p} className="margin-text-bottom">
                                             <WrenchIcon/><strong className="strong-tag-style">Suggestion</strong>
                                         </Content>
-                                        {resolution}
+                                        <Content component={ContentVariants.p} className="margin-text-bottom">
+                                            {resolution}
+                                        </Content>
                                     </Content>
                                     { currentInstance && suggestedInstances && <Table
                                         arial-label="Suggestions table"
@@ -131,7 +137,6 @@ class RecommendationsTable extends React.Component {
                                 </Content>
                             </ExpandableRowContent>
                         </Td>
-
                     </Tr>
                 </Tbody>
             </Table>
@@ -150,7 +155,7 @@ class RecommendationsTable extends React.Component {
                     text={[
                         'There are no suggestions for this system.'
                     ]}
-                    icon={CheckCircleIcon}
+                    icon={<CheckCircleIcon/>}
                     color='green'/>
             </EmptyTable>;
         }

@@ -77,7 +77,7 @@ export const displayLastReported = (data) => {
         isStale ?
             <Tooltip content={<div>{ staleTooltipText }</div>}>
                 <span className='staleText'>
-                    <Icon size='md'>
+                    <Icon size='md' status='warning'>
                         <ExclamationTriangleIcon />
                     </Icon> {relativeDate}
                 </span>

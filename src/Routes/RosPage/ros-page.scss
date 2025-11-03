@@ -63,6 +63,13 @@
 
 .ros-page-header {
   width: auto;
+  display: flex;
+  .pf-v6-l-flex {
+      justify-content: space-between;
+  }
+
+  --pf-v6-c-page__main-section--BackgroundColor: var(--pf-v6-c-page__main-section--m-light--BackgroundColor);
+
   .pf-v6-c-title {
       display:inline-block;
   }
