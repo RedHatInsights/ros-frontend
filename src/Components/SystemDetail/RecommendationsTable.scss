@@ -1,3 +1,13 @@
+.detected-issues-table {
+  margin-left: 3%;
+  width: 40%
+}
+
+.suggestions-table {
+  margin-left: 3%;
+  width: 90%;
+}
+
 .ros-recommendations-table.pf-v6-c-table {
   tr {
     --pf-v6-c-table--cell--FontSize: var(--pf-t--global--font--size--md);
@@ -43,14 +53,6 @@ Th {
 }
 .margin-text-bottom {
   margin-bottom: 2%;
-}
-.detected-issues-table {
-  margin-left: 3%;
-  width: 40%
-}
-.suggestions-table {
-  margin-left: 3%;
-  width: 90%;
 }
 
 // Media Query

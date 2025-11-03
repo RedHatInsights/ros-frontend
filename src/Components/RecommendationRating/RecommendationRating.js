@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { Button, Icon } from '@patternfly/react-core';
+import { Button } from '@patternfly/react-core';
 import { OutlinedThumbsUpIcon } from '@patternfly/react-icons';
 import { OutlinedThumbsDownIcon } from '@patternfly/react-icons';
 import { ThumbsUpIcon } from '@patternfly/react-icons';
