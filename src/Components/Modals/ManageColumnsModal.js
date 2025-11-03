@@ -12,7 +12,6 @@ import {
     SplitItem,
     Content,
     ContentVariants,
-    // Updated Modal as per V6 using https://www.patternfly.org/components/modal
     Modal,
     ModalBody,
     ModalFooter,
@@ -91,10 +90,11 @@ export const ManageColumnsModal = ({ modalColumns, isModalOpen, setModalOpen, sa
                             <DataListItem key={column.key}>
                                 <DataListItemRow>
                                     <DataListCheck
-                                        checked={column.isChecked}
+                                        isChecked={column.isChecked}
                                         id={`checkbox-${index}`}
                                         onChange={() => onCheckChange(index)}
                                         isDisabled={column.isDisabled}
+                                        aria-labelledby={`checkbox-${index}`}
                                     />
                                     <DataListItemCells
                                         dataListCells={[

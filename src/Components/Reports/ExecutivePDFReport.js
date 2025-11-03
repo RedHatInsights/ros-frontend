@@ -1,10 +1,9 @@
 import React, { Fragment, useState } from 'react';
 import './ExecutiveePDFReport.scss';
-import { useDispatch } from 'react-redux';
 import {
-    addNotification,
-    clearNotifications
-} from '@redhat-cloud-services/frontend-components-notifications/redux';
+    useAddNotification,
+    useClearNotifications
+} from '@redhat-cloud-services/frontend-components-notifications/hooks';
 import propTypes from 'prop-types';
 import { EXECUTIVE_REPORT_FILE_NAME, REPORT_NOTIFICATIONS } from './Constants';
 import { Button } from '@patternfly/react-core';
@@ -14,8 +13,9 @@ import useChrome from '@redhat-cloud-services/frontend-components/useChrome';
 export const DownloadExecutivePDFReport = ({ isDisabled }) => {
     const [loading, setLoading] = useState(false);
     const { requestPdf  } = useChrome();
-    const dispatch = useDispatch();
     const { start, success, failure } = REPORT_NOTIFICATIONS;
+    const addNotification = useAddNotification();
+    const clearNotifications = useClearNotifications();
 
     const generateExecutivePDFReport = async () =>{
         const currentDate = `${new Date().toISOString().replace(/[T:]/g, '-').split('.')[0]}-utc.pdf`;
@@ -23,7 +23,7 @@ export const DownloadExecutivePDFReport = ({ isDisabled }) => {
 
         try {
             setLoading(true);
-            dispatch(addNotification(start));
+            addNotification(start);
 
             await requestPdf({
                 payload: {
@@ -34,14 +34,14 @@ export const DownloadExecutivePDFReport = ({ isDisabled }) => {
                 filename
             });
 
-            dispatch(clearNotifications());
-            dispatch(addNotification(success));
+            clearNotifications();
+            addNotification(success);
             setLoading(false);
 
         }
         catch (error) {
-            dispatch(clearNotifications());
-            dispatch(addNotification(failure));
+            clearNotifications();
+            addNotification(failure);
             setLoading(false);
         }
 
@@ -51,7 +51,7 @@ export const DownloadExecutivePDFReport = ({ isDisabled }) => {
         <Fragment>
             <Button
                 variant="link"
-                icon={ExportIcon}
+                icon={<ExportIcon/>}
                 iconPosition="left"
                 onClick={() => generateExecutivePDFReport()}
                 isDisabled={loading || isDisabled}

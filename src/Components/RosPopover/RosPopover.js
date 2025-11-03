@@ -43,7 +43,7 @@ export const RosPopover = () => {
                 </Content>
             }
         >
-            <Button icon={OutlinedQuestionCircleIcon}
+            <Button icon={<OutlinedQuestionCircleIcon/>}
                 variant="plain"
                 aria-label="Open resource optimization popover"
                 style={{ padding: 0 }}
