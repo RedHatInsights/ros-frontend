@@ -16,13 +16,13 @@
 
   .pf-v6-c-progress__bar {
     &:before {
-      // TODO: check this color fill #B8BBBE
+      // TODO: check with UX on new color as old was #B8BBBE
       background: var(--pf-t--global--background--color--disabled--default);
     }
   }
 
   .pf-v6-c-progress__measure {
-    // TODO: check this color fill #6A6E73
+    // TODO: check with UX on new color as old was #6A6E73
     color: var(--pf-t--global--border--color--on-secondary);
   }
 
@@ -56,7 +56,7 @@
 
 .blue-300{
   .pf-v6-c-progress__indicator {
-    // TODO: check this color fill or need to use variable
+    // TODO: check with UX on this color code or need to use any P6 variable
     background: #2B9AF3;
   }
 }
@@ -74,7 +74,7 @@
       display:inline-block;
   }
   .pf-v6-c-button {
-      // TODO: --pf-v5-global--LineHeight--sm check line height
+      // TODO: check with UX as old variabled used was --pf-v5-global--LineHeight--sm
       line-height: var(--pf-t--global--spacer--sm);
   }
   .alertOverride {

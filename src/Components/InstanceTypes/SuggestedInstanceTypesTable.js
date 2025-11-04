@@ -4,8 +4,6 @@ import {
     Table /* data-codemods */,
     Thead, Tr, Th, Tbody, Td, SortByDirection
 } from '@patternfly/react-table';
-// The markup for Pagination has changed.
-// There is now a wrapper element rendered around the PaginationOptionsMenu toggle  @patternfly/pf-codemods/pagination-warn-markup-changed
 import {
     Card,
     Spinner,
