@@ -155,8 +155,9 @@ class RecommendationsTable extends React.Component {
                     text={[
                         'There are no suggestions for this system.'
                     ]}
-                    icon={<CheckCircleIcon/>}
-                    color='green'/>
+                    icon={CheckCircleIcon}
+                    status={'success'}
+                />
             </EmptyTable>;
         }
     }
