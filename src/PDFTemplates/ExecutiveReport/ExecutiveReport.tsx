@@ -5,7 +5,7 @@ import {
     ChartPie,
     ChartThemeColor,
     getThemeColors
-} from '@patternfly/react-charts';
+} from '@patternfly/react-charts/victory';
 import {
     Bullseye,
     Grid,
@@ -375,7 +375,7 @@ const ExecutiveReport = ({ asyncData: { data } }: { asyncData: AsyncData }) => {
                                             animate={false}
                                             height={200}
                                             themeColor={ChartThemeColor.multiOrdered}
-                                            labels={({ datum }) => `${datum.x}: ${datum.y}`}
+                                            labels={({ datum }: { datum: { x: string; y: number } }) => `${datum.x}: ${datum.y}`}
                                             data={breakdownData.map(({ x, y }) => ({ x, y }))}
                                             padding={{
                                                 top: 0,

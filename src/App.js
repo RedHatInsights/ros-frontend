@@ -70,8 +70,9 @@ class App extends Component {
                             hasRead: hasReadPermissions
                         }
                     }}>
-                    <NotificationsProvider />
-                    <ROSRoutes />
+                    <NotificationsProvider>
+                        <ROSRoutes />
+                    </NotificationsProvider>
                 </PermissionContext.Provider>
                 : null
         );
