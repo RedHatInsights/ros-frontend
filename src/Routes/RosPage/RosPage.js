@@ -8,6 +8,7 @@ import { connect } from 'react-redux';
 import { InventoryTable } from '@redhat-cloud-services/frontend-components/Inventory';
 import { register } from '../../store';
 import './ros-page.scss';
+import '../common-page.scss';
 import { entitiesReducer } from '../../store/entitiesReducer';
 import { changeSystemColumns, loadIsConfiguredInfo } from '../../store/actions';
 import {

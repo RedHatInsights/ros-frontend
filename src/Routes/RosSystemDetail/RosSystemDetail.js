@@ -10,6 +10,7 @@ import { register } from '../../store';
 import { loadSystemInfo } from '../../store/actions';
 import { entityDetailReducer } from '../../store/entityDetailReducer';
 import './ros-details-page.scss';
+import '../common-page.scss';
 import { ExpandedRow } from '../../Components/RosTable/ExpandedRow';
 import RecommendationRating from '../../Components/RecommendationRating/RecommendationRating';
 import { SystemState } from '../../Components/RosTable/SystemState';

@@ -9,9 +9,6 @@
 }
 
 .ros-recommendations-table.pf-v6-c-table {
-  tr {
-    --pf-v6-c-table--cell--FontSize: var(--pf-t--global--font--size--md);
-  }
   .recs-table-empty {
     .pf-v6-c-empty-state__icon {
       fill: var(--pf-t--global--color--status--success--default);
@@ -21,10 +18,6 @@
 
   .pf-v6-c-table__expandable-row-content {
     padding-left: 0px;
-
-    [class*="pf-v6-c-content"] {
-      font-size: var(--pf-t--global--font--size--md);
-    }
 
     .pf-v6-c-content {
       .detected-issues-table, .suggestions-table {
