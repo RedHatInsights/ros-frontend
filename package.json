@@ -110,7 +110,7 @@
     "@testing-library/react": "^14.2.2",
     "@testing-library/user-event": "^14.5.2",
     "babel-core": "7.0.0-bridge.0",
-    "babel-eslint": "10.1.0",
+    "@babel/eslint-parser": "7.11.0",
     "babel-jest": "^29.7.0",
     "babel-plugin-dual-import": "1.2.1",
     "babel-plugin-lodash": "3.3.4",
