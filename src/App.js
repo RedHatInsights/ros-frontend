@@ -2,8 +2,7 @@ import PropTypes from 'prop-types';
 import React, { createContext, Component } from 'react';
 import { ROSRoutes } from './Routes';
 import './App.scss';
-import NotificationsPortal from '@redhat-cloud-services/frontend-components-notifications/NotificationPortal';
-import { notificationsReducer } from '@redhat-cloud-services/frontend-components-notifications/redux';
+import NotificationsProvider from '@redhat-cloud-services/frontend-components-notifications/NotificationsProvider';
 import { systemRecsReducer, systemDetailReducer, isConfiguredReducer, systemColumnsReducer, suggestedInstanceTypesReducer } from './store/reducers';
 import { register } from './store';
 import { useChrome } from '@redhat-cloud-services/frontend-components/useChrome';
@@ -40,7 +39,6 @@ class App extends Component {
 
     componentDidMount () {
         register({
-            notifications: notificationsReducer,
             systemDetailReducer,
             systemRecsReducer,
             isConfiguredReducer,
@@ -72,8 +70,9 @@ class App extends Component {
                             hasRead: hasReadPermissions
                         }
                     }}>
-                    <NotificationsPortal />
-                    <ROSRoutes />
+                    <NotificationsProvider>
+                        <ROSRoutes />
+                    </NotificationsProvider>
                 </PermissionContext.Provider>
                 : null
         );

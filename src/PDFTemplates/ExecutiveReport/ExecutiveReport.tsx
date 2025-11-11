@@ -1,6 +1,11 @@
 /* eslint-disable camelcase */
 import React, { Fragment, ReactNode } from 'react';
-import { ChartDonut, ChartPie, ChartThemeColor, getThemeColors } from '@patternfly/react-charts';
+import {
+    ChartDonut,
+    ChartPie,
+    ChartThemeColor,
+    getThemeColors
+} from '@patternfly/react-charts/victory';
 import {
     Bullseye,
     Grid,
@@ -9,18 +14,17 @@ import {
     SplitItem,
     Stack,
     StackItem,
-    Text,
-    TextContent,
-    TextVariants,
+    Content,
+    ContentVariants,
     Title
 } from '@patternfly/react-core';
 import { AngleDoubleDownIcon, AngleDoubleUpIcon, AutomationIcon, CheckCircleIcon, InProgressIcon, TachometerAltIcon } from '@patternfly/react-icons';
 import {
-    global_danger_color_100,
-    global_info_color_100,
-    global_palette_blue_400,
-    global_success_color_100,
-    global_warning_color_100
+    t_global_icon_color_status_danger_default as global_danger_color_100,
+    t_global_icon_color_status_info_default as global_info_color_100,
+    t_global_icon_color_brand_default as global_palette_blue_400,
+    t_global_icon_color_status_success_default as global_success_color_100,
+    t_global_icon_color_status_warning_default as global_warning_color_100
 } from '@patternfly/react-tokens';
 import {
     Table,
@@ -50,7 +54,7 @@ interface PageProps extends React.HTMLProps<HTMLDivElement> {
 }
 
 const PageBreak: React.FunctionComponent<PageProps> = ({ children }: PageProps) => (
-    <div className='pf-v5-u-m-xl' style={{
+    <div className='pf-v6-u-m-xl' style={{
         pageBreakAfter: 'always'
     }}>{children}</div>
 );
@@ -128,10 +132,10 @@ const DescriptionList = ({
         {data.map(({ title, description, icon }, index) => (
             <Fragment key={index}>
                 <GridItem span={3}>
-                    {icon && <span className="pf-v5-u-mr-sm pf-v5-u-font-size-sm">{icon}</span>}
-                    <span className="pf-v5-u-font-size-sm">{title}</span>
+                    {icon && <span className="pf-v6-u-mr-sm pf-v6-u-font-size-sm">{icon}</span>}
+                    <span className="pf-v6-u-font-size-sm">{title}</span>
                 </GridItem>
-                <GridItem span={9} className="pf-v5-u-font-size-sm">
+                <GridItem span={9} className="pf-v6-u-font-size-sm">
                     {description}
                 </GridItem>
             </Fragment>
@@ -261,19 +265,19 @@ const ExecutiveReport = ({ asyncData: { data } }: { asyncData: AsyncData }) => {
             <PageBreak>
                 <Title
                     headingLevel="h1"
-                    className="pf-v5-u-danger-color-100 pf-v5-u-font-size-4xl pf-v5-u-mb-lg"
+                    className="pf-v6-u-text-color-status-danger pf-v6-u-font-size-4xl pf-v6-u-mb-lg"
                 >
                   Resource optimization service report
                 </Title>
                 <Stack>
                     <StackItem>
-                        <TextContent>
-                            <Text className="pf-v5-u-font-size-xs">
+                        <Content>
+                            <Content className="pf-v6-u-font-size-xs">
                               This executive summary highlights the performance for your
                               registered systems included in the resource optimization
                               service.
-                            </Text>
-                        </TextContent>
+                            </Content>
+                        </Content>
                     </StackItem>
                     <StackItem>
                         <Title
@@ -281,16 +285,16 @@ const ExecutiveReport = ({ asyncData: { data } }: { asyncData: AsyncData }) => {
                             size="md"
                             style={{
                                 marginTop: '6px',
-                                color: 'var(--pf-v5-global--danger-color--100)'
+                                color: 'var(--pf-t--global--color--status--danger--100)'
                             }}
                         >
                           Registered systems
                         </Title>
 
-                        <TextContent style={{ margin: '8px 0' }}>
-                            <Text
-                                className="pf-v5-u-font-size-xs"
-                                component={TextVariants.p}
+                        <Content style={{ margin: '8px 0' }}>
+                            <Content
+                                className="pf-v6-u-font-size-xs"
+                                component={ContentVariants.p}
                                 style={{ lineHeight: '50%' }}
                             >
                               There {pluralize(totalCount, 'is', 'are')}{' '}
@@ -298,11 +302,11 @@ const ExecutiveReport = ({ asyncData: { data } }: { asyncData: AsyncData }) => {
                                     {totalCount} registered {pluralize(totalCount, 'system')}
                                 </span>{' '}
                               in the resource optimization service.
-                            </Text>
+                            </Content>
 
-                            <Text
-                                className="pf-v5-u-font-size-xs"
-                                component={TextVariants.p}
+                            <Content
+                                className="pf-v6-u-font-size-xs"
+                                component={ContentVariants.p}
                                 style={{ lineHeight: '50%' }}
                             >
                                 <span style={{ fontWeight: 700 }}>{optimizedCount}</span> of{' '}
@@ -312,30 +316,30 @@ const ExecutiveReport = ({ asyncData: { data } }: { asyncData: AsyncData }) => {
                                 <span style={{ fontWeight: 700 }}> {nonOptimizedCount}</span> of{' '}
                                 {totalCount} {pluralize(totalCount, 'system')} as having a{' '}
                                 <span style={{ fontWeight: 700 }}>non-optimal</span> state.
-                            </Text>
+                            </Content>
 
-                            <Text
-                                className="pf-v5-u-font-size-xs"
-                                component={TextVariants.p}
+                            <Content
+                                className="pf-v6-u-font-size-xs"
+                                component={ContentVariants.p}
                                 style={{ lineHeight: '50%' }}
                             >
                                 <span style={{ fontWeight: 700 }}>{staleCount}</span> of{' '}
                                 {totalCount} {pluralize(totalCount, 'system')}{' '}
                                 {pluralize(staleCount, 'is', 'are')}{' '}
                                 <span style={{ fontWeight: 700 }}>stale*</span>
-                            </Text>
-                        </TextContent>
+                            </Content>
+                        </Content>
 
-                        <TextContent>
-                            <Text
-                                className="pf-v5-u-font-size-xs"
+                        <Content>
+                            <Content
+                                className="pf-v6-u-font-size-xs"
                                 style={{ textAlign: 'right', marginTop: '0 px' }}
-                                component="small"
+                                component={ContentVariants.small}
                             >
                               Suggestions for stale systems might no longer apply due to
                               systems not being refreshed in 7 days.*
-                            </Text>
-                        </TextContent>
+                            </Content>
+                        </Content>
                     </StackItem>
                     <StackItem>
                         <Title
@@ -343,26 +347,26 @@ const ExecutiveReport = ({ asyncData: { data } }: { asyncData: AsyncData }) => {
                             size="md"
                             style={{
                                 marginTop: '6px',
-                                color: 'var(--pf-v5-global--danger-color--100)'
+                                color: 'var(--pf-t--global--color--status--danger--100)'
                             }}
                         >
                           Breakdown of registered systems
                         </Title>
 
                         {nonPSICount > 0 && (
-                            <Text className="pf-v5-u-font-size-xs">
+                            <Content className="pf-v6-u-font-size-xs">
                                 {psiEnabledCount} {pluralize(psiEnabledCount, 'system')} out of
                               a total of {totalCount} {pluralize(totalCount, 'system')} have
                               Kernel Pressure Stall Information enabled. You could get better
                               suggestions for {nonPSICount} {pluralize(nonPSICount, 'system')}{' '}
                               if you enabled Pressure Stall Information. Check the
                               documentation on how to enable PSI on versions RHEL 8 and newer.
-                            </Text>
+                            </Content>
                         )}
                         <Split>
                             <SplitItem>
                                 <div
-                                    className="pf-v5-u-ml-lg pf-v5-u-mr-lg"
+                                    className="pf-v6-u-ml-lg pf-v6-u-mr-lg"
                                     style={{ width: 150, height: 250 }}
                                 >
                                     <Bullseye>
@@ -371,7 +375,7 @@ const ExecutiveReport = ({ asyncData: { data } }: { asyncData: AsyncData }) => {
                                             animate={false}
                                             height={200}
                                             themeColor={ChartThemeColor.multiOrdered}
-                                            labels={({ datum }) => `${datum.x}: ${datum.y}`}
+                                            labels={({ datum }: { datum: { x: string; y: number } }) => `${datum.x}: ${datum.y}`}
                                             data={breakdownData.map(({ x, y }) => ({ x, y }))}
                                             padding={{
                                                 top: 0,
@@ -399,32 +403,32 @@ const ExecutiveReport = ({ asyncData: { data } }: { asyncData: AsyncData }) => {
 
                             </SplitItem>
                         </Split>
-                        <TextContent>
-                            <Text
-                                className="pf-v5-u-font-size-xs"
+                        <Content>
+                            <Content
+                                className="pf-v6-u-font-size-xs"
                                 style={{ textAlign: 'right', fontSize: 10, margin: '6px 0px' }}
-                                component="small"
+                                component={ ContentVariants.small }
                             >
                               Description of states are on the third page of the report*
-                            </Text>
-                        </TextContent>
+                            </Content>
+                        </Content>
                     </StackItem>
                     <StackItem>
                         <Title
                             headingLevel="h5"
                             size="md"
-                            className="pf-v5-u-danger-color-100"
+                            className="pf-v6-u-text-color-status-danger"
                         >
                           System performance issues{' '}
                         </Title>
-                        <TextContent>
-                            <Text className="pf-v5-u-font-size-xs">
+                        <Content>
+                            <Content className="pf-v6-u-font-size-xs">
                               There are {conditionsCount} system performance issues
-                            </Text>
-                        </TextContent>
+                            </Content>
+                        </Content>
                         <Split>
                             <SplitItem>
-                                <div className="pf-v5-u-m-lg" style={{ width: 150, height: 150 }}>
+                                <div className="pf-v6-u-m-lg" style={{ width: 150, height: 150 }}>
                                     <ChartDonut
                                         subTitle="Conditions"
                                         title={conditionsCount.toString()}
@@ -452,7 +456,7 @@ const ExecutiveReport = ({ asyncData: { data } }: { asyncData: AsyncData }) => {
                         <Title
                             headingLevel="h5"
                             size="md"
-                            className="pf-v5-u-danger-color-100"
+                            className="pf-v6-u-text-color-status-danger"
                         >
                           Breakdown of occurences
                         </Title>
@@ -476,30 +480,30 @@ const ExecutiveReport = ({ asyncData: { data } }: { asyncData: AsyncData }) => {
                                         <Tbody>
                                             {under_pressure > 0 ? (
                                                 <Tr>
-                                                    <Td className="pf-v5-u-font-size-xs pf-v5-u-pt-xs pf-v5-u-pb-xs">
+                                                    <Td className="pf-v6-u-font-size-xs pf-v6-u-pt-xs pf-v6-u-pb-xs">
                                                       Under pressure
                                                     </Td>
-                                                    <Td className="pf-v5-u-font-size-xs pf-v5-u-pt-xs pf-v5-u-pb-xs">
+                                                    <Td className="pf-v6-u-font-size-xs pf-v6-u-pt-xs pf-v6-u-pb-xs">
                                                         {under_pressure}
                                                     </Td>
                                                 </Tr>
                                             ) : null}
                                             {undersized > 0 ? (
                                                 <Tr>
-                                                    <Td className="pf-v5-u-font-size-xs pf-v5-u-pt-xs pf-v5-u-pb-xs">
+                                                    <Td className="pf-v6-u-font-size-xs pf-v6-u-pt-xs pf-v6-u-pb-xs">
                                                       Undersized
                                                     </Td>
-                                                    <Td className="pf-v5-u-font-size-xs pf-v5-u-pt-xs pf-v5-u-pb-xs">
+                                                    <Td className="pf-v6-u-font-size-xs pf-v6-u-pt-xs pf-v6-u-pb-xs">
                                                         {undersized}
                                                     </Td>
                                                 </Tr>
                                             ) : null}
                                             {oversized > 0 ? (
                                                 <Tr>
-                                                    <Td className="pf-v5-u-font-size-xs pf-v5-u-pt-xs pf-v5-u-pb-xs">
+                                                    <Td className="pf-v6-u-font-size-xs pf-v6-u-pt-xs pf-v6-u-pb-xs">
                                                       Oversized
                                                     </Td>
-                                                    <Td className="pf-v5-u-font-size-xs pf-v5-u-pt-xs pf-v5-u-pb-xs">
+                                                    <Td className="pf-v6-u-font-size-xs pf-v6-u-pt-xs pf-v6-u-pb-xs">
                                                         {oversized}
                                                     </Td>
                                                 </Tr>
@@ -509,22 +513,22 @@ const ExecutiveReport = ({ asyncData: { data } }: { asyncData: AsyncData }) => {
                                 </GridItem>
                             ))}
                         </Grid>
-                        <TextContent>
-                            <Text
+                        <Content>
+                            <Content
                                 style={{ textAlign: 'right', fontSize: 10, margin: '6px 0px' }}
-                                component="small"
+                                component={ ContentVariants.small }
                             >
                               Under pressure conditions are only reported for systems where
                               Kernel Pressure Stall Information is enabled. Check the
                               documentation for details.*
-                            </Text>
-                            <Text
+                            </Content>
+                            <Content
                                 style={{ textAlign: 'right', fontSize: 10, lineHeight: '50%' }}
-                                component="small"
+                                component={ ContentVariants.small }
                             >
                               Description of conditions are on the third page of the report*
-                            </Text>
-                        </TextContent>
+                            </Content>
+                        </Content>
                     </StackItem>
                 </Stack>
             </PageBreak>
@@ -548,12 +552,12 @@ const ExecutiveReport = ({ asyncData: { data } }: { asyncData: AsyncData }) => {
                     </StackItem>
                 </Stack>
             </PageBreak>
-            <Stack className='pf-v5-u-m-xl'>
-                <StackItem className='pf-v5-u-mt-xl'>
+            <Stack className='pf-v6-u-m-xl'>
+                <StackItem className='pf-v6-u-mt-xl'>
                     <Title
                         headingLevel="h5"
                         size="md"
-                        className="pf-v5-u-danger-color-100 pf-v5-u-mb-md"
+                        className="pf-v6-u-text-color-status-danger pf-v6-u-mb-md"
                     >
                           Description of states
                     </Title>
@@ -602,7 +606,7 @@ const ExecutiveReport = ({ asyncData: { data } }: { asyncData: AsyncData }) => {
                     <Title
                         headingLevel="h5"
                         size="md"
-                        className="pf-v5-u-danger-color-100 pf-v5-u-mb-md"
+                        className="pf-v6-u-text-color-status-danger pf-v6-u-mb-md"
                     >
               Description of conditions
                     </Title>

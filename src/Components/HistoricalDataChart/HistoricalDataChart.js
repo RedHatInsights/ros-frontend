@@ -9,7 +9,7 @@ import {
     ChartScatter,
     ChartThemeColor,
     createContainer
-} from '@patternfly/react-charts';
+} from '@patternfly/react-charts/victory';
 import {
     Bullseye,
     EmptyState,
@@ -18,7 +18,7 @@ import {
     Spinner,
     Tooltip,
     Flex,
-    FlexItem, EmptyStateHeader, Icon,
+    FlexItem, Icon,
     Dropdown, DropdownItem, DropdownList,
     MenuToggle
 } from '@patternfly/react-core';
@@ -81,8 +81,8 @@ export const HistoricalDataChart = ({ inventoryId }) => {
 
     const displayError = () => {
         return  <FlexItem alignSelf={{ default: 'alignSelfBaseline' }}>
-            <EmptyState variant={EmptyStateVariant.sm}>
-                <EmptyStateHeader titleText="Something went wrong" headingLevel="h2" />
+            <EmptyState variant={EmptyStateVariant.sm}
+                titleText="Something went wrong" headingLevel="h2">
                 <EmptyStateBody>
                     There was a problem while requesting historical data. Please try again later.
                 </EmptyStateBody>

@@ -1,10 +1,30 @@
-.ros-recommendations-table.pf-v5-c-table {
-  tr {
-    --pf-v5-c-table--cell--FontSize: var(--pf-v5-global--FontSize--md);
-  }
+.detected-issues-table {
+  margin-left: 3%;
+  width: 40%
+}
+
+.suggestions-table {
+  margin-left: 3%;
+  width: 90%;
+}
+
+.ros-recommendations-table.pf-v6-c-table {
   .recs-table-empty {
-    .pf-v5-c-empty-state__icon {
-      fill: var(--pf-v5-global--success-color--100);
+    .pf-v6-c-empty-state__icon {
+      fill: var(--pf-t--global--color--status--success--default);
+      // TODO: check with UX on this color fill
+    }
+  }
+
+  .pf-v6-c-table__expandable-row-content {
+    padding-left: 0px;
+
+    .pf-v6-c-content {
+      .detected-issues-table, .suggestions-table {
+        thead tr:last-child {
+          border-block-end: var(--pf-v6-c-table--border-width--base) solid var(--pf-v6-c-table--BorderColor);
+        }
+      }
     }
   }
 }
@@ -26,14 +46,6 @@ Th {
 }
 .margin-text-bottom {
   margin-bottom: 2%;
-}
-.detected-issues-table {
-  margin-left: 3%;
-  width: 40%
-}
-.suggestions-table {
-  margin-left: 3%;
-  width: 90%;
 }
 
 // Media Query

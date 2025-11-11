@@ -170,7 +170,7 @@ class SystemRecommendations extends React.Component {
                                     }}
                                     />
                                     { (!this.props.loading) ? (<RecommendationsTable recommendations = { recsData } />) : null }
-                                    <TableToolbar>
+                                    <TableToolbar className='suggestions-table-toolbar'>
                                         <Pagination
                                             itemCount={ totalRecs ? totalRecs : 0 }
                                             widgetId='ros-pagination-bottom'

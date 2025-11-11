@@ -2,12 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { PageHeader, PageHeaderTitle } from '@redhat-cloud-services/frontend-components/PageHeader';
 import { Main } from '@redhat-cloud-services/frontend-components/Main';
-import { Card, CardBody, Flex } from '@patternfly/react-core';
+import { Card, CardBody, Flex, FlexItem } from '@patternfly/react-core';
 import { SortByDirection } from '@patternfly/react-table';
 import { connect } from 'react-redux';
 import { InventoryTable } from '@redhat-cloud-services/frontend-components/Inventory';
 import { register } from '../../store';
 import './ros-page.scss';
+import '../common-page.scss';
 import { entitiesReducer } from '../../store/entitiesReducer';
 import { changeSystemColumns, loadIsConfiguredInfo } from '../../store/actions';
 import {
@@ -23,12 +24,11 @@ import { PermissionContext } from '../../App';
 
 import { NotAuthorized } from '@redhat-cloud-services/frontend-components/NotAuthorized';
 import { ManageColumnsModal } from '../../Components/Modals/ManageColumnsModal';
-import { DownloadSystemsPDFReport } from '../../Components/Reports/SystemsPDFReport';
 import { downloadReport } from '../../Components/Reports/DownloadReport';
 import {
-    addNotification,
-    clearNotifications
-} from '@redhat-cloud-services/frontend-components-notifications/redux';
+    useAddNotification,
+    useClearNotifications
+} from '@redhat-cloud-services/frontend-components-notifications/hooks';
 import { DownloadExecutivePDFReport } from '../../Components/Reports/ExecutivePDFReport';
 import { useChrome } from '@redhat-cloud-services/frontend-components/useChrome';
 import { conditionalFilterType } from '@redhat-cloud-services/frontend-components';
@@ -339,7 +339,7 @@ class RosPage extends React.Component {
     renderConfigStepsOrTable() {
         const { state: SFObject } = CUSTOM_FILTERS;
         const activeColumns = this.getActiveColumns();
-        const { exportSystemsPDF, stateFilterValue, nameFilterValue, osFilterValue, groupFilterValue,
+        const { stateFilterValue, osFilterValue,
             orderBy, orderDirection, disableExport, isColumnModalOpen,
             OSFObject } = this.state;
 
@@ -372,18 +372,23 @@ class RosPage extends React.Component {
             this.props.showConfigSteps
                 ? <ServiceNotConfigured />
                 : <React.Fragment>
-                    <PageHeader className='ros-page-header'>
-                        <PageHeaderTitle
-                            title={
-                                <Flex spaceItems={{ default: 'spaceItemsSm' }}>
-                                    <div>Resource Optimization</div>
-                                    <RosPopover />
-                                </Flex>
-                            }
-                        />
-                        <DownloadExecutivePDFReport isDisabled={this.state.disableExport} />
+                    <PageHeader className="ros-page-header">
+                        <Flex justifyContent={{ default: 'spaceBetween' }} alignItems={{ default: 'center' }}>
+                            <FlexItem>
+                                <PageHeaderTitle
+                                    title={
+                                        <Flex spaceItems={{ default: 'spaceItemsSm' }} alignItems={{ default: 'center' }}>
+                                            <div>Resource Optimization</div>
+                                            <RosPopover />
+                                        </Flex>
+                                    }
+                                />
+                            </FlexItem>
+                            <FlexItem>
+                                <DownloadExecutivePDFReport isDisabled={this.state.disableExport} />
+                            </FlexItem>
+                        </Flex>
                     </PageHeader>
-
                     <Main>
                         <Card className='pf-t-light  pf-m-opaque-100'>
                             <CardBody>
@@ -492,21 +497,6 @@ class RosPage extends React.Component {
                                     onExpandClick={(_e, _i, isOpen, { id }) => this.props.expandRow(id, isOpen, 'EXPAND_ROW')}
                                 >
                                 </InventoryTable>
-                                {exportSystemsPDF &&
-                                <DownloadSystemsPDFReport
-                                    showButton={false}
-                                    onSuccess={() => this.setExportSystemsPDF(false)}
-                                    filters={{
-                                        stateFilter: stateFilterValue,
-                                        hostnameOrId: nameFilterValue,
-                                        osFilter: osFilterValue,
-                                        groupFilter: groupFilterValue
-                                    }}
-                                    orderBy={orderBy}
-                                    orderHow={orderDirection}
-                                    isWorkSpaceEnabled={this.props.isWorkSpaceEnabled}
-                                />
-                                }
                             </CardBody>
                         </Card>
                     </Main>
@@ -543,9 +533,7 @@ function mapDispatchToProps(dispatch) {
             }
         }),
         isROSConfigured: () => dispatch(loadIsConfiguredInfo()),
-        changeSystemColumns: (payload) => dispatch(changeSystemColumns(payload)),
-        addNotification: (payload) => dispatch(addNotification(payload)),
-        clearNotifications: () => dispatch(clearNotifications())
+        changeSystemColumns: (payload) => dispatch(changeSystemColumns(payload))
     };
 }
 
@@ -565,8 +553,8 @@ RosPage.propTypes = {
     location: PropTypes.object,
     columns: PropTypes.array,
     changeSystemColumns: PropTypes.func,
-    addNotification: PropTypes.func,
-    clearNotifications: PropTypes.func,
+    addNotification: PropTypes.func.isRequired,
+    clearNotifications: PropTypes.func.isRequired,
     chrome: PropTypes.object,
     isWorkSpaceEnabled: PropTypes.bool
 };
@@ -575,9 +563,13 @@ const RosPageWithChrome =  props => {
     const chrome = useChrome();
     const location = useLocation();
     const isWorkSpaceEnabled = useFeatureFlag('platform.rbac.groups-to-workspaces-rename');
+    const addNotification = useAddNotification();
+    const clearNotifications = useClearNotifications();
 
     return (
-        <RosPage {...props} chrome={ chrome } isWorkSpaceEnabled={isWorkSpaceEnabled} location={ location }/>
+        <RosPage {...props} chrome={ chrome }
+            isWorkSpaceEnabled={isWorkSpaceEnabled} location={ location }
+            addNotification={addNotification} clearNotifications={clearNotifications}/>
     );
 };
 
