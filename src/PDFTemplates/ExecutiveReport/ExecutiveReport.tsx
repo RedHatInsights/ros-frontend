@@ -5,7 +5,7 @@ import {
     ChartPie,
     ChartThemeColor,
     getThemeColors
-} from '@patternfly/react-charts';
+} from '@patternfly/react-charts/victory';
 import {
     Bullseye,
     Grid,

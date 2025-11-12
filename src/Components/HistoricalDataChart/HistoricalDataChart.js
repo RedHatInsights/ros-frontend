@@ -9,7 +9,7 @@ import {
     ChartScatter,
     ChartThemeColor,
     createContainer
-} from '@patternfly/react-charts';
+} from '@patternfly/react-charts/victory';
 import {
     Bullseye,
     EmptyState,

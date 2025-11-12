@@ -66,14 +66,14 @@
     "Remove javascript-clients-shared, rbac-client from direct dependencies on upgrading frontend-components-utilities to 7.0.0"
   ],
   "dependencies": {
-    "@patternfly/patternfly": "^6.3.1",
-    "@patternfly/react-charts": "^7.4.6",
-    "@patternfly/react-core": "^6.3.1",
-    "@patternfly/react-icons": "^6.3.1",
-    "@patternfly/react-styles": "^6.3.1",
-    "@patternfly/react-table": "^6.3.1",
-    "@patternfly/react-tokens": "^6.3.1",
-    "@react-pdf/renderer": "^3.1.14",
+    "@patternfly/patternfly": "^6.4.0",
+    "@patternfly/react-charts": "^8.4.0",
+    "@patternfly/react-core": "^6.4.0",
+    "@patternfly/react-icons": "^6.4.0",
+    "@patternfly/react-styles": "^6.4.0",
+    "@patternfly/react-table": "^6.4.0",
+    "@patternfly/react-tokens": "^6.4.0",
+    "@react-pdf/renderer": "^3.4.4",
     "@redhat-cloud-services/frontend-components": "^7.0.6",
     "@redhat-cloud-services/frontend-components-config": "^6.6.11",
     "@redhat-cloud-services/frontend-components-notifications": "^6.1.13",
@@ -91,7 +91,8 @@
     "react-router-dom": "^6.21.1",
     "redux": "^4.2.1",
     "redux-logger": "3.0.6",
-    "redux-promise-middleware": "6.2.0"
+    "redux-promise-middleware": "6.2.0",
+    "victory": "^37.3.6"
   },
   "devDependencies": {
     "@babel/core": "7.10.0",
