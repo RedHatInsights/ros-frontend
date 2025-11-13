@@ -5,7 +5,7 @@ import {
     ChartPie,
     ChartThemeColor,
     getThemeColors
-} from '@patternfly/react-charts';
+} from '@patternfly/react-charts/victory';
 import {
     Bullseye,
     Grid,
@@ -19,13 +19,6 @@ import {
     Title
 } from '@patternfly/react-core';
 import { AngleDoubleDownIcon, AngleDoubleUpIcon, AutomationIcon, CheckCircleIcon, InProgressIcon, TachometerAltIcon } from '@patternfly/react-icons';
-import {
-    t_global_icon_color_status_danger_default as global_danger_color_100,
-    t_global_icon_color_status_info_default as global_info_color_100,
-    t_global_icon_color_brand_default as global_palette_blue_400,
-    t_global_icon_color_status_success_default as global_success_color_100,
-    t_global_icon_color_status_warning_default as global_warning_color_100
-} from '@patternfly/react-tokens';
 import {
     Table,
     Tbody,
@@ -285,12 +278,11 @@ const ExecutiveReport = ({ asyncData: { data } }: { asyncData: AsyncData }) => {
                             size="md"
                             style={{
                                 marginTop: '6px',
-                                color: 'var(--pf-t--global--color--status--danger--100)'
+                                color: '#C9190B'
                             }}
                         >
                           Registered systems
                         </Title>
-
                         <Content style={{ margin: '8px 0' }}>
                             <Content
                                 className="pf-v6-u-font-size-xs"
@@ -303,7 +295,6 @@ const ExecutiveReport = ({ asyncData: { data } }: { asyncData: AsyncData }) => {
                                 </span>{' '}
                               in the resource optimization service.
                             </Content>
-
                             <Content
                                 className="pf-v6-u-font-size-xs"
                                 component={ContentVariants.p}
@@ -317,7 +308,6 @@ const ExecutiveReport = ({ asyncData: { data } }: { asyncData: AsyncData }) => {
                                 {totalCount} {pluralize(totalCount, 'system')} as having a{' '}
                                 <span style={{ fontWeight: 700 }}>non-optimal</span> state.
                             </Content>
-
                             <Content
                                 className="pf-v6-u-font-size-xs"
                                 component={ContentVariants.p}
@@ -329,7 +319,6 @@ const ExecutiveReport = ({ asyncData: { data } }: { asyncData: AsyncData }) => {
                                 <span style={{ fontWeight: 700 }}>stale*</span>
                             </Content>
                         </Content>
-
                         <Content>
                             <Content
                                 className="pf-v6-u-font-size-xs"
@@ -347,7 +336,7 @@ const ExecutiveReport = ({ asyncData: { data } }: { asyncData: AsyncData }) => {
                             size="md"
                             style={{
                                 marginTop: '6px',
-                                color: 'var(--pf-t--global--color--status--danger--100)'
+                                color: '#C9190B'
                             }}
                         >
                           Breakdown of registered systems
@@ -393,7 +382,7 @@ const ExecutiveReport = ({ asyncData: { data } }: { asyncData: AsyncData }) => {
                                     rows={breakdownData.map(({ x, y, percentage }, index) => [
                                         <TextWithColorDot
                                             key={`${x}-index`}
-                                            color={breakdownColors?.[index % breakdownColors.length] ?? global_palette_blue_400.value}
+                                            color={breakdownColors?.[index % breakdownColors.length] ?? '#06C'}
                                         >
                                             {x}
                                         </TextWithColorDot>,
@@ -442,7 +431,7 @@ const ExecutiveReport = ({ asyncData: { data } }: { asyncData: AsyncData }) => {
                                     rows={performanceData.map(({ x, y }, index) => [
                                         <TextWithColorDot
                                             key={`${x}-index`}
-                                            color={blueColorScale?.[index % blueColorScale.length] ?? global_palette_blue_400.value}
+                                            color={blueColorScale?.[index % blueColorScale.length] ?? '#06C'}
                                         >
                                             {x}
                                         </TextWithColorDot>,
@@ -471,7 +460,7 @@ const ExecutiveReport = ({ asyncData: { data } }: { asyncData: AsyncData }) => {
                                         <Thead>
                                             <Tr>
                                                 <Th colSpan={2}>
-                                                    <TextWithColorDot color={blueColorScale?.[i] ?? global_palette_blue_400.value}>
+                                                    <TextWithColorDot color={blueColorScale?.[i] ?? '#06C'}>
                                                         {title}
                                                     </TextWithColorDot>
                                                 </Th>
@@ -566,7 +555,7 @@ const ExecutiveReport = ({ asyncData: { data } }: { asyncData: AsyncData }) => {
                             title: 'Optimized',
                             description: 'Performing at an optimal level',
                             icon: (
-                                <CheckCircleIcon color={global_success_color_100.value} />
+                                <CheckCircleIcon color='#3E8635' />
                             )
                         },
                         {
@@ -579,7 +568,7 @@ const ExecutiveReport = ({ asyncData: { data } }: { asyncData: AsyncData }) => {
                             description: 'Using more than 80% of system resources',
                             icon: (
                                 <AngleDoubleDownIcon
-                                    color={global_danger_color_100.value}
+                                    color='#C9190B'
                                 />
                             )
                         },
@@ -587,7 +576,7 @@ const ExecutiveReport = ({ asyncData: { data } }: { asyncData: AsyncData }) => {
                             title: 'Oversized',
                             description: 'Using less than 20% of system resources',
                             icon: (
-                                <AngleDoubleUpIcon color={global_warning_color_100.value} />
+                                <AngleDoubleUpIcon color='#F0AB00' />
                             )
                         },
                         {
@@ -598,7 +587,7 @@ const ExecutiveReport = ({ asyncData: { data } }: { asyncData: AsyncData }) => {
                         {
                             title: 'Waiting for data',
                             description: 'Data has not been received or is being processed. Initial dataprocessing takes up to 24 hours.',
-                            icon: <InProgressIcon color={global_info_color_100.value} />
+                            icon: <InProgressIcon color='#2b9AF3' />
                         }
                     ]}/>
                 </StackItem>
