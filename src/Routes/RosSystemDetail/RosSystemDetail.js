@@ -146,7 +146,7 @@ class RosSystemDetail extends React.Component {
                                         <StackItem isFilled>{ this.renderChildrenNode() }</StackItem>
                                     </Stack>
                                 </PageHeader>
-                                <Main>
+                                <Main className="ros-main-page">
                                     <Grid gutter="md">
                                         <GridItem span={12}>
                                             { entity ? <SystemDetailWrapper showTags fallback="" /> : <Spinner/>}

@@ -54,3 +54,11 @@ Th {
       width: 90% 
     } 
 }
+
+.ros-suggestions-stack-item {
+  .pf-v6-c-card::before,
+  .suggestions-table-toolbar,
+  .ins-c-table__empty.recs-table-empty {
+    border: 0;
+  }
+}

@@ -122,7 +122,7 @@ class SystemRecommendations extends React.Component {
                                 Suggestions
                             </Title>
                         </StackItem>
-                        <StackItem>
+                        <StackItem className="ros-suggestions-stack-item">
                             <Card>
                                 <CardBody>
                                     <PrimaryToolbar className="ros-primary-toolbar" pagination={{

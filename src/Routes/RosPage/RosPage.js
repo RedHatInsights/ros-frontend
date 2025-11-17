@@ -389,7 +389,7 @@ class RosPage extends React.Component {
                             </FlexItem>
                         </Flex>
                     </PageHeader>
-                    <Main>
+                    <Main className="ros-main-page">
                         <Card className='pf-t-light  pf-m-opaque-100'>
                             <CardBody>
                                 <ManageColumnsModal
