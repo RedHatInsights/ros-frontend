@@ -39,7 +39,7 @@ export default function SuggestedInstanceTypesTable() {
         dispatch(loadSuggestedInstanceTypes({
             page, perPage, activeSortDirection, activeSortColumnKey, instanceTypeName
         }));
-    }, [
+    }, [dispatch,
         page,
         perPage,
         activeSortDirection,
