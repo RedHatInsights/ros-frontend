@@ -25,7 +25,7 @@ const SuggestedInstance = () => {
 
     useEffect(() => {
         dispatch(loadIsConfiguredInfo());
-    }, []);
+    }, [dispatch]);
 
     return (
         showConfigSteps
@@ -62,7 +62,7 @@ export default function RosSuggestedInstanceTypes() {
     useEffect(() => {
         updateDocumentTitle('Suggested Instance Types - Resource Optimization - Business ');
         hideGlobalFilter();
-    }, []);
+    }, [updateDocumentTitle, hideGlobalFilter]);
 
     return (
         hasPermissions
