@@ -31,5 +31,10 @@
         display: none !important;
       }
     }
+    .ins-c-inventory__detail--header {
+      .pf-v6-l-flex:first-child .pf-v6-c-button {
+        display: none !important;
+      }
+    }
   }
 }

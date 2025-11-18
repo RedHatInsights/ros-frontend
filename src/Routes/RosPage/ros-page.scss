@@ -38,6 +38,10 @@
     --pf-v6-c-content--FontSize: var(--pf-t--global--font--size--sm);
   }
 
+  .pf-v6-c-table__thead::before {
+    border: None;
+  }
+
   .pf-link {
     &:hover {
       text-decoration: none;
