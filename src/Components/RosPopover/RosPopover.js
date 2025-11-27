@@ -12,6 +12,7 @@ import {
     OutlinedQuestionCircleIcon
 } from '@patternfly/react-icons';
 import useFeatureFlag from '../../Utilities/useFeatureFlag';
+import { GETTING_STARTED_DOC } from '../../constants';
 
 export const RosPopover = () => {
     const isLightspeedEnabled = useFeatureFlag('platform.lightspeed-rebrand');
@@ -29,10 +30,7 @@ export const RosPopover = () => {
                         The resource optimization service enables RHEL customers to assess and monitor their public cloud usage and optimization.
                         </Content>
                         <Content component={ContentVariants.a}
-                            href={
-                                // eslint-disable-next-line max-len
-                                'https://docs.redhat.com/en/documentation/red_hat_lightspeed/1-latest/html/assessing_and_monitoring_rhel_resource_optimization_with_red_hat_lightspeed/index'
-                            }
+                            href={GETTING_STARTED_DOC}
                             target="_blank"
                             rel="noreferrer"
                         >
