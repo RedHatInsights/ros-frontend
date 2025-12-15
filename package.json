@@ -116,7 +116,7 @@
     "cross-fetch": "3.1.5",
     "css-loader": "3.5.3",
     "eslint": "7.1.0",
-    "eslint-config-prettier": "6.11.0",
+    "eslint-config-prettier": "10.1.8",
     "eslint-loader": "4.0.2",
     "eslint-plugin-react": "^7.37.2",
     "eslint-plugin-react-hooks": "4.0.4",
