@@ -211,6 +211,25 @@ class RosPage extends React.Component {
         return idsChunks;
     }
 
+    /**
+     * Fetches entities by their IDs with retry logic for partial failures.
+     ** If the initial request fails with a 404 error containing `not_found_ids`,
+     * the function retries the request excluding those IDs. If all requested IDs
+     * are not found, it returns an empty result set.
+     *
+     * @async
+     * @function getEntitiesWithNotFoundRetry
+     * @param {string[]} ids - Array of entity IDs to fetch.
+     * @param {Object<string, any>} [configOptns] - configuration options passed
+     * directly to the underlying API request (e.g., pagination, sorting, flags).
+     *
+     * @returns {Promise<{ results: Object[] }>} Resolves with an object containing
+     * the fetched entities in the `results` array.
+     *
+     * @throws {Error} Rethrows the error if:
+     * - The error is not a 404, or
+     * - The 404 error does not include `not_found_ids`
+     */
     async getEntitiesWithNotFoundRetry(ids, configOptns) {
         try {
             return await this.state.getEntities?.(ids, configOptns, false);
