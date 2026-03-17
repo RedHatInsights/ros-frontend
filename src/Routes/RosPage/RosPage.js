@@ -216,9 +216,9 @@ class RosPage extends React.Component {
             return await this.state.getEntities?.(ids, configOptns, false);
         } catch (error) {
             const status = error?.status;
-            const notFoundIds = error?.not_found_ids ?? [];
-            if (status === 404 && Array.isArray(notFoundIds) && notFoundIds.length > 0) {
-                const remainingIds = ids.filter((id) => !notFoundIds.includes(id));
+            const notFoundIdsSet = new Set(error?.not_found_ids ?? []);
+            if (status === 404 && notFoundIdsSet.size) {
+                const remainingIds = ids.filter((id) => !notFoundIdsSet.has(id));
                 if (remainingIds.length === 0) {
                     return { results: [] };
                 }
