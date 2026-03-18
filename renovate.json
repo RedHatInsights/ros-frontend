@@ -1,12 +1,6 @@
 {
-    "extends": [
-      "github>konflux-ci/mintmaker//config/renovate/renovate.json"
-    ],
-    "schedule": [
-      "on Monday after 3am and before 10am"
-    ],
-    "baseBranches": ["main"],
-    "ignorePaths": [
-      ".pre-commit-config.yaml"
-    ]
-  }
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "schedule": ["on Monday after 3am and before 10am"],
+  "baseBranchPatterns": ["main"],
+  "ignorePaths": [".pre-commit-config.yaml"]
+}
