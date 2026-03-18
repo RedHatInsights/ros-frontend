@@ -211,6 +211,44 @@ class RosPage extends React.Component {
         return idsChunks;
     }
 
+    /**
+     * Fetches entities by their IDs with retry logic for partial failures.
+     ** If the initial request fails with a 404 error containing `not_found_ids`,
+     * the function retries the request excluding those IDs. If all requested IDs
+     * are not found, it returns an empty result set.
+     *
+     * @async
+     * @function getEntitiesWithNotFoundRetry
+     * @param {string[]} ids - Array of entity IDs to fetch.
+     * @param {Object<string, any>} [configOptns] - configuration options passed
+     * directly to the underlying API request (e.g., pagination, sorting, flags).
+     *
+     * @returns {Promise<{ results: Object[] }>} Resolves with an object containing
+     * the fetched entities in the `results` array.
+     *
+     * @throws {Error} Rethrows the error if:
+     * - The error is not a 404, or
+     * - The 404 error does not include `not_found_ids`
+     */
+    async getEntitiesWithNotFoundRetry(ids, configOptns) {
+        try {
+            return await this.state.getEntities?.(ids, configOptns, false);
+        } catch (error) {
+            const status = error?.status;
+            const notFoundIdsSet = new Set(error?.not_found_ids ?? []);
+            if (status === 404 && notFoundIdsSet.size) {
+                const remainingIds = ids.filter((id) => !notFoundIdsSet.has(id));
+                if (remainingIds.length === 0) {
+                    return { results: [] };
+                }
+
+                return await this.state.getEntities?.(remainingIds, configOptns, false);
+            }
+
+            throw error;
+        }
+    }
+
     async fetchInventoryDetails(invIds, configOptns) {
         let results = [];
         if (configOptns.per_page > 50 && invIds.length > 50) {
@@ -219,8 +257,8 @@ class RosPage extends React.Component {
                 results.push(...records);
             });
         } else {
-            const response = await this.state.getEntities?.(invIds, configOptns, false);
-            results = response.results;
+            const response = await this.getEntitiesWithNotFoundRetry(invIds, configOptns);
+            results = response?.results ?? [];
         }
 
         return results;
@@ -230,9 +268,8 @@ class RosPage extends React.Component {
         const idsInBatches = this.chunkIdsArray(invIds);
         return Promise.all(
             idsInBatches.map(async (ids) => {
-                let resp = await this.state.getEntities?.(ids, configOptns, false);
-                let respJSON = resp.results;
-                return respJSON;
+                const resp = await this.getEntitiesWithNotFoundRetry(ids, configOptns);
+                return resp?.results ?? [];
             })
         ).then((results) => results);
     }
