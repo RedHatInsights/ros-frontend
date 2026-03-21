@@ -1,43 +1,57 @@
-import PropTypes from 'prop-types';
-import React, { createContext, Component } from 'react';
+import React, { createContext, useState, useEffect } from 'react';
 import { ROSRoutes } from './Routes';
 import './App.scss';
 import NotificationsProvider from '@redhat-cloud-services/frontend-components-notifications/NotificationsProvider';
 import { systemRecsReducer, systemDetailReducer, isConfiguredReducer, systemColumnsReducer, suggestedInstanceTypesReducer } from './store/reducers';
 import { register } from './store';
 import { useChrome } from '@redhat-cloud-services/frontend-components/useChrome';
+import { useKesselPermissions } from './Utilities/hooks/useKesselPermissions';
+import useFeatureFlag from './Utilities/useFeatureFlag';
 
 export const PermissionContext = createContext();
 
-class App extends Component {
-    constructor() {
-        super();
-        this.state = {
-            hasReadPermissions: undefined,
-            arePermissionsLoaded: false
-        };
-    }
+/**
+ * v1 permission check — uses chrome.getUserPermissions (legacy RBAC).
+ * Skips the fetch when disabled (i.e. when Kessel is active).
+ */
+const useV1Permissions = (chrome, enabled) => {
+    const [hasAccess, setHasAccess] = useState(false);
+    const [isLoading, setIsLoading] = useState(enabled);
 
-    handlePermissionsUpdate(hasRead) {
-        this.setState({
-            hasReadPermissions: hasRead,
-            arePermissionsLoaded: true
-        });
-    }
+    useEffect(() => {
+        if (!enabled) {
+            return;
+        }
 
-    hasPermission(permission, permissionList) {
-        let hasPermission = false;
+        (async () => {
+            const rosPermissions = await chrome.getUserPermissions('ros', true);
+            const hasRead = rosPermissions.some(({ permission }) =>
+                ['ros:*:*', 'ros:*:read'].includes(permission)
+            );
+            setHasAccess(hasRead);
+            setIsLoading(false);
+        })();
+    }, [chrome, enabled]);
 
-        permissionList.forEach((permissions) => {
-            if (permission === permissions) {
-                hasPermission = true;
-            }
-        });
+    return { hasAccess, isLoading };
+};
 
-        return hasPermission;
-    };
+/**
+ * @see https://github.com/project-kessel/kessel-sdk-browser/tree/master/packages/react-kessel-access-check#useselfaccesscheck
+ * @see https://github.com/RedHatInsights/rbac-config/blob/master/configs/stage/schemas/src/ros.ksl
+ */
+const App = () => {
+    const chrome = useChrome();
+    const isKesselEnabled = useFeatureFlag('ros-frontend.kessel-enabled');
 
-    componentDidMount () {
+    console.log("Kessel Enabled feature flag:", isKesselEnabled);
+
+    const kesselPermissions = useKesselPermissions(['ros:analysis:read']);
+    const v1Permissions = useV1Permissions(chrome, !isKesselEnabled);
+
+    const { hasAccess, isLoading } = isKesselEnabled ? kesselPermissions : v1Permissions;
+
+    useEffect(() => {
         register({
             systemDetailReducer,
             systemRecsReducer,
@@ -45,50 +59,25 @@ class App extends Component {
             systemColumnsReducer,
             suggestedInstanceTypesReducer
         });
-
-        const chrome = this.props.chrome;
         chrome?.updateDocumentTitle('Resource Optimization - Business');
+    }, [chrome]);
 
-        (async () => {
-            const rosPermissions = await chrome.getUserPermissions('ros', true);
-            this.handlePermissionsUpdate(
-                rosPermissions.some(({ permission }) => this.hasPermission(permission, ['ros:*:*', 'ros:*:read']))
-            );
-        })();
-
+    if (isLoading) {
+        return null;
     }
-
-    render () {
-        const {
-            hasReadPermissions,
-            arePermissionsLoaded } = this.state;
-        return (
-            arePermissionsLoaded
-                ? <PermissionContext.Provider
-                    value={{
-                        permissions: {
-                            hasRead: hasReadPermissions
-                        }
-                    }}>
-                    <NotificationsProvider>
-                        <ROSRoutes />
-                    </NotificationsProvider>
-                </PermissionContext.Provider>
-                : null
-        );
-    }
-}
-
-App.propTypes = {
-    chrome: PropTypes.object
-};
-
-const AppWithChrome = props => {
-    const chrome = useChrome();
 
     return (
-        <App {...props} chrome={ chrome } />
+        <PermissionContext.Provider
+            value={{
+                permissions: {
+                    hasRead: hasAccess
+                }
+            }}>
+            <NotificationsProvider>
+                <ROSRoutes />
+            </NotificationsProvider>
+        </PermissionContext.Provider>
     );
 };
 
-export default AppWithChrome;
+export default App;
