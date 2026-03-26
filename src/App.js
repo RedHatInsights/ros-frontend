@@ -19,8 +19,6 @@ const App = () => {
     const chrome = useChrome();
     const isKesselEnabled = useFeatureFlag('ros-frontend.kessel-enabled');
 
-    console.log("Kessel Enabled feature flag:", isKesselEnabled);
-
     const kesselPermissions = useKesselPermissions(['ros:analysis:read']);
     const v1Permissions = useV1Permissions(chrome, !isKesselEnabled);
 
