@@ -24,13 +24,6 @@ const App = () => {
 
     const { hasAccess, isLoading } = isKesselEnabled ? kesselPermissions : v1Permissions;
 
-   console.log('iskessel enabled', isKesselEnabled);
-
-    console.log('kesselPermissions', kesselPermissions);
-    console.log('v1Permissions', v1Permissions);
-
-    console.log('hasAccess', hasAccess);
-
     useEffect(() => {
         register({
             systemDetailReducer,
