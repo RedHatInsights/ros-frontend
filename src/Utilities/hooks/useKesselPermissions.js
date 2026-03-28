@@ -18,12 +18,12 @@ export const PERMISSION_MAP = {
     'ros:analysis:read': 'ros_read_analysis'
 };
 
-export const useKesselPermissions = (requiredPermissions) => {
+export const useKesselPermissions = (requiredPermissions, enabled = true) => {
     const {
         workspaceIds,
         isLoading: workspaceLoading,
         error: workspaceError
-    } = useFetchWorkspaceIds();
+    } = useFetchWorkspaceIds(enabled);
 
     const checkParams = useMemo(
         () =>
@@ -38,7 +38,7 @@ export const useKesselPermissions = (requiredPermissions) => {
     const { data, loading, error } = useSelfAccessCheck(checkParams);
 
     if (workspaceLoading) {
-        return { hasAccess: false, isLoading: workspaceLoading };
+        return { hasAccess: false, isLoading: true };
     }
 
     if (checkParams?.resources?.length === 0) {

@@ -38,15 +38,20 @@ export async function fetchAllWorkspaces(baseUrl) {
 }
 
 /**
- * Fetches all RBAC workspace IDs with pagination
+ * Fetches all RBAC workspace IDs with pagination and simple promise caching.
+ * Skips the fetch when disabled (i.e. when Kessel is not active).
  */
-export const useFetchWorkspaceIds = () => {
+export const useFetchWorkspaceIds = (enabled = true) => {
     const [workspaceIds, setWorkspaceIds] = useState(undefined);
-    const [isLoading, setIsLoading] = useState(true);
+    const [isLoading, setIsLoading] = useState(enabled);
     const [error, setError] = useState(null);
     const baseUrl = window.location.origin;
 
     useEffect(() => {
+        if (!enabled) {
+            return;
+        }
+
         if (!allWorkspacesPromise) {
             allWorkspacesPromise = fetchAllWorkspaces(baseUrl);
         }
@@ -65,7 +70,7 @@ export const useFetchWorkspaceIds = () => {
             setError(err);
         })
         .finally(() => setIsLoading(false));
-    }, [baseUrl]);
+    }, [baseUrl, enabled]);
 
     return {
         workspaceIds,

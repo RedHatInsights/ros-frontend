@@ -19,7 +19,7 @@ const App = () => {
     const chrome = useChrome();
     const isKesselEnabled = useFeatureFlag('ros-frontend.kessel-enabled');
 
-    const kesselPermissions = useKesselPermissions(['ros:analysis:read']);
+    const kesselPermissions = useKesselPermissions(['ros:analysis:read'], isKesselEnabled);
     const v1Permissions = useV1Permissions(chrome, !isKesselEnabled);
 
     const { hasAccess, isLoading } = isKesselEnabled ? kesselPermissions : v1Permissions;
