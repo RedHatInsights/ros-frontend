@@ -1,43 +1,30 @@
-import PropTypes from 'prop-types';
-import React, { createContext, Component } from 'react';
+import React, { createContext, useEffect } from 'react';
 import { ROSRoutes } from './Routes';
 import './App.scss';
 import NotificationsProvider from '@redhat-cloud-services/frontend-components-notifications/NotificationsProvider';
 import { systemRecsReducer, systemDetailReducer, isConfiguredReducer, systemColumnsReducer, suggestedInstanceTypesReducer } from './store/reducers';
 import { register } from './store';
 import { useChrome } from '@redhat-cloud-services/frontend-components/useChrome';
+import { useKesselPermissions } from './Utilities/hooks/useKesselPermissions';
+import { useV1Permissions } from './Utilities/hooks/useV1Permissions';
+import useFeatureFlag from './Utilities/useFeatureFlag';
 
 export const PermissionContext = createContext();
 
-class App extends Component {
-    constructor() {
-        super();
-        this.state = {
-            hasReadPermissions: undefined,
-            arePermissionsLoaded: false
-        };
-    }
+/**
+ * @see https://github.com/project-kessel/kessel-sdk-browser/tree/master/packages/react-kessel-access-check#useselfaccesscheck
+ * @see https://github.com/RedHatInsights/rbac-config/blob/master/configs/stage/schemas/src/ros.ksl
+ */
+const App = () => {
+    const chrome = useChrome();
+    const isKesselEnabled = useFeatureFlag('ros-frontend.kessel-enabled');
 
-    handlePermissionsUpdate(hasRead) {
-        this.setState({
-            hasReadPermissions: hasRead,
-            arePermissionsLoaded: true
-        });
-    }
+    const kesselPermissions = useKesselPermissions(['ros:analysis:read'], isKesselEnabled);
+    const v1Permissions = useV1Permissions(chrome, !isKesselEnabled);
 
-    hasPermission(permission, permissionList) {
-        let hasPermission = false;
+    const { hasAccess, isLoading } = isKesselEnabled ? kesselPermissions : v1Permissions;
 
-        permissionList.forEach((permissions) => {
-            if (permission === permissions) {
-                hasPermission = true;
-            }
-        });
-
-        return hasPermission;
-    };
-
-    componentDidMount () {
+    useEffect(() => {
         register({
             systemDetailReducer,
             systemRecsReducer,
@@ -45,50 +32,25 @@ class App extends Component {
             systemColumnsReducer,
             suggestedInstanceTypesReducer
         });
-
-        const chrome = this.props.chrome;
         chrome?.updateDocumentTitle('Resource Optimization - Business');
+    }, [chrome]);
 
-        (async () => {
-            const rosPermissions = await chrome.getUserPermissions('ros', true);
-            this.handlePermissionsUpdate(
-                rosPermissions.some(({ permission }) => this.hasPermission(permission, ['ros:*:*', 'ros:*:read']))
-            );
-        })();
-
+    if (isLoading) {
+        return null;
     }
-
-    render () {
-        const {
-            hasReadPermissions,
-            arePermissionsLoaded } = this.state;
-        return (
-            arePermissionsLoaded
-                ? <PermissionContext.Provider
-                    value={{
-                        permissions: {
-                            hasRead: hasReadPermissions
-                        }
-                    }}>
-                    <NotificationsProvider>
-                        <ROSRoutes />
-                    </NotificationsProvider>
-                </PermissionContext.Provider>
-                : null
-        );
-    }
-}
-
-App.propTypes = {
-    chrome: PropTypes.object
-};
-
-const AppWithChrome = props => {
-    const chrome = useChrome();
 
     return (
-        <App {...props} chrome={ chrome } />
+        <PermissionContext.Provider
+            value={{
+                permissions: {
+                    hasRead: hasAccess
+                }
+            }}>
+            <NotificationsProvider>
+                <ROSRoutes />
+            </NotificationsProvider>
+        </PermissionContext.Provider>
     );
 };
 
-export default AppWithChrome;
+export default App;
