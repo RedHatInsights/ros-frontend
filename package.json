@@ -136,7 +136,7 @@
     "typescript": "^5.4.3",
     "webpack": "^5.95.0",
     "webpack-bundle-analyzer": "^4.8.0",
-    "webpack-cli": "^5.0.1"
+    "webpack-cli": "^7.0.0"
   },
   "overrides": {
     "@react-pdf/layout": "3.6.4"
