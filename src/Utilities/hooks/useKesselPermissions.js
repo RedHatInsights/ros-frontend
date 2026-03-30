@@ -26,13 +26,18 @@ export const useKesselPermissions = (requiredPermissions, enabled = true) => {
     } = useFetchWorkspaceIds(enabled);
 
     const checkParams = useMemo(
-        () =>
-            getKesselAccessCheckParams({
+        () => {
+            if (!enabled || !workspaceIds?.length) {
+                return { resources: [] };
+            }
+
+            return getKesselAccessCheckParams({
                 permissionMap: PERMISSION_MAP,
                 requiredPermissions,
                 resourceIdOrIds: workspaceIds
-            }),
-        [workspaceIds, requiredPermissions]
+            });
+        },
+        [enabled, workspaceIds, requiredPermissions]
     );
 
     const { data, loading, error } = useSelfAccessCheck(checkParams);
@@ -49,6 +54,11 @@ export const useKesselPermissions = (requiredPermissions, enabled = true) => {
         return { hasAccess: false, isLoading: false };
     }
 
+    /**
+     * check.allowed is a boolean — the SDK transforms the raw API enum
+     * (ALLOWED_TRUE / ALLOWED_FALSE) into true / false before returning data.
+     * @see https://github.com/project-kessel/kessel-sdk-browser/blob/master/packages/react-kessel-access-check/src/core/transformers.ts
+     */
     const hasAccess = Array.isArray(data)
         ? data.some((check) => check.allowed)
         : (data?.allowed ?? false);

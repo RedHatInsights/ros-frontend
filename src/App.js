@@ -11,6 +11,8 @@ import useFeatureFlag from './Utilities/useFeatureFlag';
 
 export const PermissionContext = createContext();
 
+const REQUIRED_PERMISSIONS = ['ros:analysis:read'];
+
 /**
  * @see https://github.com/project-kessel/kessel-sdk-browser/tree/master/packages/react-kessel-access-check#useselfaccesscheck
  * @see https://github.com/RedHatInsights/rbac-config/blob/master/configs/stage/schemas/src/ros.ksl
@@ -19,7 +21,7 @@ const App = () => {
     const chrome = useChrome();
     const isKesselEnabled = useFeatureFlag('ros-frontend.kessel-enabled');
 
-    const kesselPermissions = useKesselPermissions(['ros:analysis:read'], isKesselEnabled);
+    const kesselPermissions = useKesselPermissions(REQUIRED_PERMISSIONS, isKesselEnabled);
     const v1Permissions = useV1Permissions(chrome, !isKesselEnabled);
 
     const { hasAccess, isLoading } = isKesselEnabled ? kesselPermissions : v1Permissions;
