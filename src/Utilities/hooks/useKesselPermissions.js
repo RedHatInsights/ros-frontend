@@ -13,6 +13,7 @@ import { useFetchWorkspaceIds } from './useFetchWorkspaceIds';
  * @see https://github.com/RedHatInsights/rbac-config/blob/master/configs/stage/schemas/src/ros.ksl
  * @see https://github.com/RedHatInsights/rbac-config/blob/master/configs/prod/schemas/src/ros.ksl
  * @see https://github.com/project-kessel/kessel-sdk-browser/tree/master/packages/react-kessel-access-check#useselfaccesscheck
+ * @see https://github.com/RedHatInsights/frontend-components/blob/master/packages/utils/src/kesselPermissions/kesselPermissions.test.ts
  */
 export const PERMISSION_MAP = {
     'ros:analysis:read': 'ros_read_analysis'
@@ -26,18 +27,13 @@ export const useKesselPermissions = (requiredPermissions, enabled = true) => {
     } = useFetchWorkspaceIds(enabled);
 
     const checkParams = useMemo(
-        () => {
-            if (!enabled || !workspaceIds?.length) {
-                return { resources: [] };
-            }
-
-            return getKesselAccessCheckParams({
+        () =>
+            getKesselAccessCheckParams({
                 permissionMap: PERMISSION_MAP,
                 requiredPermissions,
                 resourceIdOrIds: workspaceIds
-            });
-        },
-        [enabled, workspaceIds, requiredPermissions]
+            }),
+        [workspaceIds, requiredPermissions]
     );
 
     const { data, loading, error } = useSelfAccessCheck(checkParams);
