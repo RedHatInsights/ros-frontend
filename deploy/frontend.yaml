@@ -63,7 +63,14 @@ objects:
                   href: /insights/ros
                   product: Red Hat Insights
       module:
+        analytics:
+          APIKey: apRCg9V6oMXCcnTingqRYW6m1er4hkCW
+          APIKeyDev: aMINBssUhXV1okzk7ZBaqwdTgtA0ySpg
         manifestLocation: "/apps/ros/fed-mods.json"
+        config:
+          supportCaseData:
+            product: Red Hat Insights
+            version: Resource Optimization
         modules:
           - id: ros
             module: "./RootApp"
