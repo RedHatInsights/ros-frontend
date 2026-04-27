@@ -25,15 +25,5 @@ module.exports = {
             './SystemDetail': path.resolve(__dirname, './src/Components/SystemDetail/SystemDetail.js'),
             './PDFTemplates/ExecutiveReport': path.resolve(__dirname, './src/PDFTemplates/ExecutiveReport/ExecutiveReport.tsx')
         },
-        exclude: ['react-router-dom'],
-        shared: [
-            {
-                'react-router-dom': {
-                    singleton: true,
-                    import: false,
-                    version: '^6.8.1'
-                }
-            }
-        ]
     }
 };
