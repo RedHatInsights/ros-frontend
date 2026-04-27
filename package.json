@@ -139,7 +139,7 @@
     "webpack-cli": "^5.0.1"
   },
   "overrides": {
-    "@react-pdf/layout": "3.6.4"
+    "@react-pdf/layout": "3.13.0"
   },
   "insights": {
     "appname": "ros"
