@@ -1,4 +1,4 @@
-parser: babel-eslint
+parser: "@babel/eslint-parser"
 settings:
   react:
     version: '16.0'
