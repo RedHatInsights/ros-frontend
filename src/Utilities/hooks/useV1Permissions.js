@@ -13,6 +13,8 @@ export const useV1Permissions = (chrome, enabled) => {
             return;
         }
 
+        setIsLoading(true);
+
         (async () => {
             const rosPermissions = await chrome.getUserPermissions('ros', true);
             const hasRead = rosPermissions.some(({ permission }) =>
