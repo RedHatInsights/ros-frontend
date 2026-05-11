@@ -131,7 +131,7 @@
     "stylelint": "^13.13.1",
     "stylelint-config-recommended-scss": "^4.3.0",
     "stylelint-scss": "^3.19.0",
-    "ts-patch": "^3.1.2",
+    "ts-patch": "^4.0.0",
     "typescript": "^5.4.3",
     "webpack": "^5.95.0",
     "webpack-bundle-analyzer": "^4.10.2",
