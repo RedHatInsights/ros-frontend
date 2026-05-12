@@ -11,8 +11,8 @@ import { InsightsLink } from '@redhat-cloud-services/frontend-components/Insight
 import { DateFormat, dateStringByType } from '@redhat-cloud-services/frontend-components/DateFormat';
 
 const diskUsageStyle = {
-    color: 'white',
-    backgroundColor: 'black',
+    color: 'var(--pf-v6-c-tooltip__content--Color)',
+    backgroundColor: 'var(--pf-v6-c-tooltip__content--BackgroundColor)',
     padding: '0px'
 };
 

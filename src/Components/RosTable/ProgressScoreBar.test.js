@@ -4,7 +4,7 @@ import '@testing-library/jest-dom';
 import { ProgressScoreBar } from './ProgressScoreBar';
 
 describe('ProgressScoreBar component tests', () => {
-    it('expect to render with blue-300 class with 40%', () => {
+    it('expect to render progress-score-bar with 40%', () => {
 
         // render
         render(<ProgressScoreBar measureLocation='outside' eleId='345' utilizedValue={40} />);
@@ -15,12 +15,12 @@ describe('ProgressScoreBar component tests', () => {
 
         // assert
         expect(progressScoreBar).toBeVisible();
-        expect(progressScoreBar).toHaveClass('pf-v6-c-progress blue-300');
+        expect(progressScoreBar).toHaveClass('pf-v6-c-progress progress-score-bar');
         expect(progressText40).toBeVisible();
 
     });
 
-    it('expect to render with blue-300 class with 90%', () => {
+    it('expect to render progress-score-bar with 90%', () => {
 
         // render
         render(<ProgressScoreBar measureLocation='outside' utilizedValue={90} />);
@@ -31,7 +31,7 @@ describe('ProgressScoreBar component tests', () => {
 
         // assert
         expect(progressScoreBar).toBeVisible();
-        expect(progressScoreBar).toHaveClass('pf-v6-c-progress blue-300');
+        expect(progressScoreBar).toHaveClass('pf-v6-c-progress progress-score-bar');
         expect(progressText90).toBeVisible();
 
     });

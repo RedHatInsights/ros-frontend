@@ -14,18 +14,6 @@
     display: none;
   }
 
-  .pf-v6-c-progress__bar {
-    &:before {
-      // TODO: check with UX on new color as old was #B8BBBE
-      background: var(--pf-t--global--background--color--disabled--default);
-    }
-  }
-
-  .pf-v6-c-progress__measure {
-    // TODO: check with UX on new color as old was #6A6E73
-    color: var(--pf-t--global--border--color--on-secondary);
-  }
-
   .pf-v6-c-progress__status {
     justify-content: flex-start;
   }
@@ -57,13 +45,6 @@
   }
 }
 
-
-.blue-300{
-  .pf-v6-c-progress__indicator {
-    // TODO: check with UX on this color code or need to use any P6 variable
-    background: #2B9AF3;
-  }
-}
 
 .ros-page-header {
   width: auto;
