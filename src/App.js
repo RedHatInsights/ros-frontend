@@ -4,10 +4,12 @@ import './App.scss';
 import NotificationsProvider from '@redhat-cloud-services/frontend-components-notifications/NotificationsProvider';
 import { systemRecsReducer, systemDetailReducer, isConfiguredReducer, systemColumnsReducer, suggestedInstanceTypesReducer } from './store/reducers';
 import { register } from './store';
+import { Bullseye, Spinner } from '@patternfly/react-core';
 import { useChrome } from '@redhat-cloud-services/frontend-components/useChrome';
 import { useKesselPermissions } from './Utilities/hooks/useKesselPermissions';
 import { useV1Permissions } from './Utilities/hooks/useV1Permissions';
 import useFeatureFlag from './Utilities/useFeatureFlag';
+import { useFlagsStatus } from '@unleash/proxy-client-react';
 
 export const PermissionContext = createContext();
 
@@ -20,9 +22,10 @@ const REQUIRED_PERMISSIONS = ['ros:analysis:read'];
 const App = () => {
     const chrome = useChrome();
     const isKesselEnabled = useFeatureFlag('ros-frontend.kessel-enabled');
+    const { flagsReady } = useFlagsStatus();
 
-    const kesselPermissions = useKesselPermissions(REQUIRED_PERMISSIONS, isKesselEnabled);
-    const v1Permissions = useV1Permissions(chrome, !isKesselEnabled);
+    const kesselPermissions = useKesselPermissions(REQUIRED_PERMISSIONS, isKesselEnabled && flagsReady);
+    const v1Permissions = useV1Permissions(chrome, !isKesselEnabled && flagsReady);
 
     const { hasAccess, isLoading } = isKesselEnabled ? kesselPermissions : v1Permissions;
 
@@ -37,8 +40,8 @@ const App = () => {
         chrome?.updateDocumentTitle('Resource Optimization - Business');
     }, [chrome]);
 
-    if (isLoading) {
-        return null;
+    if (isLoading || !flagsReady) {
+        return <Bullseye><Spinner size="xl" /></Bullseye>;
     }
 
     return (
