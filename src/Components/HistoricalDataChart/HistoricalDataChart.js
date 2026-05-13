@@ -23,6 +23,7 @@ import {
     MenuToggle
 } from '@patternfly/react-core';
 import { OutlinedQuestionCircleIcon } from '@patternfly/react-icons';
+import '@patternfly/patternfly/patternfly-charts.css';
 import './HistoricalDataChart.scss';
 import { fetchSystemHistory } from '../../Utilities/api';
 import { formatHistoricalData } from './Util';
@@ -150,10 +151,10 @@ export const HistoricalDataChart = ({ inventoryId }) => {
                                     <ChartCursorTooltip
                                         labelComponent={<ChartLabel
                                             style={[
-                                                { fill: 'white', fontSize: 16,  fontWeight: 700 },
-                                                { fill: 'white' },
-                                                { fill: 'white' },
-                                                { fill: 'white' }
+                                                { fill: 'var(--pf-v6-chart-tooltip--Fill)', fontSize: 16, fontWeight: 700 },
+                                                { fill: 'var(--pf-v6-chart-tooltip--Fill)' },
+                                                { fill: 'var(--pf-v6-chart-tooltip--Fill)' },
+                                                { fill: 'var(--pf-v6-chart-tooltip--Fill)' }
                                             ]}/>}
                                     />
                                 }

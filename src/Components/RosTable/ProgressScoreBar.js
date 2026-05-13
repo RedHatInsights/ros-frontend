@@ -6,7 +6,7 @@ export const ProgressScoreBar = ({ utilizedValue, measureLocation, eleId }) =>  
     return (
         <React.Fragment>
             <Progress aria-label="progress score bar" value={ utilizedValue }
-                className={ `progress-score-bar blue-300` }
+                className="progress-score-bar"
                 measureLocation={ measureLocation }
                 {  ...(eleId ? { id: eleId } : null) }
                 data-testid='progress-score-bar' />

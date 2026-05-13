@@ -9,13 +9,6 @@
 }
 
 .ros-recommendations-table.pf-v6-c-table {
-  .recs-table-empty {
-    .pf-v6-c-empty-state__icon {
-      fill: var(--pf-t--global--color--status--success--default);
-      // TODO: check with UX on this color fill
-    }
-  }
-
   .pf-v6-c-table__expandable-row-content {
     padding-left: 0px;
 
@@ -42,7 +35,7 @@ Th {
   padding: 12px;
 }
 .table-border-top {
-  border-top: 1px solid #d9d9d9;
+  border-top: 1px solid var(--pf-t--global--border--color--default);
 }
 .margin-text-bottom {
   margin-bottom: 2%;
