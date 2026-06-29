@@ -34,7 +34,7 @@ export const NO_DATA_VALUE = 'N/A';
 
 // PSI Enabling URL
 // eslint-disable-next-line max-len
-export const ENABLE_PSI_URL = 'https://docs.redhat.com/en/documentation/red_hat_lightspeed/1-latest/html/assessing_and_monitoring_rhel_resource_optimization_with_red_hat_lightspeed/assembly-ros-install#proc-ros-psi-enable__assembly-ros-install';
+export const ENABLE_PSI_URL = 'https://docs.redhat.com/en/documentation/red_hat_lightspeed/1-latest/html/assessing_and_monitoring_rhel_resource_optimization_with_red_hat_lightspeed/ros-install#proc-ros-psi-enable_ros-install';
 
 // Service name
 export const SERVICE_NAME = 'Resource Optimization';
