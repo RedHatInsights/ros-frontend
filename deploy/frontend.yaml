@@ -52,7 +52,7 @@ objects:
       bundleSegments:
         - segmentId: business
           bundleId: insights
-          position: 2200
+          position: 1300
           navItems:
             - id: business
               title: Business
@@ -61,6 +61,11 @@ objects:
                 - id: ros
                   title: Resource Optimization
                   href: /insights/ros
+                  icon: InsightsIcon
+                  product: Red Hat Insights
+                - id: subscriptions
+                  title: Subscriptions
+                  href: /subscriptions/usage/rhel
                   product: Red Hat Insights
       module:
         analytics:
