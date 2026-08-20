@@ -1,6 +1,31 @@
 {
-  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "schedule": ["on Monday after 3am and before 10am"],
-  "baseBranchPatterns": ["main"],
-  "ignorePaths": [".pre-commit-config.yaml"]
+    "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+    "extends": [
+        "github>konflux-ci/mintmaker//config/renovate/renovate.json"
+    ],
+    "schedule": [
+        "on Monday after 3am and before 10am"
+    ],
+    "baseBranchPatterns": [
+        "main",
+        "security-compliance"
+    ],
+    "ignorePaths": [
+        ".pre-commit-config.yaml"
+    ],
+    "tekton": {
+        "schedule": [
+            "on Monday after 3am and before 10am"
+        ]
+    },
+    "packageRules": [
+        {
+            "description": "Weekly konflux-pipelines remote pipeline version bumps",
+            "matchManagers": ["tekton"],
+            "matchDepTypes": ["tekton-annotation"],
+            "matchPackageNames": ["github.com/RedHatInsights/konflux-pipelines"],
+            "groupName": "konflux-pipelines version",
+            "schedule": ["on Monday after 3am and before 10am"]
+        }
+    ]
 }
