@@ -13,7 +13,7 @@ export async function fetchAllWorkspaces(baseUrl) {
 
     for (let offset = 0; ; offset += limit) {
         const response = await fetch(
-            `${baseUrl}${RBAC_WORKSPACE_API_PATH}?limit=${limit}&offset=${offset}`
+            `${baseUrl}${RBAC_WORKSPACE_API_PATH}?limit=${limit}&offset=${offset}&with_ancestry=true`
         );
 
         if (!response.ok) {
