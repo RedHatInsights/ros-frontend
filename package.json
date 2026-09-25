@@ -96,7 +96,7 @@
     "victory": "^37.3.6"
   },
   "devDependencies": {
-    "@babel/core": "^7.26.0",
+    "@babel/core": "^7.29.6",
     "@babel/eslint-parser": "^7.28.6",
     "@babel/plugin-transform-class-properties": "^7.25.0",
     "@babel/plugin-transform-object-rest-spread": "^7.25.0",
