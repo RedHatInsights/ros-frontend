@@ -1,52 +1,46 @@
 import { useMemo } from 'react';
 import { useSelfAccessCheck } from '@project-kessel/react-kessel-access-check';
 import { getKesselAccessCheckParams } from '@redhat-cloud-services/frontend-components-utilities/kesselPermissions';
-import { useFetchWorkspaceIds } from './useFetchWorkspaceIds';
+import { useFetchDefaultWorkspaceId } from './useFetchDefaultWorkspaceId';
 
 /**
- * ROS has a single contingent permission (ros_read_analysis) that depends on
- * inventory_host_view. Because the contingent permission only lights up on
- * workspaces where BOTH inventory_host_view AND ros_read_analysis_assigned
- * exist, we must check ALL workspaces — not just the default one.
- * Access is granted if the permission is allowed on ANY workspace.
+ * ROS host-centric access is modeled as ros_read_analysis_assigned, which
+ * inherits down the workspace tree in Kessel. The UI only needs to know
+ * whether the user can open the app, so we check that relation on the
+ * default workspace and leave child-workspace filtering to the backend.
  *
  * @see https://github.com/RedHatInsights/rbac-config/blob/master/configs/stage/schemas/src/ros.ksl
  * @see https://github.com/RedHatInsights/rbac-config/blob/master/configs/prod/schemas/src/ros.ksl
  * @see https://github.com/project-kessel/kessel-sdk-browser/tree/master/packages/react-kessel-access-check#useselfaccesscheck
- * @see https://github.com/RedHatInsights/frontend-components/blob/master/packages/utils/src/kesselPermissions/kesselPermissions.test.ts
  */
 export const PERMISSION_MAP = {
-    'ros:analysis:read': 'ros_read_analysis'
+    'ros:analysis:read': 'ros_read_analysis_assigned'
 };
 
 export const useKesselPermissions = (requiredPermissions, enabled = true) => {
     const {
-        workspaceIds,
+        workspaceId,
         isLoading: workspaceLoading,
         error: workspaceError
-    } = useFetchWorkspaceIds(enabled);
+    } = useFetchDefaultWorkspaceId(enabled);
 
     const checkParams = useMemo(
         () =>
             getKesselAccessCheckParams({
                 permissionMap: PERMISSION_MAP,
                 requiredPermissions,
-                resourceIdOrIds: workspaceIds
+                resourceIdOrIds: workspaceId
             }),
-        [workspaceIds, requiredPermissions]
+        [workspaceId, requiredPermissions]
     );
 
     const { data, loading, error } = useSelfAccessCheck(checkParams);
 
-    if (workspaceLoading) {
+    if (workspaceLoading || loading) {
         return { hasAccess: false, isLoading: true };
     }
 
-    if (checkParams?.resources?.length === 0) {
-        return { hasAccess: true, isLoading: false };
-    }
-
-    if (!workspaceIds?.length || workspaceError || error) {
+    if (!workspaceId || workspaceError || error) {
         return { hasAccess: false, isLoading: false };
     }
 
@@ -59,5 +53,5 @@ export const useKesselPermissions = (requiredPermissions, enabled = true) => {
         ? data.some((check) => check.allowed)
         : (data?.allowed ?? false);
 
-    return { hasAccess, isLoading: loading };
+    return { hasAccess, isLoading: false };
 };
