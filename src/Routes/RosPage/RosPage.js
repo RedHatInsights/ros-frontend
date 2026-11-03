@@ -20,6 +20,7 @@ import {
     SERVICE_NAME
 } from '../../constants';
 import { ServiceNotConfigured } from '../../Components/ServiceNotConfigured/ServiceNotConfigured';
+import { DecommissionAlert } from '../../Components/DecommissionAlert/DecommissionAlert';
 import { PermissionContext } from '../../App';
 
 import { NotAuthorized } from '@redhat-cloud-services/frontend-components/NotAuthorized';
@@ -404,26 +405,31 @@ class RosPage extends React.Component {
                 }
             ]
         };
-
         return (
             this.props.showConfigSteps
                 ? <ServiceNotConfigured />
                 : <React.Fragment>
                     <PageHeader className="ros-page-header">
-                        <Flex justifyContent={{ default: 'spaceBetween' }} alignItems={{ default: 'center' }}>
-                            <FlexItem>
-                                <PageHeaderTitle
-                                    title={
-                                        <Flex spaceItems={{ default: 'spaceItemsSm' }} alignItems={{ default: 'center' }}>
-                                            <div>Resource Optimization</div>
-                                            <RosPopover />
-                                        </Flex>
-                                    }
-                                />
-                            </FlexItem>
-                            <FlexItem>
-                                <DownloadExecutivePDFReport isDisabled={this.state.disableExport} />
-                            </FlexItem>
+                        <Flex
+                            direction={{ default: 'column' }}
+                            spaceItems={{ default: 'spaceItemsMd' }}
+                        >
+                            <Flex justifyContent={{ default: 'spaceBetween' }} alignItems={{ default: 'center' }}>
+                                <FlexItem>
+                                    <PageHeaderTitle
+                                        title={
+                                            <Flex spaceItems={{ default: 'spaceItemsSm' }} alignItems={{ default: 'center' }}>
+                                                <div>Resource Optimization</div>
+                                                <RosPopover />
+                                            </Flex>
+                                        }
+                                    />
+                                </FlexItem>
+                                <FlexItem>
+                                    <DownloadExecutivePDFReport isDisabled={this.state.disableExport} />
+                                </FlexItem>
+                            </Flex>
+                            <DecommissionAlert />
                         </Flex>
                     </PageHeader>
                     <Main className="ros-main-page">
