@@ -65,13 +65,16 @@
   .alertOverride {
       font-size: var(--pf-t--global--font--size--md);
       margin-top: var(--pf-t--global--spacer--lg);
+      svg.pf-v6-svg {
+        vertical-align: -0.15em;
+      }
   }
   @media only screen and (max-width: 585px) {
       .pf-v6-c-title {
           display: block;
       }
       .alertOverride {
-          margin-top: var(--pf-t--global--spacer--sm);
+        margin-top: var(--pf-t--global--spacer--sm);
       }
   }
 }
