@@ -66,7 +66,7 @@
       font-size: var(--pf-t--global--font--size--md);
       margin-top: var(--pf-t--global--spacer--lg);
       svg.pf-v6-svg {
-        vertical-align: -0.15em;
+        vertical-align: -0.2em;
       }
   }
   @media only screen and (max-width: 585px) {
@@ -77,4 +77,8 @@
         margin-top: var(--pf-t--global--spacer--sm);
       }
   }
+}
+
+.ros_not_configured {
+  margin-top: var(--pf-t--global--spacer--sm);
 }
