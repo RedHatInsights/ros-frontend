@@ -14,7 +14,7 @@ export const DecommissionAlert = () => (
                 </a>
                 {' '}on January 29, 2027.
             </>
-          }
+        }
         ouiaId="ros-decommission-alert"
     />
 );
