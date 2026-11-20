@@ -12,7 +12,6 @@ import { entityDetailReducer } from '../../store/entityDetailReducer';
 import './ros-details-page.scss';
 import '../common-page.scss';
 import { ExpandedRow } from '../../Components/RosTable/ExpandedRow';
-import RecommendationRating from '../../Components/RecommendationRating/RecommendationRating';
 import { SystemState } from '../../Components/RosTable/SystemState';
 import { NotAuthorized } from '@redhat-cloud-services/frontend-components/NotAuthorized';
 import { PermissionContext } from '../../App';
@@ -64,7 +63,6 @@ class RosSystemDetail extends React.Component {
                 instance_type: instanceType,
                 idling_time: idlingTime,
                 report_date: reportDate,
-                rating,
                 state
             } = this.props.rosSystemInfo;
             const { inventoryId } = this.props.params;
@@ -91,7 +89,6 @@ class RosSystemDetail extends React.Component {
                                 <ExpandedRow
                                     { ...{ cloudProvider, instanceType, idlingTime, inventoryId } }
                                 />
-                                <RecommendationRating system={{ rating, inventoryId }} />
                             </FlexItem>
                         </Flex>
                         <Flex grow={{ default: 'grow' }} direction={{ default: 'column' }} >
