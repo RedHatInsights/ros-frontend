@@ -16,6 +16,7 @@ export const ServiceNotConfigured = () => (
                 module="./AppZeroState"
                 scope="dashboard"
                 ErrorComponent={<ErrorState />}
+                className="ros_not_configured"
                 app="Resource_Optimization"
             />
         </Suspense>
