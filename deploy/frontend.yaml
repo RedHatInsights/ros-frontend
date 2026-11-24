@@ -12,33 +12,6 @@ objects:
       name: ros
     spec:
       feoConfigEnabled: true # flags a frontend to be ready for FEO features
-      serviceTiles:
-        - id: ros # there is no such id in chrome-service
-          # place service tile into the subscriptions section 
-          section: subscriptions
-          # place service tile into the rhel group within the subscriptions & Spend section
-          group: rhel
-          title: Resource Optimization
-          href: /insights/ros
-          description: Optimize your public cloud-based Red Hat Enterprise Linux systems based on CPU, memory, and disk input/output performance.
-          icon: InsightsIcon
-      searchEntries:
-        - id: "RHEL.ros"
-          title: "Resource Optimization - Business"
-          href: /insights/ros
-          description: "Optimize your public cloud-based Red Hat Enterprise Linux systems based on CPU, memory, and disk input/output performance."
-          alt_title:
-            - optimization
-            - optimisation
-            - optimize
-            - optimise
-            - usage
-            - utilization
-            - utilisation
-            - save
-            - savings
-            - resource optimization
-            - resource optimisation                
       envName: ${ENV_NAME}
       title: Resource Optimization
       deploymentRepo: https://github.com/RedHatInsights/ros-frontend
@@ -49,24 +22,6 @@ objects:
         paths:
           - /apps/ros
       image: ${IMAGE}:${IMAGE_TAG}
-      bundleSegments:
-        - segmentId: business
-          bundleId: insights
-          position: 1300
-          navItems:
-            - id: business
-              title: Business
-              expandable: true
-              routes:
-                - id: ros
-                  title: Resource Optimization
-                  href: /insights/ros
-                  icon: InsightsIcon
-                  product: Red Hat Insights
-                - id: subscriptions
-                  title: Subscriptions
-                  href: /subscriptions/usage/rhel
-                  product: Red Hat Insights
       module:
         analytics:
           APIKey: apRCg9V6oMXCcnTingqRYW6m1er4hkCW
@@ -76,11 +31,7 @@ objects:
           supportCaseData:
             product: Red Hat Insights
             version: Resource Optimization
-        modules:
-          - id: ros
-            module: "./RootApp"
-            routes:
-              - pathname: /insights/ros
+        modules: []
 
 parameters:
   - name: ENV_NAME
